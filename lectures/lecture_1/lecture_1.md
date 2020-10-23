@@ -3,7 +3,7 @@ title: GIS concepts
 author: David Orme
 ---
 
-<!-- .slide: data-background-image="images/MammalThreat-226.png" data-background-size='30%' -->
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
 # GIS concepts
 
 ### David Orme

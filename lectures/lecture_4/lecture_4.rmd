@@ -3,11 +3,19 @@ title: Assessing model accuracy
 author: David Orme
 ---
 
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+# Assessing Model Accuracy
+
+### David Orme
+
+
 ```{r libs, include=FALSE}
 library(printr)
 library(knitr) # for kable
 library(raster)
 ```
+
+---
 
 # Overview
 
@@ -37,40 +45,42 @@ Model predicts: Is this evergreen forest needleleaf or broadleaf
 
 
 ```{r accuracy, include=FALSE}
-# Example object creation
-# data model from MODIS
-tab <- matrix(c(1460,31,42,4889), ncol=2)
-colnames(tab) <- c('Pred. Needle','Pred. Broad')
-rownames(tab) <- c('Obs. Needle','Obs. Broad')
-tabmarg <- addmargins(tab)
 
-# random model
-obs <- rep(c(0,1), times=rowSums(tab))
-pred <- sample(c(1,0), length(obs), replace=TRUE)
-rand <- table(obs, pred)
-dimnames(rand) <- dimnames(tab)
-randmarg <- addmargins(rand)
+	# Example object creation
+	# data model from MODIS
+	tab <- matrix(c(1460,31,42,4889), ncol=2)
+	colnames(tab) <- c('Pred. Needle','Pred. Broad')
+	rownames(tab) <- c('Obs. Needle','Obs. Broad')
+	tabmarg <- addmargins(tab)
 
-# stupid model
-stupid <- matrix(c(0,0,1502,4920), ncol=2)
-dimnames(stupid) <- dimnames(tab)
-stupidmarg <- addmargins(stupid)
+	# random model
+	obs <- rep(c(0,1), times=rowSums(tab))
+	pred <- sample(c(1,0), length(obs), replace=TRUE)
+	rand <- table(obs, pred)
+	dimnames(rand) <- dimnames(tab)
+	randmarg <- addmargins(rand)
 
-# low prevalence
-lowpr <- matrix(c(0,0,35, 6407), ncol=2)
-dimnames(lowpr) <- dimnames(tab)
-lowprmarg <- addmargins(lowpr)
+	# stupid model
+	stupid <- matrix(c(0,0,1502,4920), ncol=2)
+	dimnames(stupid) <- dimnames(tab)
+	stupidmarg <- addmargins(stupid)
 
-# low sensitivity
-lowsn <- matrix(c(1460, 2010,42,2910), ncol=2)
-dimnames(lowsn) <- dimnames(tab)
-lowsnmarg <- addmargins(lowsn)
+	# low prevalence
+	lowpr <- matrix(c(0,0,35, 6407), ncol=2)
+	dimnames(lowpr) <- dimnames(tab)
+	lowprmarg <- addmargins(lowpr)
 
-# terminology
-nm3 <- nm2 <- nm <- tab
-nm[] <- c('True<br>Positive', 'False<br>Positive', 'False<br>Negative', 'True<br>Negative')
-nm2[] <- c('True<br>Positive', 'Type I<br>Error', 'Type II<br>Error', 'True<br>Negative')
-nm3[] <- c('True<br>Positive<BR>Rate', 'False<br>Positive<BR>Rate', 'False<br>Negative<BR>Rate', 'True<br>Negative<BR>Rate')
+	# low sensitivity
+	lowsn <- matrix(c(1460, 2010,42,2910), ncol=2)
+	dimnames(lowsn) <- dimnames(tab)
+	lowsnmarg <- addmargins(lowsn)
+
+	# terminology
+	nm3 <- nm2 <- nm <- tab
+	nm[] <- c('True<br>Positive', 'False<br>Positive', 'False<br>Negative', 'True<br>Negative')
+	nm2[] <- c('True<br>Positive', 'Type I<br>Error', 'Type II<br>Error', 'True<br>Negative')
+	nm3[] <- c('True<br>Positive<BR>Rate', 'False<br>Positive<BR>Rate', 'False<br>Negative<BR>Rate', 'True<br>Negative<BR>Rate')
+
 ```
 
 ---
@@ -86,7 +96,9 @@ Easy to calculate **accuracy**:
 <div class="vs"></div>
 
 ```{r show_table_margins, echo=FALSE}
-tabmarg
+
+	tabmarg
+
 ```
 
 $$A = \frac{1460 + 4889}{1460 + 4889 + 42 +31} = 98.9\%$$
@@ -104,7 +116,9 @@ But **random** models can have reasonable accuracy!
 <div class="vs"></div>
 
 ```{r show_rand, echo=FALSE}
-randmarg
+
+    randmarg
+
 ```
 
 $$A = \frac{`r rand[1,1]` + `r rand[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(rand))/sum(rand) *100) `\%$$
@@ -122,7 +136,9 @@ And so can stupid ones: **everything is a broadleaf**.
 <div class="vs"></div>
 
 ```{r show_stupid, echo=FALSE}
-stupidmarg
+
+    stupidmarg
+
 ```
 
 $$A = \frac{`r stupid[1,1]` + `r stupid[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(stupid))/sum(stupid) *100) `\%$$
@@ -154,7 +170,9 @@ And **accuracy is affected by prevalence**
 <div class="vs"></div>
 
 ```{r show_low_prev, echo=FALSE}
-lowprmarg
+
+    lowprmarg
+
 ```
 
 $$A = \frac{`r lowpr[1,1]` + `r lowpr[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(lowpr))/sum(lowpr) *100) `\%$$
@@ -172,7 +190,9 @@ Giving some simple names to the four outcomes:
 <div class="vs"></div>
 
 ```{r show_names, echo=FALSE}
-kable(nm, align=c('c','c'))
+
+    kable(nm, align=c('c','c'))
+
 ```
 
 ---
@@ -189,7 +209,9 @@ Other more confusing names do get used:
 
 
 ```{r show_names2, echo=FALSE}
-kable(nm2, align=c('c','c'))
+
+    kable(nm2, align=c('c','c'))
+
 ```
 
 ---
@@ -205,7 +227,9 @@ Divide the four outcomes by the **observed** positive and negative counts to giv
 <div class="vs"></div>
 
 ```{r show_names3, echo=FALSE}
-kable(nm3, align=c('c','c'))
+
+    kable(nm3, align=c('c','c'))
+
 ```
 
 ---
@@ -246,7 +270,9 @@ Calculate those values:
 # Sensitivity and Specificity
 
 ```{r show_low_sens_data, echo=FALSE}
-lowsnmarg
+
+    lowsnmarg
+
 ```
 
 <div class="leftpad">
@@ -256,10 +282,12 @@ Outcome rates for the new model above
 </div>
 
 ```{r show_low_sens, echo=FALSE}
-x  <- sweep(lowsn, 1, rowSums(lowsn), '/')
-x <- matrix(sprintf('%0.1f%%', x*100), ncol=2)
-dimnames(x) <- dimnames(lowsn)
-x
+
+	x  <- sweep(lowsn, 1, rowSums(lowsn), '/')
+	x <- matrix(sprintf('%0.1f%%', x*100), ncol=2)
+	dimnames(x) <- dimnames(lowsn)
+	x
+
 ```
 
 ---
@@ -292,7 +320,9 @@ Multiply proportions of observed and predicted to get probability of each outcom
 
 
 ```{r show_table_margins_kappa, echo=FALSE}
-tabmarg
+
+    tabmarg
+
 ```
 
 $$P_{YY} = \frac{1491}{6422} \times \frac{1502}{6422} = 0.054$$
@@ -302,10 +332,12 @@ $$P_{YY} = \frac{1491}{6422} \times \frac{1502}{6422} = 0.054$$
 # Cohen's kappa
 
 ```{r echo=FALSE}
-prop <- addmargins(prop.table(tab))
-prop <- outer(prop[,3], prop[3,])
-rownames(prop)[3] <- colnames(prop)[3] <- 'p'
-kable(prop, digits=3)
+
+	prop <- addmargins(prop.table(tab))
+	prop <- outer(prop[,3], prop[3,])
+	rownames(prop)[3] <- colnames(prop)[3] <- 'p'
+	kable(prop, digits=3)
+
 ```
 
 $$
@@ -334,43 +366,45 @@ $$
 <!-- Simulation of thresholding -->
   
 ```{r binomial_data, include=FALSE}
-x <- runif(100)
-y <- rbinom(100, 1, prob = plogis(-3 + 6 *x))
-mod <- glm(y ~ x, family=binomial())
-pred <- data.frame(x=seq(0,1, length=501))
-pred$y <- predict(mod, newdata=pred, type='response')
 
-tss <- function(mat){
-  m <- sweep(mat, 1, rowSums(mat), '/')
-  ss <- diag(m)
-  names(ss) <- NULL
-  tss <- sum(ss) - 1
-  return(c(Sens = ss[2], Spec=ss[1],  TSS=tss))
-}
+	x <- runif(100)
+	y <- rbinom(100, 1, prob = plogis(-3 + 6 *x))
+	mod <- glm(y ~ x, family=binomial())
+	pred <- data.frame(x=seq(0,1, length=501))
+	pred$y <- predict(mod, newdata=pred, type='response')
 
-thresh_plot_fun <- function(thresh=NA){
-	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
-	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', 
-		type='n', xlim=c(0,1))
-	lines(y ~ x , data=pred, col='red', lwd=2)
-	if (! is.na(thresh)){
-		abline(v= thresh, col='red', lty=2)
-		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),
-								      ifelse(x > thresh, 'red', 'black')))
-	} else {
-		points(y ~ x)
+	tss <- function(mat){
+	  m <- sweep(mat, 1, rowSums(mat), '/')
+	  ss <- diag(m)
+	  names(ss) <- NULL
+	  tss <- sum(ss) - 1
+	  return(c(Sens = ss[2], Spec=ss[1],  TSS=tss))
 	}
-	if (! is.na(thresh)){
-		pred <- x >= thresh
-		mat <- matrix(c(sum(! y & ! pred),
-					sum( y & ! pred),
-					sum(! y & pred),
-					sum(y & pred)),
-					ncol=2)
-		dimnames(mat) <- list(c(0,1),c(0,1))
-		return(mat)
+
+	thresh_plot_fun <- function(thresh=NA){
+		par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+		plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', 
+			type='n', xlim=c(0,1))
+		lines(y ~ x , data=pred, col='red', lwd=2)
+		if (! is.na(thresh)){
+			abline(v= thresh, col='red', lty=2)
+			points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),
+									      ifelse(x > thresh, 'red', 'black')))
+		} else {
+			points(y ~ x)
+		}
+		if (! is.na(thresh)){
+			pred <- x >= thresh
+			mat <- matrix(c(sum(! y & ! pred),
+						sum( y & ! pred),
+						sum(! y & pred),
+						sum(y & pred)),
+						ncol=2)
+			dimnames(mat) <- list(c(0,1),c(0,1))
+			return(mat)
+		}
 	}
-}
+
 ```
 
 ---
@@ -380,7 +414,9 @@ thresh_plot_fun <- function(thresh=NA){
 A model predicting the probability of success.
 
 ```{r threshold, echo=FALSE, fig.width=12, fig.cap=''}
-thresh_plot_fun()
+
+    thresh_plot_fun()
+
 ```
 
 ---
@@ -391,15 +427,19 @@ thresh_plot_fun()
 <div class='col2'>
 
 ```{r threshold_0, echo=FALSE, fig.width=6, fig.cap=''}
-mat <- thresh_plot_fun(thresh=0.0)
+
+	mat <- thresh_plot_fun(thresh=0.0)
+
 ```
 </div>
 
 <div class='col1'>
 
 ```{r threshhold_mat_0, echo=FALSE, results='asis'}
-print(kable(mat[2:1,])) # match obs order to plot y axis
-print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
+	print(kable(mat[2:1,])) # match obs order to plot y axis
+	print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
 ```
 
 </div>
@@ -413,7 +453,9 @@ print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
 <div class='col2'>
 
 ```{r threshold_0.25, echo=FALSE, fig.width=6, fig.cap=''}
-mat <- thresh_plot_fun(thresh=0.25)
+
+	mat <- thresh_plot_fun(thresh=0.25)
+
 ```
 </div>
 
@@ -421,8 +463,9 @@ mat <- thresh_plot_fun(thresh=0.25)
 
 ```{r threshhold_mat_0.25, echo=FALSE, results='asis'}
 
-print(kable(mat[2:1,]))
-print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+	print(kable(mat[2:1,]))
+	print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
 ```
 
 </div>
@@ -436,7 +479,9 @@ print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
 <div class='col2'>
 
 ```{r threshold_0.5, echo=FALSE, fig.width=6, fig.cap=''}
-mat <- thresh_plot_fun(thresh=0.5)
+
+	mat <- thresh_plot_fun(thresh=0.5)
+
 ```
 </div>
 
@@ -444,8 +489,9 @@ mat <- thresh_plot_fun(thresh=0.5)
 
 ```{r threshhold_mat_0.5, echo=FALSE, results='asis'}
 
-print(kable(mat[2:1,]))
-print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+	print(kable(mat[2:1,]))
+	print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
 ```
 
 </div>
@@ -459,7 +505,9 @@ print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
 <div class='col2'>
 
 ```{r threshold_0.75, echo=FALSE, fig.width=6, fig.cap=''}
-mat <- thresh_plot_fun(thresh=0.75)
+
+	mat <- thresh_plot_fun(thresh=0.75)
+
 ```
 </div>
 
@@ -467,8 +515,9 @@ mat <- thresh_plot_fun(thresh=0.75)
 
 ```{r threshhold_mat_0.75, echo=FALSE, results='asis'}
 
-print(kable(mat[2:1,]))
-print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+	print(kable(mat[2:1,]))
+	print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
 ```
 
 </div>
@@ -482,7 +531,9 @@ print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
 <div class='col2'>
 
 ```{r threshold_1_, echo=FALSE, fig.width=6, fig.cap=''}
-mat <- thresh_plot_fun(thresh=1)
+
+	mat <- thresh_plot_fun(thresh=1)
+
 ```
 </div>
 
@@ -490,8 +541,9 @@ mat <- thresh_plot_fun(thresh=1)
 
 ```{r threshhold_mat1, echo=FALSE, results='asis'}
 
-print(kable(mat[2:1,]))
-print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+	print(kable(mat[2:1,]))
+	print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+
 ```
 
 </div>
@@ -499,20 +551,21 @@ print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
 
 
 ```{r finer_line, include=FALSE}
-n_thresh <- 201
-thresh <- seq(0,1, length=n_thresh)
-thresh_arr <- array(dim=c(2,2,n_thresh))
-dimnames(thresh_arr) <- list(c(0,1),c(0,1), 1:n_thresh)
-tss_list <- vector(n_thresh, mode='list')
 
-for(i in seq_along(thresh)){
-	p <- x <= thresh[i]
-	p <- factor(p, levels=c(TRUE,FALSE))
-	thresh_arr[,,i] <- table(y, p)
-	tss_list[[i]] <- tss(thresh_arr[,,i])
-}
-sn <- sapply(tss_list, '[', 2)
-sp <- sapply(tss_list, '[', 1)
+	n_thresh <- 201
+	thresh <- seq(0,1, length=n_thresh)
+	thresh_arr <- array(dim=c(2,2,n_thresh))
+	dimnames(thresh_arr) <- list(c(0,1),c(0,1), 1:n_thresh)
+	tss_list <- vector(n_thresh, mode='list')
+
+	for(i in seq_along(thresh)){
+		p <- x <= thresh[i]
+		p <- factor(p, levels=c(TRUE,FALSE))
+		thresh_arr[,,i] <- table(y, p)
+		tss_list[[i]] <- tss(thresh_arr[,,i])
+	}
+	sn <- sapply(tss_list, '[', 2)
+	sp <- sapply(tss_list, '[', 1)
 
 ```
 
@@ -524,12 +577,14 @@ sp <- sapply(tss_list, '[', 1)
 <div class='col2'>
 
 ```{r thresh_plot3, echo=FALSE, fig.width=8, fig.cap=''}
+
 	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
 	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
 	points(c(0,0,1,1), c(0,1,0,1), pch=19, cex=22,
 		 col=c('firebrick','forestgreen','grey','firebrick'))
 	lines(sn ~ I(1-sp), col='blue')
 	abline(0,1, col='red', lty=2)
+
 ```
 
 </div>
@@ -549,11 +604,13 @@ sp <- sapply(tss_list, '[', 1)
 <div class='col2'>
 
 ```{r thresh_plot4, echo=FALSE, fig.width=8, fig.cap=''}
+
 	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
 	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
 	polygon(x=c((1-sp),1), y=c(sn,0), col='cornflowerblue', border=NA)
 	lines(sn ~ I(1-sp), col='blue', lwd=2)
 	abline(0,1, col='red', lty=2)
+
 ```
 
 </div>
@@ -569,21 +626,23 @@ sp <- sapply(tss_list, '[', 1)
 <!-- SDM actual example  -->
 
 ```{r sdm_example, cache=TRUE, include=FALSE}
-kink <- raster('../../data/sdm/Kinkajou.asc')
-kink <- crop(kink, extent(-110,-30,-60,30))
 
-kink_pts <- read.csv('../../data/sdm/species_41679_points.csv')
+	kink <- raster('../../data/sdm/Kinkajou.asc')
+	kink <- crop(kink, extent(-110,-30,-60,30))
 
-N <- 200
-pres <- kink_pts[sample(nrow(kink_pts), N),]
-land <- coordinates(as(kink, 'SpatialPoints'))
-back <- land[sample(nrow(land), N),]
+	kink_pts <- read.csv('../../data/sdm/species_41679_points.csv')
 
-colnames(back) <- colnames(pres[, 2:3])
-calc <- rbind(pres[, 2:3], back)
-calc$actual <- rep(c('Obs','Back'), each=N)
-calc$col <- rep(c('red', 'black'), each=N)
-calc$prob  <- extract(kink, calc[, 1:2])
+	N <- 200
+	pres <- kink_pts[sample(nrow(kink_pts), N),]
+	land <- coordinates(as(kink, 'SpatialPoints'))
+	back <- land[sample(nrow(land), N),]
+
+	colnames(back) <- colnames(pres[, 2:3])
+	calc <- rbind(pres[, 2:3], back)
+	calc$actual <- rep(c('Obs','Back'), each=N)
+	calc$col <- rep(c('red', 'black'), each=N)
+	calc$prob  <- extract(kink, calc[, 1:2])
+
 ```
 
 ---
@@ -600,8 +659,10 @@ Kinkajou (*Potos flavus*)
 <div class='col1'>
 
 ```{r sdm_prob, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
 	plot(kink, col=terrain.colors(50), asp=1, xaxt='n', yaxt='n')
+
 ```
 
 </div>
@@ -623,9 +684,11 @@ Kinkajou (*Potos flavus*)
 <div class='col1'>
 
 ```{r sdm_prob2, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
 	plot(kink, col=terrain.colors(50), asp=1, xaxt='n', yaxt='n')
 	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=col)
+
 ```
 
 </div>
@@ -633,16 +696,18 @@ Kinkajou (*Potos flavus*)
 
 
 ```{r kink_plot, echo=FALSE}
-kink_plot <- function(thresh){
-	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
-	image(kink >= thresh, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')
-	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=col)
-	calc$pred  <-  ifelse(calc$prob > thresh, 'Present', 'Absent') 
-	cf <- with(calc, table(actual, pred))
-	dimnames(cf) <- list(c("Back", "Obs"), c("Absent", "Present"))
-	cf <- cf[2:1,2:1]
-	return(cf)
-}
+
+	kink_plot <- function(thresh){
+		par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
+		image(kink >= thresh, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')
+		points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=col)
+		calc$pred  <-  ifelse(calc$prob > thresh, 'Present', 'Absent') 
+		cf <- with(calc, table(actual, pred))
+		dimnames(cf) <- list(c("Back", "Obs"), c("Absent", "Present"))
+		cf <- cf[2:1,2:1]
+		return(cf)
+	}
+
 ```
 
 
@@ -654,7 +719,9 @@ kink_plot <- function(thresh){
 <div class='col1'>
 	
 ```{r sdm_thresh1, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	cf <- kink_plot(0.1)
+
 ```
 
 </div>
@@ -663,8 +730,10 @@ kink_plot <- function(thresh){
 Threshold = 0.1
 
 ```{r, echo=FALSE}
-cf
-kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
+	cf
+	kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
 ```
 
 </div>
@@ -678,7 +747,9 @@ kable(as.matrix(tss(cf)), col.names='value', digits=3)
 <div class='col1'>
 
 ```{r sdm_thresh2, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	cf <- kink_plot(0.4)
+
 ```
 
 </div>
@@ -686,8 +757,10 @@ kable(as.matrix(tss(cf)), col.names='value', digits=3)
 
 Threshold = 0.4
 ```{r, echo=FALSE}
-cf
-kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
+	cf
+	kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
 ```
 
 </div>
@@ -701,7 +774,9 @@ kable(as.matrix(tss(cf)), col.names='value', digits=3)
 <div class='col1'>
 	
 ```{r sdm_thresh3, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	cf <- kink_plot(0.55)
+
 ```
 
 </div>
@@ -709,28 +784,31 @@ kable(as.matrix(tss(cf)), col.names='value', digits=3)
 
 Threshold = 0.55
 ```{r, echo=FALSE}
-cf
-kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
+	cf
+	kable(as.matrix(tss(cf)), col.names='value', digits=3)
+
 ```
 
 </div>
 </div>
 
 ```{r get_the_auc_curve, include=FALSE}
-vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)
-tss_list <- list()
 
-for(i in seq_along(vals)){
-	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') 
-	cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))
-	cf <- cf[2:1, ]
-	tss_list[[i]] <- tss(cf)
-	sn <- sapply(tss_list, '[', 1)
-	sp <- sapply(tss_list, '[', 2)
+	vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)
+	tss_list <- list()
+
+	for(i in seq_along(vals)){
+		calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') 
+		cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))
+		cf <- cf[2:1, ]
+		tss_list[[i]] <- tss(cf)
+		sn <- sapply(tss_list, '[', 1)
+		sp <- sapply(tss_list, '[', 2)
 	
-	maxsnsp <- which.max(sn + sp)
+		maxsnsp <- which.max(sn + sp)
 	
-}
+	}
 
 ```
 
@@ -741,11 +819,13 @@ for(i in seq_along(vals)){
 <center>Maximum sensitivity + specificity shown in red.</center>
 
 ```{r kink_auc, echo=FALSE, fig.width=8, fig.cap=''}
-par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
-plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
-polygon(x=c((1-sp), 0, 1),  y=c(sn, 0,0), col='cornflowerblue', border=NA)
-lines(sn ~ I(1-sp), col='blue', lwd=2)
-points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1, lwd=2)
+
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
+	polygon(x=c((1-sp), 0, 1),  y=c(sn, 0,0), col='cornflowerblue', border=NA)
+	lines(sn ~ I(1-sp), col='blue', lwd=2)
+	points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1, lwd=2)
+
 ```
 
 ---
@@ -756,7 +836,9 @@ points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1, lwd=2)
 <div class='col1'>
 	
 ```{r sdm_thresh_mss, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+
 	cf <- kink_plot(vals[maxsnsp])
+
 ```
 
 </div>
@@ -764,8 +846,8 @@ points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1, lwd=2)
 
 <center>Threshold = `r sprintf('%0.3f', vals[maxsnsp])`</center>
 ```{r, echo=FALSE}
-cf
-kable(as.matrix(tss(cf)), col.names='value', digits=3)
+	cf
+	kable(as.matrix(tss(cf)), col.names='value', digits=3)
 ```
 
 </div>

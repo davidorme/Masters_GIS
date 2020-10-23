@@ -3,6 +3,14 @@ title: Species Distribution Modelling
 author: David Orme
 ---
 
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+# Species Distribution Models
+
+### David Orme
+
+
+---
+
 # Outline
 
 * Introduction<!-- .element: style="color:red" -->  
