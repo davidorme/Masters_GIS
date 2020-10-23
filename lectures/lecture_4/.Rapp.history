@@ -1,0 +1,398 @@
+predict(mod, newdata=data.frame(x=thresh))
+predict(mod, newdata=data.frame(x=thresh), type='response')
+kink_pts <- read.csv('data/species_41679_points.csv')
+head(kink_pts)
+image(kink)
+kink <- raster('data/Kinkajou.asc')
+image(kink)
+image(kink, col='terrain.colors')
+image(kink, col='terr.colors')
+image(kink, col=terrain.colors)
+image(kink, col=terrain.colors(20))
+image(kink, col=terrain.colors(80))
+image(kink, col=terrain.colors(80), asp=1)
+points(Lat ~ Long, data=kink_pts)
+?subset()
+?subset
+?extract
+r <- raster(ncol=36, nrow=18)#
+r[] <- 1:ncell(r)
+e <- extent(150,170,-60,-40)#
+extract(r, e)
+?crop
+locator(2)
+kink2 <- crop(kink, extent(-120,-20,30,-60))
+?extent
+kink2 <- crop(kink, extent(-120,-20,-60,30))
+plot(kink2)
+points(Lat ~ Long, data=kink_pts)
+points(Lat ~ Long, data=kink_pts, pch=3)
+plot(kink2)
+points(Lat ~ Long, data=kink_pts, pch=3)
+points(Lat ~ Long, data=kink_pts, pch=4)
+plot(kink2)
+points(Lat ~ Long, data=kink_pts, pch=4)
+points(Lat ~ Long, data=kink_pts, pch=4, cex=0.2)
+plot(kink2)
+points(Lat ~ Long, data=kink_pts, pch=4, cex=0.2)
+plot(kink2)
+test <- kinks_pts[sample(nrow(kinks_pts), 1000)]
+test <- kinks_pts[sample(nrow(kink_pts), 1000)]
+test <- kink_pts[sample(nrow(kink_pts), 1000)]
+test <- kink_pts[sample(nrow(kink_pts), 1000),]
+points(Lat ~ Long, data=test, pch=4, cex=0.2)
+test <- kink_pts[sample(nrow(kink_pts), 5000),]
+test <- kink_pts[sample(nrow(kink_pts), 500),]
+plot(kink2)
+points(Lat ~ Long, data=test, pch=4, cex=0.4)
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]
+xx <- as.SpatialPoints(kink)
+library(sp)
+xx <- as.SpatialPoints(kink)
+xx <- as(kink, 'SpatialPoints')
+plot(xx)
+kink <- raster('data/Kinkajou.asc')#
+kink <- crop(kink, extent(-120,-20,-60,30))#
+#
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]
+xx <- as(kink, 'SpatialPoints')
+plot(xx)
+xx[sample(nrow(xx), 200)]
+xx <- coordinates(as(kink, 'SpatialPoints'))
+plot(xx)
+xx <- xx[sample(nrow(xx), 200)]
+plot(xx)
+xx <- land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), 200),]
+plot(kink)#
+	points(Lat ~ Long, data=test, pch=4, cex=0.4)#
+	points(back)
+plot(kink)#
+	points(Lat ~ Long, data=test, pch=4, cex=0.4)#
+	points(back, pch=4, cex=0.4, col='red')
+points(Lat ~ Long, data=test, pch=4, cex=0.4)#
+	points(back, pch=4, cex=0.4, col='blue')
+calc <- cbind(pres[,'Lon','Lat'], back)
+pres[,'Lon','Lat']
+pres[,c('Lon','Lat')]
+head(pres)
+pres[,c('Long','Lat')]
+calc <- cbind(pres[,c('Lon','Lat')], back)
+calc <- cbind(pres[,c('Long','Lat')], back)
+str(calc)
+calc <- rbind(pres[,c('Long','Lat')], back)
+colnames(back) <- colnames(pres)
+colnames(back) <- colnames(pres[, 2:3])
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- cbind(pres[, 2:3], back)
+head(calc)
+calc <- rbind(pres[, 2:3], back)
+head(calc)
+str(calc)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$actual <- rep(c(1,0), times=100)
+head(calc)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$actual <- rep(c(1,0), each=100)
+head(calc)
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(kink)#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]#
+land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), 200),]#
+#
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c(1,0), each=100)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink)#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]#
+land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), 200),]#
+#
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c(1,0), each=100)
+plot(kink_pts)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]#
+land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), 200),]#
+#
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c(1,0), times=100)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink)#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+head(calc)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+kink_pts <- read.csv('data/species_41679_points.csv')#
+pres <- kink_pts[sample(nrow(kink_pts), 200),]#
+land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), 200),]#
+#
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c(1,0), each=100)
+head(calc)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink)#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+points(Lat~Long, data=kink_pts)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+N <- 200#
+pres <- kink_pts[sample(nrow(kink_pts), N),]#
+land <- coordinates(as(kink, 'SpatialPoints'))#
+back <- land[sample(nrow(land), N),]#
+#
+colnames(back) <- colnames(pres[, 2:3])#
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c(1,0), each=N)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink)#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink > 0.1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, region.cols=terrain.cols)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, region.cols=terrain.cols(100))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, region.cols=terrain.col(100))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, region.cols=terrain.colors(100))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, region.col=terrain.colors(100))
+?plot(kink, region.col=terrain.colors(100))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, col=terrain.colors(100))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink, col=terrain.colors(50))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink > 0.1, col=terrain.colors(2))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink > 0.1, col=c('grey','red'))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(kink > 0.1, col=c('grey','firebrick'))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1, legend=FALSE)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+image(kink > 0.1, col=c('grey','firebrick'))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+image(kink > 0.1, col=c('grey','firebrick'))
+?image(kink > 0.1, col=c('grey','firebrick'))
+image(kink > 0.1, col=c('grey','firebrick'))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1, legend=FALSE)
+extract(kink, calc)
+str(calc)
+extract(kink, calc[, 1:2])
+str(calc)
+image(kink > 0.1, col=c('grey','firebrick'), asp=1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+par(cex=1.4, mar=c(1,1,1,1), mgp=c(2,1,0), lwd=2)#
+#
+	image(kink > 0.5, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)#
+	calc$pred  <-  calc$prob > 0.5#
+	cf <- with(calc, table(actual, pred))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+par(cex=1.4, mar=rep(0.3,4)), mgp=c(2,1,0), lwd=2)#
+#
+	image(kink > 0.5, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)#
+	calc$pred  <-  calc$prob > 0.5#
+	cf <- with(calc, table(actual, pred))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)#
+#
+	image(kink > 0.5, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)#
+	calc$pred  <-  calc$prob > 0.5#
+	cf <- with(calc, table(actual, pred))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+kink <- raster('data/Kinkajou.asc')#
+kink <- crop(kink, extent(-110,-30,-60,30))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+image(kink > 0.1, col=c('grey','firebrick'))
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+image(kink > 0.5, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')
+par('din')
+par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)#
+#
+	image(kink > 0.1, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)#
+	calc$pred  <-  calc$prob > 0.1#
+	cf <- with(calc, table(actual, pred))
+str(calc)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$prob  <- extract(kink, calc[, 1:2])
+par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)#
+#
+	image(kink > 0.1, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')#
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=actual +1)#
+	calc$pred  <-  calc$prob > 0.1#
+	cf <- with(calc, table(actual, pred))
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc <- rbind(pres[, 2:3], back)#
+calc$actual <- rep(c('Obs','Back'), each=N)#
+calc$prob  <- extract(kink, calc[, 1:2])
+calc$pred  <-  ifelse(calc$prob > 0.5, 'Present', 'Absent') #
+	cf <- with(calc, table(actual, pred))
+cf
+t(cf)
+cf[2:1,2:1]
+dimnames(cf)
+names(cf)
+structure(cf)
+dput(cf)
+.Names(cf)
+?dimnames
+attributes(cf)
+attributes(cf)
+cf <- with(calc, table(actual, pred))#
+	dimnames(cf) <- list(c("Back", "Obs"), c("Absent", "Present"))#
+	cf <- cf[2:1,2:1]
+cf
+tss(cf)
+range(kink, na.rm=TRUE)
+min(kink, na.rm=TRUE)
+summary(kink)
+min(kink)
+cellStats(kink,'min')
+cellStats(kink,min)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(0, cellStats(kink,max), length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, pred))#
+	cf <- cf[2:1,2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min), cellStats(kink,max), length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, pred))#
+	cf <- cf[2:1,2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+cf
+i
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min) +0.01, cellStats(kink,max), length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, pred))#
+	cf <- cf[2:1, 2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+i
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min) +0.01, cellStats(kink,max) -0.01, length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, pred))#
+	cf <- cf[2:1, 2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(factor(actual), factor(pred)))#
+	cf <- cf[2:1, 2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(factor(actual), factor(pred, levels=c('Present', 'Absent'))))#
+	cf <- cf[2:1, 2:1]#
+	tss_list[[i]] <- tss(cf)#
+}
+tss_list
+head(calc)
+vals
+vals[i]
+vals[i] <- 0.4
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(factor(actual), factor(pred, levels=c('Present', 'Absent'))))
+cf
+sum(cf)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))#
+	cf <- cf[2:1, ]
+cf
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)#
+tss_list <- list()#
+#
+for(i in seq_along(vals)){#
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') #
+	cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))#
+	cf <- cf[2:1, ]#
+	tss_list[[i]] <- tss(cf)
+}
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+sn <- sapply(tss_list, '[', 1)#
+	sp <- sapply(tss_list, '[', 2)#
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='l')
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+which.max(sn + sp)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='l')
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+maxsnsp <- which.max(sn + sp)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='l')#
+	points(sn[maxsnsp], 1-sp[maxsnsp], col='red', cex=2, pch=1)
+1-sp[maxsnsp]
+sp
+(1-sp)[maxsnsp]
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='l')
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+sn[maxsnsp]
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1)
+setwd('/Users/dorme/Teaching/MSc_GIS_2016/Lecture4')
+vals[maxsnsp]
+sp
+sn

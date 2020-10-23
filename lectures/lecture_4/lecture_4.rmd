@@ -1,0 +1,796 @@
+---
+title: Assessing model accuracy
+author: David Orme
+---
+
+```{r libs, include=FALSE}
+library(printr)
+library(knitr) # for kable
+library(raster)
+```
+
+# Overview
+
+  - The confusion matrix
+  - Measures of model accuracy
+  - Thresholds for continuous predictions
+  - Application to Species Distribution Models
+
+---
+
+# MODIS land cover classification
+
+![MODIS Confusion Matrix](images/MODIS_confusion_matrix.png)
+
+<center>Accuracy = 21906 / 29877 = 73.3%</center>
+
+---
+
+# A simpler confusion matrix
+
+Zoom in on just two of those categories:
+ 
+ 
+![](images/MODIS_confusion_matrix_zoom.png)
+
+Model predicts: Is this evergreen forest needleleaf or broadleaf
+
+
+```{r accuracy, include=FALSE}
+# Example object creation
+# data model from MODIS
+tab <- matrix(c(1460,31,42,4889), ncol=2)
+colnames(tab) <- c('Pred. Needle','Pred. Broad')
+rownames(tab) <- c('Obs. Needle','Obs. Broad')
+tabmarg <- addmargins(tab)
+
+# random model
+obs <- rep(c(0,1), times=rowSums(tab))
+pred <- sample(c(1,0), length(obs), replace=TRUE)
+rand <- table(obs, pred)
+dimnames(rand) <- dimnames(tab)
+randmarg <- addmargins(rand)
+
+# stupid model
+stupid <- matrix(c(0,0,1502,4920), ncol=2)
+dimnames(stupid) <- dimnames(tab)
+stupidmarg <- addmargins(stupid)
+
+# low prevalence
+lowpr <- matrix(c(0,0,35, 6407), ncol=2)
+dimnames(lowpr) <- dimnames(tab)
+lowprmarg <- addmargins(lowpr)
+
+# low sensitivity
+lowsn <- matrix(c(1460, 2010,42,2910), ncol=2)
+dimnames(lowsn) <- dimnames(tab)
+lowsnmarg <- addmargins(lowsn)
+
+# terminology
+nm3 <- nm2 <- nm <- tab
+nm[] <- c('True<br>Positive', 'False<br>Positive', 'False<br>Negative', 'True<br>Negative')
+nm2[] <- c('True<br>Positive', 'Type I<br>Error', 'Type II<br>Error', 'True<br>Negative')
+nm3[] <- c('True<br>Positive<BR>Rate', 'False<br>Positive<BR>Rate', 'False<br>Negative<BR>Rate', 'True<br>Negative<BR>Rate')
+```
+
+---
+
+# Accuracy
+
+<div class="leftpad">
+
+Easy to calculate **accuracy**:
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_table_margins, echo=FALSE}
+tabmarg
+```
+
+$$A = \frac{1460 + 4889}{1460 + 4889 + 42 +31} = 98.9\%$$
+
+---
+
+# Accuracy
+
+<div class="leftpad">
+
+But **random** models can have reasonable accuracy!
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_rand, echo=FALSE}
+randmarg
+```
+
+$$A = \frac{`r rand[1,1]` + `r rand[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(rand))/sum(rand) *100) `\%$$
+
+---
+
+# Accuracy
+
+<div class="leftpad">
+
+And so can stupid ones: **everything is a broadleaf**.
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_stupid, echo=FALSE}
+stupidmarg
+```
+
+$$A = \frac{`r stupid[1,1]` + `r stupid[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(stupid))/sum(stupid) *100) `\%$$
+
+---
+
+# Prevalence
+
+<div class="leftpad">
+
+**Prevalence** is simple the proportion of the observed positive outcomes:
+
+</div>
+
+<div class="vs"></div>
+
+$$\mbox{Prevalence} = \frac{`r rowSums(tab)[1]` }{`r sum(tab)`} = `r sprintf('%0.3f',  rowSums(tab)[1]/sum(tab)) `$$
+
+---
+
+# Accuracy
+
+<div class="leftpad">
+
+And **accuracy is affected by prevalence**
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_low_prev, echo=FALSE}
+lowprmarg
+```
+
+$$A = \frac{`r lowpr[1,1]` + `r lowpr[2,2]`}{6422} = `r sprintf('%0.1f', sum(diag(lowpr))/sum(lowpr) *100) `\%$$
+
+---
+
+# Prediction outcomes
+
+<div class="leftpad">
+
+Giving some simple names to the four outcomes:
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_names, echo=FALSE}
+kable(nm, align=c('c','c'))
+```
+
+---
+
+# Prediction outcomes
+
+<div class="leftpad">
+
+Other more confusing names do get used:
+
+</div>
+
+<div class="vs"></div>
+
+
+```{r show_names2, echo=FALSE}
+kable(nm2, align=c('c','c'))
+```
+
+---
+
+# Rates of outcomes
+
+<div class="leftpad">
+
+Divide the four outcomes by the **observed** positive and negative counts to give **rates**:
+
+</div>
+
+<div class="vs"></div>
+
+```{r show_names3, echo=FALSE}
+kable(nm3, align=c('c','c'))
+```
+
+---
+
+# Rates of outcomes
+
+<div class="leftpad">
+
+Calculate those values:
+
+</div>
+
+<div class="vs"></div>
+
+|	| Pred. Needle	| Pred. Broad	|  Sum	|
+|:-----------	| ------------:|	-----------:|	----:|
+|Obs. Needle	| $$\frac{1460}{1502}=97.2\%$$	| $$\frac{42}{1502}=2.8\%$$ | 1502	|
+|Obs. Broad  	| $$\frac{31}{4920}=0.6\%$$	| $$\frac{4889}{4920}=99.4\%$$	| 4920	|
+
+---
+
+# Sensitivity and Specificity
+
+**Sensitivity**
+
+  - Another name for the True Positive Rate
+  - The proportion of correctly predicted positive observations
+
+<div class="vs"></div>
+
+**Specificity**
+
+  - Another name for the True Negative Rate
+  - The proportion of correctly predicted negative observations
+
+---
+
+# Sensitivity and Specificity
+
+```{r show_low_sens_data, echo=FALSE}
+lowsnmarg
+```
+
+<div class="leftpad">
+
+Outcome rates for the new model above
+
+</div>
+
+```{r show_low_sens, echo=FALSE}
+x  <- sweep(lowsn, 1, rowSums(lowsn), '/')
+x <- matrix(sprintf('%0.1f%%', x*100), ncol=2)
+dimnames(x) <- dimnames(lowsn)
+x
+```
+
+---
+
+# Cohen's kappa
+
+<div class='leftpad'>
+
+Cohen's kappa ($\kappa$) is a measure of agreement that rescales accuracy ($A$) to account for chance agreement ($P_e$):
+
+</div>
+
+$$\kappa = \frac{A - P_e}{1- P_e}$$
+
+<div class='leftpad'>
+
+It can take values from $-\infty$ to 1, where 1 is perfect prediction and anything below zero is worse than chance.
+
+</div>
+
+---
+
+# Cohen's kappa
+
+<div class='leftpad'>
+
+Multiply proportions of observed and predicted to get probability of each outcome
+
+</div>
+
+
+```{r show_table_margins_kappa, echo=FALSE}
+tabmarg
+```
+
+$$P_{YY} = \frac{1491}{6422} \times \frac{1502}{6422} = 0.054$$
+
+---
+
+# Cohen's kappa
+
+```{r echo=FALSE}
+prop <- addmargins(prop.table(tab))
+prop <- outer(prop[,3], prop[3,])
+rownames(prop)[3] <- colnames(prop)[3] <- 'p'
+kable(prop, digits=3)
+```
+
+$$
+P_e = P_{YY} +  P_{NN}
+\kappa = \frac{0.989 - (0.054 + 0.588)}{1- (0.054 + 0.588)} = 0.969
+$$
+
+---
+
+# True Skill Statistic
+
+TODO - MathJax linebreak fix?
+
+An alternative measure is TSS:
+
+$$
+\mbox{TSS} = \mbox{Sensitivity} + \mbox{Specificity} - 1\\
+\mbox{TSS} = [0, 1] + [0, 1] - 1
+$$
+
+ * TSS = 1 (perfect)
+ * TSS = 0 (random)
+ * TSS = -1 (always wrong)
+ * Unaffected by prevalence.
+
+<!-- Simulation of thresholding -->
+  
+```{r binomial_data, include=FALSE}
+x <- runif(100)
+y <- rbinom(100, 1, prob = plogis(-3 + 6 *x))
+mod <- glm(y ~ x, family=binomial())
+pred <- data.frame(x=seq(0,1, length=501))
+pred$y <- predict(mod, newdata=pred, type='response')
+
+tss <- function(mat){
+  m <- sweep(mat, 1, rowSums(mat), '/')
+  ss <- diag(m)
+  names(ss) <- NULL
+  tss <- sum(ss) - 1
+  return(c(Sens = ss[2], Spec=ss[1],  TSS=tss))
+}
+
+thresh_plot_fun <- function(thresh=NA){
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', 
+		type='n', xlim=c(0,1))
+	lines(y ~ x , data=pred, col='red', lwd=2)
+	if (! is.na(thresh)){
+		abline(v= thresh, col='red', lty=2)
+		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),
+								      ifelse(x > thresh, 'red', 'black')))
+	} else {
+		points(y ~ x)
+	}
+	if (! is.na(thresh)){
+		pred <- x >= thresh
+		mat <- matrix(c(sum(! y & ! pred),
+					sum( y & ! pred),
+					sum(! y & pred),
+					sum(y & pred)),
+					ncol=2)
+		dimnames(mat) <- list(c(0,1),c(0,1))
+		return(mat)
+	}
+}
+```
+
+---
+
+# Threshold model
+
+A model predicting the probability of success.
+
+```{r threshold, echo=FALSE, fig.width=12, fig.cap=''}
+thresh_plot_fun()
+```
+
+---
+
+# Threshold model
+
+<div class='container'>
+<div class='col2'>
+
+```{r threshold_0, echo=FALSE, fig.width=6, fig.cap=''}
+mat <- thresh_plot_fun(thresh=0.0)
+```
+</div>
+
+<div class='col1'>
+
+```{r threshhold_mat_0, echo=FALSE, results='asis'}
+print(kable(mat[2:1,])) # match obs order to plot y axis
+print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+```
+
+</div>
+</div>
+
+---
+
+# Threshold model
+
+<div class='container'>
+<div class='col2'>
+
+```{r threshold_0.25, echo=FALSE, fig.width=6, fig.cap=''}
+mat <- thresh_plot_fun(thresh=0.25)
+```
+</div>
+
+<div class='col1'>
+
+```{r threshhold_mat_0.25, echo=FALSE, results='asis'}
+
+print(kable(mat[2:1,]))
+print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+```
+
+</div>
+</div>
+
+---
+
+# Threshold model
+
+<div class='container'>
+<div class='col2'>
+
+```{r threshold_0.5, echo=FALSE, fig.width=6, fig.cap=''}
+mat <- thresh_plot_fun(thresh=0.5)
+```
+</div>
+
+<div class='col1'>
+
+```{r threshhold_mat_0.5, echo=FALSE, results='asis'}
+
+print(kable(mat[2:1,]))
+print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+```
+
+</div>
+</div>
+
+---
+
+# Threshold model
+
+<div class='container'>
+<div class='col2'>
+
+```{r threshold_0.75, echo=FALSE, fig.width=6, fig.cap=''}
+mat <- thresh_plot_fun(thresh=0.75)
+```
+</div>
+
+<div class='col1'>
+
+```{r threshhold_mat_0.75, echo=FALSE, results='asis'}
+
+print(kable(mat[2:1,]))
+print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+```
+
+</div>
+</div>
+
+---
+
+# Threshold model
+
+<div class='container'>
+<div class='col2'>
+
+```{r threshold_1_, echo=FALSE, fig.width=6, fig.cap=''}
+mat <- thresh_plot_fun(thresh=1)
+```
+</div>
+
+<div class='col1'>
+
+```{r threshhold_mat1, echo=FALSE, results='asis'}
+
+print(kable(mat[2:1,]))
+print( kable(as.matrix(tss(mat)), col.names='value', digits=3))
+```
+
+</div>
+</div>
+
+
+```{r finer_line, include=FALSE}
+n_thresh <- 201
+thresh <- seq(0,1, length=n_thresh)
+thresh_arr <- array(dim=c(2,2,n_thresh))
+dimnames(thresh_arr) <- list(c(0,1),c(0,1), 1:n_thresh)
+tss_list <- vector(n_thresh, mode='list')
+
+for(i in seq_along(thresh)){
+	p <- x <= thresh[i]
+	p <- factor(p, levels=c(TRUE,FALSE))
+	thresh_arr[,,i] <- table(y, p)
+	tss_list[[i]] <- tss(thresh_arr[,,i])
+}
+sn <- sapply(tss_list, '[', 2)
+sp <- sapply(tss_list, '[', 1)
+
+```
+
+---
+
+# ROC Curve
+
+<div class='container'>
+<div class='col2'>
+
+```{r thresh_plot3, echo=FALSE, fig.width=8, fig.cap=''}
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
+	points(c(0,0,1,1), c(0,1,0,1), pch=19, cex=22,
+		 col=c('firebrick','forestgreen','grey','firebrick'))
+	lines(sn ~ I(1-sp), col='blue')
+	abline(0,1, col='red', lty=2)
+```
+
+</div>
+<div class='col1'>
+
+* Receiver operating characteristic (ROC)
+* A random model gives the red line
+
+</div>
+</div>
+
+---
+
+# Area under ROC curve (AUC)
+
+<div class='container'>
+<div class='col2'>
+
+```{r thresh_plot4, echo=FALSE, fig.width=8, fig.cap=''}
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
+	polygon(x=c((1-sp),1), y=c(sn,0), col='cornflowerblue', border=NA)
+	lines(sn ~ I(1-sp), col='blue', lwd=2)
+	abline(0,1, col='red', lty=2)
+```
+
+</div>
+<div class='col1'>
+
+  - AUC varies between 0 and 1.
+  - AUC = 0.5 is random.
+  - Overall model performance
+
+</div>
+</div>
+
+<!-- SDM actual example  -->
+
+```{r sdm_example, cache=TRUE, include=FALSE}
+kink <- raster('../../data/sdm/Kinkajou.asc')
+kink <- crop(kink, extent(-110,-30,-60,30))
+
+kink_pts <- read.csv('../../data/sdm/species_41679_points.csv')
+
+N <- 200
+pres <- kink_pts[sample(nrow(kink_pts), N),]
+land <- coordinates(as(kink, 'SpatialPoints'))
+back <- land[sample(nrow(land), N),]
+
+colnames(back) <- colnames(pres[, 2:3])
+calc <- rbind(pres[, 2:3], back)
+calc$actual <- rep(c('Obs','Back'), each=N)
+calc$col <- rep(c('red', 'black'), each=N)
+calc$prob  <- extract(kink, calc[, 1:2])
+```
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+
+![](images/kinkajou_596_600x450.jpg)
+Kinkajou (*Potos flavus*)
+
+</div>
+<div class='col1'>
+
+```{r sdm_prob, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
+	plot(kink, col=terrain.colors(50), asp=1, xaxt='n', yaxt='n')
+```
+
+</div>
+</div>
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+
+![Kinkajou (*Potos flavus*)](images/kinkajou_596_600x450.jpg)
+
+* Observed (red)
+* Background (black)
+
+</div>
+<div class='col1'>
+
+```{r sdm_prob2, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
+	plot(kink, col=terrain.colors(50), asp=1, xaxt='n', yaxt='n')
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=col)
+```
+
+</div>
+</div>
+
+
+```{r kink_plot, echo=FALSE}
+kink_plot <- function(thresh){
+	par(cex=1.4, mar=rep(0.3,4), mgp=c(2,1,0), lwd=2)
+	image(kink >= thresh, col=c('grey','firebrick'), asp=1, xaxt='n', yaxt='n')
+	points(Lat ~ Long, data=calc, pch=4, cex=0.4, col=col)
+	calc$pred  <-  ifelse(calc$prob > thresh, 'Present', 'Absent') 
+	cf <- with(calc, table(actual, pred))
+	dimnames(cf) <- list(c("Back", "Obs"), c("Absent", "Present"))
+	cf <- cf[2:1,2:1]
+	return(cf)
+}
+```
+
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+	
+```{r sdm_thresh1, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	cf <- kink_plot(0.1)
+```
+
+</div>
+<div class='col1'>
+
+Threshold = 0.1
+
+```{r, echo=FALSE}
+cf
+kable(as.matrix(tss(cf)), col.names='value', digits=3)
+```
+
+</div>
+</div>
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+
+```{r sdm_thresh2, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	cf <- kink_plot(0.4)
+```
+
+</div>
+<div class='col1'>
+
+Threshold = 0.4
+```{r, echo=FALSE}
+cf
+kable(as.matrix(tss(cf)), col.names='value', digits=3)
+```
+
+</div>
+</div>
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+	
+```{r sdm_thresh3, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	cf <- kink_plot(0.55)
+```
+
+</div>
+<div class='col1'>
+
+Threshold = 0.55
+```{r, echo=FALSE}
+cf
+kable(as.matrix(tss(cf)), col.names='value', digits=3)
+```
+
+</div>
+</div>
+
+```{r get_the_auc_curve, include=FALSE}
+vals <- seq(cellStats(kink,min), cellStats(kink,max) , length=101)
+tss_list <- list()
+
+for(i in seq_along(vals)){
+	calc$pred  <-  ifelse(calc$prob > vals[i], 'Present', 'Absent') 
+	cf <- with(calc, table(actual, factor(pred, levels=c('Present', 'Absent'))))
+	cf <- cf[2:1, ]
+	tss_list[[i]] <- tss(cf)
+	sn <- sapply(tss_list, '[', 1)
+	sp <- sapply(tss_list, '[', 2)
+	
+	maxsnsp <- which.max(sn + sp)
+	
+}
+
+```
+
+---
+
+# AUC for the Kinkajou
+
+<center>Maximum sensitivity + specificity shown in red.</center>
+
+```{r kink_auc, echo=FALSE, fig.width=8, fig.cap=''}
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)
+plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')
+polygon(x=c((1-sp), 0, 1),  y=c(sn, 0,0), col='cornflowerblue', border=NA)
+lines(sn ~ I(1-sp), col='blue', lwd=2)
+points( 1-sp[maxsnsp], sn[maxsnsp], col='red', cex=2, pch=1, lwd=2)
+```
+
+---
+
+# Species Distribution Models
+
+<div class='container'>
+<div class='col1'>
+	
+```{r sdm_thresh_mss, echo=FALSE, fig.width=7, fig.height=8, fig.cap='', dev.args=list(pointsize=20)}
+	cf <- kink_plot(vals[maxsnsp])
+```
+
+</div>
+<div class='col1'>
+
+<center>Threshold = `r sprintf('%0.3f', vals[maxsnsp])`</center>
+```{r, echo=FALSE}
+cf
+kable(as.matrix(tss(cf)), col.names='value', digits=3)
+```
+
+</div>
+</div>
+
+---
+
+# Threshold choices
+
+<div style='font-size: 20pt'>
+
+| Method | Definition |
+| --- | --- |
+| Fixed value | An arbitrary fixed value (e.g. probability = 0.5) |
+| Lowest predicted value | The lowest predicted value corresponding with an observed occurrence record |
+| Sensitivity-specificity equality | The threshold at which sensitivity and specificity are equal |
+| Sensitivity-specificity sum maximization | The sum of sensitivity and specificity is maximized |
+| Maximize Kappa | The threshold at which Cohen’s Kappa statistic is maximized |
+| Equal prevalence | Propn of presences relative to the number of sites is equal in prediction and calibration data  | 
+
+</div>
+
+---
+
+# Fast moving field
+
+<iframe src='https://natureconservation.pensoft.net/article/33918/' width='100%' height='500px'>
+

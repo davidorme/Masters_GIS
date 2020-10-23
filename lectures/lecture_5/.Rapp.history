@@ -1,0 +1,1965 @@
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=3)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=4)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=2)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=1)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=2)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=3)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=4)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Layout with spaces to separate#
+yat <- c(0.5,0.75,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+yl <- c(0.5,1.05)
+# Layout with spaces to separate#
+yat <- c(0.5,0.75,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+yl <- c(0.55,1.05)
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0)#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+line
+?line
+plot(cars)#
+(z <- line(cars))
+?segments
+plot_fun <- function(var, d){#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n')#
+	lines(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2)#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)#
+	segments(1,dd,4,dd)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day')#
+	segments(1,dd,4,dd, col='red')#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+debug(plot_fun)
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))
+dd
+str(dd)
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+	# Create the plot using Audioset and then add points for AI #
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2)#
+	# Add the values using all daily recordings, not just the 6 hour#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[1]#
+	segments(1,dd,4,dd)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day')[1]#
+	segments(1,dd,4,dd, col='red')#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+	# Create the plot using Audioset and then add points for AI #
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2)#
+	# Add the values using all daily recordings, not just the 6 hour#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)#
+	segments(1,dd,4,dd)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)#
+	segments(1,dd,4,dd, col='red')#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+debug(plot_fun)
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))
+dd
+dd[,1]
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+	# Create the plot using Audioset and then add points for AI #
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2)#
+	# Add the values using all daily recordings, not just the 6 hour#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col='red')#
+}
+# Layout with spaces to separate#
+yat <- c(0.6,0.8,1)#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+plot.new(); plot.new()#
+#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+	# Create the plot using Audioset and then add points for AI #
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	# Add the values using all daily recordings, not just the 6 hour#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col='grey')#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col='salmon')#
+}#
+#
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)
+add.alpha(pallete[1])
+add.alpha(palette[1])
+add.alpha(palette()[1])
+add.alpha(palette()[1], 128)
+add.alpha(palette()[1], 0.5)
+?palette
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+#
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(pallete()[1], 0.5), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(pallete()[1], 0.5), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')	#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.5), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.5), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')	#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.5), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.5), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')	#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+plot_fun <- function(var, d){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')	#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'))#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'))#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+for (cs in levels(precision$Case)){#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs))#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs))#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(label) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(label) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+#
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d, label='a'){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	text(1, 0.6, label)#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(label) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(label) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+#
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d, label='a'){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	text(1, 0.6, label)#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[cs]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+#
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d, label='a'){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	text(1, 0.6, paste0('(', label, ')')#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+plot_fun <- function(var, d, label='a'){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	text(1, 0.6, paste0('(', label, ')'))#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+library(lattice)#
+#
+cm <- read.csv('~/Research/PG_students/Becky_Heath/Confusion_matrix_data.csv')#
+#
+cm$Time <- ordered(cm$Time, levels=c('Dawn','Midday','Dusk','Midnight','Day'))#
+#
+# Accuracy#
+accuracy <- aggregate(N ~ Time + Ind + Comp, data=cm, FUN=sum, subset=Obs==Pred)#
+matrix_ns <- aggregate(N ~ Time + Ind + Comp, data=cm, FUN=sum)#
+accuracy$accuracy <- accuracy$N / matrix_ns$N#
+#
+# Precision and Recall by habitat class#
+#
+# - create an empty data frame with the correct structure to append to#
+precision <- subset(cm, select=c(Ind, Comp, Time, N), subset=FALSE)#
+precision$Precision <- numeric(0)#
+precision$Recall <- numeric(0)#
+precision$Case <- character(0)#
+#
+# Loop over combinations#
+combn <- list(c('Grassland', 'Logged', 'G-L'), #
+			  c('Grassland', 'Primary', 'G-P'),#
+			  c('Logged', 'Primary', 'L-P'))#
+#
+for (this_comb in combn){#
+	true_class <- this_comb[1]#
+	false_class <- this_comb[2]#
+	this_precision <- subset(cm, Obs == true_class & Pred == true_class, #
+							 select=c(Ind, Comp, Time, N))#
+	false_pos <- subset(cm, Obs== false_class & Pred == true_class)#
+	false_neg <- subset(cm, Obs== true_class & Pred == false_class)#
+#
+	this_precision$Precision <- this_precision$N / (this_precision$N + false_pos$N)#
+	this_precision$Recall <- this_precision$N / (this_precision$N + false_neg$N)#
+	this_precision$Case <- this_comb[3]	#
+#
+	precision <- rbind(precision, this_precision)#
+#
+}#
+#
+# Quick and easy data visualisation #
+#
+pdf('Time_breakdown_plots.pdf')#
+#
+	xyplot(accuracy ~ Time | Comp, data=accuracy, groups = Ind, type='o')#
+	xyplot(Precision ~ Time | Case + Comp , data=precision, groups = Ind, #
+		  type='o', auto.key=TRUE)#
+	xyplot(Recall ~ Time | Comp + Case, data=precision, groups = Ind, #
+		  type='o', auto.key=TRUE)#
+#
+dev.off()#
+# Condensed figure for publication#
+#
+# Panel constants - (ylim, xlim, y axis tick values)#
+yl <- c(0.55,1.05)#
+xl <- c(0.7,4.3)#
+precision$Case <- factor(precision$Case)#
+yat <- c(0.6,0.8,1)#
+#
+# Colours and alpha function#
+palette(c('black', 'red'))#
+add.alpha <- function(cols, alpha) rgb(t(col2rgb(cols)/255), alpha = alpha)#
+#
+# All plots use the same structure so create a plot function to #
+# make it easy to generate each panel.#
+#
+plot_fun <- function(var, d, label='a'){#
+	# Get the plot formula for this variable#
+	fm <- as.formula(paste0(var, '~ as.numeric(Time)'))#
+#
+	# create a correctly sized empty plot first, to make it easy to add the #
+	# all-day means first and then overlay the 6 hour (type='n')#
+	plot(fm, data=d, subset= Ind == 'AS' & Time !='Day', #
+		 ylim=yl, xlim=xl, xaxt='n', yaxt='n', type='n')#
+#
+	# Add horizontal lines for the all daily recordings values#
+	dd <- subset(d, Ind == 'AS' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[1], 0.3), lwd=2)#
+	dd <- subset(d, Ind == 'AI' & Time == 'Day', select=var)[,1]#
+	segments(1,dd,4,dd, col=add.alpha(palette()[2], 0.3), lwd=2)#
+#
+	# Add points and lines (type='o) for Audioset and AI for 6 hours#
+	points(fm, data=d, subset= Ind == 'AS' & Time !='Day', col=1, type='o')#
+	points(fm, data=d, subset= Ind == 'AI' & Time !='Day', col=2, type='o')#
+	text(1, 0.6, paste0(label, ')'))#
+}#
+# Using the layout mechanism, which makes it easy to generate spaces between #
+# blocks of graphs for accuracy precision and recall - the matrix defines#
+# a 2x9 matrix, but the heights make two of the rows really narrow, so we#
+# can skip over using these for plots and just leave a gap.#
+#
+par(mar=c(0,0,0,0), oma=c(3,3,1,1), las=0, tcl=-0.3, mgp=c(1.5,0.5,0))#
+layout(matrix(1:18, ncol=2, byrow=TRUE), heights=c(5,1,5,5,5,1,5,5,5))#
+#
+# Accuracy#
+plot_fun('accuracy', subset(accuracy, Comp == 'RAW'), label='a')#
+mtext('Raw', side=3, cex=0.6)#
+mtext('Accuracy', side=2, cex=0.6, line=1.5)#
+axis(2, at=yat)#
+plot_fun('accuracy', subset(accuracy, Comp == 'CBR8'), label='b')#
+mtext('All', side=4, cex=0.6, las=3)#
+mtext('CBR8', side=3, cex=0.6)#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over precision by habitat pair#
+labels <- list(c('c','d'), c('e','f'), c('g','h'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Precision', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'G-P') mtext('Precision', side=2, cex=0.6, line=1.5)#
+	plot_fun('Precision', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+}#
+#
+# Skip the two narrow plots#
+plot.new(); plot.new()#
+#
+# Loop over recall by habitat pair#
+labels <- list(c('i','j'), c('k','l'), c('m','n'))#
+names(labels) <- levels(precision$Case)#
+#
+for (cs in levels(precision$Case)){#
+	these_labels <- labels[[cs]]#
+	plot_fun('Recall', subset(precision, Comp == 'RAW' & Case == cs), #
+			 label=these_labels[1])#
+	axis(2, at=yat)#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+	if(cs == 'G-P') mtext('Recall', side=2, cex=0.6, line=1.5)#
+	plot_fun('Recall', subset(precision, Comp == 'CBR8' & Case == cs), #
+			 label=these_labels[2])#
+	mtext(cs, side=4, cex=0.6, las=3)#
+#
+	if(cs == 'L-P') axis(1, at=1:4, labels=levels(accuracy$Time)[1:4])#
+}
+?s.upper()
+?s.upper
+quit()
+install.packages('psych')
+library(psych)
+cohen.kappa(matrix(c(1460,31,42,4889), ncol=2))
+x <-cohen.kappa(matrix(c(1460,31,42,4889), ncol=2))
+x
+str(x)
+x$kappa
+1460+4889
+6349/6422
+(1460 +42) / 6422
+(1460 +31) / 6422
+((1460 +31) / 6422) * ((1460 +42) / 6422)
+pe <- ((1460 +31) / 6422) * ((1460 +42) / 6422)
+pa <- 6349/6422
+(pa -pe)/(1 - pe)
+?cohen.kappa
+pa
+pe
+m <-
+matrix(c(1460,31,42,4889), ncol=2)
+m
+py <- ((1460 +31) / 6422) * ((1460 +42) / 6422)
+pn <- ((42 +4889) / 6422) * ((31 +4889) / 6422)
+py
+pn
+py * pn
+pe <- py * pn
+(pa -pe)/(1 - pe)
+cohen.kappa(m)
+cohen.kappa(m)$kappa
+debug(cohen.kappa)
+cohen.kappa(m)$kappa
+debug(cohen.kappa1)
+debug(psych:::cohen.kappa1)
+cohen.kappa(m)$kappa
+x
+x
+prob
+po
+pc
+prob
+po
+pc
+c
+c
+pe <- py + pn
+(pa -pe)/(1 - pe)
+pe
+0.588+0.054
+(0.989 - (0.054 + 0.588))/(1- (0.054 + 0.588))
+pa
+py
+pn
+(1491 * 1502) / 6422 ^2
+(1491 / 6422) * (1502 /6422)
+(1491 / 6422) * (1502 /6422)
+0.25*0.25
+x <- runif(100)#
+y <- rbinom(100, 1, prob = plogis(-3 + 6 *x))
+thresh =0.2
+y
+x > thresh
+table(y, x > thresh)
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', type='n')#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col=x > thresh)#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+	}#
+}
+thresh_plot_fun(0.2)
+mod <- glm(y ~ x, family=binomial())#
+pred <- data.frame(x=seq(0,1, length=501))#
+pred$y <- predict(mod, newdata=pred, type='response')
+thresh_plot_fun(0.2)
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', type='n')#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col = ifelse(x >= thresh, 'black', 'red'))#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+	}#
+}
+thresh_plot_fun(0.2)
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', type='n')#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),#
+								      ifelse(x >= thresh, 'red', 'black')))#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+	}#
+}
+thresh_plot_fun(0.2)
+table(! y, as.numeric(x >= thresh))
+table(as.numeric(! y), as.numeric(x >= thresh))
+table(as.numeric(y), as.numeric(x >= thresh))
+table(as.numeric(y), as.numeric(x >= thresh))[2:1,]
+thresh
+thresh <- 0
+table(as.numeric(y), as.numeric(x >= thresh))[2:1,]
+table(as.numeric(y), as.numeric(x >= thresh))
+x_01 <- factor(x >= thresh, levels=c('0','1'))
+x_01
+x_01 <- factor(x >= thresh, levels=c(0,1))
+x_01
+x
+thresh
+x_01 <- as.factor(x >= thresh, levels=c(0,1))
+x_01 <- as.factor(x >= thresh)
+x_01
+x_01 <- as.factor(as.numeric(x >= thresh))
+x_01
+levels(x_01) <- c('1','0')
+x_01
+x_01 <- as.factor(as.numeric(x >= thresh))#
+		levels(x_01) <- c('1','0')#
+		y_01 <- as.factor(y)#
+		levels(y_01) <- c('1','0')
+table(x_01, y_01)
+table(y_01, x_01)
+table(y_01, x_01)[,2:1]
+table(y_01, x_01)[,2:1]
+tss <- function(mat){#
+  m <- sweep(mat, 1, rowSums(mat), '/')#
+  ss <- diag(m)#
+  names(ss) <- NULL#
+  tss <- sum(ss) - 1#
+  return(c(Sens = ss[1], Spec=ss[2],  TSS=tss))#
+}#
+#
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', type='n')#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),#
+								      ifelse(x > thresh, 'red', 'black')))#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+		x_01 <- as.factor(as.numeric(x >= thresh))#
+		levels(x_01) <- c('1','0')#
+		y_01 <- as.factor(y)#
+		levels(y_01) <- c('1','0')#
+		return(table(y_01, x_01)[,2:1])#
+	}#
+}
+m <- thresh_plot_fun(thresh=0)
+m
+tss(m)
+m <- thresh_plot_fun(thresh=0.2)
+tss(m)
+m
+m <- m[2:1,]
+m
+tss(m)
+39/48
+43/52
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', #
+		type='n', xlim=c(0,1))#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),#
+								      ifelse(x > thresh, 'red', 'black')))#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+		pred <- x >= thresh#
+		mat <- matrix(c(sum(! y & ! pred),#
+				 	sum(! y & pred),#
+					sum( y & ! pred),#
+					sum(y & pred)),#
+					ncol=2)#
+		dimnames(mat) <- list(c(0,1),c(0,1))#
+		return(mat)#
+	}#
+}
+thresh_plot_fun(0)
+thresh_plot_fun <- function(thresh=NA){#
+	par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(y ~ x, cex=1.4, xlab='Variable', ylab='Prediction', #
+		type='n', xlim=c(0,1))#
+	lines(y ~ x , data=pred, col='red', lwd=2)#
+	if (! is.na(thresh)){#
+		abline(v= thresh, col='red', lty=2)#
+		points(y ~ x, col = ifelse(y, ifelse(x >= thresh, 'black', 'red'),#
+								      ifelse(x > thresh, 'red', 'black')))#
+	} else {#
+		points(y ~ x)#
+	}#
+	if (! is.na(thresh)){#
+		pred <- x >= thresh#
+		mat <- matrix(c(sum(! y & ! pred),#
+					sum( y & ! pred),#
+					sum(! y & pred),#
+					sum(y & pred)),#
+					ncol=2)#
+		dimnames(mat) <- list(c(0,1),c(0,1))#
+		return(mat)#
+	}#
+}
+thresh_plot_fun(0)
+n_thresh <- 201#
+thresh <- seq(0,1, length=n_thresh)#
+thresh_arr <- array(dim=c(2,2,n_thresh))#
+dimnames(thresh_arr) <- list(c(0,1),c(0,1), 1:n_thresh)#
+tss_list <- vector(n_thresh, mode='list')#
+#
+for(i in seq_along(thresh)){#
+	p <- x <= thresh[i]#
+	p <- factor(p, levels=c(TRUE,FALSE))#
+	thresh_arr[,,i] <- table(y, p)#
+	tss_list[[i]] <- tss(thresh_arr[,,i])#
+}#
+sn <- sapply(tss_list, '[', 1)#
+sp <- sapply(tss_list, '[', 2)
+sn
+sp
+sn <- sapply(tss_list, '[', 2)#
+sp <- sapply(tss_list, '[', 1)
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')#
+	points(c(0,0,1,1), c(0,1,0,1), pch=19, cex=22,#
+		 col=c('firebrick','forestgreen','grey','firebrick'))#
+	lines(sn ~ I(1-sp), col='blue')#
+	abline(0,1, col='red', lty=2)
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')#
+	polygon(x=c((1-sp),1,1, 0), y=c(sn, 0,0,0), col='cornflowerblue', border=NA)#
+	lines(sn ~ I(1-sp), col='blue', lwd=2)#
+	abline(0,1, col='red', lty=2)
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')#
+	polygon(x=c((1-sp)), y=c(sn), col='cornflowerblue', border=NA)#
+	lines(sn ~ I(1-sp), col='blue', lwd=2)#
+	abline(0,1, col='red', lty=2)
+par(cex=1.4, mar=c(3,3,2,1), mgp=c(2,1,0), lwd=2)#
+	plot(sn ~ I(1-sp), col='blue', xlab='1 - Specificity', ylab='Sensitivity', type='n')#
+	polygon(x=c((1-sp), 1), y=c(sn, 0), col='cornflowerblue', border=NA)#
+	lines(sn ~ I(1-sp), col='blue', lwd=2)#
+	abline(0,1, col='red', lty=2)
+80*35
+install.packages('spdep')
+install.packages('ncf')
+x <-load('~/Teaching/GIS/Masters_GIS_2020/lectures/lecture_5/data/SpatialDataExample.rda')
+x
+figDat
+install.packages('gstat')
+install.packages('spgwr')
+print(spplot(figDat, 'Rich', col.regions=heat.colors(20), par.settings=theme.loPadding, colorkey=NULL, main='Richness'), split=c(1,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), main='AET',  par.settings=theme.loPadding, colorkey=NULL), split=c(2,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAET, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(2,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanAnnTemp', col.regions=heat.colors(20), main='Temperature',  par.settings=theme.loPadding, colorkey=NULL), split=c(3,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAnnTemp, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(3,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanElev', col.regions=terrain.colors(20), main='Elevation',  par.settings=theme.loPadding, colorkey=NULL), split=c(4,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanElev, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(4,2,4,2))
+# getting a theme with less padding at the sides#
+    theme.loPadding <-#
+        list(layout.heights = list(top.padding = 0.5, main.key.padding = 0.5, #
+              key.axis.padding = 0.5, axis.xlab.padding = 0.5, xlab.key.padding = 0.5, #
+              key.sub.padding = 0.5, bottom.padding = 0.3),#
+             layout.widths = list(left.padding = 0.5, key.ylab.padding = 0.5,#
+              ylab.axis.padding = 0.5, axis.key.padding = 0.5, right.padding = 0.5), lwd=2)
+library(lattice)
+print(spplot(figDat, 'Rich', col.regions=heat.colors(20), par.settings=theme.loPadding, colorkey=NULL, main='Richness'), split=c(1,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), main='AET',  par.settings=theme.loPadding, colorkey=NULL), split=c(2,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAET, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(2,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanAnnTemp', col.regions=heat.colors(20), main='Temperature',  par.settings=theme.loPadding, colorkey=NULL), split=c(3,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAnnTemp, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(3,2,4,2), more=TRUE)#
+        print(spplot(figDat, 'MeanElev', col.regions=terrain.colors(20), main='Elevation',  par.settings=theme.loPadding, colorkey=NULL), split=c(4,1,4,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanElev, data=figDat@data,  par.settings=theme.loPadding, scales=list(draw=FALSE)), split=c(4,2,4,2))
+setwd('/Users/dorme/Teaching/GIS/Masters_GIS_2020/lectures/lecture_5')
+print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), main='Actual Evapotranspiration (AET)',  par.settings=theme.loPadding), split=c(1,1,1,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAET, data=figDat@data, panel= panelFun,  par.settings=theme.loPadding), split=c(1,2,1,2))
+setwd('/Users/dorme/Teaching/GIS/Masters_GIS_2020/lectures/lecture_5')
+panelFun <- function(x,y,...){#
+        panel.xyplot(x,y,...)#
+        panel.loess(x,y,col.line='black',...)#
+    }
+setwd('/Users/dorme/Teaching/GIS/Masters_GIS_2020/lectures/lecture_5')
+print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), main='Actual Evapotranspiration (AET)',  par.settings=theme.loPadding), split=c(1,1,1,2), more=TRUE)#
+        print(xyplot(Rich ~ MeanAET, data=figDat@data, panel= panelFun,  par.settings=theme.loPadding), split=c(1,2,1,2))
+simpleLM <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data=figDat)#
+kable(coef(simpleLM))
+library(knitr)
+simpleLM <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data=figDat)#
+kable(coef(simpleLM))
+simpleLM <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data=figDat)#
+kable(coef(summary(simpleLM)))
+summary(simpleLM)
+simpleLM <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data=figDat)#
+kable(coef(summary(simpleLM)), digits=3)
+?kable
+suppressPackageStartupMessages(library(stargazer))
+?stargazer
+vignette('stargazer')
+print(stargazer(coef(summary(simpleLM)), type='text', flip=TRUE))
+print(stargazer(coef(summary(simpleLM)), type='text'))
+stargazer(coef(summary(simpleLM)), type='text')
+?stargazer
+stargazer(simpleLM, type='text')
+stargazer(simpleLM, type='text', flip=TRUE)
+stargazer(summary(simpleLM), type='text', flip=TRUE)
+stargazer(simpleLM, type='text', style='all')
+stargazer(simpleLM, type='text', style='all2')
+stargazer(simpleLM, type='text', style='aer')
+stargazer(simpleLM, type='text', style='ajps')
+stargazer(simpleLM, type='text', style='demography')
+stargazer(simpleLM, type='text', style='demography', flip=TRUE)
+help('stargazer')
+help('package::stargazer')
+help('package:stargazer')
+help(package='stargazer')
+stargazer(simpleLM, type='text', single.row=TRUE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.90)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", show.note=FALSE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", show.notes=FALSE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", notes=FALSE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", notes.append=FALSE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", notes.append=FALSE, notes="")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "n")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln=")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln=!")
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln=!", constant.first=TRUE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln=!", intercept.top=TRUE)
+stargazer(simpleLM, type='text', single.row=TRUE, ci=TRUE, ci.level=0.95, keep.stat = "adj.rsq", omit.table.layout = "ln=!", intercept.bottom=FALSE)
+install.packages(sjPlot)
+install.packages('sjPlot')
+tab_model(simpleLM)
+library(sjPlot)
+tab_model(simpleLM)
+install.packages('performance')
+tab_model(simpleLM)
+library(sjPlot)
+quit()

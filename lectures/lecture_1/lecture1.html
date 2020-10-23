@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="generator" content="pandoc">
+  <meta name="author" content="David Orme">
+  <title>GIS concepts</title>
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
+  <link rel="stylesheet" href="../reveal.js/css/reveal.css">
+  <style type="text/css">code{white-space: pre;}</style>
+  <link rel="stylesheet" href="../reveal.js/css/theme/simple.css" id="theme">
+  <link rel="stylesheet" href="ss"/>
+  <!-- Printing and PDF exports -->
+  <script>
+    var link = document.createElement( 'link' );
+    link.rel = 'stylesheet';
+    link.type = 'text/css';
+    link.href = window.location.search.match( /print-pdf/gi ) ? '../reveal.js/css/print/pdf.css' : '../reveal.js/css/print/paper.css';
+    document.getElementsByTagName( 'head' )[0].appendChild( link );
+  </script>
+  <!--[if lt IE 9]>
+  <script src="../reveal.js/lib/js/html5shiv.js"></script>
+  <![endif]-->
+</head>
+<body>
+  <div class="reveal">
+    <div class="slides">
+
+<section>
+  <h1 class="title">GIS concepts</h1>
+  <h2 class="author">David Orme</h2>
+  <h3 class="date">October 23 2016</h3>
+</section>
+
+<section id="what-is-a-gis" class="slide level1">
+<h1>What is a GIS?</h1>
+<p><img src="images/droppedImage-107.png" style="width:30.0%" /> <img src="images/droppedImage-118.png" style="width:30.0%" /> <img src="images/droppedImage-110.png" style="width:30.0%" /> <img src="images/droppedImage-113.png" alt="113" style="width:30.0%" /> <img src="images/crime.png" style="width:30.0%" /></p>
+</section>
+<section id="what-is-a-gis-1" class="slide level1">
+<h1>What is a GIS?</h1>
+<p>Many things to many people but at core is any system used for:</p>
+<ul>
+<li>creating,</li>
+<li>storing,</li>
+<li>manipulating,</li>
+<li>analysing and</li>
+<li>presenting geographic information</li>
+</ul>
+</section>
+<section id="what-is-geographic-information" class="slide level1">
+<h1>What is <em>geographic information</em>?</h1>
+<div class="two-col">
+<figure>
+<img src="images/Treasure-Island-map-129.jpg" style="width:90.0%" />
+</figure>
+<p>Any piece of data that can be located in space, using:</p>
+<ul>
+<li>A set of coordinates</li>
+<li>A known coordinate system</li>
+</ul>
+<p>Without <strong>both</strong> of these bits of information, we do not have geographic information!</p>
+</div>
+</section>
+<section id="spherical-coordinates" class="slide level1">
+<h1>Spherical coordinates</h1>
+<div class="two-col">
+<p>Latitude:</p>
+<ul>
+<li>an angle above or below the equator</li>
+<li>points of equal latitude form a parallel</li>
+<li>distance between parallels is constant*</li>
+</ul>
+<figure>
+<img src="images/World3D_Lat-133.png" width="400" />
+</figure>
+</div>
+</section>
+<section id="spherical-coordinates-1" class="slide level1">
+<h1>Spherical coordinates</h1>
+<div class="two-col">
+<p>Longitude:</p>
+<ul>
+<li>an angle around the equator</li>
+<li>points of equal longitude form a meridian</li>
+<li>distance between meridians varies</li>
+</ul>
+<figure>
+<img src="images/World3D_Long-137.png" width="400" />
+</figure>
+</div>
+<!--- What is 5,500m a measurement from?
+What do we need to make our coordinate system. -->
+</section>
+<section id="spherical-coordinates-2" class="slide level1">
+<h1>Spherical coordinates</h1>
+<div class="two-col">
+<p>Latitude and longitude</p>
+<ul>
+<li>90°0’0” E, 30°0’0” N</li>
+<li><p>90.00 E, 30.00 N</p></li>
+<li>Can include height:</li>
+<li><p>Near Lhasa, Tibet - ~ 5,500m</p></li>
+</ul>
+<figure>
+<img src="images/World3D_LL-141.png" width="400" />
+</figure>
+</div>
+</section>
+<section id="geographic-coordinate-system" class="slide level1">
+<h1>Geographic coordinate system</h1>
+<ul>
+<li>The Earth is not a sphere</li>
+<li>~ 1 in 298 flattening</li>
+<li>Estimated reference ellipsoid or datum.</li>
+</ul>
+<table>
+<thead>
+<tr class="header">
+<th>Name</th>
+<th style="text-align: right;">r<sub>equator</sub> (m)</th>
+<th style="text-align: right;">r<sub>poles</sub> (m)</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Airy 1830</td>
+<td style="text-align: right;">6,377,563.4</td>
+<td style="text-align: right;">6,356,256.91</td>
+</tr>
+<tr class="even">
+<td>Bessel 1841</td>
+<td style="text-align: right;">6,377,397.16</td>
+<td style="text-align: right;">6,356,078.96</td>
+</tr>
+<tr class="odd">
+<td>Clarke 1866</td>
+<td style="text-align: right;">6,378,206.4</td>
+<td style="text-align: right;">6,356,583.8</td>
+</tr>
+<tr class="even">
+<td>International 1924</td>
+<td style="text-align: right;">6,378,388</td>
+<td style="text-align: right;">6,356,911.9</td>
+</tr>
+<tr class="odd">
+<td>WGS 1984</td>
+<td style="text-align: right;">6,378,137</td>
+<td style="text-align: right;">6,356,752.31</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="geographic-coordinate-system-1" class="slide level1">
+<h1>Geographic coordinate system</h1>
+<ul>
+<li>Unfortunately, the Earth isn’t a ellipsoid either.</li>
+<li>Distribution of mass is uneven and dynamic</li>
+</ul>
+<p><img src="images/droppedImage-149.png" /> <img src="images/droppedImage-146.png" /></p>
+</section>
+<section id="geographic-coordinate-system-2" class="slide level1">
+<h1>Geographic coordinate system</h1>
+<div class="two-col">
+<p><strong>Geoid</strong></p>
+<ul>
+<li>Surface of equalgravitational force</li>
+<li>Up and down are <strong>perpendicular</strong> to the local geoid</li>
+<li>A level surface is <strong>tangent</strong> to the local geoid</li>
+</ul>
+<figure>
+<img src="images/ggm01-200.gif" alt="Grace Gravity Model 3" /><figcaption>Grace Gravity Model 3</figcaption>
+</figure>
+</div>
+</section>
+<section id="geographic-coordinate-system-3" class="slide level1">
+<h1>Geographic coordinate system</h1>
+<figure>
+<img src="images/cross_section-156.png" />
+</figure>
+<aside class="notes">
+<p>GPS uses height above ellipsoid - can lead to problems relative to sea level. - receivers contain a low resolution look up table for the separation.</p>
+</aside>
+</section>
+<section id="wgs-84" class="slide level1">
+<h1>WGS 84</h1>
+<div class="two-col">
+<ul>
+<li>Combined datum and geoid giving a standard global coordinate system</li>
+<li>Uses modern satellite data to provide ellipsoid measurements and gravity model</li>
+<li>Used by GPS</li>
+<li>Prime meridian: 0°0’5.31”E !</li>
+</ul>
+<figure>
+<img src="images/Greenwich.png" style="width:90.0%" />
+</figure>
+</div>
+<aside class="notes">
+<p>International Reference Meridian First GPS satellite base (Transit) used different datum as a fixed point.</p>
+</aside>
+</section>
+<section id="local-geographic-datum" class="slide level1">
+<h1>Local geographic datum</h1>
+<div class="two-col">
+<ul>
+<li>The fit between a geoid and a datum varies in space</li>
+<li>Global models, like WGS 84, work well on average</li>
+<li>Countries adopt local datum models that fit better locally</li>
+</ul>
+<figure>
+<img src="images/regional-163.png" />
+</figure>
+</div>
+</section>
+<section id="local-geographic-datum-1" class="slide level1">
+<h1>Local geographic datum</h1>
+<div class="two-col">
+<ul>
+<li>British National Grid uses the OSGB 36 datum</li>
+<li>Same latitude &amp; longitude + different datum = datum shift</li>
+<li>In Cornwall, a WGS 84 point is ~70 m east and ~ 70 m south of OSGB 36.</li>
+<li>The shift varies nationally</li>
+</ul>
+<figure>
+<img src="images/Silwood_1_25000-166.png" />
+</figure>
+</div>
+</section>
+<section id="datum-shift" class="slide level1">
+<h1>Datum shift</h1>
+<figure>
+<img src="images/datum_shift.png" />
+</figure>
+</section>
+<section id="spherical-geometry" class="slide level1">
+<h1>Spherical geometry</h1>
+<div class="two-col">
+<ul>
+<li>Great circles</li>
+<li>Spherical ‘triangle’</li>
+<li><strong>Spherical</strong> geometry:
+<ul>
+<li>exact and fast</li>
+</ul></li>
+<li><strong>Ellipsoidal</strong> geometry:
+<ul>
+<li>iterative and slow</li>
+</ul></li>
+</ul>
+<figure>
+<img src="images/SphericalGeometry.svg" style="width:100.0%" />
+</figure>
+</div>
+<aside class="notes">
+<p>Great circle - where a plane through the centre hits the surface - shortest distance by haversine formula Triangle - angles sum to more than 180</p>
+</aside>
+</section>
+<section id="spherical-geometry-1" class="slide level1">
+<h1>Spherical geometry</h1>
+<div class="two-col">
+<ul>
+<li>Globes not convenient or easily scalable</li>
+<li>Precise calculations slow</li>
+<li>Not easily useable on flat screen or on paper</li>
+<li>Need a flat representation of space</li>
+</ul>
+<figure>
+<img src="images/SphericalGeometry.svg" style="width:100.0%" />
+</figure>
+</div>
+</section>
+<section id="projected-coordinate-systems" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<div class="two-col">
+<ul>
+<li>It is impossible to project an spherical surface onto a plane without distortion (Gauss, 1827).</li>
+<li>The ellipsoid surface of the Earth for small distances (~ 10 km) is flat enough for simple purposes but for anything else…</li>
+</ul>
+<figure>
+<img src="images/terrys_chocolate_orange.png" style="width:100.0%" />
+</figure>
+</div>
+</section>
+<section id="projected-coordinate-systems-1" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p>Map projections can preserve:</p>
+<ul>
+<li><strong>Shape</strong>: conformal maps</li>
+<li><strong>Area</strong>: equal-area maps</li>
+<li><strong>Distance</strong>: equi-distant maps<br />
+</li>
+<li><strong>Direction</strong>: azimuthal maps</li>
+</ul>
+<p>But most projected coordinate systems can only preserve <strong>one</strong> of these things.</p>
+</section>
+<section id="projected-coordinate-systems-2" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<div class="two-col">
+<p>Tissot indicatrix:</p>
+<ul>
+<li>An circle on the surface of the Earth.</li>
+<li>All points on the edge are equidistant from the center.</li>
+<li>Show distortion of ellipsoid surface on planar projections</li>
+</ul>
+<figure>
+<img src="images/Orthographic.png" alt="Orthographic" /><figcaption>Orthographic</figcaption>
+</figure>
+</div>
+</section>
+<section id="projected-coordinate-systems-3" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p><strong>Equirectangular </strong>: Treat latitude and longitude as X and Y</p>
+<figure>
+<img src="images/Equirectangular.png" alt="Equirectangular" /><figcaption>Equirectangular</figcaption>
+</figure>
+<aside class="notes">
+<p>Doesn’t preserve anything much, - distance/scale along vertical lines (great circles)</p>
+</aside>
+</section>
+<section id="projected-coordinate-systems-4" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p>Classification according to mapping to planar surface:</p>
+<figure>
+<img src="images/Projection%20types-193.png" alt="Planar Cylindrical Conical" /><figcaption>Planar Cylindrical Conical</figcaption>
+</figure>
+</section>
+<section id="projected-coordinate-systems-5" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p><strong>Gnomonic</strong>: planar, preserves bearings from a single central point, but little else.</p>
+<div class="two-col">
+<figure>
+<img src="images/gnomon.svg" style="width:100.0%" />
+</figure>
+<figure>
+<img src="images/SilwoodGnomonic-197.png" style="width:100.0%" />
+</figure>
+</div>
+<aside class="notes">
+<p>Great circles in all directions from centre of map</p>
+</aside>
+</section>
+<section id="projected-coordinate-systems-6" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p><strong>Cylindrical</strong>: preserves area, not shape</p>
+<div class="two-col">
+<figure>
+<img src="images/cylindrical.svg" />
+</figure>
+<figure>
+<img src="images/Behrmann-205.png" />
+</figure>
+</div>
+<aside class="notes">
+<p>Behrmann projection Notice compression of higher latitudes</p>
+</aside>
+</section>
+<section id="projected-coordinate-systems-7" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p><strong>Mercator</strong>: preserves shape, not scale</p>
+<figure>
+<img src="images/Mercator-209.png" />
+</figure>
+<aside class="notes">
+<p>Inflate spherical balloon inside a cylinder coated with glue</p>
+</aside>
+</section>
+<section id="projected-coordinate-systems-8" class="slide level1">
+<h1>Projected coordinate systems</h1>
+<p><strong>Fuller Dymaxion</strong>: compromise projection</p>
+<figure>
+<img src="images/Fuller-213.png" />
+</figure>
+<aside class="notes">
+<p>Local projections onto triangular planes Borders go through sea No up or down</p>
+</aside>
+</section>
+<section id="geographic-data" class="slide level1">
+<h1>Geographic data</h1>
+<ul>
+<li>A <strong>Coordinate system</strong> and:
+<ul>
+<li><strong>Vector</strong> data: coordinates of points, lines, polygons</li>
+<li><strong>Raster</strong> data
+<ul>
+<li>grid data</li>
+<li>satellite and aerial images</li>
+</ul></li>
+</ul></li>
+</ul>
+</section>
+<section id="raster-data" class="slide level1">
+<h1>Raster data</h1>
+<p>An <strong>image</strong> covering a continuous surface</p>
+<ul>
+<li>Made up of individual <strong>pixels</strong>, each with a <strong>value</strong>
+<ul>
+<li>Categorical: land cover, species presence</li>
+<li>Continuous: temperature, precipitation</li>
+</ul></li>
+<li>Has a <strong>resolution</strong> (pixel size)</li>
+<li>Needs <strong>origin</strong> and coordinate system</li>
+</ul>
+</section>
+<section id="raster-data-1" class="slide level1">
+<h1>Raster data</h1>
+<div class="two-col">
+<figure>
+<img src="images/UK_GTOPO-223.png" style="width:80.0%" />
+</figure>
+<figure>
+<img src="images/MammalThreat-226.png" />
+</figure>
+<figure>
+<img src="images/Silwood_1_25000-166.png" />
+</figure>
+</div>
+</section>
+<section id="vector-data" class="slide level1">
+<h1>Vector Data</h1>
+<ul>
+<li>A set of <em>features</em>, containing one of:
+<ul>
+<li>Individual <strong>points</strong>, or sets of connected points forming <strong>lines</strong> or <strong>polygons</strong></li>
+</ul></li>
+<li>Needs a coordinate system</li>
+<li>Coordinates are a precise location, but may have precision or accuracy information</li>
+<li>Features may have an attribute table.</li>
+</ul>
+</section>
+<section id="vector-data-1" class="slide level1">
+<h1>Vector Data</h1>
+<div class="two-col">
+<figure>
+<img src="images/UK_Ecoregions-233.png" />
+</figure>
+<figure>
+<img src="images/RedDeer-236.png" />
+</figure>
+<figure>
+<img src="images/SilwoodPointLine-239.png" />
+</figure>
+</div>
+<style>
+/* Your other css */
+
+.reveal h1 {
+    color: green;
+    font-size: 2em
+}
+
+/*.reveal p {
+    text-align: left;
+}*/
+
+/* turn off ugly borders around images from simple theme */
+.reveal section img, .reveal img, img{
+    border:0
+}
+
+/* mathjax equation size */
+
+.MathJax {
+font-size: 1em;
+}
+
+
+
+/* class to create a two column layout */
+.two-col {
+    -webkit-column-count: 2; /* Chrome, Safari, Opera */
+    -moz-column-count: 2; /* Firefox */
+    column-count: 2;
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+}
+
+
+/* class to create a two column layout */
+.three-col {
+    -webkit-column-count: 3; /* Chrome, Safari, Opera */
+    -moz-column-count: 3; /* Firefox */
+    column-count: 3;
+    -webkit-column-gap: 40px; /* Chrome, Safari, Opera */
+    -moz-column-gap: 40px; /* Firefox */
+    column-gap: 40px;
+}
+
+
+/* margin control */
+.reveal .slides {
+  height: 100%;
+  top: 0;
+  margin-top: 0%;
+  left: 20px;
+  margin-left: 0%;
+}
+
+.reveal .slides>section {
+  min-height: 90%;
+}
+
+.reveal .slides>section>section {
+  min-height: 100%;
+}
+
+/* styling to put titles at top by making vertical content fit 100% */
+
+/*.reveal .slides > section.present, .reveal .slides > section > section.present {
+  min-height: 100% !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  position: absolute !important;
+  top: 0 !important;
+}
+section > h1 {
+  position: absolute !important;
+  top: 0 !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  left: 0 !important;
+  right: 0 !important;
+}
+
+.print-pdf .reveal .slides > section.present, .print-pdf .reveal .slides > section > section.present {
+  min-height: 770px !important;
+  position: relative !important;
+}
+*/
+
+</style>
+</section>
+    </div>
+  </div>
+
+  <script src="../reveal.js/lib/js/head.min.js"></script>
+  <script src="../reveal.js/js/reveal.js"></script>
+
+  <script>
+
+      // Full list of configuration options available at:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        // Display controls in the bottom right corner
+        controls: false,
+        // Display the page number of the current slide
+        slideNumber: true,
+        // Push each slide change to the browser history
+        history: true,
+        // Vertical centering of slides
+        center: false,
+        // Transition style
+        transition: 'none', // none/fade/slide/convex/concave/zoom
+        // The "normal" size of the presentation, aspect ratio will be preserved
+        // when the presentation is scaled to fit different resolutions. Can be
+        // specified using percentage units.
+        width: 1024,
+        height: 768,
+        // Factor of the display size that should remain empty around the content
+        margin: 0.1,
+
+        // Optional reveal.js plugins
+        dependencies: [
+          { src: '../reveal.js/lib/js/classList.js', condition: function() { return !document.body.classList; } },
+          { src: '../reveal.js/plugin/zoom-js/zoom.js', async: true },
+          { src: '../reveal.js/plugin/notes/notes.js', async: true }
+        ]
+      });
+    </script>
+    </body>
+</html>

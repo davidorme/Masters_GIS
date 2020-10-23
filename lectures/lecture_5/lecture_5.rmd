@@ -1,0 +1,871 @@
+---
+title: Spatial modelling
+author: David Orme
+---
+
+TODO: Title slide
+
+---
+
+# Spatial modelling tools
+
+* The examples presented here use R
+* Another excellent program with a nice GUI interface:
+* Spatial Analysis in Macroecology
+* http://www.ecoevol.ufg.br/sam/
+
+![Samlogo](Images/samlogo.jpg)
+
+---
+
+# Overview
+
+* Example data: Afrotropical bird diversity
+* Naive models
+* Describing spatial autocorrelation
+* Accounting for spatial autocorrelation   (degrees of freedom correction, SAR, GLS, eigenvector filtering, GWR)
+
+```{r load_birds, echo=FALSE}
+
+    suppressPackageStartupMessages(library(sp))
+    suppressPackageStartupMessages(library(spdep))
+    suppressPackageStartupMessages(library(spatialreg))
+    suppressPackageStartupMessages(library(mgcv)) # for GAM
+    suppressPackageStartupMessages(library(ncf)) # for correlog
+    suppressPackageStartupMessages(library(gstat)) # for variogram
+    suppressPackageStartupMessages(library(nlme)) # for gls
+    suppressPackageStartupMessages(library(spgwr)) # for gwr
+    suppressPackageStartupMessages(library(knitr)) # for kable
+    suppressPackageStartupMessages(library(sjPlot)) # for tab_model display
+    suppressPackageStartupMessages(library(stargazer)) # for tab_model display
+    suppressPackageStartupMessages(library(SpatialPack)) # for clifford t test
+    
+    suppressPackageStartupMessages(library(hexbin))
+    suppressPackageStartupMessages(library(lattice))
+    
+    load('../../data/spatial_models/SpatialDataExample.rda')
+    
+    # getting a theme with less padding at the sides
+    theme.loPadding <-
+        list(layout.heights = list(top.padding = 0.5, main.key.padding = 0.5, 
+              key.axis.padding = 0.5, axis.xlab.padding = 0.5, xlab.key.padding = 0.5, 
+              key.sub.padding = 0.5, bottom.padding = 0.3),
+             layout.widths = list(left.padding = 0.5, key.ylab.padding = 0.5,
+              ylab.axis.padding = 0.5, axis.key.padding = 0.5, right.padding = 0.5), lwd=2)
+
+```
+
+---
+
+# Afrotropical bird species richness
+
+```{r bird_rich, echo=FALSE}
+
+    spplot(figDat, 'Rich', col.regions=heat.colors(20), scales=list(draw=TRUE), 
+           par.settings=theme.loPadding)
+
+```
+
+Notes:
+Introducing the data
+Projected data - coordinates in km on Behrmann grid
+100km resolution
+
+---
+
+# Explanatory variables
+
+```{r bird_rich_pred, echo=FALSE, fig.width=12}
+
+    panelFun <- function(x,y,...){
+        panel.xyplot(x,y,...)
+        panel.loess(x,y,col.line='black',...)
+    }
+    
+    print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), 
+            main='Actual Evapotranspiration (AET)',  par.settings=theme.loPadding),
+        split=c(1,1,3,2), more=TRUE)
+    print(xyplot(Rich ~ MeanAET, data=figDat@data, 
+            panel= panelFun,  par.settings=theme.loPadding), 
+        split=c(1,2,3,2), more=TRUE)
+    print(spplot(figDat, 'MeanAnnTemp', col.regions=heat.colors(20), 
+            main='Mean Annual Temperature',  par.settings=theme.loPadding), 
+        split=c(2,1,3,2), more=TRUE)
+    print(xyplot(Rich ~ MeanAnnTemp, data=figDat@data,
+            panel= panelFun,  par.settings=theme.loPadding), 
+        split=c(2,2,3,2), more=TRUE)
+    print(spplot(figDat, 'MeanElev', col.regions=terrain.colors(20), 
+            main='Mean Elevation',  par.settings=theme.loPadding), 
+        split=c(3,1,3,2), more=TRUE)
+    print(xyplot(Rich ~ MeanElev, data=figDat@data, 
+            panel= panelFun,  par.settings=theme.loPadding),
+        split=c(3,2,3,2))
+
+```
+
+Notes:
+A few simple observations:
+- lots of rain and vegetation in the congo.
+- pretty warm in the sahara
+- the great rift is called that for a reason.
+
+Smoothers on the data
+- No way you’d want to fit this as a simple linear model
+
+---
+
+# A simple linear model
+
+**Richness ~ AET + Temperature + Elevation**
+
+```{r simple_lm, echo=FALSE, results='asis'}
+
+    simpleLM <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data=figDat)
+    print(kable(coef(summary(simpleLM)), digits=3, col.names=c('Est','SE','t', 'p')))
+
+```
+
+---
+
+# A simple GAM
+
+**Richness ~ s(AET) +s( Temperature) + s(Elevation)**
+
+```{r simple_glm, echo=FALSE, fig.width=9, fig.height=3, point.size=20}
+
+    simpleGAM <- gam(Rich ~ s(MeanAET) + s(MeanAnnTemp) + s(MeanElev), data=figDat)
+    
+    par(mfrow=c(1,3), mar=c(3,3,1,1), mgp=c(2,0.8,0))
+    plot(simpleGAM)
+    
+    kable(summary(simpleGAM)$s.table)
+
+```
+
+---
+
+# Model predictions
+
+```{r simple_pred, echo=FALSE, fig.width=9, fig.height=3}
+
+    figDat$simpleLM.pred <- predict(simpleLM)
+    figDat$simpleGAM.pred <- predict(simpleGAM)
+    
+    col <- heat.colors(20)
+    atRich <- seq(0,700, length=21)
+    print(spplot(figDat, 'simpleLM.pred', col.regions=col, at=atRich, 
+                 main='Linear Model (r2 = 0.45)',  par.settings=theme.loPadding), 
+          split=c(1,1,3,1), more=TRUE)
+    print(spplot(figDat, 'Rich', col.regions=col, at=atRich, 
+                 main='Observed richness',  par.settings=theme.loPadding), 
+          split=c(2,1,3,1), more=TRUE)
+    print(spplot(figDat, 'simpleGAM.pred', col.regions=col, 
+                 at=atRich, main='GAM (r2 = 0.57)',  par.settings=theme.loPadding), 
+          split=c(3,1,3,1))
+
+```
+
+Notes:
+Not great models:
+ - Overpredict in Madagascar
+ - GAM does better in Congo
+
+OK - so what is the problem?
+
+---
+
+# Spatial autocorrelation
+
+<div class='container'>
+<div class='col2'>
+
+```{r moran_real, echo=FALSE}
+
+    figDat.nb <- knn2nb( knearneigh(figDat, k=8))
+    figDat.lw <- nb2listw(figDat.nb)
+    figDatCoords <- as.data.frame(coordinates(figDat))
+    globalMoranRich <- moran.test(figDat$Rich, figDat.lw)
+    spplot(figDat, 'Rich', col.regions=heat.colors(20), scales=list(draw=TRUE), par.settings=theme.loPadding)
+
+```
+
+</div>
+<div class='col1'>
+
+Global Moran’s I 
+
+* I = `r sprintf('%0.3f', globalMoranRich$estimate[1])`
+* p << 0.001
+
+</div>
+</div>
+
+Notes:
+Point close together are similar
+ - how do we characterise this?
+ - useful summary - global value
+ - is there spatial autocorrelation - well, duh!
+
+ Moran’s I - correlation measure (usually 0 to 1)
+
+---
+
+# Spatial autocorrelation
+
+<div class='container'>
+<div class='col2'>
+
+```{r moran_rand, echo=FALSE}
+
+    figDat$randRich <- sample(figDat$Rich)
+    globalMoranRandRich <- moran.test(figDat$randRich, figDat.lw)
+    spplot(figDat, 'randRich', col.regions=heat.colors(20), 
+          scales=list(draw=TRUE), par.settings=theme.loPadding)
+
+```
+
+</div>
+<div class='col1'>
+
+Global Moran’s I
+
+* I = `r sprintf('%0.3f', globalMoranRandRich$estimate[1])`
+* p =  `r sprintf('%0.3f', globalMoranRandRich$p)`
+
+</div>
+</div>
+
+---
+
+# Correlogram
+
+```{r correlogram, echo=FALSE, cache=TRUE}
+
+    richCorrel <- correlog(figDatCoords$e_centre_behr, figDatCoords$n_centre_behr, 
+                           figDat$Rich, increment=100, resamp=1)
+    par(mfrow=c(1,2), mar=c(3,3,1,1), mgp=c(2,0.8,0))
+    with(richCorrel, plot(mean.of.class, n, xlab='Distance (km)', ylab='Count'))
+    with(richCorrel, plot(mean.of.class, correlation, xlab='Distance (km)', 
+                          ylab='Correlation', pch=21)) 
+    abline(h=0)
+
+```
+
+Notes:
+Correlograms
+
+2484 points
+	2484*2483/2 = 3083886 pairwise distances
+	distance falling into 100km bands
+
+Distance at which correlation hits the x axis
+Notice negative autocorrelation at distance
+Reliability of measures at distance is very poor
+
+---
+
+# Variogram
+
+```{r variogram, echo=FALSE}
+
+    richVariog <- variogram(list(figDat$Rich), list(coordinates(figDat)), width=100, cutoff=8500)
+    par(mfrow=c(1,2), mar=c(3,3,1,1), mgp=c(2,0.8,0))
+    with(richVariog, plot(dist, np, xlab='Distance (km)', ylab='Count'))
+    with(richVariog, plot(dist, gamma, xlab='Distance (km)', ylab='Semivariance', pch=21))
+    abline(h=0)
+
+```
+
+Notes:
+Variograms
+ - same idea but viewed from other end
+ - if points are similar then the variance within nearby classes will be small
+ - eventually get to a point where the variance is not distinguishably lower
+ - about in the same place
+
+---
+
+# Local autocorrelation
+ 
+Local indicators of spatial autocorrelation (LISA)
+ 
+```{r lisa, echo=FALSE}
+
+    richLISA <- localmoran(figDat$Rich, figDat.lw)
+    figDat$richLISA.I <- richLISA[,1]
+    figDat$richLISA.Z <- richLISA[,4]
+    
+    print(spplot(figDat, 'richLISA.I', col.regions=heat.colors(20), at=quantile(figDat$richLISA.I, 
+                 at=seq(0,1,by=0.05)), main="Local Moran's I",  par.settings=theme.loPadding),
+          split=c(1,1,2,1), more=TRUE)
+    print(spplot(figDat, 'richLISA.Z', col.regions=c('blue','grey20',heat.colors(20)), 
+                 at=c(-5, qnorm(0.025), seq(qnorm(0.975), 30, length=21)), 
+                 main='Z value', par.settings=theme.loPadding), 
+          split=c(2,1,2,1))
+
+ ```
+ 
+ Notes:
+ Look at strength of spatial autocorrelation within neighbourhoods
+ Using species richness data
+ Blocks of colour show significant autocorrelation
+ Not a monotonic process - will return to this later
+ 
+---
+
+# Effects of Spatial Autocorrelation
+ 
+* Violates assumption of independence between data points
+* Degrees of freedom not equal to number of data points: **standard errors and significance testing affected**
+* Data points do not contribute equally to determining the relationship between variables: **parameter estimation affected**
+
+Notes:
+Degrees of freedom - tends to bias towards finding significance
+Parameters - can affect estimates in unpredictable ways
+
+---
+
+# Dealing with Spatial Autocorrelation
+
+* Modify the degrees of freedom in significance testing
+* Account for autocorrelation in models:
+	* Simultaneous autoregressive models
+	* Generalised least squares
+	* Eigenvector filtering
+	* Geographically weighted regression
+
+
+---
+
+# Degrees of freedom correction 
+
+
+```{r clifford_t, echo=FALSE, cache=TRUE}
+
+    tempCliff <- modified.ttest(figDat$Rich, figDat$MeanAnnTemp, coordinates(figDat))
+    aetCliff <- modified.ttest(figDat$Rich, figDat$MeanAET, coordinates(figDat))
+    elevCliff <- modified.ttest(figDat$Rich, figDat$MeanElev, coordinates(figDat))
+    
+    add_r <- function(test, ...){
+        trellis.focus("toplevel")
+        text <- sprintf('r = %0.3f\nn= %0.2f\np=%0.3f', 
+                        test$corr, test$ESS, test$p.value)
+        panel.text(0.5, 0.5, text, ...)
+        trellis.unfocus()
+    }
+    
+    print(spplot(figDat, 'Rich', col.regions=heat.colors(20), 
+                 par.settings=theme.loPadding, colorkey=NULL, main='Richness'), 
+          split=c(1,2,4,2), more=TRUE)
+    print(spplot(figDat, 'MeanAET', col.regions=heat.colors(20), 
+                 main='AET',  par.settings=theme.loPadding, colorkey=NULL), 
+          split=c(2,1,4,2), more=TRUE)
+    print(hexbinplot(Rich ~ MeanAET, data=figDat@data,  
+                     par.settings=theme.loPadding, scales=list(draw=FALSE), colorkey=FALSE), 
+          split=c(2,2,4,2), more=TRUE)
+    
+    add_r(aetCliff, cex=1.2, col='red')
+    
+    print(spplot(figDat, 'MeanAnnTemp', col.regions=heat.colors(20), 
+                 main='Temperature',  par.settings=theme.loPadding, colorkey=NULL), 
+          split=c(3,1,4,2), more=TRUE)
+    print(hexbinplot(Rich ~ MeanAnnTemp, data=figDat@data,  
+                     par.settings=theme.loPadding, scales=list(draw=FALSE), colorkey=FALSE), 
+          split=c(3,2,4,2), more=TRUE)
+    
+    add_r(tempCliff, cex=1.2, col='red')
+    
+    print(spplot(figDat, 'MeanElev', col.regions=terrain.colors(20), 
+                 main='Elevation',  par.settings=theme.loPadding, colorkey=NULL), 
+          split=c(4,1,4,2), more=TRUE)
+    print(hexbinplot(Rich ~ MeanElev, data=figDat@data, 
+                     par.settings=theme.loPadding, scales=list(draw=FALSE), colorkey=FALSE),
+          split=c(4,2,4,2))
+    
+    add_r(elevCliff, cex=1.2, col='red')
+
+````
+
+Notes:
+Clifford test for correlation
+ - use all the lags to characterise the global autocorrelation
+ - work out the effective degrees of freedom
+ - 2484 down to...
+
+Other methods can correct the degrees of freedom in a simple linear model
+
+---
+
+# Neighbourhoods
+
+```{r nb_setup, echo=FALSE}
+
+    # Setup for the next few slides
+    n <- 6
+    box <- st_polygon(list(matrix(c(0,0,0,n,n,n,n,0,0,0), byrow=TRUE, ncol=2)))
+    box_cells <- st_make_grid(box, cellsize=1, what='centers')
+    box_cells_sp <- as(box_cells, 'Spatial')
+    
+    # Rook and Queen
+    rook <- cell2nb(n,n)
+    queen <- cell2nb(n,n, 'queen')
+    knn <- knearneigh(box_cells_sp, k=8)
+    dnn <- dnearneigh(box_cells_sp, 0, 2.4)
+    
+    
+    nb_plotter <- function(nb1_idx, nb2_idx, pts=c(1,19), cex=3){
+    
+        plot(box_cells, type='n')
+    
+        # Draw lines connecting points 1 and 2 to neighbours
+        nb1 <-  box_cells[nb1_idx,]
+        nb2 <-  box_cells[nb2_idx,]
+        pt1 <- box_cells[pts[1],]
+        pt2 <- box_cells[pts[2],]
+        
+        for(row in nb1){
+            lines(rbind(st_coordinates(pt1), st_coordinates(row)))
+        }
+        
+        for(row in nb2){
+            lines(rbind(st_coordinates(pt2), st_coordinates(row)))
+        }
+        
+        plot(box_cells, add=TRUE, cex=cex, lwd=3)
+        plot(box_cells[pts,], add=TRUE, col='red', pch=20, cex=cex)
+        plot(nb1, add=TRUE, col='darkgreen', pch=20, cex=cex)
+        plot(nb2, add=TRUE, col='darkgreen', pch=20, cex=cex)
+    }
+
+```
+
+<div class='container'>
+<div class='col2'>
+
+```{r nb_rook, echo=FALSE}
+
+    nb_plotter(rook[[1]], rook[[29]], c(1,29))
+
+```
+
+</div>
+<div class='col1'>
+
+**Rooks move**
+
+All cells within one step: 
+
+* vertically or
+* horizontally
+
+</div>
+</div>
+
+Notes:
+Neighbours on a grid
+Bit different for polygons, shared edges etc. but similar concepts
+
+---
+
+# Neighbourhoods
+
+
+<div class='container'>
+<div class='col2'>
+
+```{r nb_queen, echo=FALSE}
+
+    nb_plotter(queen[[1]], queen[[29]], c(1,29))
+
+```
+
+</div>
+<div class='col1'>
+
+**Queens move**
+
+All cells within one step:
+
+* vertically,
+* horizontally or
+* diagonally
+
+</div>
+</div>
+
+
+---
+
+# Neighbourhoods
+
+<div class='container'>
+<div class='col2'>
+
+
+```{r nb_dnn, echo=FALSE}
+
+nb_plotter(dnn[[1]], dnn[[29]], c(1,29))
+
+```
+
+</div>
+<div class='col1'>
+
+**Distance based**
+
+All cells within:
+
+* 2.4 units
+
+</div>
+</div>
+
+
+---
+
+# Neighbourhoods
+
+
+
+<div class='container'>
+<div class='col2'>
+
+```{r nb_knn, echo=FALSE}
+
+nb_plotter(knn$nn[1,], knn$nn[29,], pts=c(1,29))
+
+```
+
+</div>
+<div class='col1'>
+
+**_k_ nearest**
+
+The closest _k_ cells
+
+
+</div>
+</div>
+
+---
+
+# Spatial Autoregression
+
+Solve for $b$:
+
+
+| <span class='dot'></span>  | <span class='dot'></span>  | <span class='dot'></span>  | <span class='dot'></span>  |   |
+|---|---|---|---|:---:|
+| <span class='dotr'></span>	| <span class='dotg'></span>	| <span class='dot'></span>	| <span class='dot'></span> | $bx_1 +  \frac{1}{2}bx_2$  |
+| <span class='dotg'></span>	| <span class='dotr'></span>	| <span class='dotg'></span>	| <span class='dot'></span> | $\frac{1}{2}bx_1 +  bx_2  + \frac{1}{2}bx_3$ |
+| <span class='dot'></span>	| <span class='dotg'></span>	| <span class='dotr'></span>	| <span class='dotg'></span> | $\frac{1}{2}bx_2 +  bx_3  + \frac{1}{2}bx_4$  |
+| <span class='dot'></span>	| <span class='dot'></span>	| <span class='dotg'></span>	| <span class='dotr'></span> | $\frac{1}{2}bx_3 +  \frac{1}{2}bx_4$  |
+| $x_1$  |  $x_1$ |  $x_3$ |  $x_4$  |   |
+
+Notes:
+Simple one dimensional example
+- neighbour definition and _weights_ 
+- influence of neighbouring values
+- simultaneuous equations.
+
+---
+
+# Spatial Autoregresssion
+
+```{r sarlm_fit, echo=FALSE, cache=TRUE}
+
+    # rescaling variables to allow convergence
+    scaledExpl <- as.data.frame(scale(figDat@data[,c('MeanAET','MeanAnnTemp','MeanElev')]))
+    figDat$MeanAETScaled <- scaledExpl$MeanAET
+    figDat$MeanAnnTempScaled <- scaledExpl$MeanAnnTemp
+    figDat$MeanElevScaled <- scaledExpl$MeanElev
+
+    # SAR
+    figDatSARlag <- lagsarlm(Rich ~ MeanAETScaled + MeanAnnTempScaled + MeanElevScaled,
+                             data=figDat@data, figDat.lw, type='lag')
+
+    # Correlogram
+    figDatSARlagCorrel <- correlog(figDatCoords$e_centre_behr, figDatCoords$n_centre_behr,
+                                   z=residuals(figDatSARlag), na.rm=TRUE, increment=100, resamp=1)
+```
+
+```{r sarlm_plot, echo=FALSE, cache=TRUE}
+
+    plot.correlog <- function (x, ...){ # replacement for ncf version that handles '...'
+        obj <- x
+        plot(obj$mean.of.class, obj$correlation, ylab = "correlation", 
+            xlab = "distance (mean-of-class)", ...)
+        lines(obj$mean.of.class, obj$correlation)
+        if (!is.null(obj$p)) {
+            points(obj$mean.of.class[obj$p < 0.025], obj$correlation[obj$p < 
+                0.025], pch = 21, bg = "black")
+        }
+    }
+
+    panel.correl <- function(x,y,...){
+        panel.xyplot(x,y, type='l', ...)
+        panel.xyplot(x,y)
+        panel.abline(h=0, lty=2)
+    }
+    
+    figDat$SARlagPred <- suppressMessages(predict(figDatSARlag))
+    
+    print(spplot(figDat, 'SARlagPred', col.regions=heat.colors(20), at=seq(0,700, length=21), 
+          main='Predicted richness'), split=c(1,1,2,2), more=TRUE)
+    print(with(figDat@data, 
+               xyplot(SARlagPred ~ Rich, 
+                      panel=function(x,y,...){
+                              panel.xyplot(x,y)
+                              panel.abline(a=0,b=1)
+                              },
+                      ylab = 'Predicted', xlab='Observed', par.settings=theme.loPadding)), 
+          split=c(1,2,2,2), more=TRUE)
+    print(with(richCorrel, 
+               xyplot(correlation ~ mean.of.class, panel=panel.correl, xlim=c(0,6000), ylim=c(-0.3,0.8), 
+                      xlab = 'Distance (km)', ylab='Correlation', par.settings=theme.loPadding,
+                      main='Autocorrelation in richness')),
+          split=c(2,1,2,2), more=TRUE)
+    print(with(figDatSARlagCorrel, 
+               xyplot(correlation ~ mean.of.class, panel=panel.correl, xlim=c(0,6000), ylim=c(-0.3,0.8), 
+                       xlab = 'Distance (km)', ylab='Correlation', par.settings=theme.loPadding,
+                       main='Residual autocorrelation')), 
+          split=c(2,2,2,2))
+
+```
+
+Notes:
+Very good predictions - not even including interactions!
+Autocorrelation in the residuals are very small
+
+---
+
+# Generalised Least Squares
+
+TODO - Slides!
+
+
+Notes:
+Not specifically a spatial method
+ - allows for all sorts of structure in the data
+ - mixed effects models
+ - variance structures
+ - correlation structure
+
+Wider range of variance modelling
+- define a function that captures the shape of the variogram with distance
+- exponential, spherical, linear
+- parameters: nugget, sill, range
+
+
+--- 
+
+# Stationarity and isotropy
+
+Is the same process happening in:
+
+* different locations (stationarity)?
+* different directions (isotropy)?
+
+Is the problem in:
+
+* the spatial structure of autocorrelation?
+* differences in the actual relationship?
+
+
+---
+
+# Eigenvector filtering
+
+* Transform a spatial weights model into a series of eigenvectors
+* Use eigenvectors as variables in the model
+* Use a selection process to identify and include only important eigenvectors
+
+Notes:
+* Identical process to principal component analysis
+* Eigenvectors identify independent axes of variation in the model
+* Separate out aspects of autocorrelation
+* Tailor the autocorrelation
+* Each eigenvector soaks up a residual degree of freedom
+
+---
+
+# Eigenvector filtering
+
+```{r eigen_setup, echo=FALSE, cache=TRUE}
+
+    Wmat <- listw2mat(figDat.lw)
+    n <- ncol(Wmat)
+    Cent <- diag(n) - (matrix(1, n, n)/n)
+    eV <- eigen(Cent %*% Wmat %*% Cent, EISPACK = TRUE)$vectors
+
+    figDat$spEV1 <- eV[,1]
+    figDat$spEV2 <- eV[,2]
+    figDat$spEV3 <- eV[,3]
+    figDat$spEV4 <- eV[,4]
+
+```
+
+```{r eigen_plot, echo=FALSE}
+
+    print(spplot(figDat, 'spEV1', col.regions=heat.colors(20), main='EV1',
+          par.settings=theme.loPadding), split=c(1,1,2,2), more=TRUE)
+    print(spplot(figDat, 'spEV2', col.regions=heat.colors(20),  main='EV2',
+          par.settings=theme.loPadding), split=c(2,1,2,2), more=TRUE)
+    print(spplot(figDat, 'spEV3', col.regions=heat.colors(20),  main='EV3',
+          par.settings=theme.loPadding), split=c(1,2,2,2), more=TRUE)
+    print(spplot(figDat, 'spEV4', col.regions=heat.colors(20),  main='EV4',
+          par.settings=theme.loPadding), split=c(2,2,2,2))
+
+```
+
+Notes:
+First four eigenvectors
+ - describe independent trends in the spatial autocorrelation
+ - (actually real parts of complex eigenvectors)
+
+---
+
+# Eigenvector filtering
+
+`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev`
+
+<small>
+
+```{r simple_lm_reprise, echo=FALSE, results='asis'}
+
+    print(kable(coef(summary(simpleLM)), digits=3, col.names=c('Est','SE','t', 'p')))
+
+```
+
+</small>
+
+
+---
+
+# Eigenvector filtering
+
+`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3) + Re(spEV4)`
+
+<small>
+
+```{r eigen_mod1, echo=FALSE, results='asis'}
+
+    badEV1 <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) +
+                        Re(spEV3) + Re(spEV4) , data=figDat@data)
+    print(kable(coef(summary(badEV1)), digits=3, col.names=c('Est','SE','t', 'p')))
+
+```
+
+</small>
+
+---
+
+# Eigenvector filtering
+
+`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3)`
+
+<small>
+
+```{r eigen_mod2, echo=FALSE, results='asis'}
+
+    badEV2 <- lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + 
+                        Re(spEV2) + Re(spEV3) , data=figDat@data)
+    print(kable(coef(summary(badEV2)), digits=3, col.names=c('Est','SE','t', 'p')))
+
+```
+
+</small>
+
+---
+
+# Geographically weighted regression
+
+```{r gwr_setup, echo=FALSE, cache=TRUE}
+
+	# ~ 130 seconds
+    system.time(simpleGWR.se <- gwr(Rich ~ MeanAET + MeanAnnTemp + MeanElev, 
+			    data=figDat, adapt=0.05, se.fit=TRUE))
+
+    simpleGWR.data <- simpleGWR.se$SDF
+    gwrCoords <- coordinates(simpleGWR.data)
+    gwrDat <- SpatialPixelsDataFrame(gwrCoords, data=simpleGWR.data@data, tolerance=0.01)
+
+    colScheme <- function(dat, var, n2=20){
+
+        est <- dat@data[, var]
+        # se <- dat@data[, paste(var, 'se', sep='_')]
+        n <- dat@data[,'sum.w']
+    
+        estR <- range(est)
+        absMax <- max(abs(estR))
+    
+        pos <- pretty(c(0, absMax), n=n2)
+        neg <- rev(-pos)
+    
+        scale <- c(neg, pos[-1])
+        # cols <- hcl(h=seq(2/3*360, 0.0,length=length(scale)), l=65, c=100)
+        # cols <- rev(rainbow(n=length(scale), end=2/3))
+        cols <- hcl.colors(n=length(scale), palette = "viridis")
+        return(list(at=scale,col.regions=cols))
+    }
+
+```
+
+
+Notes:
+Fit a weighted regression to geographic subsets of the data.
+
+Neighbourhood size
+ - bandwidth or proportion of data
+Weighting
+ - weighted by normal Gaussian curve (black)
+ - weighted based on squared distance
+
+Not fitting a single regression - fitting 2484 regressions - but they are simple
+
+--- 
+
+# Geographically weighted regression
+
+```{r gwr_pred, echo=FALSE}
+
+    print(spplot(figDat, 'MeanAET', col.regions=hcl.colors(20, 'Blue-Red'), main='AET', 
+          par.settings=theme.loPadding), split=c(1,1,3,2), more=TRUE)
+    currCols <- colScheme(gwrDat, 'MeanAET')
+    print(spplot(gwrDat, 'MeanAET', at=currCols$at, col.regions=currCols$col.regions), 
+          split=c(1,2,3,2), more=TRUE)
+    
+    print(spplot(figDat, 'MeanAnnTemp', col.regions=hcl.colors(20, 'Blue-Red'), main='Temperature', 
+          par.settings=theme.loPadding), split=c(2,1,3,2), more=TRUE)
+    currCols <- colScheme(gwrDat, 'MeanAnnTemp')
+    print(spplot(gwrDat, 'MeanAnnTemp', at=currCols$at, col.regions=currCols$col.regions), 
+          split=c(2,2,3,2), more=TRUE)
+
+    print(spplot(figDat, 'MeanElev', col.regions=hcl.colors(20, 'Blue-Red'),main='Elevation', 
+          par.settings=theme.loPadding), split=c(3,1,3,2), more=TRUE)
+    currCols <- colScheme(gwrDat, 'MeanElev')
+    print(spplot(gwrDat, 'MeanElev', at=currCols$at, col.regions=currCols$col.regions), 
+          split=c(3,2,3,2))
+
+```
+
+---
+
+# Geographically weighted regression
+ 
+ ```{r gwr_rsq, echo=FALSE}
+
+    spplot(gwrDat, 'localR2', at=seq(0,1,length=41), col.regions=hcl.colors(40), 
+           main=expression(Local~~GWR~r^2))
+
+```
+---
+
+# Problems
+
+* Profusion of packages: sf, sp, spdep, mgcv, ncf, gstat, nlme, spgwr
+* Different data structures
+* Sometimes poor documentation
+* Speed of calculation (= size of dataset)
+* Memory hungry
+* Too many options
