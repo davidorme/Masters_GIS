@@ -69,9 +69,11 @@ Elifrits et al. 1978 Mapping land cover from satellite images: A basic, low cost
 
 Remote sensors can be:
 
+<div class='vs'></div>
+
 **Passive**: sense reflected solar radiation
 
-**Active**:  emit and sense reflected
+**Active**:  emit radiation and sense reflection
 
   - LIDAR (light)
   - RADAR (microwaves)
@@ -147,7 +149,7 @@ Remote sensors can be:
 
 ----
 
-## Reflectance
+# Reflectance
 
 ![](images/svetistefan.jpg)<!-- .element width="50%" --> 
 
@@ -193,7 +195,7 @@ Remote sensors can be:
 Notes: 
 HEO: stationary, MEO: 2-24 hour orbits, LEO: 90 - 120 minutes
 
----
+----
 
 # Spatiotemporal resolution
 
@@ -241,7 +243,7 @@ HEO: stationary, MEO: 2-24 hour orbits, LEO: 90 - 120 minutes
 
 ----
 
-## Spatiotemporal resolution
+# Spatiotemporal resolution
 
 To put it another way:
 
@@ -260,7 +262,7 @@ To put it another way:
 </div>
 </div>
 
----
+----
 
 # Spectral resolution
 
@@ -273,7 +275,7 @@ To put it another way:
 Notes:
 Pink areas on image show atmospheric absorption / transmission
 
----
+----
 
 # Example platforms
 
@@ -317,7 +319,7 @@ Multiple steps may be needed to use data:
 Notes:
 Failure of the scan line corrector in 2003
 
-----
+---
 
 # Earth observation products
 
@@ -335,7 +337,7 @@ Four examples of increasing complexity
 
 </div>
 
-----
+---
 
 # Vegetation indices
 
@@ -356,7 +358,7 @@ $${\displaystyle {\mbox{SAVI}}={\frac {({\mbox{1}}+{\mbox{L}})({\mbox{NIR}}-{\mb
 
 </div>
 
-----
+---
 
 # Digital elevation models
 
@@ -459,21 +461,19 @@ Then we can predict gross and net primary productivity.
 
 </div>
 
----
+----
 
 # Productivity
 
 <div class='container'>
-<div class='col1 rightpad'>
+<div class='col2 rightpad'>
 
   - Remotely sensed reflected light
   - Ground measured incident light
-  - Biome based models for:
-     - conversion efficiency
-     - respiration
+  - Biome models for **conversion efficiency** and **respiration**
 
 </div>
-<div class='col1'>
+<div class='col3'>
 
 ![](images/MODIS_Productivity.png)
 

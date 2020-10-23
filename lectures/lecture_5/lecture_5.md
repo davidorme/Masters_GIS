@@ -3,7 +3,10 @@ title: Spatial modelling
 author: David Orme
 ---
 
-TODO: Title slide
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+# Spatial modelling
+
+### David Orme
 
 ---
 
@@ -136,8 +139,8 @@ Point close together are similar
 
 Global Moran’s I
 
-* I = -0.011
-* p =  0.849
+* I = -0.010
+* p =  0.821
 
 </div>
 </div>

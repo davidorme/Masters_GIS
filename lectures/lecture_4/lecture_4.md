@@ -3,7 +3,15 @@ title: Assessing model accuracy
 author: David Orme
 ---
 
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+# Assessing Model Accuracy
 
+### David Orme
+
+
+
+
+---
 
 # Overview
 
@@ -70,11 +78,11 @@ But **random** models can have reasonable accuracy!
 
 |            | Pred. Needle| Pred. Broad|  Sum|
 |:-----------|------------:|-----------:|----:|
-|Obs. Needle |          761|         741| 1502|
-|Obs. Broad  |         2453|        2467| 4920|
-|Sum         |         3214|        3208| 6422|
+|Obs. Needle |          756|         746| 1502|
+|Obs. Broad  |         2441|        2479| 4920|
+|Sum         |         3197|        3225| 6422|
 
-$$A = \frac{761 + 2467}{6422} = 50.3\%$$
+$$A = \frac{756 + 2479}{6422} = 50.4\%$$
 
 ---
 
@@ -342,8 +350,8 @@ A model predicting the probability of success.
 
 |   |  0|  1|
 |:--|--:|--:|
-|1  |  0| 50|
-|0  |  0| 50|
+|1  |  0| 59|
+|0  |  0| 41|
 
 
 |     | value|
@@ -370,15 +378,15 @@ A model predicting the probability of success.
 
 |   |  0|  1|
 |:--|--:|--:|
-|1  |  5| 45|
-|0  | 19| 31|
+|1  |  2| 57|
+|0  | 19| 22|
 
 
 |     | value|
 |:----|-----:|
-|Sens |  0.90|
-|Spec |  0.38|
-|TSS  |  0.28|
+|Sens | 0.966|
+|Spec | 0.463|
+|TSS  | 0.430|
 
 </div>
 </div>
@@ -398,15 +406,15 @@ A model predicting the probability of success.
 
 |   |  0|  1|
 |:--|--:|--:|
-|1  | 12| 38|
-|0  | 37| 13|
+|1  | 10| 49|
+|0  | 35|  6|
 
 
 |     | value|
 |:----|-----:|
-|Sens |  0.76|
-|Spec |  0.74|
-|TSS  |  0.50|
+|Sens | 0.831|
+|Spec | 0.854|
+|TSS  | 0.684|
 
 </div>
 </div>
@@ -426,15 +434,15 @@ A model predicting the probability of success.
 
 |   |  0|  1|
 |:--|--:|--:|
-|1  | 26| 24|
-|0  | 48|  2|
+|1  | 30| 29|
+|0  | 40|  1|
 
 
 |     | value|
 |:----|-----:|
-|Sens |  0.48|
-|Spec |  0.96|
-|TSS  |  0.44|
+|Sens | 0.492|
+|Spec | 0.976|
+|TSS  | 0.467|
 
 </div>
 </div>
@@ -454,8 +462,8 @@ A model predicting the probability of success.
 
 |   |  0|  1|
 |:--|--:|--:|
-|1  | 50|  0|
-|0  | 50|  0|
+|1  | 59|  0|
+|0  | 41|  0|
 
 
 |     | value|
@@ -571,13 +579,13 @@ Threshold = 0.1
 |     | Present| Absent|
 |:----|-------:|------:|
 |Obs  |     200|      0|
-|Back |     157|     43|
+|Back |     159|     41|
 
 |     | value|
 |:----|-----:|
-|Sens | 0.215|
+|Sens | 0.205|
 |Spec | 1.000|
-|TSS  | 0.215|
+|TSS  | 0.205|
 
 </div>
 </div>
@@ -598,14 +606,14 @@ Threshold = 0.4
 
 |     | Present| Absent|
 |:----|-------:|------:|
-|Obs  |     184|     16|
-|Back |     105|     95|
+|Obs  |     186|     14|
+|Back |     121|     79|
 
 |     | value|
 |:----|-----:|
-|Sens | 0.475|
-|Spec | 0.920|
-|TSS  | 0.395|
+|Sens | 0.395|
+|Spec | 0.930|
+|TSS  | 0.325|
 
 </div>
 </div>
@@ -626,14 +634,14 @@ Threshold = 0.55
 
 |     | Present| Absent|
 |:----|-------:|------:|
-|Obs  |      78|    122|
-|Back |      43|    157|
+|Obs  |      80|    120|
+|Back |      51|    149|
 
 |     | value|
 |:----|-----:|
-|Sens | 0.785|
-|Spec | 0.390|
-|TSS  | 0.175|
+|Sens | 0.745|
+|Spec | 0.400|
+|TSS  | 0.145|
 
 </div>
 </div>
@@ -660,18 +668,18 @@ Threshold = 0.55
 </div>
 <div class='col1'>
 
-<center>Threshold = 0.417</center>
+<center>Threshold = 0.371</center>
 
 |     | Present| Absent|
 |:----|-------:|------:|
-|Obs  |     182|     18|
-|Back |      96|    104|
+|Obs  |     195|      5|
+|Back |     126|     74|
 
 |     | value|
 |:----|-----:|
-|Sens |  0.52|
-|Spec |  0.91|
-|TSS  |  0.43|
+|Sens | 0.370|
+|Spec | 0.975|
+|TSS  | 0.345|
 
 </div>
 </div>

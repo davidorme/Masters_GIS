@@ -32,7 +32,7 @@ Many things to many people but at core is any system used for:
 
 ----
 
-# What is *geographic information*?
+# What is <ins>geographic information</ins>?
 
 <div class='container'>
 <div class='col1'>
@@ -44,8 +44,12 @@ Many things to many people but at core is any system used for:
 
 Any piece of data that can be located in space, using:
  
+ <div class='vs'></div>
+ 
   - A set of coordinates
   - A known coordinate system
+
+ <div class='vs'></div>
 
 
 Without **both** of these bits of information, we do not have geographic information!
@@ -114,7 +118,7 @@ Not quite constant because of flattening. 1 degree of latitude is:
   - 90°0’0” E, 30°0’0” N
   - 90.00 E, 30.00 N
   - Can include height:
-  - Near Lhasa, Tibet   - ~ 5,500m
+  - Near Lhasa, Tibet   (c. 5,500 m)
 
 </div>
 <div class='col1'>
@@ -175,17 +179,22 @@ Notes:
 
 **Geoid**
 
-  - Surface of equalgravitational force
+  - Surface of equal gravitational force
   - Up and down are **perpendicular** to the local geoid
   - A level surface is **tangent** to the local geoid
 
 </div>
 <div class='col1'>
 
+ <div class='vs'></div>
+
 ![Grace Gravity Model 3](images/ggm01-200.gif) <!-- .element width="100%"  --> 
 
 </div>
 </div>
+
+Notes:
+* Down does not necessarily go through the centre of the earth
 
 ----
 
@@ -198,7 +207,7 @@ GPS uses height above ellipsoid
 - can lead to problems relative to sea level.
 - receivers contain a low resolution look up table for the separation.
 
----
+----
 
 # WGS 84
 
@@ -249,7 +258,7 @@ Notes:
 <div class='container'>
 <div class='col2 rightpad'>
 
-  - British National Grid uses the OSGB 36 datum
+  - British National Grid uses the **OSGB 36 datum**
   - Same latitude & longitude + different datum = datum shift
   - In Cornwall, a WGS 84 point is ~70 m east and ~ 70 m south of OSGB 36.
   - The shift varies nationally
@@ -262,7 +271,7 @@ Notes:
 </div>
 </div>
 
----
+----
 
 # Datum shift
 
@@ -339,7 +348,7 @@ screen or on paper
 Notes:
   - The ellipsoid surface of the Earth for small distances (~ 10 km) is flat enough for simple purposes but for anything else...
 
----
+----
 
 # Projected coordinate systems
 
@@ -439,6 +448,7 @@ Great circles in all directions from centre of map
 </div>
 
 Notes:
+Imagine running an old fluorescent tube down the middle and turning it on.
 Behrmann projection
 * Notice compression of higher latitudes
 
@@ -469,15 +479,21 @@ No up or down
 
 # Geographic data
 
+<div class='leftpad'>
+
   - A **Coordinate system** and:
     - **Vector** data: coordinates of points, lines, polygons
     - **Raster** data
         - grid data
         - satellite and aerial images
 
+</div>
+
 ----
 
 # Raster data
+
+<div class='leftpad'>
 
 An **image** covering a continuous surface
 
@@ -486,6 +502,8 @@ An **image** covering a continuous surface
     - Continuous: temperature, precipitation
   - Has a **resolution** (pixel size)
   - Needs **origin** and coordinate system
+
+</div>
 
 ----
 
@@ -509,11 +527,16 @@ An **image** covering a continuous surface
 
 # Vector Data
 
-  - A set of *features*, containing one of:
-    - Individual **points**, or sets of connected points forming **lines** or **polygons**
+<div class='leftpad'>
+
+A set of *features*, containing one of:
+
+  - Individual **points**, or sets of connected points forming **lines** or **polygons**
   - Needs a coordinate system
   - Coordinates are  a precise location, but may have precision or accuracy information
   - Features may have an attribute table.
+
+</div>
 
 ----
 
@@ -529,6 +552,31 @@ An **image** covering a continuous surface
 
 ![](images/RedDeer-236.png)
 ![](images/SilwoodPointLine-239.png)<!-- .element width="70%"  -->
+
+</div>
+</div>
+
+----
+
+# Data comparison
+
+<div class='container'>
+<div class='col1 leftpad'>
+
+**Raster**
+
+* Fixed grid
+* One value per pixel per bands
+* Often multiple stacked bands
+* Attribute tables for _values_ (VAT)
+
+</div>
+<div class='col1 leftpad'>
+
+**Vector**
+
+* Features with arbitrary shapes
+* Attribute tables for _features_
 
 </div>
 </div>

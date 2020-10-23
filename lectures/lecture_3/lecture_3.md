@@ -9,6 +9,7 @@ author: David Orme
 ### David Orme
 
 
+
 ---
 
 # Outline
@@ -20,7 +21,7 @@ author: David Orme
 * Assessing predictive performance
 * Concerns and future directions 
 
----
+----
 
 # The unstoppable rise of SDMs
 
@@ -42,7 +43,7 @@ author: David Orme
 Notes:
 Distribution modelling is now a major field of ecological research: between 2005 and 2010, there were over 850 publications in the Thomson Reuters web of knowledge database (found by a search for ‘species distribution mode*’ or ‘niche mode*’) compared with only 79 between 1999 and 2004.
 
----
+----
 
 # How do I know a SDM when I see it?
 
@@ -54,11 +55,17 @@ Distribution modelling is now a major field of ecological research: between 2005
 
 # How do I know a SDM when I see it?
 
+<div class='leftpad'>
+
+Many different terms:
+
 * Species Distribution Modelling
 * Climate Envelope Modelling
 * Bioclimate Envelope Modelling
 * Habitat Distribution Modelling
 * Niche Modelling
+
+</div>
 
 ---
 
@@ -71,7 +78,7 @@ Distribution modelling is now a major field of ecological research: between 2005
 * Assessing predictive performance
 * Concerns and future directions 
 
----
+----
 
 # What is species distribution modelling?
 
@@ -82,7 +89,7 @@ Distribution modelling is now a major field of ecological research: between 2005
 
 <small> Elith et al. 2009 Ann Rev Ecol, Evol & Syst 40:677-697. </small>
 
----
+----
 
 # Overview of SDM process
 
@@ -92,9 +99,9 @@ Distribution modelling is now a major field of ecological research: between 2005
 * A **GIS** with which to produce a map of predicted species occurrence
 * A way to **validate** the predictions
 
----
+----
 
-# Why make spatial predictions of species distributions?
+# Why?
 
 * To **understand** species distributions
 * To **predict** the occurrence of a species for locations where good survey data are lacking
@@ -114,70 +121,155 @@ Distribution modelling is now a major field of ecological research: between 2005
 * Assessing predictive performance
 * Concerns and future directions 
 
----
+----
 
 # Niche theory
 
-TODO - Venn1
+
+
+<div class='container'>
+<div class='col3'>
+
+![plot of chunk venn_1](figure/venn_1-1.png)
+
+</div>
+<div class='col2'>
+
+* Abiotic<!-- .element style="color:forestgreen" -->
+* Biotic<!-- .element style="color:firebrick" -->
+* Accessible area<!-- .element style="color:dodgerblue" -->
+
+</div>
+</div>
 
 <small>Soberón & Peterson (2005)</small>
 
----
+----
 
 # Niche theory
 
-TODO - Venn2
+
+<div class='container'>
+<div class='col3'>
+
+![plot of chunk venn_2](figure/venn_2-1.png)
+
+</div>
+<div class='col2'>
+
+* Abiotic<!-- .element style="color:forestgreen" -->
+* Biotic<!-- .element style="color:firebrick" -->
+* Accessible area<!-- .element style="color:dodgerblue" -->
+* **Realised niche:**  both biotic and abiotic suitability<!-- .element style="color:orange" -->
+
+
+</div>
+</div>
+
 
 <small>Soberón & Peterson (2005)</small>
 
----
+----
 
 # Niche theory
 
-TODO - Venn2
+
+<div class='container'>
+<div class='col3'>
+
+![plot of chunk venn_3](figure/venn_3-1.png)
+
+</div>
+<div class='col2'>
+
+* Abiotic<!-- .element style="color:forestgreen" -->
+* Biotic<!-- .element style="color:firebrick" -->
+* Accessible area<!-- .element style="color:dodgerblue" -->
+* **Range core:** accessible and in realised niche<!-- .element style="color:orange" -->
+
+</div>
+</div>
 
 <small>Soberón & Peterson (2005)</small>
 
----
+----
 
 # Niche theory
 
 <div class='container'>
-<div class='col1'>
+<div class='col3'>
+
+![plot of chunk venn_4](figure/venn_4-1.png)
+
+</div>
+<div class='col2'>
+
+* Abiotic<!-- .element style="color:forestgreen" -->
+* Biotic<!-- .element style="color:firebrick" -->
+* Accessible area<!-- .element style="color:dodgerblue" -->
+* **Populations:** can be both source (o) and sink (x)<!-- .element style="color:orange" -->
+
+</div>
+</div>
+
+<small>Soberón & Peterson (2005)</small>
+
+----
+
+# Niche theory
+
+<div class='container'>
+<div class='col2'>
 
 > “The n-dimensional hypervolume within which that species can survive and reproduce” 
 
 Hutchinson (1957) 
 
 </div>
-<div class='col2'>
+<div class='col3'>
 
-TODO - Bivariate
+![plot of chunk hutch](figure/hutch-1.png)
 
 </div>
 </div>
 
----
+----
 
 # Environmental and geographical space
 
 ![Pearson 2007 A 1](images/pearson_2007_a-1.png)<!-- .element width="90%" -->
 
----
+
+<small>Pearson 2007., see also Peterson et al. 2011</small>
+
+----
 
 # Environmental and geographical space
 
 ![Pearson 2007 A 1](images/pearson_2007_b-1.png)<!-- .element width="80%" -->
 
---- 
+<small>Pearson 2007., see also Peterson et al. 2011</small>
+
+----
 
 # Modelled relationship
 
+<div class='container'>
+<div class='col3'>
+
+![Meineri Ea 2012](images/meineri_ea_2012.jpg)<!-- .element width="70%" -->
+
+</div>
+<div class='col1'>
+
 ![Viola Biflora 134](images/Viola_biflora-134.jpg)
 
-![Meineri Ea 2012](image/meineri_ea_2012.jpg)
+</div>
+</div>
 
----
+<small>Meineri et al (2012) Ecol Modelling  231: 1-10</small>
+
+----
 
 # Model algorithms
 
@@ -198,7 +290,7 @@ TODO - Bivariate
 Notes:
 ENFA: Ecological niche factor analysis
 
----
+----
 
 # Summary
 
@@ -383,12 +475,16 @@ Greening of the Arctic
 <div class='container'>
 <div class='col1'>
 
-![Madagascar Gecko](images/madagascar_gecko.png)
+![Madagascar Gecko](images/madagascar_gecko.png)<!-- .element width="60%" -->
+
+_Uroplatus_ sp.
+
+<small>Pearson et al. (2007)  J. Biogeog 34: 102-117</small>
 
 </div>
 <div class='col1'>
 
-![Madagascar Data](images/madagascar_obs.png)
+![Madagascar Data](images/madagascar_obs.png)<!-- .element width="60%" -->
 
 </div>
 </div>
@@ -400,47 +496,50 @@ Greening of the Arctic
 <div class='container'>
 <div class='col1'>
 
-![Madagascar Data](images/madagascar_obs.png)
+![Madagascar Data](images/madagascar_obs.png)<!-- .element width="70%" -->
 
 </div>
 <div class='col1'>
 
-![Madagascar Data](images/madagascar_layers.png)
+![Madagascar Data](images/madagascar_layers.png)<!-- .element width="100%" -->
 
 </div>
 <div class='col1'>
 
-![Madagascar Data](images/madagascar_pred.png)
+![Madagascar Data](images/madagascar_pred.png)<!-- .element width="70%" -->
 
 </div>
 </div>
 
----
+----
 
 # Madagascan geckos
 
 ![Madagascar Data](images/madagascar_data.png)
 
----
+----
 
 # Model evaluation
 
 ![Model Evaluation](images/model_evaluation.png)
 
----
+----
 
 # Model errors
 
 ![Under Over 1](images/under_over-1.png)<!-- .element width="90%" -->
 
----
+----
 
 <!-- .slide: data-visibility="hidden" -->
 # Confusion matrix
 
-TODO - confusion matrix
-
----
+|            | Pred. Present| Pred. Absent |  Sum|
+|:-----------|------------:|-----------:|----:|
+|Obs. Present |            9 |        3 | 12 |
+|Obs. Absent |            2 |         13 | 15 |
+|Sum         |            11 |        16 | 27|
+----
 
 # Probability to presence
 
@@ -497,7 +596,7 @@ Notes:
 Modelled past species distributions from climate using nine single techniques and a consensus approach, and projected the geographical extent of these models to a more recent time period based on climate change; we then compared model predictions with recent observed distributions in order to estimate the temporal transferability and prediction accuracy of our models.
 Mn(PA) = prediction mean from all presence-absence modelling frameworks
 
----
+----
 
 ## Model uncertainty
 
@@ -524,7 +623,7 @@ Notes:
 TODO - y axis: Predicted percentage range gain / loss by 2030
 Universal and no dispersal scenarios
 
----
+----
 
 ## Ensemble forecasting
 
@@ -532,7 +631,7 @@ Universal and no dispersal scenarios
 
 <small>Thuiller et al (2009) Ecography 32: 369 - 373</small>
 
----
+----
 
 ## Danger, Will Robinson
 
@@ -549,7 +648,7 @@ Universal and no dispersal scenarios
 
 </div>
 
----
+----
 
 ## Lab data
 
@@ -560,7 +659,7 @@ Universal and no dispersal scenarios
 Notes:
 Thermal tolerances of Liolaemus from a logistic SDM and from lab data.
 
----
+----
 
 # Future directions
 
@@ -568,20 +667,20 @@ Thermal tolerances of Liolaemus from a logistic SDM and from lab data.
 * Incorporating **biotic** interactions
 * More **mechanistic** models 
 
----
+----
 
 
 ## Connect to demography
 
 ![Keith Ea 1](images/keith_ea-1.png)<!-- .element width="80%" -->
 
----
+----
 
 ## Community assembly
 
 ![Guisan Rahbek 1](images/guisan_rahbek-1.png)<!-- .element width="80%" -->
 
----
+----
 
 ## Bayes and spatial autocorrelation
 
