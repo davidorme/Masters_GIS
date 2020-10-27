@@ -1,5 +1,6 @@
 {
   "controls": true,
+  "controlsTutorial": false,
   "progress": true,
   "help": true,
   "transition": "none",
