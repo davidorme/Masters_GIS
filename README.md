@@ -61,4 +61,9 @@ reveal-md lecture_1/lecture_1.md --css lectures.css --static lecture_1/static
 The script  `lectures/build_slides.sh` automatically builds slides from all lectures in the lectures directory. Note that you can't be watching a lecture using `reveal-md` while doing this as the script currently tries to set the server going on the same port.
 
 
+## Practicals
+
+The practical files are again currently built using Rmarkdown and deployed to RPubs.
+
+
 

@@ -257,7 +257,7 @@ save(figDat, file='SpatialDataExample.rda')
     simpleGLS <- gls(Rich ~ MeanAETScaled + MeanAnnTempScaled + MeanElevScaled, data=figDat)
 
     # exponential spatial model
-    system.time(fixedGLSExp <- update(simpleGLS,  corr=corExp(c(2500), form=~e_centre_behr+n_centre_behr, fixed=TRUE))) # 67 seconds 
+    system.time(fixedGLSExp <- update(simpleGLS,  corr=corExp(c(1000), form=~e_centre_behr+n_centre_behr, fixed=TRUE, nugget=TRUE))) # 67 seconds 
     fixedGLS.vario <- Variogram(fixedGLSExp)
     plot(fixedGLS.vario)
 
@@ -270,7 +270,8 @@ save(figDat, file='SpatialDataExample.rda')
     system.time(spatialGLS <- update(simpleGLS,  corr=corExp(c(200), form=~e_centre_behr+n_centre_behr, fixed=FALSE))) # 2221.356 seconds
 
     system.time(fixedGLSSphere <- update(simpleGLS,  corr=corSpher(c(1500), form=~e_centre_behr+n_centre_behr, fixed=TRUE))) # 67 seconds 
-    system.time(fixedGLSSphere <- update(simpleGLS,  corr=corLin(c(1500), form=~e_centre_behr+n_centre_behr, fixed=TRUE))) # 67 seconds 
+
+    system.time(fixedGLSLin <- update(simpleGLS,  corr=corLin(c(1500), form=~e_centre_behr+n_centre_behr, fixed=TRUE, nugget=TRUE, fixed=FALSE))) # 67 seconds 
     
     # exponential spatial model
     system.time(fixedGLSExp <- update(simpleGLS,  corr=corExp(c(2500), form=~e_centre_behr+n_centre_behr, fixed=TRUE))) # 67 seconds 

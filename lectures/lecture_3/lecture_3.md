@@ -729,6 +729,8 @@ Blangiardo et al 2013  Spatial and spatio-temporal models with R-INLA. _Spatial 
 
 </small>
 
+---
+
 ## Methods background
 
 <small>

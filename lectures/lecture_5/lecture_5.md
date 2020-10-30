@@ -17,7 +17,7 @@ author: David Orme
     * Spatial Analysis in Macroecology
     * http://www.ecoevol.ufg.br/sam/
 
-![Samlogo](Images/samlogo.jpg)<!-- .element width="80%" -->
+![Samlogo](Images/samlogo.jpg)<!-- .element width="30%" -->
 
 ---
 
@@ -207,6 +207,8 @@ Global Moran’s I
 * I = 0.922
 * p << 0.001
 
+<div class='vs'></div>
+
 Global Geary’s C 
 
 * C = 0.070
@@ -238,48 +240,18 @@ Point close together are similar
 
 Global Moran’s I
 
-* I = -0.002
-* p =  0.567
+* I = 0.015
+* p =  0.059
 
 <div class='vs'></div>
 
 Global Geary’s C 
 
-* C = 1.004
-* p =  0.658
+* C = 0.984
+* p =  0.059
 
 </div>
 </div>
-
-----
-
-# Correlogram
-
-![plot of chunk correlogram](figure/correlogram-1.png)
-
-Notes:
-Correlograms
-
-2484 points
-	2484*2483/2 = 3083886 pairwise distances
-	distance falling into 100km bands
-
-Distance at which correlation hits the x axis
-Notice negative autocorrelation at distance
-Reliability of measures at distance is very poor
-
-----
-
-# Variogram
-
-![plot of chunk variogram](figure/variogram-1.png)
-
-Notes:
-Variograms
- - same idea but viewed from other end
- - if points are similar then the variance within nearby classes will be small
- - eventually get to a point where the variance is not distinguishably lower
- - about in the same place
 
 ----
 
@@ -320,6 +292,20 @@ Parameters - can affect estimates in unpredictable ways
 	* Eigenvector filtering
 	* Geographically weighted regression
 
+----
+
+# Degrees of freedom correction 
+
+
+![plot of chunk clifford_t_pre](figure/clifford_t_pre-1.png)
+
+Notes:
+Clifford test for correlation
+ - use all the lags to characterise the global autocorrelation
+ - work out the effective degrees of freedom
+ - 2484 down to...
+
+Other methods can correct the degrees of freedom in a simple linear model
 
 ----
 
@@ -337,7 +323,6 @@ Clifford test for correlation
 Other methods can correct the degrees of freedom in a simple linear model
 
 ----
-
 
 # Spatial Autoregression
 
@@ -370,30 +355,51 @@ Notes:
 Very good predictions - not even including interactions!
 Autocorrelation in the residuals are very small
 
+
+----
+
+# Correlogram
+
+![plot of chunk correlogram](figure/correlogram-1.png)
+
+Notes:
+Correlograms
+
+2484 points
+	2484*2483/2 = 3083886 pairwise distances
+	distance falling into 100km bands
+
+Distance at which correlation hits the x axis
+Notice negative autocorrelation at distance
+Reliability of measures at distance is very poor
+
+----
+
+# Variogram
+
+![plot of chunk variogram](figure/variogram-1.png)
+
+Notes:
+Variograms
+ - same idea but viewed from other end
+ - if points are similar then the variance within nearby classes will be small
+ - eventually get to a point where the variance is not distinguishably lower
+ - about in the same place
+
 ----
 
 # Generalised Least Squares
 
 <div class='container'>
-<div class='col2'>
+<div class='col1'>
 	
-
-```r
-    par(mar=c(3,3,1,1), mgp=c(2,0.8,0))
-    plot(richVariog)
-```
-
 ![plot of chunk gls1](figure/gls1-1.png)
 
 </div>
 <div class='col1'>
 
-* Correlation structure
-* Describe correlation as a function of distance 
-* Different shapes:
-    * Exponential
-    * Spherical
-    * Linear
+* Model correlation as a function of **distance** 
+* Generate a correlation **matrix**
 
 </div>
 </div>
@@ -420,28 +426,13 @@ Wider range of variance modelling
 <div class='container'>
 <div class='col2'>
 	
-
-```r
-    par(mar=c(3,3,1,1), mgp=c(2,0.8,0))
-    plot(variog ~ dist, data=glsGaussVar, xlim=c(0,7000), ylim=c(0,1.2))
-    lines(variog ~ dist, data=attr(glsGaussVar, 'modelVariog'))
-	
-	
-    arrows(0,0.1,2000,0.1, col='blue', code=0)
-    text(1000,0.05, 'Nugget', col='blue')
-    arrows(650, 0.6, 650, 1.2, col='forestgreen', code=0)
-    text(325, 1, 'Range', col='forestgreen')
-    arrows(5000, 0, 5000, 1, col='red', code=3)
-    text(6000, 0.5, 'Sill', col='red')
-```
-
 ![plot of chunk gls2](figure/gls2-1.png)
 
 </div>
 <div class='col1'>
 
 * Different shapes:
-    *Exponential
+    * Exponential
     * Spherical
     * Linear
 
@@ -450,28 +441,74 @@ Wider range of variance modelling
 </div>
 </div>
 
+----
+
+# Generalised Least Squares
+
+<small>
+
+<pre>
+Generalized least squares fit by REML
+  Model: Rich ~ MeanAETScaled + MeanAnnTempScaled + MeanElevScaled 
+  Data: figDat 
+       AIC      BIC    logLik
+  24676.89 24705.97 -12333.44
+
+Correlation Structure: Gaussian spatial correlation
+ Formula: ~e_centre_behr + n_centre_behr 
+ Parameter estimate(s):
+ range nugget 
+ 650.0    0.1 
+
+Coefficients:
+                      Value Std.Error   t-value p-value
+(Intercept)       199.67323 16.755430 11.916927  0.0000
+MeanAETScaled      17.65050  3.038337  5.809265  0.0000
+MeanAnnTempScaled -27.53775  5.663121 -4.862645  0.0000
+MeanElevScaled      3.59893  4.321932  0.832712  0.4051
+
+ Correlation: 
+                  (Intr) MnAETS MnAnTS
+MeanAETScaled     0.048               
+MeanAnnTempScaled 0.141  0.047        
+MeanElevScaled    0.156  0.079  0.936 
+
+Standardized residuals:
+        Min          Q1         Med          Q3         Max 
+-2.35080108  0.09376345  0.73813223  1.30659392  4.48588628 
+
+Residual standard error: 97.85917 
+Degrees of freedom: 2484 total; 2480 residual
+</pre>
+<!-- .element width="100%" -->
+
+</small>
 
 ---
 
 # Stationarity and isotropy
 
+<div class='leftpad'>
+	
 Is the same process happening in:
 
 * different locations (stationarity)?
 * different directions (isotropy)?
 
+<div class='vs'>
 Is the problem in:
 
 * the spatial structure of autocorrelation?
 * differences in the actual relationship?
 
+</div>
 
 ----
 
 # Eigenvector filtering
 
-* Transform a spatial weights model into a series of eigenvectors
-* Use eigenvectors as variables in the model
+* Take the **eigendecomposition** of a spatial weights model
+* Use the  **eigenvectors** as variables in the model
 * Use a selection process to identify and include only important eigenvectors
 
 Notes:
@@ -498,17 +535,21 @@ First four eigenvectors
 
 # Eigenvector filtering
 
-`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev`
+<div class='leftpad'>
+	
+**lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev**
+
+</div>
 
 <small>
 
 
-|            |     Est|     SE|      t|  p|
-|:-----------|-------:|------:|------:|--:|
-|(Intercept) | 189.453| 21.329|  8.882|  0|
-|MeanAET     |   0.176|  0.005| 37.342|  0|
-|MeanAnnTemp |  -4.178|  0.722| -5.787|  0|
-|MeanElev    |   0.076|  0.005| 13.849|  0|
+|            |    Est|    SE|     t|p       |
+|:-----------|------:|-----:|-----:|:-------|
+|(Intercept) | 189.45| 21.33|  8.88|< 0.001 |
+|MeanAET     |   0.18|  0.00| 37.34|< 0.001 |
+|MeanAnnTemp |  -4.18|  0.72| -5.79|< 0.001 |
+|MeanElev    |   0.08|  0.01| 13.85|< 0.001 |
 
 </small>
 
@@ -517,21 +558,25 @@ First four eigenvectors
 
 # Eigenvector filtering
 
-`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3) + Re(spEV4)`
+<div class='leftpad'>
+
+**lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3) + Re(spEV4)**
+
+</div>
 
 <small>
 
 
-|            |       Est|      SE|       t|     p|
-|:-----------|---------:|-------:|-------:|-----:|
-|(Intercept) |    80.231|  33.003|   2.431| 0.015|
-|MeanAET     |     0.182|   0.006|  31.432| 0.000|
-|MeanAnnTemp |     0.099|   1.141|   0.087| 0.931|
-|MeanElev    |     0.078|   0.006|  12.703| 0.000|
-|Re(spEV1)   | -1617.625|  77.641| -20.835| 0.000|
-|Re(spEV2)   |   963.975| 129.208|   7.461| 0.000|
-|Re(spEV3)   |  -813.557|  95.868|  -8.486| 0.000|
-|Re(spEV4)   |  -150.378| 100.280|  -1.500| 0.134|
+|            |      Est|     SE|      t|p       |
+|:-----------|--------:|------:|------:|:-------|
+|(Intercept) |    80.23|  33.00|   2.43|1.5e-02 |
+|MeanAET     |     0.18|   0.01|  31.43|< 0.001 |
+|MeanAnnTemp |     0.10|   1.14|   0.09|9.3e-01 |
+|MeanElev    |     0.08|   0.01|  12.70|< 0.001 |
+|Re(spEV1)   | -1617.63|  77.64| -20.83|< 0.001 |
+|Re(spEV2)   |   963.97| 129.21|   7.46|< 0.001 |
+|Re(spEV3)   |  -813.56|  95.87|  -8.49|< 0.001 |
+|Re(spEV4)   |  -150.38| 100.28|  -1.50|1.3e-01 |
 
 </small>
 
@@ -539,20 +584,24 @@ First four eigenvectors
 
 # Eigenvector filtering
 
-`lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3)`
+<div class='leftpad'>
+
+**lm(Rich ~ MeanAET + MeanAnnTemp + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3)**
+
+</div>
 
 <small>
 
 
-|            |       Est|      SE|       t|     p|
-|:-----------|---------:|-------:|-------:|-----:|
-|(Intercept) |    58.387|  29.622|   1.971| 0.049|
-|MeanAET     |     0.188|   0.004|  43.675| 0.000|
-|MeanAnnTemp |     0.748|   1.056|   0.708| 0.479|
-|MeanElev    |     0.080|   0.006|  13.783| 0.000|
-|Re(spEV1)   | -1610.754|  77.525| -20.777| 0.000|
-|Re(spEV2)   |  1031.596| 121.114|   8.518| 0.000|
-|Re(spEV3)   |  -848.190|  93.068|  -9.114| 0.000|
+|            |      Est|     SE|      t|p       |
+|:-----------|--------:|------:|------:|:-------|
+|(Intercept) |    58.39|  29.62|   1.97|4.9e-02 |
+|MeanAET     |     0.19|   0.00|  43.68|< 0.001 |
+|MeanAnnTemp |     0.75|   1.06|   0.71|4.8e-01 |
+|MeanElev    |     0.08|   0.01|  13.78|< 0.001 |
+|Re(spEV1)   | -1610.75|  77.53| -20.78|< 0.001 |
+|Re(spEV2)   |  1031.60| 121.11|   8.52|< 0.001 |
+|Re(spEV3)   |  -848.19|  93.07|  -9.11|< 0.001 |
 
 </small>
 
@@ -560,17 +609,20 @@ First four eigenvectors
 
 # Geographically weighted regression
 
+Fit a model for **every cell**:
 
-```
-## Warning in gwr(Rich ~ MeanAET + MeanAnnTemp + MeanElev, data = figDat, adapt =
-## 0.05, : standard errors set to NA, normalised RSS not available
-```
+* Define a local **region size** and a **weighting function**
+* Fit a weighted regression for each cell using the weights
+* Look at how coefficients **vary in space**
+* Possibly serious statistical issues!
 
-```
-##    user  system elapsed 
-## 121.872  10.945 139.256
-```
+----
 
+# Geographically weighted regression
+
+
+
+![plot of chunk gwr_pred](figure/gwr_pred-1.png)
 
 Notes:
 Fit a weighted regression to geographic subsets of the data.
@@ -585,11 +637,6 @@ Not fitting a single regression - fitting 2484 regressions - but they are simple
 
 ----
 
-# Geographically weighted regression
-
-![plot of chunk gwr_pred](figure/gwr_pred-1.png)
-
-----
 
 # Geographically weighted regression
  
