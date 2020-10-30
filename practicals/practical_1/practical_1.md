@@ -79,12 +79,11 @@ options(repr.plot.width=6, repr.plot.height= 5) # Change plot sizes (in cm)
 
 ```{code-cell} R
 :tags: [remove-input]
+# Create a UK plot - code not seen by students
 uk <- st_as_sf(ne_countries(country = c('united kingdom', 'ireland'), scale = 'medium', type='map_units'))
-
 lat_b <- 50; lat_t <- 61; lon_l <- -11; lon_r <- 2
 lats <- seq(lat_b, lat_t, by=1)
 lons <- seq(lon_l, lon_r, by=1)
-
 plot(st_geometry(st_graticule(x=c(lon_l, lat_b, lon_r, lat_t), crs=4326, lat=lats, lon=lons)),
      col='grey', xaxs='i', yaxs='i', asp=1, axes=TRUE)
 plot(st_geometry(uk), add=TRUE)
@@ -94,8 +93,8 @@ In order to create vector data, we need to provide a set of coordinates for the 
 
 ```{code-cell} R
 # Create coordinates  for each country 
-# - this is a list of sets of coordinates forming the edge of the polygon. 
-# - note that they have to _close_ (have the same coordinate at either end)
+# - this creates a matrix of pairs of coordinates forming the edge of the polygon. 
+# - note that they have to _close_: the first and last coordinate must be the same.
 scotland <- rbind(c(-5, 58.6), c(-3, 58.6), c(-4, 57.6), 
                   c(-1.5, 57.6), c(-2, 55.8), c(-3, 55), 
                   c(-5, 55), c(-6, 56), c(-5, 58.6))
@@ -115,7 +114,7 @@ wales <- st_polygon(list(wales))
 ireland <- st_polygon(list(ireland))
 ```
 
-We can combine these into a simple feature column (`sfc`), which also allows us to set the coordinate reference system (`crs` or projection) of the data. The mystery `4326` is explained later on! 
+We can combine these into a simple feature column (`sfc`), which also allows us to set the coordinate reference system (`crs` or projection) of the data. The mystery `4326` in the code below is explained later on! 
 
 One other thing to note here is that `sf` automatically tries to scale the aspect ratio of plots of geographic coordinate data based on their latitude - this makes them look less squashed. We are actively suppressing that here by setting an aspect ratio of one (`asp=1`).
 
@@ -128,13 +127,14 @@ plot(uk_eire, asp=1)
 
 ### Making vector points from a dataframe
 
-The approach below allows us to turn a data frame with coordinates in a column into a point vector data sources. The example here creates point locations for capital cities.
+We can easily turn a data frame with coordinates in columns into a point vector data source. The example here creates point locations for capital cities.
 
 ```{code-cell} R
 uk_eire_capitals <- data.frame(long= c(-0.1, -3.2, -3.2, -6.0, -6.25),
                                lat=c(51.5, 51.5, 55.8, 54.6, 53.30),
                                name=c('London', 'Cardiff', 'Edinburgh', 'Belfast', 'Dublin'))
 
+# Indicate which fields in the data frame contain the coordinates
 uk_eire_capitals <- st_as_sf(uk_eire_capitals, coords=c('long','lat'), crs=4326)
 print(uk_eire_capitals)
 ```
@@ -143,7 +143,7 @@ print(uk_eire_capitals)
 
 That is a good start but we've got some issues:
 
-1. We are missing a separate polygon for London
+1. We are missing a separate polygon for London.
 2. The boundary for Wales is poorly digitized - we want a common border with England.
 3. We have not separated Northern Ireland from Eire.
 
@@ -205,7 +205,7 @@ plot(ni_area, add=TRUE, border='red', lty=2)
 
 ### Features and geometries 
 
-That `uk_eire` object now contains 6 **features**: a feature is a set of vector GIS geometries that represent a spatial unit we are interested in. At the moment, `uk_eire` hold six features, each of which consists of a single polygon. The England feature is slightly more complex because it as a hole in it. We can create a single feature that contains all of those geometries in one `MULTIPOLYGON` geometry by using the **union** operation:
+That `uk_eire` object now contains 6 **features**: a feature is a set of one or more vector GIS geometries that represent a spatial unit we are interested in. At the moment, `uk_eire` hold six features, each of which consists of a single polygon. The England feature is slightly more complex because it as a hole in it. We can create a single feature that contains all of those geometries in one `MULTIPOLYGON` geometry by using the **union** operation:
 
 ```{code-cell} R
 # compare six Polygon features with one Multipolygon feature
@@ -252,7 +252,7 @@ Zooming in and exploring GIS data is one of the things that R is currently poor 
 
 ### Vector data and attributes
 
-So far we just have the vector geometries, but GIS data is about pairing spatial features with data about those features, often called *attributes* or *properties*. The `sf` package introduces the `sf` object type: basically this is just a normal data frame with an additional simple feature column. We can do that here:
+So far we just have the vector geometries, but GIS data is about pairing spatial features with data about those features, often called *attributes* or *properties*. The `sf` package introduces the `sf` object type: basically this is just a normal data frame with an additional field containing **simple feature** data. We can do that here:
 
 ```{code-cell} R
 uk_eire <- st_sf(name=c('Wales', 'England','Scotland', 'London', 
@@ -309,7 +309,7 @@ uk_eire$length <- st_length(uk_eire)
 print(uk_eire)
 ```
 
-Notice that those fields have units after the values. The `sf` package often creates data with explicit units, using the `units` package. That is nicely precise but you may need to know how to handle the values:
+Notice that those fields display units after the values. The `sf` package often creates data with explicit units, using the `units` package. That is nicely precise but you may need to know how to handle the values:
 
 ```{code-cell} R
 # You can change units in a neat way
@@ -329,7 +329,7 @@ uk_eire$area <- set_units(uk_eire$area, 'kg')
 uk_eire$length <- as.numeric(uk_eire$length)
 ```
 
-A final useful example is the **distance** between objects: `sf` gives us the closest distance between geometries, which might be zero if two features are touching. 
+A final useful example is the **distance** between objects: `sf` gives us the closest distance between geometries, which might be zero if two features overlap or touch, as in the neighbouring polygons in our data. 
 
 ```{code-cell} R
 st_distance(uk_eire)
@@ -344,7 +344,7 @@ Again, `sf` is noting that we have a geographic coordinate system and internally
 
 ### Plotting `sf` objects
 
-If you plot an `sf` object, the default is to plot a map for every attribute. You can pick a column to show using square brackets. So, now we can show our map of population density:
+If you plot an `sf` object, the default is to plot a map for every attribute. You can pick a field to plot by using square brackets. So, now we can show our map of population density:
 
 ```{code-cell} R
 plot(uk_eire['n_km2'], asp=1)
@@ -368,13 +368,13 @@ plot(uk_eire['n_km2'], asp=1, logz=TRUE)
 
 ### Reprojecting vector data
 
-First, in the examples above we have been **asserting** that we have data with a particular projection (`4326`). This is **not** reprojection: we are simply saying that we know these coordinates are in this projection.
+First, in the examples above we have been **asserting** that we have data with a particular projection (`4326`). This is **not** reprojection: we are simply saying that we know these coordinates are in this projection and setting that projection. 
 
 That mysterious `4326` is just a unique numeric code in the EPSG database of spatial coordinate systems: [http://epsg.io/](). The code acts a shortcut for the often complicated sets of parameters and transformations that define a particular projection. Here `4326` is the [WGS84](http://epsg.io/4326) geographic coordinate system which is extremely widely used. Most GPS data is collected in WGS84, for example.
 
 Reprojection is moving data from one set of coordinates to another. For vector data, this is a relatively straightforward process. The spatial information in a vector dataset are coordinates in space, and projections are just sets of equations, so it is simple to apply the equations to the coordinates. We'll come back to this for raster data: coordinate transormation is identical but transforming the data stored in a raster is conceptually more complex.
 
-Reprojecting data is often used to convert from a geographic coordinate system - with units of degrees - to a projected coordinate system with linear units. Remember that projected coordinate systems are always a trade off between conserving distance, shape area and angles and it is important to pick one that is appropriate to your area or analysis.
+Reprojecting data is often used to convert from a geographic coordinate system - with units of degrees - to a projected coordinate system with linear units. Remember that projected coordinate systems are always a trade off between conserving distance, shape, area and bearings and it is important to pick one that is appropriate to your area or analysis.
 
  We will reproject our UK and Eire map onto a good choice of local projected coordinate system: the [British National Grid](http://epsg.io/27700). We can also use a bad choice: the [UTM 50N](http://epsg.io/32650) projection, which is appropriate for Borneo. It does not end well if we use it to project the UK and Eire.
 
@@ -383,7 +383,7 @@ Reprojecting data is often used to convert from a geographic coordinate system -
 uk_eire_BNG <- st_transform(uk_eire, 27700)
 # UTM50N (EPSG:32650)
 uk_eire_UTM50N <- st_transform(uk_eire, 32650)
-# The bounding box of the data shows the change in units
+# The bounding boxes of the data shows the change in units
 st_bbox(uk_eire)
 ```
 
@@ -473,6 +473,7 @@ hasValues(uk_raster_WGS84)
 ```{code-cell} R
 # Add data to the raster: just the number 1 to number of cells
 values(uk_raster_WGS84) <- seq(length(uk_raster_WGS84))
+print(uk_raster_WGS84)
 ```
 
 We can create a basic map of that, with the country borders over the top: `add=TRUE` adds the vector data to the existing map and the other options set border and fill colours. The ugly looking `#FFFFFF44` is a [RGBA colour code](https://en.wikipedia.org/wiki/RGBA_color_space#RGBA_hexadecimal_(word-order)) that gives us a transparent gray fill for the polygon.
@@ -501,7 +502,7 @@ square <- raster(m)
 
 With aggregating, we choose an aggregation *factor* - how many cells to group - and then lump sets of cells together. So, for example, a factor of 2 will aggregate blocks of 2x2 cells. 
 
-The question is then, what value should we assign? If the data is continuous (e.g. height) then a mean or a maximum might make sense. However if the raster values represent categories (like land cover), then mean doesn't make sense _at all_: the average of Forest (2) and  Moorland (3) is easy to calculate but what does it actually mean!
+The question is then, what value should we assign? If the data is continuous (e.g. height) then a mean or a maximum might make sense. However if the raster values represent categories (like land cover), then mean doesn't make sense _at all_: the average of Forest (2) and  Moorland (3) codes is easy to calculate but is meaningless!
 
 ```{code-cell} R
 # Average values
@@ -529,7 +530,7 @@ The bottom left cell has a modal value of 5 even though there is no mode: there 
 
 ### Disaggregating rasters
 
-The `disaggregate` function also requires a factor, but this time the factor is the square root of the number of cells to _create_ from each cell rather than the number to merge. There is again a choice to make on what values to put in the cell. The obvious answer is simply to copy the parent cell value into each of the new cells: this is pretty simple and is fine for both continuous and categorical values. Another option is to **interpolate** between the values to provide a smoother gradient between cells. This does **not** make sense for a categorical variable.
+The `disaggregate` function also requires a factor, but this time the factor is the square root of the number of cells to _create_ from each cell, rather than the number to merge. There is again a choice to make on what values to put in the cell. The obvious answer is simply to copy the parent cell value into each of the new cells: this is pretty simple and is fine for both continuous and categorical values. Another option is to **interpolate** between the values to provide a smoother gradient between cells. This does **not** make sense for a categorical variable.
 
 ```{code-cell} R
 # Copy parents
@@ -561,7 +562,7 @@ abline(h=1:7/8, v=1:7/8)
 
 ### Resampling
 
-Note that the previous two functions don't change the origin or alignments of cell borders at all: they just lump or split values within the same grid framework.  If you need to match datasets and they have different origins and aligments then you need to use the more complex `resample` function. We won't look at this further here because it is basically a simpler case of ...
+Note that the previous two functions don't change the **origin** or **alignments of cell borders** at all: they just lump or split values within the same grid framework.  If you need to match datasets and they have different origins and alignments then you need to use the more complex `resample` function. We won't look at this further here because it is basically a simpler case of ...
 
 ### Reprojecting a raster
 
@@ -569,7 +570,7 @@ This is conceptually more difficult than reprojecting vector data but we've cove
 
 In the example here, we are show how our 0.5° WGS84 raster for the UK and Eire compares to a 100km resolution raster on the British National Grid. 
 
-We can't display that using actual raster data because they always need to plot on a regular grid. However we can create vector grids, using the new function `st_make_grid` and our other vector tools, to represent the two raster grids so we can overplot them. You can see how transferring cell values between those two raster grids gets complicated! 
+We can't display that using actual raster data because they always need to plot on a regular grid. However we can create vector grids, using the new function `st_make_grid` and our other vector tools, to represent the cells in the two raster grids so we can overplot them. You can see how transferring cell values between those two raster grids gets complicated! 
 
 ```{code-cell} R
 # make two simple `sfc` objects containing points in  the
@@ -603,7 +604,7 @@ round(values(uk_raster_BNG_interp)[1:9], 2)
 values(uk_raster_BNG_ngb)[1:9]
 ```
 
-Note that for the cells in the top right and left, `projectRaster` has assigned an `NA` value. In the plot above, you can see that the centres of those red cells do not overlie the original grey grid. If we plot the two outputs you can see the more abrupt changes when using nearest neighbour reprojection.
+Note the `NA` in the cell values in the top right and left. In the plot above, you can see that the centres of those red cells do not overlie the original grey grid and `projectRaster` has assigned an `NA` value. If we plot the two outputs you can see the more abrupt changes when using nearest neighbour reprojection.
 
 ```{code-cell} R
 par(mfrow=c(1,2), mar=c(1,1,2,1))
@@ -660,14 +661,18 @@ uk_eire_BNG_point$name <- as.numeric(uk_eire_BNG_point$name)
 uk_eire_point_20km <- rasterize(as(uk_eire_BNG_point, 'Spatial'), uk_20km, field='name')
 
 # Plotting those different outcomes
+# - Use the hcl.colors function to create a nice plotting palette
+color_palette <- hcl.colors(6, palette='viridis', alpha=0.5)
+
+# - Plot each raster
 par(mfrow=c(1,3), mar=c(1,1,1,1))
-plot(uk_eire_poly_20km, col=viridis(6, alpha=0.5), legend=FALSE, axes=FALSE)
+plot(uk_eire_poly_20km, col=color_palette, legend=FALSE, axes=FALSE)
 plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
 
-plot(uk_eire_line_20km, col=viridis(6, alpha=0.5), legend=FALSE, axes=FALSE)
+plot(uk_eire_line_20km, col=color_palette, legend=FALSE, axes=FALSE)
 plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
 
-plot(uk_eire_point_20km, col=viridis(6, alpha=0.5), legend=FALSE, axes=FALSE)
+plot(uk_eire_point_20km, col=color_palette, legend=FALSE, axes=FALSE)
 plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
 ```
 
@@ -696,7 +701,6 @@ par(mfrow=c(1,3), mar=c(1,1,1,1))
 plot(poly_from_rast['layer'], key.pos = NULL, reset = FALSE)
 plot(poly_from_rast_dissolve, key.pos = NULL, reset = FALSE)
 plot(points_from_rast, key.pos = NULL, reset = FALSE)
-
 ```
 
 It is uncommon to have raster data representing linear features (like `uk_eire_line_20km`) and it is not trivial to turn raster data into LINESTRING vector data. We won't look at this here.
@@ -773,7 +777,7 @@ Using the data loaded above, recreate the two plots shown below of global GDP an
 
 The GDP data is already in the `ne_110` data, but you will need to add the life expectancy data to the GIS data. Getting country names to match between datasets is unexpectedly a common problem: try using the `ISO_A3_EH` field in `ne_110`. The other gotcha with merge is that, by default, the merge **drops rows** when there is no match. Here, it makes sense to use `all.x=TRUE` to retain all the countries: they will get NA values for the missing life expectancy.
 
-The life expectancy plot has been altered to show less blocky colours in a nicer palette (`viridis`). You will need to set the `breaks` and `pal` arguments to get this effect.
+The life expectancy plot has been altered to show less blocky colours in a nicer palette (`hcl.colors` uses the `viridis` palette by default). You will need to set the `breaks` and `pal` arguments to get this effect.
 ```
 
 ```{code-cell} R
@@ -790,7 +794,7 @@ ne_110 <- merge(ne_110, life_exp, by.x='ISO_A3_EH', by.y='COUNTRY', all.x=TRUE)
 bks <- seq(50, 85, by=0.25)
 # Plot the data
 plot(ne_110['Numeric'], asp=1, main='Global 2016 Life Expectancy (Both sexes)',
-      breaks=bks, pal=viridis, key.pos=4)
+      breaks=bks, pal=hcl.colors, key.pos=4)
 ```
 
 ### Loading XY data
@@ -841,17 +845,15 @@ plot(etopo_25, axes=FALSE, breaks=bks, col=c(sea_cols, land_cols),
 
 Raster data very often has multiple **bands**: a single file can contain multiple layers of information for the cells in the raster grid. An obvious example is colour imagery, where three layers hold red, green and blue values, but satellite data can contain many layers holding different bands.
 
-We will use the `getData` function from the `raster` library to get at another example. This function loads data from some key data repositories (see `?getData` ) and it will download the data automatically if needed and store it locally. Note that you only need to download the data once - as long as you tell `getData` where the files were stored, it will note that you have a local copy and load those. (Actually, once you've got the local copies, you can just use `raster`!)
+We will use the `getData` function from the `raster` library to get at another example. This function loads data from some key data repositories (see `?getData` ). It will download the data automatically if needed and store it locally. Note that you only need to download the data once - as long as you tell `getData` where the files were stored, it will note that you have a local copy and load those, although it would be more usual just to use `raster` at this point! This data has already been downloaded to the `data` directory - `getData` will load it from the `data/wc10` folder.
 
-We'll look at some worldclim data ([http://worldclim.org/version2](http://worldclim.org/version2)) for maximum temperature, which comes as a stack of monthly values
+We'll look at some worldclim data ([http://worldclim.org/version2](http://worldclim.org/version2)) for maximum temperature, which comes as a stack of monthly values.
 
 ```{code-cell} R
 # Download bioclim data: global maximum temperature at 10 arc minute resolution
-tmax <- getData('worldclim', download=TRUE, path='data', var='tmax', res=10)
-# The data has 12 layers ...
+tmax <- getData('worldclim', path='data', var='tmax', res=10)
+# The data has 12 layers, one for each month
 print(tmax)
-# ... and the data for those layers has been saved in our data folder.
-dir('data/wc10')
 ```
 
 One odd thing about that data is the range of values: `-478` to `489`. It is _really common_ for GIS data to be stored in a form that needs scaling by the end user and this is what is going on here. The metadata for a raster data set should include any scale and offset values needed but you need to check that any variables you use are correctly scaled.
@@ -907,7 +909,7 @@ plot(so_topo, col=sea_pal(100), asp=1, legend=FALSE)
 contour(so_topo, levels=c(-2000, -4000, -6000), add=TRUE, col='grey80')
 plot(st_geometry(so_ne_10), add=TRUE, col='grey90', border='grey40')
 plot(so_data['chlorophyll'], add=TRUE, logz=TRUE, pch=20, cex=2, pal=viridis, border='white', reset=FALSE)
-.image_scale(log10(so_data$chlorophyll), col=viridis(18), key.length=0.8, key.pos=4, logz=TRUE)
+.image_scale(log10(so_data$chlorophyll), col=hcl.colors(18), key.length=0.8, key.pos=4, logz=TRUE)
 
 ```
 
@@ -956,7 +958,9 @@ head(mosquito_points_agg)
 africa <- st_join(africa, mosquito_points_agg)
 africa$area <- as.numeric(st_area(africa))
 head(africa)
+```
 
+```{code-cell} R
 par(mfrow=c(1,2), mar=c(3,3,1,1), mgp=c(2,1, 0))
 plot(n_outbreaks ~ POP_EST, data=africa, log='xy', 
      ylab='Number of outbreaks', xlab='Population size')
@@ -966,7 +970,7 @@ plot(n_outbreaks ~ area, data=africa, log='xy',
 
 ```{admonition} Alien invasion
 
-Martians have invaded! Jeff and Will have managed to steal the landing sites and the crew sizes from the alien mothership but we need to work out which countries are going to be overwhelmed by aliens. We think that countries with more than about 1000 people per alien are going to be ok, but we need a map of alien threat like the one below.
+Martians have invaded! Jeff and Will have managed to steal the landing sites and the crew sizes from the alien mothership but we need to work out which countries are going to be overwhelmed by aliens. We think that countries with more than about 1000 people per alien are going to be ok, but we need a map of alien threat like the one below. The landing sites are in the file `data/aliens.csv` as WGS84 coordinates.
 
 Can you produce our plan?
 ```
@@ -1029,6 +1033,9 @@ cellStats(uk_eire_elev, max)
 cellStats(uk_eire_elev, quantile)
 # Which is the highest cell
 which.max(uk_eire_elev)
+```
+
+```{code-cell} R
 # Which cells are above 1100m
 Which(uk_eire_elev > 1100, cells=TRUE)
 ```
@@ -1069,7 +1076,7 @@ uk_eire_capitals$elev <- extract(uk_eire_elev, uk_eire_capitals)
 print(uk_eire_capitals)
 ```
 
-Polygons are also easy but there is a little more detail about the output. By default, the `extract` function for polygons returns a set of *all* the raster values within each polygon. However, you can use the `fun` argument to specify that `extract` does something with those values. This  effectively duplicates the extremely useful **Zonal Statistics** function from ArcGIS.
+Polygons are also easy but there is a little more detail about the output. By default, the `extract` function for polygons returns a set of *all* the raster values within each polygon. However, you can use the `fun` argument to specify that `extract` does something with those values. This  effectively duplicates the extremely useful **Zonal Statistics** function from other GIS programs.
 
 ```{code-cell} R
 uk_eire$mean_height <- extract(uk_eire_elev, uk_eire, fun=mean, na.rm=TRUE)
@@ -1087,7 +1094,7 @@ One feature of GPX files is that they contain multiple **layers**: essentially d
 
 ```{code-cell} R
 st_layers('data/National_Trails_Pennine_Way.gpx')
-# load the data, showing off the ability to use queries to load subsets of the data
+# load the data, showing off the ability to use SQL queries to load subsets of the data
 pennine_way <- st_read('data/National_Trails_Pennine_Way.gpx', layer='routes', 
                       query="select * from routes where name='Pennine Way'")
 ```
@@ -1096,7 +1103,7 @@ Before we do anything else, all of our data (`etopo_uk` and `pennine_way`) are i
 
 
 ```{admonition} Reproject the Penine Way
-Create `uk_eire_elev_BNG` and `pennine_way_BNG` by reprojecting the elevation raster and  route vector into the British National Grid. Use a 2km resolution grid.
+Create `uk_eire_elev_BNG` and `pennine_way_BNG` by reprojecting the elevation raster and route vector into the British National Grid. Use a 2km resolution grid.
 ```
 
 ```{code-cell} R
@@ -1104,9 +1111,9 @@ Create `uk_eire_elev_BNG` and `pennine_way_BNG` by reprojecting the elevation ra
 # reproject the vector data
 pennine_way_BNG <- st_transform(pennine_way, crs=27700)
 # create the target raster and project the elevation data into it.
-bng_1km <- raster(xmn=-200000, xmx=700000, ymn=0, ymx=1000000, 
-                  res=1000, crs='+init=EPSG:27700')
-uk_eire_elev_BNG <- projectRaster(uk_eire_elev, bng_1km)
+bng_2km <- raster(xmn=-200000, xmx=700000, ymn=0, ymx=1000000, 
+                  res=2000, crs='+init=EPSG:27700')
+uk_eire_elev_BNG <- projectRaster(uk_eire_elev, bng_2km)
 ```
 
 The route data is also very detailed, which is great if you are navigating in a blizzard but does take a long time to process for this exercise. So, we'll also simplify the route data before we use it. We'll use a 100m tolerance for simplifying the route: it goes from 31569 points to 1512 points. You can see the difference on the two plots below and this is worth remembering: **do you really need to use the highest resolution data available**?
@@ -1133,7 +1140,7 @@ plot(st_geometry(pennine_way_BNG), add=TRUE, col='black')
 plot(pennine_way_BNG_simple, add=TRUE, col='darkred')
 ```
 
-Now we can extract the elevations and cell IDs under the route. For the transect, we want to know the distances between cells: we will use the `distGeo` function from the `geosphere` package for this.
+Now we can extract the elevations and cell IDs under the route. We can also simply use Pythagoras' Theorem to find the distance between cells along the transect and hence the cumulative distance.
 
 ```{code-cell} R
 # Extract the data
@@ -1142,6 +1149,7 @@ pennine_way_trans <- extract(uk_eire_elev_BNG, pennine_way_BNG_simple,
 
 # The output is a list: in will contain one set of values for each feature in the input data
 str(pennine_way_trans)
+
 # Here, we only have one line, so we will extract it
 pennine_way_trans <- pennine_way_trans[[1]]
 pennine_way_trans <- data.frame(pennine_way_trans)
@@ -1182,8 +1190,9 @@ Note that some of these steps are handling a lot of data and may take a few minu
 ```
 
 ```{code-cell} R
+:tags: [hide-input]
 # Get the precipitation data
-ng_prec <- getData('worldclim', var='prec', res=0.5, lon=140, lat=-10)
+ng_prec <- getData('worldclim', var='prec', res=0.5, lon=140, lat=-10, path='data')
 # Reduce to the extent of New Guinea - crop early to avoid unnecessary processing!
 ng_extent <- extent(130, 150, -10, 0)
 ng_prec <- crop(ng_prec, ng_extent)
@@ -1421,8 +1430,6 @@ for(idx in seq(nrow(villages))){
 }
 ```
 
-# Appendix
-
 ## Using ggplot to make maps
 
 As you will have seen in the last couple of weeks, `ggplot` is a popular package for plotting and can be used for with `sf` objects in maps too. There is also a package called `tmap` which works in a very similar way to `ggplot` but is more tightly focussed on map plotting. If you end up creating lots of maps, that might be a good place to look.  Essentially GIS maps are mostly about deciding what information you want to show and the plot order, so the simple plotting we use here can be pretty good without needing extra tools.
@@ -1473,14 +1480,15 @@ used, but are not appropriate for colour blindness and interpreting the data
 can be hard. Rainbow can be found amongst the R base colours, but I would not
 recommend using them as there are plenty more better options.
 
-![R base colour palettes.](rbase.png)
+![R base colour palettes.](images/rbase.png)
+
+The `hcl.colors` function - as used above - is a far better choice in many cases. There are a wide range of palettes (see `hcl.pals()`) with different use cases. There are also some specific packages that provide extra colour schemes.
 
 ### Viridis
 
 The `viridis` package contains the `viridis` palette, but also these other palettes:
 
-![Colour palettes from the viridis
-package.](viridis.png)
+![Colour palettes from the viridis package.](images/viridis.png)
 
 Re-plot the life expectancy map of Europe using each of the other 3 palettes in
 the `viridis` pacakge. Which one do you prefer?
