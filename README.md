@@ -63,7 +63,20 @@ The script  `lectures/build_slides.sh` automatically builds slides from all lect
 
 ## Practicals
 
-The practical files are again currently built using Rmarkdown and deployed to RPubs.
+The practical files are built using JupyterBook. The files themselves are stored as Markdown files using the Myst Markdown extensions provided for JupyterBook. This makes it easy to save the notebooks in the more human readable Markdown format.
 
+There are two stages to deploying the pages:
+
+1. Build the site, generating the `practicals/_build` folder containing the `html` folder
+
+```sh
+jupyter-book build practicals/
+```
+
+2. Publish the html version of the pages to Github
+
+```sh
+ghp-import -n -p -f practicals/_build/html
+```
 
 

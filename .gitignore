@@ -1,5 +1,13 @@
-# Mac hidden files
+# Mac hidden files and other similar
+.Rapp.history
 .DS_Store
 
 # knitr caches
 cache
+
+# Ignore bulk_data directories, used to store source data that is subsetted for use
+bulk_data
+
+# Ignore the jupyter-book build directory
+practicals/_build
+practicals/.ipynb_checkpoints
