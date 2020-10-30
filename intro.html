@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Index &#8212; My Jupyter Book</title>
+    <title>Introduction to the practicals &#8212; My Jupyter Book</title>
     
   <link rel="stylesheet" href="_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -55,8 +55,9 @@
         const thebe_selector_output = ".output"
     </script>
     <script async="async" src="_static/sphinx-thebe.js"></script>
-    <link rel="index" title="Index" href="#" />
+    <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Practical One: GIS data and plotting" href="practical_1/practical_1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -89,7 +90,7 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="intro.html">
+  <a class="reference internal" href="#">
    Introduction to the practicals
   </a>
  </li>
@@ -138,6 +139,21 @@
             class="fas fa-download"></i></button>
 
     
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        <a class="dropdown-buttons"
+            href="_sources/intro.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="_sources/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
 </div>
         <!-- Source interaction buttons -->
 
@@ -150,10 +166,51 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/intro.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#three-before-me">
+   Three before ‘me’
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#getting-started">
+   Getting started
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#tasks">
+   Tasks
+  </a>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -162,13 +219,62 @@
         
               <div>
                 
-
-<h1 id="index">Index</h1>
-
-<div class="genindex-jumpbox">
- 
+  <div class="section" id="introduction-to-the-practicals">
+<h1>Introduction to the practicals<a class="headerlink" href="#introduction-to-the-practicals" title="Permalink to this headline">¶</a></h1>
+<p>These practicals introduce a core set of GIS concepts and functions in R and then explore some more common use cases.</p>
+<p>All of these practicals are <strong>self-paced</strong>: you can work through them at your own speed and call out when you need help.</p>
+<div class="section" id="three-before-me">
+<h2>Three before ‘me’<a class="headerlink" href="#three-before-me" title="Permalink to this headline">¶</a></h2>
+<p>There will be a team of demonstrators to help you when you get stuck but please do remember that helping yourself is actually a far better way to learn. We do <em>not</em> want you to struggle but before you reach out to a demonstrator:</p>
+<ol class="simple">
+<li><p>Ask <em>yourself</em> what you are trying to do: often stepping back and trying to write out an explanation for your problem helps you solve it.</p></li>
+<li><p>Ask the <em>internet</em>: Sites like <span class="xref myst">stackoverflow.com</span> are an invaluable resource.</p></li>
+<li><p>Ask <em>each other</em>: it can be really helpful to get together in a short Team meeting and crowd source an answer.</p></li>
+</ol>
+<p>If none of those work then ask us!</p>
+</div>
+<div class="section" id="getting-started">
+<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Each practical has its own RStudio Cloud Project. This will contain all of the data needed for the practical and will have the required packages pre-installed.</p></li>
+<li><p>If you are working on your own computer, you will need to download the data files and set up a working directory with a <code class="docutils literal notranslate"><span class="pre">data</span></code> folder.</p></li>
+<li><p>Once you have your working directory set up and are running in R then do create a new script file to put your code in.</p></li>
+<li><p>Work through the handouts at your own pace.</p></li>
+</ul>
+</div>
+<div class="section" id="tasks">
+<h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
+<div class="tip admonition">
+<p class="admonition-title">Introducing tasks</p>
+<p>A lot of these practicals will consist of following provided code to understand how it works but occasionally there will be <strong>tasks</strong> to test the skills you have been learning. These will start with a task bar like the one above and then have a description like this one. There will then always be a button marked ‘Click to show’: if you get really stuck, you can click on this to show a solution. Do try and figure it out for yourself and if you don’t understand something, ask a demonstrator to help.</p>
+</div>
+<div class="toggle docutils container">
+<p>Hey! No peeking</p>
+</div>
+<div class="toctree-wrapper compound">
+</div>
+</div>
 </div>
 
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "r"
+        },
+        kernelOptions: {
+            kernelName: "ir",
+            path: "./."
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'ir'</script>
 
               </div>
               
@@ -178,6 +284,7 @@
     
     <div class='prev-next-bottom'>
         
+    <a class='right-next' id="next-link" href="practical_1/practical_1.html" title="next page">Practical One: GIS data and plotting</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

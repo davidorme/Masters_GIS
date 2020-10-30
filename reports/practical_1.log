@@ -17,57 +17,23 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-uk_eire$mean_height <- extract(uk_eire_elev, uk_eire, fun=mean, na.rm=TRUE)
-uk_eire
+sea_pal <- colorRampPalette(c('grey30', 'grey50', 'grey70'))
+plot(so_topo, col=sea_pal(100), asp=1, legend=FALSE)
+contour(so_topo, levels=c(-2000, -4000, -6000), add=TRUE, col='grey80')
+plot(st_geometry(so_ne_10), add=TRUE, col='grey90', border='grey40')
+plot(so_data['chlorophyll'], add=TRUE, logz=TRUE, pch=20, cex=2, pal=viridis, border='white', reset=FALSE)
+.image_scale(log10(so_data$chlorophyll), col=hcl.colors(18), key.length=0.8, key.pos=4, logz=TRUE)
 ------------------
 
-Error: No method asJSON S3 class: units
+Error in plot.sf(so_data["chlorophyll"], add = TRUE, logz = TRUE, pch = 20, : object 'viridis' not found
 Traceback:
 
-1. msg_to_wire(msg)
-2. charToRaw(toJSON(msg$content, auto_unbox = TRUE))
-3. toJSON(msg$content, auto_unbox = TRUE)
-4. asJSON(x, dataframe = dataframe, Date = Date, POSIXt = POSIXt, 
- .     factor = factor, complex = complex, raw = raw, matrix = matrix, 
- .     auto_unbox = auto_unbox, digits = digits, na = na, null = null, 
- .     force = force, indent = indent, ...)
-5. asJSON(x, dataframe = dataframe, Date = Date, POSIXt = POSIXt, 
- .     factor = factor, complex = complex, raw = raw, matrix = matrix, 
- .     auto_unbox = auto_unbox, digits = digits, na = na, null = null, 
- .     force = force, indent = indent, ...)
-6. .local(x, ...)
-7. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
- .     indent = indent + 2L, no_dots = no_dots, ...)
-8. FUN(X[[i]], ...)
-9. FUN(X[[i]], ...)
-10. .local(x, ...)
-11. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-12. FUN(X[[i]], ...)
-13. FUN(X[[i]], ...)
-14. .local(x, ...)
-15. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-16. FUN(X[[i]], ...)
-17. FUN(X[[i]], ...)
-18. .local(x, ...)
-19. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-20. FUN(X[[i]], ...)
-21. FUN(X[[i]], ...)
-22. .local(x, ...)
-23. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-24. FUN(X[[i]], ...)
-25. FUN(X[[i]], ...)
-26. .local(x, ...)
-27. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-28. FUN(X[[i]], ...)
-29. FUN(X[[i]], ...)
-30. .local(x, ...)
-31. stop("No method asJSON S3 class: ", class(x))
-32. base::stop(..., call. = FALSE)
-ERROR: Error: No method asJSON S3 class: units
+1. plot(so_data["chlorophyll"], add = TRUE, logz = TRUE, pch = 20, 
+ .     cex = 2, pal = viridis, border = "white", reset = FALSE)
+2. plot(so_data["chlorophyll"], add = TRUE, logz = TRUE, pch = 20, 
+ .     cex = 2, pal = viridis, border = "white", reset = FALSE)
+3. plot.sf(so_data["chlorophyll"], add = TRUE, logz = TRUE, pch = 20, 
+ .     cex = 2, pal = viridis, border = "white", reset = FALSE)
+ERROR: Error in plot.sf(so_data["chlorophyll"], add = TRUE, logz = TRUE, pch = 20, : object 'viridis' not found
 
 

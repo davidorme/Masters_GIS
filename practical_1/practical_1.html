@@ -57,6 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Introduction to the practicals" href="../intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -89,11 +90,19 @@
 <nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
-  <a class="reference internal" href="#">
+  <a class="reference internal" href="../intro.html">
+   Introduction to the practicals
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
    Practical One: GIS data and plotting
   </a>
  </li>
 </ul>
+
 </nav>
 
  <!-- To handle the deprecated key -->
@@ -184,253 +193,242 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Practical One: GIS data and plotting
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#required-packages">
+   Required packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#vector-data">
+   Vector data
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#getting-started">
-     Getting started
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#making-vectors-from-coordinates">
+     Making vectors from coordinates
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#r-packages-for-gis">
-     R packages for GIS
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#making-vector-points-from-a-dataframe">
+     Making vector points from a dataframe
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-data">
-     Vector data
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vector-geometry-operations">
+     Vector geometry operations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#features-and-geometries">
+     Features and geometries
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#vector-data-and-attributes">
+     Vector data and attributes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spatial-attributes">
+     Spatial attributes
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#plotting-sf-objects">
+     Plotting
+     <code class="docutils literal notranslate">
+      <span class="pre">
+       sf
+      </span>
+     </code>
+     objects
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#reprojecting-vector-data">
+     Reprojecting vector data
     </a>
     <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#making-vectors-from-coordinates">
-       Making vectors from coordinates
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#proj4-strings">
+       Proj4 strings
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#vector-geometry-operations">
-       Vector geometry operations
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#features-and-geometries">
-       Features and geometries
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#vector-data-and-attributes">
-       Vector data and attributes
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#spatial-attributes">
-       Spatial attributes
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#plotting-sf-objects">
-       Plotting
-       <code class="docutils literal notranslate">
-        <span class="pre">
-         sf
-        </span>
-       </code>
-       objects
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#reprojecting-vector-data">
-       Reprojecting vector data
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h4 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#proj4-strings">
-         Proj4 strings
-        </a>
-       </li>
-       <li class="toc-h4 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#degrees-are-not-constant">
-         Degrees are not constant
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#rasters">
-     Rasters
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#creating-a-raster">
-       Creating a raster
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#changing-raster-resolution">
-       Changing raster resolution
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#aggregating-rasters">
-       Aggregating rasters
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#disaggregating-rasters">
-       Disaggregating rasters
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#resampling">
-       Resampling
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#degrees-are-not-constant">
+       Degrees are not constant
       </a>
      </li>
     </ul>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#rasters">
+   Rasters
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#creating-a-raster">
+     Creating a raster
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#changing-raster-resolution">
+     Changing raster resolution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#aggregating-rasters">
+     Aggregating rasters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#disaggregating-rasters">
+     Disaggregating rasters
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#resampling">
+     Resampling
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#reprojecting-a-raster">
      Reprojecting a raster
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#converting-between-vector-and-raster-data-types">
    Converting between vector and raster data types
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#vector-to-raster">
      Vector to raster
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#raster-to-vector">
      Raster to vector
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-data-in-files">
    Using data in files
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#saving-vector-data">
      Saving vector data
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#saving-raster-data">
      Saving raster data
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#loading-vector-data">
      Loading Vector data
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#loading-xy-data">
      Loading XY data
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#loading-raster-data">
      Loading Raster data
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#raster-stacks">
-       Raster Stacks
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#raster-stacks">
+     Raster Stacks
+    </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#overlaying-raster-and-vector-data">
    Overlaying raster and vector data
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#cropping-data">
      Cropping data
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#spatial-joins-and-raster-data-extraction">
    Spatial joins and raster data extraction
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#spatial-joining">
      Spatial joining
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#extracting-data-from-rasters">
      Extracting data from Rasters
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#raster-cell-statistics-and-locations">
-       Raster cell statistics and locations
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#the-extract-function">
-       The extract function
-      </a>
-     </li>
-    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#raster-cell-statistics-and-locations">
+     Raster cell statistics and locations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#the-extract-function">
+     The extract function
+    </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#mini-projects">
    Mini projects
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#precipitation-transect-for-new-guinea">
      Precipitation transect for  New Guinea
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
+   <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#fishing-pressure-in-fiji">
      Fishing pressure in Fiji
     </a>
     <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#loading-the-data">
        Loading the data
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#create-the-cost-surface">
        Create the cost surface
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#finding-launch-points">
        Finding launch points
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#find-distances">
        Find distances
       </a>
      </li>
-     <li class="toc-h3 nav-item toc-entry">
+     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#assign-villages-to-sites">
        Assign villages to sites
       </a>
@@ -439,32 +437,25 @@
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#appendix">
-   Appendix
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#using-ggplot-to-make-maps">
+   Using ggplot to make maps
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#colour-palettes">
+   Colour palettes
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#using-ggplot-to-make-maps">
-     Using ggplot to make maps
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#viridis">
+     Viridis
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#colour-palettes">
-     Colour palettes
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#brewer">
+     Brewer
     </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#viridis">
-       Viridis
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#brewer">
-       Brewer
-      </a>
-     </li>
-    </ul>
    </li>
   </ul>
  </li>
@@ -483,59 +474,29 @@
 </div>
 <div class="section" id="practical-one-gis-data-and-plotting">
 <h1>Practical One: GIS data and plotting<a class="headerlink" href="#practical-one-gis-data-and-plotting" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="getting-started">
-<h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li><p>Create a folder to contain your data and scripts.This will be your R working directory.</p></li>
-<li><p>Download the data file from Blackboard. It is a zip file, so save it to the folder you just created and extract all the files into a new <code class="docutils literal notranslate"><span class="pre">data</span></code> folder.</p></li>
-<li><p>Start R, change to the new working directory, open up a new script window to put your code in.</p></li>
-<li><p>Work through the handout below at your own pace.</p></li>
-</ul>
-<div class="tip admonition">
-<p class="admonition-title">Introducing tasks</p>
-<p>This practical contains tasks to test the skills you have learned in the practical. These will start with a task bar like the one above and then have a description like this one. There will then always be a button marked ‘Click to show’: ff you get really stuck, you can click on this to show the solution. Do try and figure it out for yourself and if you don’t understand something, ask a demonstrator to help.</p>
-</div>
-<div class="toggle docutils container">
-<p>Hey! No peeking</p>
-</div>
-</div>
-<div class="section" id="r-packages-for-gis">
-<h2>R packages for GIS<a class="headerlink" href="#r-packages-for-gis" title="Permalink to this headline">¶</a></h2>
-<p>There are loads of R packages that can load, manipulate and plot GIS data and we will be using several. In the last few years, the R spatial  data community has been working on bringing together most of the core GIS functionality into a few core packages. We will focus on using these up-to-date central packages, but there will be some occasions where we need to use older packages.</p>
-<p>This quite a long list of packages - we’ve shown what each one does:</p>
+<div class="section" id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+<p>There are loads of R packages that can load, manipulate and plot GIS data and we will be using several in this practical. In the last few years, the R spatial  data community has been working on bringing together most of the core GIS functionality into a few core packages. We will focus on using these up-to-date central packages, but there will be some occasions where we need to use older packages.</p>
+<p>This quite a long list of packages - we’ve shown what each one does. If you are working on your own machine, you will need to install these packages using the code below, but they are pre-installed in the RStudio Cloud Projects.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span> <span class="c1"># Core raster GIS data package</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span> <span class="c1"># Core vector GIS data package</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sp&#39;</span><span class="p">)</span> <span class="c1"># Another core vector GIS package</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgeos&#39;</span><span class="p">)</span> <span class="c1"># Extends vector data functionality</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgdal&#39;</span><span class="p">)</span> <span class="c1"># Interface to the Geospatial Data Abstraction Library</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;lwgeom&#39;</span><span class="p">)</span> <span class="c1"># Extends vector data functionality</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;viridis&#39;</span><span class="p">)</span> <span class="c1"># Because we like the colour scheme!</span>
 </pre></div>
 </div>
-<p>Once you’ve installed the packages, you then need to load them:</p>
-<div class="cell docutils container">
+<p>To load the packages:</p>
+<div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">viridis</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: sp
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: viridisLite
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>udunits system database from /Library/Frameworks/R.framework/Versions/3.6/Resources/library/units/share/udunits
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -567,19 +528,19 @@
 </div>
 </div>
 </div>
-<p>We want to get polygon features that look like the map below. So, we are aiming to have seperate polygons for Scotland, England, Wales, Northern Ireland and Eire. We also want to isolate London from the rest of England. This map is going to be <em>very</em> approximate and we’re going to put the map together in a rather peculiar way, to show different geometry types and operations.</p>
-<p>The map looks peculiar - squashed vertically - because it is plotting latitude and longitude degrees as if they are constant units and they are not. We’ll come back to this in the section on reprojection below.</p>
+<p>We want to get polygon features that look <em>approximately</em>  like the map below. So, we are aiming to have separate polygons for Scotland, England, Wales, Northern Ireland and Eire. We also want to isolate London from the rest of England. This map is going to be <em>very</em> approximate and we’re going to put the map together in a rather peculiar way, to show different geometry types and operations.</p>
+<p>The map below looks a bit peculiar - squashed vertically - because it is plotting latitude and longitude degrees as if they are constant units and they are not. We’ll come back to this in the section on reprojection below.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_6_0.png" src="../_images/practical_1_6_0.png" />
+<img alt="../_images/practical_1_7_0.png" src="../_images/practical_1_7_0.png" />
 </div>
 </div>
 <p>In order to create vector data, we need to provide a set of coordinates for the points. For different kinds of vector geometries (POINT, LINESTRING, POLYGON), the coordinates are provided in different ways. Here, we are just using very simple polygons to show the countries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create coordinates  for each country </span>
-<span class="c1"># - this is a list of sets of coordinates forming the edge of the polygon. </span>
-<span class="c1"># - note that they have to _close_ (have the same coordinate at either end)</span>
+<span class="c1"># - this creates a matrix of pairs of coordinates forming the edge of the polygon. </span>
+<span class="c1"># - note that they have to _close_: the first and last coordinate must be the same.</span>
 <span class="n">scotland</span> <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">58.6</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span> <span class="m">58.6</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-4</span><span class="p">,</span> <span class="m">57.6</span><span class="p">),</span> 
                   <span class="nf">c</span><span class="p">(</span><span class="m">-1.5</span><span class="p">,</span> <span class="m">57.6</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-2</span><span class="p">,</span> <span class="m">55.8</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-3</span><span class="p">,</span> <span class="m">55</span><span class="p">),</span> 
                   <span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">55</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-6</span><span class="p">,</span> <span class="m">56</span><span class="p">),</span> <span class="nf">c</span><span class="p">(</span><span class="m">-5</span><span class="p">,</span> <span class="m">58.6</span><span class="p">))</span>
@@ -601,7 +562,7 @@
 </div>
 </div>
 </div>
-<p>We can combine these into a simple feature column (<code class="docutils literal notranslate"><span class="pre">sfc</span></code>), which also allows us to set the coordinate reference system (<code class="docutils literal notranslate"><span class="pre">crs</span></code> or projection) of the data. The mystery <code class="docutils literal notranslate"><span class="pre">4326</span></code> is explained later on!</p>
+<p>We can combine these into a simple feature column (<code class="docutils literal notranslate"><span class="pre">sfc</span></code>), which also allows us to set the coordinate reference system (<code class="docutils literal notranslate"><span class="pre">crs</span></code> or projection) of the data. The mystery <code class="docutils literal notranslate"><span class="pre">4326</span></code> in the code below is explained later on!</p>
 <p>One other thing to note here is that <code class="docutils literal notranslate"><span class="pre">sf</span></code> automatically tries to scale the aspect ratio of plots of geographic coordinate data based on their latitude - this makes them look less squashed. We are actively suppressing that here by setting an aspect ratio of one (<code class="docutils literal notranslate"><span class="pre">asp=1</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -612,17 +573,37 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_10_0.png" src="../_images/practical_1_10_0.png" />
+<img alt="../_images/practical_1_11_0.png" src="../_images/practical_1_11_0.png" />
 </div>
 </div>
-<p>Another approach to creating point vector data sources is used below to create point locations for capital cities.</p>
+</div>
+<div class="section" id="making-vector-points-from-a-dataframe">
+<h3>Making vector points from a dataframe<a class="headerlink" href="#making-vector-points-from-a-dataframe" title="Permalink to this headline">¶</a></h3>
+<p>We can easily turn a data frame with coordinates in columns into a point vector data source. The example here creates point locations for capital cities.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire_capitals</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">long</span><span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="m">-0.1</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-3.2</span><span class="p">,</span> <span class="m">-6.0</span><span class="p">,</span> <span class="m">-6.25</span><span class="p">),</span>
                                <span class="n">lat</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">51.5</span><span class="p">,</span> <span class="m">51.5</span><span class="p">,</span> <span class="m">55.8</span><span class="p">,</span> <span class="m">54.6</span><span class="p">,</span> <span class="m">53.30</span><span class="p">),</span>
                                <span class="n">name</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;Cardiff&#39;</span><span class="p">,</span> <span class="s">&#39;Edinburgh&#39;</span><span class="p">,</span> <span class="s">&#39;Belfast&#39;</span><span class="p">,</span> <span class="s">&#39;Dublin&#39;</span><span class="p">))</span>
 
+<span class="c1"># Indicate which fields in the data frame contain the coordinates</span>
 <span class="n">uk_eire_capitals</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">uk_eire_capitals</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;long&#39;</span><span class="p">,</span><span class="s">&#39;lat&#39;</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_eire_capitals</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 5 features and 1 field
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
+CRS:            EPSG:4326
+       name           geometry
+1    London  POINT (-0.1 51.5)
+2   Cardiff  POINT (-3.2 51.5)
+3 Edinburgh  POINT (-3.2 55.8)
+4   Belfast    POINT (-6 54.6)
+5    Dublin POINT (-6.25 53.3)
 </pre></div>
 </div>
 </div>
@@ -632,7 +613,7 @@
 <h3>Vector geometry operations<a class="headerlink" href="#vector-geometry-operations" title="Permalink to this headline">¶</a></h3>
 <p>That is a good start but we’ve got some issues:</p>
 <ol class="simple">
-<li><p>We are missing a separate polygon for London</p></li>
+<li><p>We are missing a separate polygon for London.</p></li>
 <li><p>The boundary for Wales is poorly digitized - we want a common border with England.</p></li>
 <li><p>We have not separated Northern Ireland from Eire.</p></li>
 </ol>
@@ -645,7 +626,7 @@
 </div>
 </div>
 </div>
-<p>We also need to remove London from the England polygon so that we can set different population densities for the two regions. This uses the <strong>difference</strong> operation. Note that the order matters here: we want the bits of England that are different from London.</p>
+<p>We also need to remove London from the England polygon so that we can set different population densities for the two regions. This uses the <strong>difference</strong> operation. Note that the order of the arguments to this function matter: we want the bits of England that are different from London.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">england_no_london</span> <span class="o">&lt;-</span> <span class="nf">st_difference</span><span class="p">(</span><span class="n">england</span><span class="p">,</span> <span class="n">london</span><span class="p">)</span>
@@ -653,17 +634,25 @@
 </div>
 </div>
 </div>
-<p>Note that the resulting feature now has a different structure. It consists of <strong>two</strong> rings: one ring for the 18 points along the external border and a second ring of 242 points for the internal hole. The other un-holey polygons only contain a single ring for their external border.</p>
+<p>Note that the resulting feature now has a different structure. The <code class="docutils literal notranslate"><span class="pre">lengths</span></code> function allows us to see the number of components in a polygon and how many points are in each component. If we look at the polygon for Scotland:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Count the points and show the number of rings within the polygon features</span>
-<span class="nf">lengths</span><span class="p">(</span><span class="n">scotland</span><span class="p">)</span>
-<span class="nf">lengths</span><span class="p">(</span><span class="n">england_no_london</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">lengths</span><span class="p">(</span><span class="n">scotland</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">18</div><div class="output text_html"><style>
+<div class="output text_html">18</div></div>
+</div>
+<p>There is a single component with 18 points. If we look at the new <code class="docutils literal notranslate"><span class="pre">england_no_london</span></code> feature:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">lengths</span><span class="p">(</span><span class="n">england_no_london</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
 .list-inline {list-style: none; margin:0; padding: 0}
 .list-inline>li {display: inline-block}
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
@@ -671,6 +660,7 @@
 <ol class=list-inline><li>18</li><li>242</li></ol>
 </div></div>
 </div>
+<p>There are <strong>two</strong> components (or rings): one ring for the 18 points along the external border and a second ring of 242 points for the internal hole. Like <code class="docutils literal notranslate"><span class="pre">scotland</span></code>, all the other un-holey polygons only contain a single ring for their external border.</p>
 <p>We can use the same operation to tidy up Wales: in this case we want the bits of Wales that are different from England.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -697,26 +687,17 @@
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_23_0.png" src="../_images/practical_1_23_0.png" />
+<img alt="../_images/practical_1_26_0.png" src="../_images/practical_1_26_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="features-and-geometries">
 <h3>Features and geometries<a class="headerlink" href="#features-and-geometries" title="Permalink to this headline">¶</a></h3>
-<p>That <code class="docutils literal notranslate"><span class="pre">uk_eire</span></code> object now contains 6 <strong>features</strong>: a feature is a set of vector GIS geometries that represent a spatial unit we are interested in. At the moment, <code class="docutils literal notranslate"><span class="pre">uk_eire</span></code> hold six features, each of which consists of a single polygon. The England feature is slightly more complex because it as a hole in it. We can create a single feature that contains all of those geometries in one <code class="docutils literal notranslate"><span class="pre">MULTIPOLYGON</span></code> geometry by using the <strong>union</strong> operation:</p>
+<p>That <code class="docutils literal notranslate"><span class="pre">uk_eire</span></code> object now contains 6 <strong>features</strong>: a feature is a set of one or more vector GIS geometries that represent a spatial unit we are interested in. At the moment, <code class="docutils literal notranslate"><span class="pre">uk_eire</span></code> hold six features, each of which consists of a single polygon. The England feature is slightly more complex because it as a hole in it. We can create a single feature that contains all of those geometries in one <code class="docutils literal notranslate"><span class="pre">MULTIPOLYGON</span></code> geometry by using the <strong>union</strong> operation:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># make the UK into a single feature</span>
-<span class="n">uk_country</span> <span class="o">&lt;-</span> <span class="nf">st_union</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span>
-<span class="c1"># compare six Polygon features with one Multipolygon feature</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># compare six Polygon features with one Multipolygon feature</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">uk_country</span><span class="p">)</span>
-
-<span class="c1"># Plot them</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">rainbow</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_capitals</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">uk_country</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;lightblue&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -744,6 +725,17 @@ First 5 geometries:
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((-6.91875 55.3, -5.9 55.3, -5.9 54.1, ...
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># make the UK into a single feature</span>
+<span class="n">uk_country</span> <span class="o">&lt;-</span> <span class="nf">st_union</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">[</span><span class="m">-6</span><span class="p">])</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_country</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 1 feature 
 geometry type:  MULTIPOLYGON
 dimension:      XY
@@ -754,7 +746,20 @@ CRS:            EPSG:4326
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPOLYGON (((-6.91875 55.3, -5.9 55.3, -5.9 ...
 </pre></div>
 </div>
-<img alt="../_images/practical_1_25_8.png" src="../_images/practical_1_25_8.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot them</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">rainbow</span><span class="p">(</span><span class="m">6</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_capitals</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">uk_country</span><span class="p">,</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;lightblue&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_31_0.png" src="../_images/practical_1_31_0.png" />
 </div>
 </div>
 <!-- ## Geometry errors and validity
@@ -777,7 +782,7 @@ Zooming in and exploring GIS data is one of the things that R is currently poor 
 </div>
 <div class="section" id="vector-data-and-attributes">
 <h3>Vector data and attributes<a class="headerlink" href="#vector-data-and-attributes" title="Permalink to this headline">¶</a></h3>
-<p>So far we just have the vector geometries, but GIS data is about pairing spatial features with data about those features, often called <em>attributes</em> or <em>properties</em>. The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package introduces the <code class="docutils literal notranslate"><span class="pre">sf</span></code> object type: basically this is just a normal data frame with an additional simple feature column. We can do that here:</p>
+<p>So far we just have the vector geometries, but GIS data is about pairing spatial features with data about those features, often called <em>attributes</em> or <em>properties</em>. The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package introduces the <code class="docutils literal notranslate"><span class="pre">sf</span></code> object type: basically this is just a normal data frame with an additional field containing <strong>simple feature</strong> data. We can do that here:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span> <span class="o">&lt;-</span> <span class="nf">st_sf</span><span class="p">(</span><span class="n">name</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Wales&#39;</span><span class="p">,</span> <span class="s">&#39;England&#39;</span><span class="p">,</span><span class="s">&#39;Scotland&#39;</span><span class="p">,</span> <span class="s">&#39;London&#39;</span><span class="p">,</span> 
@@ -789,18 +794,41 @@ Zooming in and exploring GIS data is one of the things that R is currently poor 
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_27_0.png" src="../_images/practical_1_27_0.png" />
+<img alt="../_images/practical_1_33_0.png" src="../_images/practical_1_33_0.png" />
 </div>
 </div>
 <p>Since an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object is an extended data frame, we can add attributes by adding fields directly:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span><span class="o">$</span><span class="n">capital</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;Edinburgh&#39;</span><span class="p">,</span><span class="s">&#39;Cardiff&#39;</span><span class="p">,</span> <span class="kc">NA</span><span class="p">,</span> <span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="s">&#39;Dublin&#39;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span><span class="o">$</span><span class="n">capital</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;Cardiff&#39;</span><span class="p">,</span> <span class="s">&#39;London&#39;</span><span class="p">,</span> <span class="s">&#39;Edinburgh&#39;</span><span class="p">,</span> 
+                     <span class="kc">NA</span><span class="p">,</span> <span class="s">&#39;Belfast&#39;</span><span class="p">,</span><span class="s">&#39;Dublin&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 2 fields
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:            EPSG:4326
+              name                       geometry   capital
+1            Wales POLYGON ((-2.942105 51.3789...   Cardiff
+2          England POLYGON ((-2 55.8, 0.5 52.8...    London
+3         Scotland POLYGON ((-5 58.6, -3 58.6,... Edinburgh
+4           London POLYGON ((0.151944 51.51361...      &lt;NA&gt;
+5 Northern Ireland POLYGON ((-6.91875 55.3, -5...   Belfast
+6             Eire POLYGON ((-10 51.5, -10 54....    Dublin
 </pre></div>
 </div>
 </div>
 </div>
-<p>We can also use the <code class="docutils literal notranslate"><span class="pre">merge</span></code> command to match data in. Note that we need to use <code class="docutils literal notranslate"><span class="pre">by.x</span></code> and <code class="docutils literal notranslate"><span class="pre">by.y</span></code> to say which columns we expect to match. We also use <code class="docutils literal notranslate"><span class="pre">all.x=TRUE</span></code>, otherwise Eire will be dropped from the spatial data because it has no population density estimate in the data frame. If we look at the result, we get some header information about the spatial data and then something that looks very like a data frame printout, with the extra <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column.</p>
+<p>A more useful - and less error prone - technique is to use the <code class="docutils literal notranslate"><span class="pre">merge</span></code> command to match data in from the <code class="docutils literal notranslate"><span class="pre">pop_dens</span></code> data frame. The <code class="docutils literal notranslate"><span class="pre">merge</span></code> function allows us to set columns in two data frames that containing matching values and uses those to merge the data together.</p>
+<ul class="simple">
+<li><p>We need to use <code class="docutils literal notranslate"><span class="pre">by.x</span></code> and <code class="docutils literal notranslate"><span class="pre">by.y</span></code> to say which columns we expect to match, but if the column names were identical in the two frames, we could just use <code class="docutils literal notranslate"><span class="pre">by</span></code>.</p></li>
+<li><p>The default for <code class="docutils literal notranslate"><span class="pre">merge</span></code> is to drop rows when it doesn’t find matching data. So here, we have to also use <code class="docutils literal notranslate"><span class="pre">all.x=TRUE</span></code>, otherwise Eire will be dropped from the spatial data because it has no population density estimate in the data frame.</p></li>
+</ul>
+<p>If we look at the result, we get some header information about the spatial data and then something that looks very like a data frame printout, with the extra <code class="docutils literal notranslate"><span class="pre">geometry</span></code> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="n">pop_dens</span><span class="p">,</span> <span class="n">by.x</span><span class="o">=</span><span class="s">&#39;name&#39;</span><span class="p">,</span> <span class="n">by.y</span><span class="o">=</span><span class="s">&#39;country&#39;</span><span class="p">,</span> <span class="n">all.x</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
@@ -816,11 +844,11 @@ bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
 CRS:            EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
-2          England Edinburgh   260 POLYGON ((-2 55.8, 0.5 52.8...
+2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
 3           London      &lt;NA&gt;  4500 POLYGON ((0.151944 51.51361...
 4 Northern Ireland   Belfast   133 POLYGON ((-6.91875 55.3, -5...
-5         Scotland   Cardiff    67 POLYGON ((-5 58.6, -3 58.6,...
-6            Wales    London   151 POLYGON ((-2.942105 51.3789...
+5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
+6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
 </pre></div>
 </div>
 </div>
@@ -837,10 +865,6 @@ CRS:            EPSG:4326
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_centroid.sf(uk_eire):
-“st_centroid assumes attributes are constant over geometries of x”
-</pre></div>
-</div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_centroid.sfc(st_geometry(x), of_largest_polygon = of_largest_polygon):
 “st_centroid does not give correct centroids for longitude/latitude data”
 </pre></div>
@@ -876,17 +900,18 @@ CRS:            EPSG:4326
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
+Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
 geometry type:  POLYGON
 dimension:      XY
 bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
 CRS:            EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
-2          England Edinburgh   260 POLYGON ((-2 55.8, 0.5 52.8...
+2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
 3           London      &lt;NA&gt;  4500 POLYGON ((0.151944 51.51361...
 4 Northern Ireland   Belfast   133 POLYGON ((-6.91875 55.3, -5...
-5         Scotland   Cardiff    67 POLYGON ((-5 58.6, -3 58.6,...
-6            Wales    London   151 POLYGON ((-2.942105 51.3789...
+5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
+6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
                 area        length
 1  80555367364 [m^2] 1326763.9 [m]
 2 125982254516 [m^2] 2062484.3 [m]
@@ -898,17 +923,45 @@ CRS:            EPSG:4326
 </div>
 </div>
 </div>
-<p>Notice that those fields have units after the values. The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package often creates data with explicit units, using the <code class="docutils literal notranslate"><span class="pre">units</span></code> package. That is nicely precise but you may need to know how to handle the values:</p>
-<div class="cell tag_raises-exception docutils container">
+<p>Notice that those fields display units after the values. The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package often creates data with explicit units, using the <code class="docutils literal notranslate"><span class="pre">units</span></code> package. That is nicely precise but you may need to know how to handle the values:</p>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># You can change units in a neat way</span>
 <span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span> <span class="o">&lt;-</span> <span class="nf">set_units</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span><span class="p">,</span> <span class="s">&#39;km^2&#39;</span><span class="p">)</span>
 <span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span> <span class="o">&lt;-</span> <span class="nf">set_units</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span><span class="p">,</span> <span class="s">&#39;km&#39;</span><span class="p">)</span>
-<span class="c1"># And which won&#39;t let you make silly error like turning a length into weight</span>
-<span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span> <span class="o">&lt;-</span> <span class="nf">set_units</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span><span class="p">,</span> <span class="s">&#39;kg&#39;</span><span class="p">)</span>
-<span class="c1"># Or you can simply convert the `units` version to simple numbers</span>
-<span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
+Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:            EPSG:4326
+              name   capital n_km2                       geometry
+1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
+2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
+3           London      &lt;NA&gt;  4500 POLYGON ((0.151944 51.51361...
+4 Northern Ireland   Belfast   133 POLYGON ((-6.91875 55.3, -5...
+5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
+6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
+               area         length
+1  80555.367 [km^2] 1326.7639 [km]
+2 125982.255 [km^2] 2062.4843 [km]
+3   1515.813 [km^2]  143.7962 [km]
+4  13656.055 [km^2]  480.9682 [km]
+5  76276.261 [km^2] 1255.5772 [km]
+6  28948.401 [km^2]  689.8315 [km]
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_raises-exception docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># And it won&#39;t let you make silly error like turning a length into weight</span>
+<span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span> <span class="o">&lt;-</span> <span class="nf">set_units</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span><span class="p">,</span> <span class="s">&#39;kg&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -925,11 +978,18 @@ Traceback:
 </div>
 </div>
 </div>
-<p>A final useful example is the <strong>distance</strong> between objects: <code class="docutils literal notranslate"><span class="pre">sf</span></code> gives us the closest distance between geometries, which might be zero if two features are touching.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Or you can simply convert the `units` version to simple numbers</span>
+<span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>A final useful example is the <strong>distance</strong> between objects: <code class="docutils literal notranslate"><span class="pre">sf</span></code> gives us the closest distance between geometries, which might be zero if two features overlap or touch, as in the neighbouring polygons in our data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_distance</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
-<span class="nf">st_distance</span><span class="p">(</span><span class="n">uk_eire_centroids</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -944,6 +1004,15 @@ Traceback:
 [6,]  52085.08      0.0 163295.9 119471.08 178084.13      0.00
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_distance</span><span class="p">(</span><span class="n">uk_eire_centroids</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]
 [1,]      0.0 454351.6 576456.5 186596.2 469999.3 300157.7
@@ -960,7 +1029,7 @@ Traceback:
 </div>
 <div class="section" id="plotting-sf-objects">
 <h3>Plotting <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects<a class="headerlink" href="#plotting-sf-objects" title="Permalink to this headline">¶</a></h3>
-<p>If you plot an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, the default is to plot a map for every attribute. You can pick a column to show using square brackets. So, now we can show our map of population density:</p>
+<p>If you plot an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, the default is to plot a map for every attribute. You can pick a field to plot by using square brackets. So, now we can show our map of population density:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">[</span><span class="s">&#39;n_km2&#39;</span><span class="p">],</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
@@ -968,7 +1037,7 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_41_0.png" src="../_images/practical_1_41_0.png" />
+<img alt="../_images/practical_1_51_0.png" src="../_images/practical_1_51_0.png" />
 </div>
 </div>
 <p>If you  just want to plot the geometries, without any labelling or colours, the <code class="docutils literal notranslate"><span class="pre">st_geometry</span></code> function can be used to temporarily strip off attributes - see the reprojection section below for an example.</p>
@@ -978,7 +1047,8 @@ Traceback:
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># You could simply log the data:</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="c1"># You could simply log the data:</span>
 <span class="n">uk_eire</span><span class="o">$</span><span class="n">log_n_km2</span> <span class="o">&lt;-</span> <span class="nf">log10</span><span class="p">(</span><span class="n">uk_eire</span><span class="o">$</span><span class="n">n_km2</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">[</span><span class="s">&#39;log_n_km2&#39;</span><span class="p">],</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 <span class="c1"># Or you can have logarithimic labelling using logz</span>
@@ -987,32 +1057,26 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_43_0.png" src="../_images/practical_1_43_0.png" />
-<img alt="../_images/practical_1_43_1.png" src="../_images/practical_1_43_1.png" />
+<img alt="../_images/practical_1_53_0.png" src="../_images/practical_1_53_0.png" />
+<img alt="../_images/practical_1_53_1.png" src="../_images/practical_1_53_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="reprojecting-vector-data">
 <h3>Reprojecting vector data<a class="headerlink" href="#reprojecting-vector-data" title="Permalink to this headline">¶</a></h3>
-<p>First, in the examples above we have been <strong>asserting</strong> that we have data with a particular projection (<code class="docutils literal notranslate"><span class="pre">4326</span></code>). This is <strong>not</strong> reprojection: we are simply saying that we know these coordinates are in this projection.</p>
-<p>That mysterious <code class="docutils literal notranslate"><span class="pre">4326</span></code> is just a unique numeric code in the EPSG database of spatial coordinate systems: http://epsg.io/. The code acts a shortcut for the often complicated sets of parameters and transformations that define a particular projection. Here <code class="docutils literal notranslate"><span class="pre">4326</span></code> is the <a class="reference external" href="http://epsg.io/4326">WGS84</a> geographic coordinate system which is extremely widely used. Most GPS data is collected in WGS84, for example.</p>
+<p>First, in the examples above we have been <strong>asserting</strong> that we have data with a particular projection (<code class="docutils literal notranslate"><span class="pre">4326</span></code>). This is <strong>not</strong> reprojection: we are simply saying that we know these coordinates are in this projection and setting that projection.</p>
+<p>That mysterious <code class="docutils literal notranslate"><span class="pre">4326</span></code> is just a unique numeric code in the EPSG database of spatial coordinate systems: <span class="xref myst">http://epsg.io/</span>. The code acts a shortcut for the often complicated sets of parameters and transformations that define a particular projection. Here <code class="docutils literal notranslate"><span class="pre">4326</span></code> is the <a class="reference external" href="http://epsg.io/4326">WGS84</a> geographic coordinate system which is extremely widely used. Most GPS data is collected in WGS84, for example.</p>
 <p>Reprojection is moving data from one set of coordinates to another. For vector data, this is a relatively straightforward process. The spatial information in a vector dataset are coordinates in space, and projections are just sets of equations, so it is simple to apply the equations to the coordinates. We’ll come back to this for raster data: coordinate transormation is identical but transforming the data stored in a raster is conceptually more complex.</p>
-<p>Reprojecting data is often used to convert from a geographic coordinate system - with units of degrees - to a projected coordinate system with linear units. Remember that projected coordinate systems are always a trade off between conserving distance, shape area and angles and it is important to pick one that is appropriate to your area or analysis.</p>
+<p>Reprojecting data is often used to convert from a geographic coordinate system - with units of degrees - to a projected coordinate system with linear units. Remember that projected coordinate systems are always a trade off between conserving distance, shape, area and bearings and it is important to pick one that is appropriate to your area or analysis.</p>
 <p>We will reproject our UK and Eire map onto a good choice of local projected coordinate system: the <a class="reference external" href="http://epsg.io/27700">British National Grid</a>. We can also use a bad choice: the <a class="reference external" href="http://epsg.io/32650">UTM 50N</a> projection, which is appropriate for Borneo. It does not end well if we use it to project the UK and Eire.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># British National Grid (EPSG:27700)</span>
 <span class="n">uk_eire_BNG</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="m">27700</span><span class="p">)</span>
-<span class="c1"># The bounding box of the data shows the change in units</span>
-<span class="nf">st_bbox</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
-<span class="nf">st_bbox</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">)</span>
 <span class="c1"># UTM50N (EPSG:32650)</span>
 <span class="n">uk_eire_UTM50N</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="m">32650</span><span class="p">)</span>
-<span class="c1"># Plot the results</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">),</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;WGS 84&#39;</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;OSGB 1936 / BNG&#39;</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_UTM50N</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;UTM 50N&#39;</span><span class="p">)</span>
+<span class="c1"># The bounding boxes of the data shows the change in units</span>
+<span class="nf">st_bbox</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1021,11 +1085,33 @@ Traceback:
 -10.0  50.0   1.6  58.6 
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      xmin       ymin       xmax       ymax 
 -154811.97   17655.72  642773.71  971900.65 
 </pre></div>
 </div>
-<img alt="../_images/practical_1_45_2.png" src="../_images/practical_1_45_2.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the results</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span> <span class="m">3</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">),</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;WGS 84&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;OSGB 1936 / BNG&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_UTM50N</span><span class="p">),</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;UTM 50N&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_57_0.png" src="../_images/practical_1_57_0.png" />
 </div>
 </div>
 <div class="section" id="proj4-strings">
@@ -1050,7 +1136,6 @@ Traceback:
 <span class="n">one_deg_north_pt</span> <span class="o">&lt;-</span>  <span class="nf">st_sfc</span><span class="p">(</span><span class="n">st_pauls</span> <span class="o">+</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span> <span class="c1"># near Peterborough</span>
 <span class="c1"># Calculate the distance between St Pauls and each point</span>
 <span class="nf">st_distance</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="n">one_deg_west_pt</span><span class="p">)</span>
-<span class="nf">st_distance</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="n">one_deg_north_pt</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1060,6 +1145,15 @@ Traceback:
 [1,] 69419.29
 </pre></div>
 </div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_distance</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="n">one_deg_north_pt</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]
 [1,] 111267.6
@@ -1070,7 +1164,8 @@ Traceback:
 <p>Note that the great circle distance between London and Goring - which accounts for the curvature of the earth  - is roughly 17 metres longer than the distance between the same coordinates projected onto the British National Grid.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_distance</span><span class="p">(</span><span class="nf">st_transform</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="m">27700</span><span class="p">),</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">one_deg_west_pt</span><span class="p">,</span> <span class="m">27700</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_distance</span><span class="p">(</span><span class="nf">st_transform</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="m">27700</span><span class="p">),</span> 
+            <span class="nf">st_transform</span><span class="p">(</span><span class="n">one_deg_west_pt</span><span class="p">,</span> <span class="m">27700</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -1102,7 +1197,7 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_51_0.png" src="../_images/practical_1_51_0.png" />
+<img alt="../_images/practical_1_64_0.png" src="../_images/practical_1_64_0.png" />
 </div>
 </div>
 </div>
@@ -1113,7 +1208,7 @@ Traceback:
 <p>Rasters are the other major type of spatial data. They consist of a regular grid in space, defined by a coordinate system, an origin point, a resolution and a number of rows and columns. They effectively hold a matrix of data. We will use the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to handle raster data.</p>
 <div class="section" id="creating-a-raster">
 <h3>Creating a raster<a class="headerlink" href="#creating-a-raster" title="Permalink to this headline">¶</a></h3>
-<p>We are first going to build a simple raster dataset from scratch. We are setting the projection, the bounds and the resolution. The raster object initially has no data associated with it, but we can set that.</p>
+<p>We are first going to build a simple raster dataset from scratch. We are setting the projection, the bounds and the resolution. The raster object initially has no data values associated with it, but we can set them.</p>
 <p>Note that the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package doesn’t support using EPSG codes as numbers, but does support them as a formatted text string: <code class="docutils literal notranslate"><span class="pre">+init=EPSG:4326</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1121,13 +1216,32 @@ Traceback:
 <span class="n">uk_raster_WGS84</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="n">xmn</span><span class="o">=</span><span class="m">-11</span><span class="p">,</span>  <span class="n">xmx</span><span class="o">=</span><span class="m">2</span><span class="p">,</span>  <span class="n">ymn</span><span class="o">=</span><span class="m">49.5</span><span class="p">,</span> <span class="n">ymx</span><span class="o">=</span><span class="m">59</span><span class="p">,</span> 
                           <span class="n">res</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&quot;+init=EPSG:4326&quot;</span><span class="p">)</span>
 <span class="nf">hasValues</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">)</span>
-<span class="c1"># Add data to the raster: just the number 1 to number of cells</span>
-<span class="nf">values</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html">FALSE</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add data to the raster: just the number 1 to number of cells</span>
+<span class="nf">values</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_raster_WGS84</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterLayer 
+dimensions : 19, 26, 494  (nrow, ncol, ncell)
+resolution : 0.5, 0.5  (x, y)
+extent     : -11, 2, 49.5, 59  (xmin, xmax, ymin, ymax)
+crs        : +init=EPSG:4326 +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+source     : memory
+names      : layer 
+values     : 1, 494  (min, max)
+</pre></div>
+</div>
+</div>
 </div>
 <p>We can create a basic map of that, with the country borders over the top: <code class="docutils literal notranslate"><span class="pre">add=TRUE</span></code> adds the vector data to the existing map and the other options set border and fill colours. The ugly looking <code class="docutils literal notranslate"><span class="pre">#FFFFFF44</span></code> is a <a class="reference external" href="https://en.wikipedia.org/wiki/RGBA_color_space#RGBA_hexadecimal_(word-order)">RGBA colour code</a> that gives us a transparent gray fill for the polygon.</p>
 <div class="cell docutils container">
@@ -1138,7 +1252,7 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_55_0.png" src="../_images/practical_1_55_0.png" />
+<img alt="../_images/practical_1_69_0.png" src="../_images/practical_1_69_0.png" />
 </div>
 </div>
 </div>
@@ -1162,40 +1276,59 @@ Traceback:
 <div class="section" id="aggregating-rasters">
 <h3>Aggregating rasters<a class="headerlink" href="#aggregating-rasters" title="Permalink to this headline">¶</a></h3>
 <p>With aggregating, we choose an aggregation <em>factor</em> - how many cells to group - and then lump sets of cells together. So, for example, a factor of 2 will aggregate blocks of 2x2 cells.</p>
-<p>The question is then, what value should we assign? If the data is continuous (e.g. height) then a mean or a maximum might make sense. However if the raster values represent categories (like land cover), then mean doesn’t make sense <em>at all</em>: the average of Forest (2) and  Moorland (3) is easy to calculate but what does it actually mean!</p>
+<p>The question is then, what value should we assign? If the data is continuous (e.g. height) then a mean or a maximum might make sense. However if the raster values represent categories (like land cover), then mean doesn’t make sense <em>at all</em>: the average of Forest (2) and  Moorland (3) codes is easy to calculate but is meaningless!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Average values</span>
 <span class="n">square_agg_mean</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">fact</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">mean</span><span class="p">)</span>
-<span class="nf">values</span><span class="p">(</span><span class="n">square_agg_mean</span><span class="p">)</span>
-<span class="c1"># Maximum values</span>
-<span class="n">square_agg_max</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">fact</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">max</span><span class="p">)</span>
-<span class="nf">values</span><span class="p">(</span><span class="n">square_agg_max</span><span class="p">)</span>
-<span class="c1"># Modal values for categories</span>
-<span class="n">square_agg_modal</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">fact</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">modal</span><span class="p">)</span>
-<span class="nf">values</span><span class="p">(</span><span class="n">square_agg_modal</span><span class="p">)</span>
+<span class="nf">as.matrix</span><span class="p">(</span><span class="n">square_agg_mean</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>1.25</li><li>3.25</li><li>5.5</li><li>7.25</li></ol>
-</div><div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>2</li><li>4</li><li>6</li><li>8</li></ol>
-</div><div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>1</li><li>3</li><li>5</li><li>7</li></ol>
+<div class="output text_html"><table>
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+	<tr><td>1.25</td><td>3.25</td></tr>
+	<tr><td>5.50</td><td>7.25</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Maximum values</span>
+<span class="n">square_agg_max</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">fact</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">max</span><span class="p">)</span>
+<span class="nf">as.matrix</span><span class="p">(</span><span class="n">square_agg_max</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+	<tr><td>2</td><td>4</td></tr>
+	<tr><td>6</td><td>8</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modal values for categories</span>
+<span class="n">square_agg_modal</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">square</span><span class="p">,</span> <span class="n">fact</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">modal</span><span class="p">)</span>
+<span class="nf">as.matrix</span><span class="p">(</span><span class="n">square_agg_modal</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A matrix: 2 × 2 of type dbl</caption>
+<tbody>
+	<tr><td>1</td><td>3</td></tr>
+	<tr><td>6</td><td>7</td></tr>
+</tbody>
+</table>
 </div></div>
 </div>
 <div class="admonition-issues-with-aggregation admonition">
@@ -1203,12 +1336,12 @@ Traceback:
 <p>Even using the modal value, there is a problem with aggregating rasters with categories. This occurs in the example data - can you see what it is?</p>
 </div>
 <div class="toggle docutils container">
-<p>The bottom left cell has a modal value of 6 even though there is no mode: there are two 5s and two 6s. You can use <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">last</span></code> to specify which value gets chosen but there is no mode.</p>
+<p>The bottom left cell has a modal value of 5 even though there is no mode: there are two 5s and two 6s. You can use <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">last</span></code> to specify which value gets chosen but strictly there is no single mode.</p>
 </div>
 </div>
 <div class="section" id="disaggregating-rasters">
 <h3>Disaggregating rasters<a class="headerlink" href="#disaggregating-rasters" title="Permalink to this headline">¶</a></h3>
-<p>The <code class="docutils literal notranslate"><span class="pre">disaggregate</span></code> function also requires a factor, but this time the factor is the square root of the number of cells to <em>create</em> from each cell rather than the number to merge. There is again a choice to make on what values to put in the cell. The obvious answer is simply to copy the parent cell value into each of the new cells: this is pretty simple and is fine for both continuous and categorical values. Another option is to <strong>interpolate</strong> between the values to provide a smoother gradient between cells. This does <strong>not</strong> make sense for a categorical variable.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">disaggregate</span></code> function also requires a factor, but this time the factor is the square root of the number of cells to <em>create</em> from each cell, rather than the number to merge. There is again a choice to make on what values to put in the cell. The obvious answer is simply to copy the parent cell value into each of the new cells: this is pretty simple and is fine for both continuous and categorical values. Another option is to <strong>interpolate</strong> between the values to provide a smoother gradient between cells. This does <strong>not</strong> make sense for a categorical variable.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copy parents</span>
@@ -1222,20 +1355,19 @@ Traceback:
 <p>We’ll show those values visually:</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_63_0.png" src="../_images/practical_1_63_0.png" />
+<img alt="../_images/practical_1_79_0.png" src="../_images/practical_1_79_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="resampling">
 <h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this headline">¶</a></h3>
-<p>Note that the previous two functions don’t change the origin or alignments of cell borders at all: they just lump or split values within the same grid framework.  If you need to match datasets and they have different origins and aligments then you need to use the more complex <code class="docutils literal notranslate"><span class="pre">resample</span></code> function. We won’t look at this further here because it is basically a simpler case of …</p>
-</div>
+<p>Note that the previous two functions don’t change the <strong>origin</strong> or <strong>alignments of cell borders</strong> at all: they just lump or split values within the same grid framework.  If you need to match datasets and they have different origins and alignments then you need to use the more complex <code class="docutils literal notranslate"><span class="pre">resample</span></code> function. We won’t look at this further here because it is basically a simpler case of …</p>
 </div>
 <div class="section" id="reprojecting-a-raster">
-<h2>Reprojecting a raster<a class="headerlink" href="#reprojecting-a-raster" title="Permalink to this headline">¶</a></h2>
+<h3>Reprojecting a raster<a class="headerlink" href="#reprojecting-a-raster" title="Permalink to this headline">¶</a></h3>
 <p>This is conceptually more difficult than reprojecting vector data but we’ve covered the main reasons above. You have a series of raster cell values in one projection and then want to insert representative values into a set of cells on a different projection. The borders of those new cells could have all sorts of odd relationships to the current ones.</p>
 <p>In the example here, we are show how our 0.5° WGS84 raster for the UK and Eire compares to a 100km resolution raster on the British National Grid.</p>
-<p>We can’t display that using actual raster data because they always need to plot on a regular grid. However we can create vector grids, using the new function <code class="docutils literal notranslate"><span class="pre">st_make_grid</span></code> and our other vector tools, to represent the two raster grids so we can overplot them. You can see how transferring cell values between those two raster grids gets complicated!</p>
+<p>We can’t display that using actual raster data because they always need to plot on a regular grid. However we can create vector grids, using the new function <code class="docutils literal notranslate"><span class="pre">st_make_grid</span></code> and our other vector tools, to represent the cells in the two raster grids so we can overplot them. You can see how transferring cell values between those two raster grids gets complicated!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># make two simple `sfc` objects containing points in  the</span>
@@ -1258,7 +1390,7 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_65_0.png" src="../_images/practical_1_65_0.png" />
+<img alt="../_images/practical_1_81_0.png" src="../_images/practical_1_81_0.png" />
 </div>
 </div>
 <p>We will use the <code class="docutils literal notranslate"><span class="pre">projectRaster</span></code> function, which gives us the choice of interpolating a representative value from the source data (<code class="docutils literal notranslate"><span class="pre">method='bilinear'</span></code>) or picking the cell value from the nearest neighbour to the new cell centre (<code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code>). We first create the target raster - we don’t have to put any data into it - and use that as a template for the reprojected data.</p>
@@ -1290,27 +1422,27 @@ Traceback:
 <ol class=list-inline><li>&lt;NA&gt;</li><li>29</li><li>33</li><li>36</li><li>39</li><li>43</li><li>46</li><li>50</li><li>&lt;NA&gt;</li></ol>
 </div></div>
 </div>
-<p>Note that for the cells in the top right and left, <code class="docutils literal notranslate"><span class="pre">projectRaster</span></code> has assigned an <code class="docutils literal notranslate"><span class="pre">NA</span></code> value. In the plot above, you can see that the centres of those red cells do not overlie the original grey grid. If we plot the two outputs you can see the more abrupt changes when using nearest neighbour reprojection.</p>
+<p>Note the <code class="docutils literal notranslate"><span class="pre">NA</span></code> in the cell values in the top right and left. In the plot above, you can see that the centres of those red cells do not overlie the original grey grid and <code class="docutils literal notranslate"><span class="pre">projectRaster</span></code> has assigned an <code class="docutils literal notranslate"><span class="pre">NA</span></code> value. If we plot the two outputs you can see the more abrupt changes when using nearest neighbour reprojection.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">uk_raster_BNG_interp</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Interpolated&#39;</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">uk_raster_BNG_ngb</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Nearest Neighbour&#39;</span><span class="p">,</span><span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_69_0.png" src="../_images/practical_1_69_0.png" />
+<img alt="../_images/practical_1_85_0.png" src="../_images/practical_1_85_0.png" />
 </div>
 </div>
 <p>For a recent package with a strong focus on raster data handling, go and have a look at the <code class="docutils literal notranslate"><span class="pre">stars</span></code> package: <a class="reference external" href="https://r-spatial.github.io/stars/">https://r-spatial.github.io/stars/</a>.</p>
 </div>
 </div>
 <div class="section" id="converting-between-vector-and-raster-data-types">
-<h1>Converting between vector and raster data types<a class="headerlink" href="#converting-between-vector-and-raster-data-types" title="Permalink to this headline">¶</a></h1>
+<h2>Converting between vector and raster data types<a class="headerlink" href="#converting-between-vector-and-raster-data-types" title="Permalink to this headline">¶</a></h2>
 <p>Sometimes you want to represent raster data in vector format or vice versa. It is usually worth thinking if you really want to do this - data usually comes in one format or another for a reason - but there are plenty of valid reasons to do it.</p>
 <div class="section" id="vector-to-raster">
-<h2>Vector to raster<a class="headerlink" href="#vector-to-raster" title="Permalink to this headline">¶</a></h2>
+<h3>Vector to raster<a class="headerlink" href="#vector-to-raster" title="Permalink to this headline">¶</a></h3>
 <p>Converting vector data to a raster is a bit like <code class="docutils literal notranslate"><span class="pre">reprojectRaster</span></code>: you provide the target raster and the vector data and put it all through the <code class="docutils literal notranslate"><span class="pre">rasterize</span></code> function. There are important differences in the way that different geometry types get rasterized. In each case, a vector attribute is chosen to assign cell values in ther raster.</p>
 <ul class="simple">
 <li><p><strong>POINT</strong>: If a point falls anywhere within a cell, that value is assigned to the cell.</p></li>
@@ -1358,26 +1490,30 @@ Traceback:
 <span class="n">uk_eire_point_20km</span> <span class="o">&lt;-</span> <span class="nf">rasterize</span><span class="p">(</span><span class="nf">as</span><span class="p">(</span><span class="n">uk_eire_BNG_point</span><span class="p">,</span> <span class="s">&#39;Spatial&#39;</span><span class="p">),</span> <span class="n">uk_20km</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
 
 <span class="c1"># Plotting those different outcomes</span>
+<span class="c1"># - Use the hcl.colors function to create a nice plotting palette</span>
+<span class="n">color_palette</span> <span class="o">&lt;-</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s">&#39;viridis&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">)</span>
+
+<span class="c1"># - Plot each raster</span>
 <span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_poly_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">viridis</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_poly_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">color_palette</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">)</span>
 
-<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_line_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">viridis</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_line_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">color_palette</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">)</span>
 
-<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_point_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">viridis</span><span class="p">(</span><span class="m">6</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="m">0.5</span><span class="p">),</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">uk_eire_point_20km</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">color_palette</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_73_0.png" src="../_images/practical_1_73_0.png" />
+<img alt="../_images/practical_1_89_0.png" src="../_images/practical_1_89_0.png" />
 </div>
 </div>
 <p>The <code class="docutils literal notranslate"><span class="pre">fasterize</span></code> package hugely speeds up <em>polygon</em> rasterization and is built to work with <code class="docutils literal notranslate"><span class="pre">sf</span></code>: <a class="reference external" href="https://github.com/ecohealthalliance/fasterize">https://github.com/ecohealthalliance/fasterize</a>. It doesn’t currently support point and line rasterization.</p>
 </div>
 <div class="section" id="raster-to-vector">
-<h2>Raster to vector<a class="headerlink" href="#raster-to-vector" title="Permalink to this headline">¶</a></h2>
+<h3>Raster to vector<a class="headerlink" href="#raster-to-vector" title="Permalink to this headline">¶</a></h3>
 <p>A raster holds values in a regular grid. You can either view a value as representing the whole cell - in which case you might represent the cell as a polygon -  or a point in the centre - when you would use a point. The <code class="docutils literal notranslate"><span class="pre">raster</span></code> package provides functions to handle both of these. One extra feature for creating polygons is the <code class="docutils literal notranslate"><span class="pre">dissolve=TRUE</span></code> option but this requires the <code class="docutils literal notranslate"><span class="pre">rgeos</span></code> package to be installed.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1403,17 +1539,17 @@ Traceback:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_75_0.png" src="../_images/practical_1_75_0.png" />
+<img alt="../_images/practical_1_91_0.png" src="../_images/practical_1_91_0.png" />
 </div>
 </div>
 <p>It is uncommon to have raster data representing linear features (like <code class="docutils literal notranslate"><span class="pre">uk_eire_line_20km</span></code>) and it is not trivial to turn raster data into LINESTRING vector data. We won’t look at this here.</p>
 </div>
 </div>
 <div class="section" id="using-data-in-files">
-<h1>Using data in files<a class="headerlink" href="#using-data-in-files" title="Permalink to this headline">¶</a></h1>
+<h2>Using data in files<a class="headerlink" href="#using-data-in-files" title="Permalink to this headline">¶</a></h2>
 <p>There are a huge range of different formats for spatial data. Fortunately, the <code class="docutils literal notranslate"><span class="pre">sf</span></code> and <code class="docutils literal notranslate"><span class="pre">raster</span></code> packages make life easy: the <code class="docutils literal notranslate"><span class="pre">st_read</span></code> function in <code class="docutils literal notranslate"><span class="pre">sf</span></code> reads most vector data and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> function in <code class="docutils literal notranslate"><span class="pre">raster</span></code> reads most raster formats. There are odd file formats that are harder to read but most are covered by these two packages. The two packages also provide functions to save data to a file.</p>
 <div class="section" id="saving-vector-data">
-<h2>Saving vector data<a class="headerlink" href="#saving-vector-data" title="Permalink to this headline">¶</a></h2>
+<h3>Saving vector data<a class="headerlink" href="#saving-vector-data" title="Permalink to this headline">¶</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># This chunk removes existing demo outputs so they can be recreated in the following chunks</span>
@@ -1500,7 +1636,7 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 <div class="section" id="saving-raster-data">
-<h2>Saving raster data<a class="headerlink" href="#saving-raster-data" title="Permalink to this headline">¶</a></h2>
+<h3>Saving raster data<a class="headerlink" href="#saving-raster-data" title="Permalink to this headline">¶</a></h3>
 <p>The GeoTIFF file format is one of the most common GIS raster data formats. It is basically the same as a TIFF image file but contains embedded data describing the origin, resolution and coordinate reference system of the data. Sometimes, you may also see a <code class="docutils literal notranslate"><span class="pre">.tfw</span></code> file: this is a ‘world’ file that contains the same information and you should probably keep it with the TIFF file.</p>
 <p>We can use the <code class="docutils literal notranslate"><span class="pre">writeRaster</span></code> function from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to save our raster data. Again, the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package will try and use the file name to choose a format but you can also use <code class="docutils literal notranslate"><span class="pre">format</span></code> to set the driver used to write the data: see <code class="docutils literal notranslate"><span class="pre">writeFormats()</span></code> for the options.</p>
 <div class="cell docutils container">
@@ -1516,7 +1652,7 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 <div class="section" id="loading-vector-data">
-<h2>Loading Vector data<a class="headerlink" href="#loading-vector-data" title="Permalink to this headline">¶</a></h2>
+<h3>Loading Vector data<a class="headerlink" href="#loading-vector-data" title="Permalink to this headline">¶</a></h3>
 <p>As an example here, we will use the 1:110m scale Natural Earth data on countries. The Natural Earth <a class="reference external" href="https://www.naturalearthdata.com/">website</a> is a great open-source repository for lots of basic GIS data. It also has a R package that provides access to the data (<a class="reference external" href="https://cran.r-project.org/web/packages/rnaturalearth/"><code class="docutils literal notranslate"><span class="pre">rnaturalearth</span></code></a>), but in practice downloading and saving the specific files you want isn’t that hard!</p>
 <p>We wil also use some downloaded WHO data. You will be unsurprised to hear that there is an R package to access this data (<a class="reference external" href="https://cran.r-project.org/web/packages/WHO"><code class="docutils literal notranslate"><span class="pre">WHO</span></code></a>) but we’ll use a already downloaded copy.</p>
 <div class="cell docutils container">
@@ -1544,7 +1680,7 @@ CRS:            4326
 <p class="admonition-title">Create some global maps</p>
 <p>Using the data loaded above, recreate the two plots shown below of global GDP and 2016 global life expectancy, averaged for both sexes. This only needs the plotting and merging skills from above.</p>
 <p>The GDP data is already in the <code class="docutils literal notranslate"><span class="pre">ne_110</span></code> data, but you will need to add the life expectancy data to the GIS data. Getting country names to match between datasets is unexpectedly a common problem: try using the <code class="docutils literal notranslate"><span class="pre">ISO_A3_EH</span></code> field in <code class="docutils literal notranslate"><span class="pre">ne_110</span></code>. The other gotcha with merge is that, by default, the merge <strong>drops rows</strong> when there is no match. Here, it makes sense to use <code class="docutils literal notranslate"><span class="pre">all.x=TRUE</span></code> to retain all the countries: they will get NA values for the missing life expectancy.</p>
-<p>The life expectancy plot has been altered to show less blocky colours in a nicer palette (<code class="docutils literal notranslate"><span class="pre">viridis</span></code>). You will need to set the <code class="docutils literal notranslate"><span class="pre">breaks</span></code> and <code class="docutils literal notranslate"><span class="pre">pal</span></code> arguments to get this effect.</p>
+<p>The life expectancy plot has been altered to show less blocky colours in a nicer palette (<code class="docutils literal notranslate"><span class="pre">hcl.colors</span></code> uses the <code class="docutils literal notranslate"><span class="pre">viridis</span></code> palette by default). You will need to set the <code class="docutils literal notranslate"><span class="pre">breaks</span></code> and <code class="docutils literal notranslate"><span class="pre">pal</span></code> arguments to get this effect.</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -1560,19 +1696,19 @@ CRS:            4326
 <span class="n">bks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">50</span><span class="p">,</span> <span class="m">85</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.25</span><span class="p">)</span>
 <span class="c1"># Plot the data</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">ne_110</span><span class="p">[</span><span class="s">&#39;Numeric&#39;</span><span class="p">],</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Global 2016 Life Expectancy (Both sexes)&#39;</span><span class="p">,</span>
-      <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">viridis</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
+      <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">hcl.colors</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_89_0.png" src="../_images/practical_1_89_0.png" />
-<img alt="../_images/practical_1_89_1.png" src="../_images/practical_1_89_1.png" />
+<img alt="../_images/practical_1_105_0.png" src="../_images/practical_1_105_0.png" />
+<img alt="../_images/practical_1_105_1.png" src="../_images/practical_1_105_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="loading-xy-data">
-<h2>Loading XY data<a class="headerlink" href="#loading-xy-data" title="Permalink to this headline">¶</a></h2>
-<p>One common source of vector data is a table with coordinates in it (either longitude and latitude for geographic coordinates or X and Y coordinates for a projected coordinate system). We will load some data like this and convert it into a proper <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.  You do have to know the coordinate system!</p>
+<h3>Loading XY data<a class="headerlink" href="#loading-xy-data" title="Permalink to this headline">¶</a></h3>
+<p>We’ve looked at this case earlier, but one common source of vector data is a table with coordinates in it (either longitude and latitude for geographic coordinates or X and Y coordinates for a projected coordinate system). We will load some data like this and convert it into a proper <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.  You do have to know the coordinate system!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read in Southern Ocean example data</span>
@@ -1619,7 +1755,7 @@ CRS:            4326
 </div>
 </div>
 <div class="section" id="loading-raster-data">
-<h2>Loading Raster data<a class="headerlink" href="#loading-raster-data" title="Permalink to this headline">¶</a></h2>
+<h3>Loading Raster data<a class="headerlink" href="#loading-raster-data" title="Permalink to this headline">¶</a></h3>
 <p>We will look at some global topographic data taken from  the <a class="reference external" href="https://www.ngdc.noaa.gov/mgg/global/">ETOPO1</a> dataset. The original data is at 1 arc minute (1/60°) and this file has been resampled to 15 arc minutes (0.25°) to make it a bit more manageable (466.7Mb to 2.7 Mb).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1641,7 +1777,7 @@ names      : etopo_25
 values     : -9295.364, 5930.763  (min, max)
 </pre></div>
 </div>
-<img alt="../_images/practical_1_93_1.png" src="../_images/practical_1_93_1.png" />
+<img alt="../_images/practical_1_109_1.png" src="../_images/practical_1_109_1.png" />
 </div>
 </div>
 <div class="admonition-controlling-raster-plots admonition">
@@ -1664,22 +1800,21 @@ values     : -9295.364, 5930.763  (min, max)
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_95_0.png" src="../_images/practical_1_95_0.png" />
+<img alt="../_images/practical_1_111_0.png" src="../_images/practical_1_111_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="raster-stacks">
 <h3>Raster Stacks<a class="headerlink" href="#raster-stacks" title="Permalink to this headline">¶</a></h3>
 <p>Raster data very often has multiple <strong>bands</strong>: a single file can contain multiple layers of information for the cells in the raster grid. An obvious example is colour imagery, where three layers hold red, green and blue values, but satellite data can contain many layers holding different bands.</p>
-<p>We will use the <code class="docutils literal notranslate"><span class="pre">getData</span></code> function from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> library to get at another example. This function loads data from some key data repositories (see <code class="docutils literal notranslate"><span class="pre">?getData</span></code> ) and it will download the data automatically if needed and store it locally. Note that you only need to download the data once - as long as you tell <code class="docutils literal notranslate"><span class="pre">getData</span></code> where the files were stored, it will note that you have a local copy and load those. (Actually, once you’ve got the local copies, you can just use <code class="docutils literal notranslate"><span class="pre">raster</span></code>!)</p>
-<p>We’ll look at some worldclim data (<a class="reference external" href="http://worldclim.org/version2">http://worldclim.org/version2</a>) for maximum temperature, which comes as a stack of monthly values</p>
+<p>We will use the <code class="docutils literal notranslate"><span class="pre">getData</span></code> function from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> library to get at another example. This function loads data from some key data repositories (see <code class="docutils literal notranslate"><span class="pre">?getData</span></code> ). It will download the data automatically if needed and store it locally. Note that you only need to download the data once - as long as you tell <code class="docutils literal notranslate"><span class="pre">getData</span></code> where the files were stored, it will note that you have a local copy and load those, although it would be more usual just to use <code class="docutils literal notranslate"><span class="pre">raster</span></code> at this point! This data has already been downloaded to the <code class="docutils literal notranslate"><span class="pre">data</span></code> directory - <code class="docutils literal notranslate"><span class="pre">getData</span></code> will load it from the <code class="docutils literal notranslate"><span class="pre">data/wc10</span></code> folder.</p>
+<p>We’ll look at some worldclim data (<a class="reference external" href="http://worldclim.org/version2">http://worldclim.org/version2</a>) for maximum temperature, which comes as a stack of monthly values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download bioclim data: global maximum temperature at 10 arc minute resolution</span>
-<span class="n">tmax</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;worldclim&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
-<span class="c1"># The data has 12 layers ...</span>
+<span class="n">tmax</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;worldclim&#39;</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;tmax&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<span class="c1"># The data has 12 layers, one for each month</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">tmax</span><span class="p">)</span>
-<span class="c1"># ... and the data for those layers has been saved in our data folder.</span>
-<span class="nf">dir</span><span class="p">(</span><span class="s">&#39;data/wc10&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1694,13 +1829,7 @@ min values :  -478,  -421,  -422,  -335,  -190,   -94,   -59,   -76,  -153,   -2
 max values :   418,   414,   420,   429,   441,   467,   489,   474,   441,    401,    401,    413 
 </pre></div>
 </div>
-<div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>'tmax_10m_bil.zip'</li><li>'tmax1.bil'</li><li>'tmax1.hdr'</li><li>'tmax10.bil'</li><li>'tmax10.hdr'</li><li>'tmax11.bil'</li><li>'tmax11.hdr'</li><li>'tmax12.bil'</li><li>'tmax12.hdr'</li><li>'tmax2.bil'</li><li>'tmax2.hdr'</li><li>'tmax3.bil'</li><li>'tmax3.hdr'</li><li>'tmax4.bil'</li><li>'tmax4.hdr'</li><li>'tmax5.bil'</li><li>'tmax5.hdr'</li><li>'tmax6.bil'</li><li>'tmax6.hdr'</li><li>'tmax7.bil'</li><li>'tmax7.hdr'</li><li>'tmax8.bil'</li><li>'tmax8.hdr'</li><li>'tmax9.bil'</li><li>'tmax9.hdr'</li></ol>
-</div></div>
+</div>
 </div>
 <p>One odd thing about that data is the range of values: <code class="docutils literal notranslate"><span class="pre">-478</span></code> to <code class="docutils literal notranslate"><span class="pre">489</span></code>. It is <em>really common</em> for GIS data to be stored in a form that needs scaling by the end user and this is what is going on here. The metadata for a raster data set should include any scale and offset values needed but you need to check that any variables you use are correctly scaled.</p>
 <p>The reason to do this is to minimise disk use: <code class="docutils literal notranslate"><span class="pre">-478</span></code> to <code class="docutils literal notranslate"><span class="pre">489</span></code> can be stored really easily as integer data with 2 bytes per number (<code class="docutils literal notranslate"><span class="pre">Int16</span></code>). If it was stored as float data (with a decimal point), it would be 4 bytes per number (<code class="docutils literal notranslate"><span class="pre">Float32</span></code>) or worse (<code class="docutils literal notranslate"><span class="pre">Float64</span></code>).  So, the data file is half the size and - since the data is only accurate to 1 decimal place - we have no loss of precision.</p>
@@ -1726,17 +1855,16 @@ max values :   418,   414,   420,   429,   441,   467,   489,   474,   441,    4
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_99_0.png" src="../_images/practical_1_99_0.png" />
-</div>
+<img alt="../_images/practical_1_115_0.png" src="../_images/practical_1_115_0.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="overlaying-raster-and-vector-data">
-<h1>Overlaying raster and vector data<a class="headerlink" href="#overlaying-raster-and-vector-data" title="Permalink to this headline">¶</a></h1>
+<h2>Overlaying raster and vector data<a class="headerlink" href="#overlaying-raster-and-vector-data" title="Permalink to this headline">¶</a></h2>
 <p>In this next exercise, we are going to use some data to build up a more complex map of chlorophyll concentrations in the Southern Ocean. There are a few new techniques along the way.</p>
 <div class="section" id="cropping-data">
-<h2>Cropping data<a class="headerlink" href="#cropping-data" title="Permalink to this headline">¶</a></h2>
+<h3>Cropping data<a class="headerlink" href="#cropping-data" title="Permalink to this headline">¶</a></h3>
 <p>Sometimes you are only interested in a subset of the area covered by a GIS dataset. Cropping the data to the area of interest can make plotting easier and can also make GIS operations a lot faster, particularly if the data is complex.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1775,21 +1903,31 @@ CRS:            4326
 <span class="nf">contour</span><span class="p">(</span><span class="n">so_topo</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-2000</span><span class="p">,</span> <span class="m">-4000</span><span class="p">,</span> <span class="m">-6000</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey80&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">so_ne_10</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey90&#39;</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;grey40&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s">&#39;chlorophyll&#39;</span><span class="p">],</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">viridis</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-<span class="nf">.image_scale</span><span class="p">(</span><span class="nf">log10</span><span class="p">(</span><span class="n">so_data</span><span class="o">$</span><span class="n">chlorophyll</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="nf">viridis</span><span class="p">(</span><span class="m">18</span><span class="p">),</span> <span class="n">key.length</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="nf">.image_scale</span><span class="p">(</span><span class="nf">log10</span><span class="p">(</span><span class="n">so_data</span><span class="o">$</span><span class="n">chlorophyll</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">18</span><span class="p">),</span> <span class="n">key.length</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_103_0.png" src="../_images/practical_1_103_0.png" />
-<img alt="../_images/practical_1_103_1.png" src="../_images/practical_1_103_1.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">plot</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="p">:</span> <span class="nb">object</span> <span class="s1">&#39;viridis&#39;</span> <span class="ow">not</span> <span class="n">found</span>
+<span class="ne">Traceback</span>:
+
+<span class="mi">1</span><span class="o">.</span> <span class="n">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
+ <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+<span class="mi">2</span><span class="o">.</span> <span class="n">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
+ <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+<span class="mi">3</span><span class="o">.</span> <span class="n">plot</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
+ <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+<img alt="../_images/practical_1_119_1.png" src="../_images/practical_1_119_1.png" />
 </div>
 </div>
 </div>
 </div>
 <div class="section" id="spatial-joins-and-raster-data-extraction">
-<h1>Spatial joins and raster data extraction<a class="headerlink" href="#spatial-joins-and-raster-data-extraction" title="Permalink to this headline">¶</a></h1>
+<h2>Spatial joins and raster data extraction<a class="headerlink" href="#spatial-joins-and-raster-data-extraction" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="spatial-joining">
-<h2>Spatial joining<a class="headerlink" href="#spatial-joining" title="Permalink to this headline">¶</a></h2>
+<h3>Spatial joining<a class="headerlink" href="#spatial-joining" title="Permalink to this headline">¶</a></h3>
 <p>We have merged data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object by matching values in columns, but we can also merge data <strong>spatially</strong>. This process is often called a <strong>spatial join</strong>.</p>
 <p>As an example, we are going to look at mapping ‘mosquito outbreaks’ in Africa: we are actually going to use some random data, mostly to demonstrate the useful <code class="docutils literal notranslate"><span class="pre">st_sample</span></code> function. We would like to find out whether any countries are more severely impacted in terms of both the area of the country and their population size.</p>
 <div class="cell docutils container">
@@ -1809,9 +1947,6 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/practical_1_105_0.png" src="../_images/practical_1_105_0.png" />
-</div>
 </div>
 <p>In order to join these data together we need to turn the <code class="docutils literal notranslate"><span class="pre">mosquito_points</span></code> object from a geometry column (<code class="docutils literal notranslate"><span class="pre">sfc</span></code>) into a full <code class="docutils literal notranslate"><span class="pre">sf</span></code> data frame, so it can have attributes and then we can simply add the country name (‘ADMIN’) onto the points.</p>
 <div class="cell docutils container">
@@ -1824,9 +1959,6 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/practical_1_107_0.png" src="../_images/practical_1_107_0.png" />
-</div>
 </div>
 <p>We can now aggregate the points within countries. This can give us a count of the number of points in each country and also converts multiple rows of <code class="docutils literal notranslate"><span class="pre">POINT</span></code> into a single <code class="docutils literal notranslate"><span class="pre">MULTIPOINT</span></code> feature per country.</p>
 <div class="cell docutils container">
@@ -1837,31 +1969,19 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><table>
-<caption>A sf: 6 × 3</caption>
-<thead>
-	<tr><th></th><th scope=col>country</th><th scope=col>n_outbreaks</th><th scope=col>geometry</th></tr>
-	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;GEOMETRY [m]&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>1</th><td>Algeria     </td><td>91</td><td>MULTIPOINT ((-682422.1 2972...</td></tr>
-	<tr><th scope=row>2</th><td>Angola      </td><td>41</td><td>MULTIPOINT ((1133960 -56731...</td></tr>
-	<tr><th scope=row>3</th><td>Benin       </td><td> 1</td><td>POINT (236471.4 903118.7)</td></tr>
-	<tr><th scope=row>4</th><td>Botswana    </td><td>12</td><td>MULTIPOINT ((1943318 -26749...</td></tr>
-	<tr><th scope=row>5</th><td>Burkina Faso</td><td> 7</td><td>MULTIPOINT ((-415457.6 1238...</td></tr>
-	<tr><th scope=row>6</th><td>Burundi     </td><td> 1</td><td>POINT (2768345 -393948.5)</td></tr>
-</tbody>
-</table>
-</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">africa</span> <span class="o">&lt;-</span> <span class="nf">st_join</span><span class="p">(</span><span class="n">africa</span><span class="p">,</span> <span class="n">mosquito_points_agg</span><span class="p">)</span>
 <span class="n">africa</span><span class="o">$</span><span class="n">area</span> <span class="o">&lt;-</span> <span class="nf">as.numeric</span><span class="p">(</span><span class="nf">st_area</span><span class="p">(</span><span class="n">africa</span><span class="p">))</span>
 <span class="nf">head</span><span class="p">(</span><span class="n">africa</span><span class="p">)</span>
-
-<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span> <span class="m">0</span><span class="p">))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">n_outbreaks</span> <span class="o">~</span> <span class="n">POP_EST</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">africa</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s">&#39;xy&#39;</span><span class="p">,</span> 
      <span class="n">ylab</span><span class="o">=</span><span class="s">&#39;Number of outbreaks&#39;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&#39;Population size&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">n_outbreaks</span> <span class="o">~</span> <span class="n">area</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">africa</span><span class="p">,</span> <span class="n">log</span><span class="o">=</span><span class="s">&#39;xy&#39;</span><span class="p">,</span>
@@ -1869,28 +1989,10 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html"><table>
-<caption>A sf: 6 × 6</caption>
-<thead>
-	<tr><th></th><th scope=col>ADMIN</th><th scope=col>POP_EST</th><th scope=col>country</th><th scope=col>n_outbreaks</th><th scope=col>geometry</th><th scope=col>area</th></tr>
-	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;MULTIPOLYGON [m]&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
-</thead>
-<tbody>
-	<tr><th scope=row>2</th><td>Somaliland  </td><td> 3500000</td><td>Somaliland  </td><td> 5</td><td>MULTIPOLYGON (((4597353 122...</td><td>1.388201e+11</td></tr>
-	<tr><th scope=row>6</th><td>Angola      </td><td>29310273</td><td>Angola      </td><td>41</td><td>MULTIPOLYGON (((1226185 -51...</td><td>1.039192e+12</td></tr>
-	<tr><th scope=row>16</th><td>Burundi     </td><td>11466756</td><td>Burundi     </td><td> 1</td><td>MULTIPOLYGON (((2877605 -25...</td><td>2.156439e+10</td></tr>
-	<tr><th scope=row>18</th><td>Benin       </td><td>11038805</td><td>Benin       </td><td> 1</td><td>MULTIPOLYGON (((253782.4 66...</td><td>9.698961e+10</td></tr>
-	<tr><th scope=row>19</th><td>Burkina Faso</td><td>20107509</td><td>Burkina Faso</td><td> 7</td><td>MULTIPOLYGON (((-508076 110...</td><td>2.265447e+11</td></tr>
-	<tr><th scope=row>30</th><td>Botswana    </td><td> 2214858</td><td>Botswana    </td><td>12</td><td>MULTIPOLYGON (((2721227 -23...</td><td>5.125633e+11</td></tr>
-</tbody>
-</table>
-</div><img alt="../_images/practical_1_110_1.png" src="../_images/practical_1_110_1.png" />
-</div>
 </div>
 <div class="admonition-alien-invasion admonition">
 <p class="admonition-title">Alien invasion</p>
-<p>Martians have invaded! Jeff and Will have managed to steal the landing sites and the crew sizes from the alien mothership but we need to work out which countries are going to be overwhelmed by aliens. We think that countries with more than about 1000 people per alien are going to be ok, but we need a map of alien threat like the one below.</p>
+<p>Martians have invaded! Jeff and Will have managed to steal the landing sites and the crew sizes from the alien mothership but we need to work out which countries are going to be overwhelmed by aliens. We think that countries with more than about 1000 people per alien are going to be ok, but we need a map of alien threat like the one below. The landing sites are in the file <code class="docutils literal notranslate"><span class="pre">data/aliens.csv</span></code> as WGS84 coordinates.</p>
 <p>Can you produce our plan?</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
@@ -1915,19 +2017,10 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<img alt="../_images/practical_1_112_2.png" src="../_images/practical_1_112_2.png" />
-</div>
 </div>
 </div>
 <div class="section" id="extracting-data-from-rasters">
-<h2>Extracting data from Rasters<a class="headerlink" href="#extracting-data-from-rasters" title="Permalink to this headline">¶</a></h2>
+<h3>Extracting data from Rasters<a class="headerlink" href="#extracting-data-from-rasters" title="Permalink to this headline">¶</a></h3>
 <p>The spatial join above allows us to connect vector data based on location but you might also need to extract data from a raster dataset in certain locations. Examples include to know the
 exact altitude or surface temperature of sampling sites or average values within a polygon. We are going to use a chunk of the full resolution ETOPO1 elevation data to explore this.</p>
 <div class="cell docutils container">
@@ -1954,8 +2047,6 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/practical_1_116_0.png" src="../_images/practical_1_116_0.png" />
 </div>
 </div>
 <div class="section" id="raster-cell-statistics-and-locations">
@@ -1967,25 +2058,17 @@ exact altitude or surface temperature of sampling sites or average values within
 <span class="nf">cellStats</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">quantile</span><span class="p">)</span>
 <span class="c1"># Which is the highest cell</span>
 <span class="nf">which.max</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">)</span>
-<span class="c1"># Which cells are above 1100m</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Which cells are above 1100m</span>
 <span class="nf">Which</span><span class="p">(</span><span class="n">uk_eire_elev</span> <span class="o">&gt;</span> <span class="m">1100</span><span class="p">,</span> <span class="n">cells</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output text_html">1195</div><div class="output text_html"><style>
-.dl-inline {width: auto; margin:0; padding: 0}
-.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
-.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
-.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
-</style><dl class=dl-inline><dt>0%</dt><dd>-64</dd><dt>25%</dt><dd>53</dd><dt>50%</dt><dd>104</dd><dt>75%</dt><dd>204</dd><dt>100%</dt><dd>1195</dd></dl>
-</div><div class="output text_html">113536</div><div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>111980</li><li>111981</li><li>112761</li><li>112771</li><li>113536</li><li>113541</li><li>114318</li></ol>
-</div></div>
 </div>
 <div class="admonition-highlight-highest-point-and-areas-below-sea-level admonition">
 <p class="admonition-title">Highlight highest point and areas below sea level</p>
@@ -2010,9 +2093,6 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/practical_1_120_0.png" src="../_images/practical_1_120_0.png" />
-</div>
 </div>
 </div>
 <div class="section" id="the-extract-function">
@@ -2031,78 +2111,12 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 5 features and 2 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
-CRS:            EPSG:4326
-       name           geometry elev
-1    London  POINT (-0.1 51.5)    8
-2   Cardiff  POINT (-3.2 51.5)   21
-3 Edinburgh  POINT (-3.2 55.8)  279
-4   Belfast    POINT (-6 54.6)  269
-5    Dublin POINT (-6.25 53.3)   43
-</pre></div>
 </div>
-</div>
-</div>
-<p>Polygons are also easy but there is a little more detail about the output. By default, the <code class="docutils literal notranslate"><span class="pre">extract</span></code> function for polygons returns a set of <em>all</em> the raster values within each polygon. However, you can use the <code class="docutils literal notranslate"><span class="pre">fun</span></code> argument to specify that <code class="docutils literal notranslate"><span class="pre">extract</span></code> does something with those values. This  effectively duplicates the extremely useful <strong>Zonal Statistics</strong> function from ArcGIS.</p>
+<p>Polygons are also easy but there is a little more detail about the output. By default, the <code class="docutils literal notranslate"><span class="pre">extract</span></code> function for polygons returns a set of <em>all</em> the raster values within each polygon. However, you can use the <code class="docutils literal notranslate"><span class="pre">fun</span></code> argument to specify that <code class="docutils literal notranslate"><span class="pre">extract</span></code> does something with those values. This  effectively duplicates the extremely useful <strong>Zonal Statistics</strong> function from other GIS programs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span><span class="o">$</span><span class="n">mean_height</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">uk_eire</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 <span class="n">uk_eire</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span>Error: No method asJSON S3 class: units
-Traceback:
-
-1. msg_to_wire(msg)
-2. charToRaw(toJSON(msg$content, auto_unbox = TRUE))
-3. toJSON(msg$content, auto_unbox = TRUE)
-4. asJSON(x, dataframe = dataframe, Date = Date, POSIXt = POSIXt, 
- .     factor = factor, complex = complex, raw = raw, matrix = matrix, 
- .     auto_unbox = auto_unbox, digits = digits, na = na, null = null, 
- .     force = force, indent = indent, ...)
-5. asJSON(x, dataframe = dataframe, Date = Date, POSIXt = POSIXt, 
- .     factor = factor, complex = complex, raw = raw, matrix = matrix, 
- .     auto_unbox = auto_unbox, digits = digits, na = na, null = null, 
- .     force = force, indent = indent, ...)
-6. .local(x, ...)
-7. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
- .     indent = indent + 2L, no_dots = no_dots, ...)
-8. FUN(X[[i]], ...)
-9. FUN(X[[i]], ...)
-10. .local(x, ...)
-11. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-12. FUN(X[[i]], ...)
-13. FUN(X[[i]], ...)
-14. .local(x, ...)
-15. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-16. FUN(X[[i]], ...)
-17. FUN(X[[i]], ...)
-18. .local(x, ...)
-19. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-20. FUN(X[[i]], ...)
-21. FUN(X[[i]], ...)
-22. .local(x, ...)
-23. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-24. FUN(X[[i]], ...)
-25. FUN(X[[i]], ...)
-26. .local(x, ...)
-27. vapply(x, asJSON, character(1), na = na, auto_unbox = auto_unbox, 
-  .     indent = indent + 2L, no_dots = no_dots, ...)
-28. FUN(X[[i]], ...)
-29. FUN(X[[i]], ...)
-30. .local(x, ...)
-31. stop(&quot;No method asJSON S3 class: &quot;, class(x))
-32. base::stop(..., call. = FALSE)
 </pre></div>
 </div>
 </div>
@@ -2117,7 +2131,7 @@ Traceback:
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_layers</span><span class="p">(</span><span class="s">&#39;data/National_Trails_Pennine_Way.gpx&#39;</span><span class="p">)</span>
-<span class="c1"># load the data, showing off the ability to use queries to load subsets of the data</span>
+<span class="c1"># load the data, showing off the ability to use SQL queries to load subsets of the data</span>
 <span class="n">pennine_way</span> <span class="o">&lt;-</span> <span class="nf">st_read</span><span class="p">(</span><span class="s">&#39;data/National_Trails_Pennine_Way.gpx&#39;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s">&#39;routes&#39;</span><span class="p">,</span> 
                       <span class="n">query</span><span class="o">=</span><span class="s">&quot;select * from routes where name=&#39;Pennine Way&#39;&quot;</span><span class="p">)</span>
 </pre></div>
@@ -2127,16 +2141,16 @@ Traceback:
 <p>Before we do anything else, all of our data (<code class="docutils literal notranslate"><span class="pre">etopo_uk</span></code> and <code class="docutils literal notranslate"><span class="pre">pennine_way</span></code>) are in WGS84. It really does not make sense to calculate distances and transects on a geographic coordinate system so:</p>
 <div class="admonition-reproject-the-penine-way admonition">
 <p class="admonition-title">Reproject the Penine Way</p>
-<p>Create <code class="docutils literal notranslate"><span class="pre">uk_eire_elev_BNG</span></code> and <code class="docutils literal notranslate"><span class="pre">pennine_way_BNG</span></code> by reprojecting the elevation raster and  route vector into the British National Grid. Use a 2km resolution grid.</p>
+<p>Create <code class="docutils literal notranslate"><span class="pre">uk_eire_elev_BNG</span></code> and <code class="docutils literal notranslate"><span class="pre">pennine_way_BNG</span></code> by reprojecting the elevation raster and route vector into the British National Grid. Use a 2km resolution grid.</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># reproject the vector data</span>
 <span class="n">pennine_way_BNG</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">pennine_way</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="m">27700</span><span class="p">)</span>
 <span class="c1"># create the target raster and project the elevation data into it.</span>
-<span class="n">bng_1km</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="n">xmn</span><span class="o">=</span><span class="m">-200000</span><span class="p">,</span> <span class="n">xmx</span><span class="o">=</span><span class="m">700000</span><span class="p">,</span> <span class="n">ymn</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">ymx</span><span class="o">=</span><span class="m">1000000</span><span class="p">,</span> 
-                  <span class="n">res</span><span class="o">=</span><span class="m">1000</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&#39;+init=EPSG:27700&#39;</span><span class="p">)</span>
-<span class="n">uk_eire_elev_BNG</span> <span class="o">&lt;-</span> <span class="nf">projectRaster</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">bng_1km</span><span class="p">)</span>
+<span class="n">bng_2km</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="n">xmn</span><span class="o">=</span><span class="m">-200000</span><span class="p">,</span> <span class="n">xmx</span><span class="o">=</span><span class="m">700000</span><span class="p">,</span> <span class="n">ymn</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">ymx</span><span class="o">=</span><span class="m">1000000</span><span class="p">,</span> 
+                  <span class="n">res</span><span class="o">=</span><span class="m">2000</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&#39;+init=EPSG:27700&#39;</span><span class="p">)</span>
+<span class="n">uk_eire_elev_BNG</span> <span class="o">&lt;-</span> <span class="nf">projectRaster</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">bng_2km</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -2167,7 +2181,7 @@ Traceback:
 </div>
 </div>
 </div>
-<p>Now we can extract the elevations and cell IDs under the route. For the transect, we want to know the distances between cells: we will use the <code class="docutils literal notranslate"><span class="pre">distGeo</span></code> function from the <code class="docutils literal notranslate"><span class="pre">geosphere</span></code> package for this.</p>
+<p>Now we can extract the elevations and cell IDs under the route. We can also simply use Pythagoras’ Theorem to find the distance between cells along the transect and hence the cumulative distance.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the data</span>
@@ -2176,6 +2190,7 @@ Traceback:
 
 <span class="c1"># The output is a list: in will contain one set of values for each feature in the input data</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">pennine_way_trans</span><span class="p">)</span>
+
 <span class="c1"># Here, we only have one line, so we will extract it</span>
 <span class="n">pennine_way_trans</span> <span class="o">&lt;-</span> <span class="n">pennine_way_trans</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span>
 <span class="n">pennine_way_trans</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">pennine_way_trans</span><span class="p">)</span>
@@ -2198,12 +2213,11 @@ Traceback:
 </div>
 </div>
 </div>
-</div>
 <div class="section" id="mini-projects">
-<h1>Mini projects<a class="headerlink" href="#mini-projects" title="Permalink to this headline">¶</a></h1>
+<h2>Mini projects<a class="headerlink" href="#mini-projects" title="Permalink to this headline">¶</a></h2>
 <p>You should now have the skills to tackle the miniproject below. Give them a go - the answers are still available but try and puzzle it out.</p>
 <div class="section" id="precipitation-transect-for-new-guinea">
-<h2>Precipitation transect for  New Guinea<a class="headerlink" href="#precipitation-transect-for-new-guinea" title="Permalink to this headline">¶</a></h2>
+<h3>Precipitation transect for  New Guinea<a class="headerlink" href="#precipitation-transect-for-new-guinea" title="Permalink to this headline">¶</a></h3>
 <div class="admonition-create-a-total-annual-precipitation-transect-for-new-guinea admonition">
 <p class="admonition-title">Create a total annual precipitation transect for New Guinea</p>
 <ul>
@@ -2219,10 +2233,10 @@ Traceback:
 </ul>
 <p>Note that some of these steps are handling a lot of data and may take a few minutes to complete.</p>
 </div>
-<div class="cell docutils container">
+<div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the precipitation data</span>
-<span class="n">ng_prec</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;worldclim&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;prec&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="m">140</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="m">-10</span><span class="p">)</span>
+<span class="n">ng_prec</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;worldclim&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;prec&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="m">140</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="m">-10</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
 <span class="c1"># Reduce to the extent of New Guinea - crop early to avoid unnecessary processing!</span>
 <span class="n">ng_extent</span> <span class="o">&lt;-</span> <span class="nf">extent</span><span class="p">(</span><span class="m">130</span><span class="p">,</span> <span class="m">150</span><span class="p">,</span> <span class="m">-10</span><span class="p">,</span> <span class="m">0</span><span class="p">)</span>
 <span class="n">ng_prec</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">ng_prec</span><span class="p">,</span> <span class="n">ng_extent</span><span class="p">)</span>
@@ -2281,7 +2295,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="fishing-pressure-in-fiji">
-<h2>Fishing pressure in Fiji<a class="headerlink" href="#fishing-pressure-in-fiji" title="Permalink to this headline">¶</a></h2>
+<h3>Fishing pressure in Fiji<a class="headerlink" href="#fishing-pressure-in-fiji" title="Permalink to this headline">¶</a></h3>
 <p>This exercise is quite a bit harder - you will probably need to read more help files (or peek at the code) but see how you go!</p>
 <p>Researchers have identified 7 commonly used fishing sites around the island of Kadavu in Fiji. The have also conducted surveys of the coastal villages known to use these sites and are trying to identify how many households are likely to use site. We are going to use the simplifying assumption that each village will <em>always</em> use the closest site.</p>
 <p>We can’t just use <code class="docutils literal notranslate"><span class="pre">st_distance</span></code> because we need the distances to reflect travel distances through the sea rather than straight line distances. So we are going to need to use a new tool: <strong>cost distance analysis</strong>. Cost distance models use a raster to define a cost surface: moving from a cell to a neighbouring cell has a cost which is derived from the values in the raster. This gives us a way to ask what the cost of getting from A to B is, where movement is allowed to avoid areas that are expensive to traverse.</p>
@@ -2299,7 +2313,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="loading-the-data">
-<h3>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h3>
+<h4>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h4>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">getData</span></code> to obtain the GADM Level 2 vector data for Fiji (<code class="docutils literal notranslate"><span class="pre">country='FJI'</span></code>) and then extract Kadavu.</p></li>
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">readWorbook</span></code> to load the data from each of the <code class="docutils literal notranslate"><span class="pre">Villages</span></code> and <code class="docutils literal notranslate"><span class="pre">Field</span> <span class="pre">sites</span></code> worksheets from the <code class="docutils literal notranslate"><span class="pre">FishingPressure.xlsx</span></code> spreadsheet and convert those tables into  <code class="docutils literal notranslate"><span class="pre">sf</span></code>  objects with POINT data.</p></li>
@@ -2333,7 +2347,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="create-the-cost-surface">
-<h3>Create the cost surface<a class="headerlink" href="#create-the-cost-surface" title="Permalink to this headline">¶</a></h3>
+<h4>Create the cost surface<a class="headerlink" href="#create-the-cost-surface" title="Permalink to this headline">¶</a></h4>
 <p>The cost surface should assign a uniform cost to moving through the sea and an infinite cost (<code class="docutils literal notranslate"><span class="pre">NA</span></code>) to moving over land. The resolution of your cost surface raster matters: a very fine resolution will give very precise distances but take a long time to run;  a coarse resolution will run quickly but the distances will be very crude. So, you need to:</p>
 <ul class="simple">
 <li><p>pick extents to cover the islands and sites.,</p></li>
@@ -2368,7 +2382,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="finding-launch-points">
-<h3>Finding launch points<a class="headerlink" href="#finding-launch-points" title="Permalink to this headline">¶</a></h3>
+<h4>Finding launch points<a class="headerlink" href="#finding-launch-points" title="Permalink to this headline">¶</a></h4>
 <p>The villages are not all on the coast! If the village is too far inland then it may sit in a cell with an infinite travel cost. So we need to find the closest point on the coast to each village using <code class="docutils literal notranslate"><span class="pre">st_nearest_points</span></code>. All points within a polygon are part of that polygon, so we have to explicitly convert the island polygon to a MULTILINESTRING showing the coast to find point on the coast.</p>
 <p>The output of <code class="docutils literal notranslate"><span class="pre">st_nearest_points</span></code> is a line that joins each village point to the nearest point on the coast. The second points on each of these lines are our nearest launch points and we can use <code class="docutils literal notranslate"><span class="pre">st_line_sample</span></code> with <code class="docutils literal notranslate"><span class="pre">sample=1</span></code> to extract them.</p>
 <div class="cell tag_hide-cell docutils container">
@@ -2400,7 +2414,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="find-distances">
-<h3>Find distances<a class="headerlink" href="#find-distances" title="Permalink to this headline">¶</a></h3>
+<h4>Find distances<a class="headerlink" href="#find-distances" title="Permalink to this headline">¶</a></h4>
 <p>This is a really hard bit because the way the <code class="docutils literal notranslate"><span class="pre">costDistance</span></code> function work is quite complex. The first step is to use <code class="docutils literal notranslate"><span class="pre">transition</span></code> to create a transition graph. This sets:</p>
 <ol class="simple">
 <li><p>Which cells are connected to each other: common options are <code class="docutils literal notranslate"><span class="pre">directions=4</span></code> (rook’s move), <code class="docutils literal notranslate"><span class="pre">directions=8</span></code> (queen’s move) and <code class="docutils literal notranslate"><span class="pre">directions=16</span></code> (knight’s move).</p></li>
@@ -2443,7 +2457,7 @@ Traceback:
 </div>
 </div>
 <div class="section" id="assign-villages-to-sites">
-<h3>Assign villages to sites<a class="headerlink" href="#assign-villages-to-sites" title="Permalink to this headline">¶</a></h3>
+<h4>Assign villages to sites<a class="headerlink" href="#assign-villages-to-sites" title="Permalink to this headline">¶</a></h4>
 <p>The result of <code class="docutils literal notranslate"><span class="pre">costDistance</span></code> is a matrix showing the calculated distance through the sea from each launch point to each site. All we need to do now is find the nearest site to each village, count up households per site and merge that information into the sites.</p>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
@@ -2480,8 +2494,6 @@ Traceback:
 </div>
 </div>
 </div>
-<div class="section" id="appendix">
-<h1>Appendix<a class="headerlink" href="#appendix" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="using-ggplot-to-make-maps">
 <h2>Using ggplot to make maps<a class="headerlink" href="#using-ggplot-to-make-maps" title="Permalink to this headline">¶</a></h2>
 <p>As you will have seen in the last couple of weeks, <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> is a popular package for plotting and can be used for with <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects in maps too. There is also a package called <code class="docutils literal notranslate"><span class="pre">tmap</span></code> which works in a very similar way to <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> but is more tightly focussed on map plotting. If you end up creating lots of maps, that might be a good place to look.  Essentially GIS maps are mostly about deciding what information you want to show and the plot order, so the simple plotting we use here can be pretty good without needing extra tools.</p>
@@ -2535,11 +2547,12 @@ the best colour scales to use. Rainbow colours used to be a the most common
 used, but are not appropriate for colour blindness and interpreting the data
 can be hard. Rainbow can be found amongst the R base colours, but I would not
 recommend using them as there are plenty more better options.</p>
-<p><img alt="R base colour palettes." src="practical_1/rbase.png" /></p>
+<p><img alt="R base colour palettes." src="../_images/rbase.png" /></p>
+<p>The <code class="docutils literal notranslate"><span class="pre">hcl.colors</span></code> function - as used above - is a far better choice in many cases. There are a wide range of palettes (see <code class="docutils literal notranslate"><span class="pre">hcl.pals()</span></code>) with different use cases. There are also some specific packages that provide extra colour schemes.</p>
 <div class="section" id="viridis">
 <h3>Viridis<a class="headerlink" href="#viridis" title="Permalink to this headline">¶</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">viridis</span></code> package contains the <code class="docutils literal notranslate"><span class="pre">viridis</span></code> palette, but also these other palettes:</p>
-<p><img alt="Colour palettes from the viridispackage." src="practical_1/viridis.png" /></p>
+<p><img alt="Colour palettes from the viridis package." src="../_images/viridis.png" /></p>
 <p>Re-plot the life expectancy map of Europe using each of the other 3 palettes in
 the <code class="docutils literal notranslate"><span class="pre">viridis</span></code> pacakge. Which one do you prefer?</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">ggplot</span></code>, you can use the functions <code class="docutils literal notranslate"><span class="pre">scale_color_viridis()</span></code> to colour points, lines or
@@ -2609,6 +2622,7 @@ Make a GIF which mapping the time series of the global life expectancy for all c
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Introduction to the practicals</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
