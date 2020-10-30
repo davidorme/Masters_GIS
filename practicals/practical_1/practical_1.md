@@ -880,11 +880,11 @@ plot(tmax_jul, col=cols, breaks=bks, axis.args=ax.args, main='July maximum tempe
 plot(tmax_max, col=cols, breaks=bks, , axis.args=ax.args, main='Annual maximum temperature')
 ```
 
-# Overlaying raster and vector data
+## Overlaying raster and vector data
 
 In this next exercise, we are going to use some data to build up a more complex map of chlorophyll concentrations in the Southern Ocean. There are a few new techniques along the way.
 
-## Cropping data
+### Cropping data
 
 Sometimes you are only interested in a subset of the area covered by a GIS dataset. Cropping the data to the area of interest can make plotting easier and can also make GIS operations a lot faster, particularly if the data is complex.
 
@@ -913,9 +913,9 @@ plot(so_data['chlorophyll'], add=TRUE, logz=TRUE, pch=20, cex=2, pal=viridis, bo
 
 ```
 
-# Spatial joins and raster data extraction
+## Spatial joins and raster data extraction
 
-## Spatial joining
+### Spatial joining
 
 We have merged data into an `sf` object by matching values in columns, but we can also merge data **spatially**. This process is often called a **spatial join**.
 
@@ -996,7 +996,7 @@ pal <- colorRampPalette(c('darkblue','lightblue', 'salmon','darkred'))
 plot(ne_110['aliens_per_capita'], logz=TRUE, breaks=bks, pal=pal, key.pos=4)
 ```
 
-## Extracting data from Rasters
+### Extracting data from Rasters
 
 The spatial join above allows us to connect vector data based on location but you might also need to extract data from a raster dataset in certain locations. Examples include to know the
 exact altitude or surface temperature of sampling sites or average values within a polygon. We are going to use a chunk of the full resolution ETOPO1 elevation data to explore this. 
@@ -1168,11 +1168,11 @@ plot( etopo_uk ~ distance, data=pennine_way_trans, type='l',
      ylab='Elevation (m)', xlab='Distance (m)')
 ```
 
-# Mini projects
+## Mini projects
 
 You should now have the skills to tackle the miniproject below. Give them a go - the answers are still available but try and puzzle it out.
 
-## Precipitation transect for  New Guinea
+### Precipitation transect for  New Guinea
 
 ```{admonition} Create a total annual precipitation transect for New Guinea
 *  Use the 0.5 arc minute worldclim data from `getData` - you will need to specify a location to get the tile including New Guinea. 
@@ -1247,7 +1247,7 @@ plot( layer ~ distance, data=transect_data, type='l',
      ylab='Annual precipitation (mm)', xlab='Distance (m)')
 ```
 
-## Fishing pressure in Fiji
+### Fishing pressure in Fiji
 
 This exercise is quite a bit harder - you will probably need to read more help files (or peek at the code) but see how you go!
 
@@ -1266,7 +1266,7 @@ library(gdistance)
 library(openxlsx)
 ```
 
-### Loading the data
+#### Loading the data
 
 * Use `getData` to obtain the GADM Level 2 vector data for Fiji (`country='FJI'`) and then extract Kadavu.
 * Use `readWorbook` to load the data from each of the `Villages` and `Field sites` worksheets from the `FishingPressure.xlsx` spreadsheet and convert those tables into  `sf`  objects with POINT data.
@@ -1297,7 +1297,7 @@ plot(st_geometry(villages), add=TRUE, col='red')
 plot(st_geometry(kadavu), add=TRUE)
 ```
 
-### Create the cost surface
+#### Create the cost surface
 
 The cost surface should assign a uniform cost to moving through the sea and an infinite cost (`NA`) to moving over land. The resolution of your cost surface raster matters: a very fine resolution will give very precise distances but take a long time to run;  a coarse resolution will run quickly but the distances will be very crude. So, you need to:
 
@@ -1330,7 +1330,7 @@ sea_r[! is.na(sea_r)] <- 1
 plot(sea_r)
 ```
 
-### Finding launch points
+#### Finding launch points
 
 The villages are not all on the coast! If the village is too far inland then it may sit in a cell with an infinite travel cost. So we need to find the closest point on the coast to each village using `st_nearest_points`. All points within a polygon are part of that polygon, so we have to explicitly convert the island polygon to a MULTILINESTRING showing the coast to find point on the coast.
 
@@ -1359,7 +1359,7 @@ villages$launch_points <- launch_points
 st_geometry(villages) <- 'launch_points'
 ```
 
-### Find distances
+#### Find distances
 
 This is a really hard bit because the way the `costDistance` function work is quite complex. The first step is to use `transition` to create a transition graph. This sets:
 
@@ -1396,7 +1396,7 @@ tr <- geoCorrection(tr)
 costs <- costDistance(tr, as(villages, 'Spatial'), as(sites, 'Spatial'))
 ```
 
-### Assign villages to sites
+#### Assign villages to sites
 
 The result of `costDistance` is a matrix showing the calculated distance through the sea from each launch point to each site. All we need to do now is find the nearest site to each village, count up households per site and merge that information into the sites.
 
