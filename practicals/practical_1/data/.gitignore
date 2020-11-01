@@ -1,0 +1,8 @@
+# Files generated during the practical, which shouldn't be added
+# to the repository.
+
+uk_eire_BNG.*
+uk_eire_WGS84.*
+uk_raster_BNG_interp.tif
+uk_raster_BNG_ngb.asc
+
