@@ -489,7 +489,8 @@
 <p>To load the packages:</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">units</span><span class="p">)</span>
@@ -499,6 +500,7 @@
 <div class="cell_output docutils container">
 </div>
 </div>
+<p>You will see a whole load of package loading messages about GDAL, GEOS, PROJ which are not shown here. Don’t worry about this - they are not errors, just R linking to some key open source GIS toolkits.</p>
 </div>
 <div class="section" id="vector-data">
 <h2>Vector data<a class="headerlink" href="#vector-data" title="Permalink to this headline">¶</a></h2>
