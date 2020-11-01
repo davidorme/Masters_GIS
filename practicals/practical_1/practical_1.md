@@ -42,11 +42,14 @@ To load the packages:
 
 ```{code-cell} R
 :tags: [remove-stderr]
+library(rgdal)
 library(raster)
 library(sf)
 library(sp)
 library(units)
 ```
+
+You will see a whole load of package loading messages about GDAL, GEOS, PROJ which are not shown here. Don't worry about this - they are not errors, just R linking to some key open source GIS toolkits.
 
 ## Vector data
 
