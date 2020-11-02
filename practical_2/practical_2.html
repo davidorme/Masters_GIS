@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>jupytext: formats: md:myst text_representation: extension: .md format_name: myst kernelspec: display_name: R language: r name: ir &#8212; My Jupyter Book</title>
+    <title>Practical Two: Species Distribution Modelling &#8212; GIS and Spatial Methods in R</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -76,7 +76,7 @@
 <a class="navbar-brand text-wrap" href="../index.html">
   
   
-  <h1 class="site-logo" id="site-title">My Jupyter Book</h1>
+  <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
   
 </a>
 </div>
@@ -140,7 +140,10 @@
     
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
-        
+        <a class="dropdown-buttons"
+            href="../_sources/practical_2/practical_2.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
         <!-- Download raw file -->
         <a class="dropdown-buttons" href="../_sources/practical_2/practical_2.md"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
@@ -162,10 +165,48 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/practical_2/practical_2.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
     <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#required-packages">
+   Required packages
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#installing-maxent">
+     Installing MaxEnt
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
         
     </div>
 </div>
@@ -174,22 +215,55 @@
         
               <div>
                 
-  <hr class="docutils" />
-<div class="section" id="jupytext-formats-md-myst-text-representation-extension-md-format-name-myst-kernelspec-display-name-r-language-r-name-ir">
-<h1>jupytext:
-formats: md:myst
-text_representation:
-extension: .md
-format_name: myst
-kernelspec:
-display_name: R
-language: r
-name: ir<a class="headerlink" href="#jupytext-formats-md-myst-text-representation-extension-md-format-name-myst-kernelspec-display-name-r-language-r-name-ir" title="Permalink to this headline">¶</a></h1>
-<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;dismo&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rJava&#39;</span><span class="p">)</span>
+  <div class="cell tag_remove-input docutils container">
+</div>
+<div class="section" id="practical-two-species-distribution-modelling">
+<h1>Practical Two: Species Distribution Modelling<a class="headerlink" href="#practical-two-species-distribution-modelling" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+<p>There are many R packages available for species distribution modelling. If you search through the <a class="reference external" href="https://cran.r-project.org/web/packages/index.html">CRAN package index</a> for ‘species distribution’, you will find over 20 different packages that do something - and that is only using a single search term.</p>
+<p>We are going to concentrate on the <code class="docutils literal notranslate"><span class="pre">dismo</span></code> package: it is a little old but provides a single framework to handle different model types. It also has an excellent <strong>vignette</strong> (a detailed tutorial on how to use the package) for further details:</p>
+<p>https://cran.r-project.org/web/packages/dismo/vignettes/sdm.pdf</p>
+<p>The following packages are required: these will be pre-installed in the RStudio Cloud project, but you will need to load them if you are working on your own machine</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span> <span class="c1"># Core raster GIS data package</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span> <span class="c1"># Core vector GIS data package</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sp&#39;</span><span class="p">)</span> <span class="c1"># Another core vector GIS package</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;dismo&#39;</span><span class="p">)</span> <span class="c1"># Species Distribution Modelling</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgdal&#39;</span><span class="p">)</span> <span class="c1"># Interface to the Geospatial Data Abstraction Library</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rJava&#39;</span><span class="p">)</span> <span class="c1"># R interface to the JAVA programming language</span>
 </pre></div>
 </div>
-<p>https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar</p>
+<p>To load the packages:</p>
+<div class="cell tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">rgdal</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dismo</span><span class="p">)</span> <span class="c1"># loads rJava</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+</div>
+</div>
+<div class="section" id="installing-maxent">
+<h3>Installing MaxEnt<a class="headerlink" href="#installing-maxent" title="Permalink to this headline">¶</a></h3>
+<p>We are going to be using the MAXENT species distribution modelling program. Using MaxEnt in R is a bit of a pain, because it requires the MAXENT program to be separately installed and also requires the <code class="docutils literal notranslate"><span class="pre">rJava</span></code> package. The RStudio Cloud project for this practical is all ready to go, but if you want to follow this on your own machine then you will need to:</p>
+<ol class="simple">
+<li><p>Download the MAXENT program - this is a compiled Java program file <code class="docutils literal notranslate"><span class="pre">maxent.jar</span></code>:</p></li>
+</ol>
+<p><span class="xref myst">https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true</span></p>
+<ol class="simple">
+<li><p>Save that into the <code class="docutils literal notranslate"><span class="pre">dismo/java</span></code> folder in your R library.</p></li>
+</ol>
+<p>MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species models. We are <em>not</em> going to be getting into the details of the way the algorithm works, but you can read up on that here:</p>
+<blockquote>
+<div><p>Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17: 43-57. <a class="reference external" href="https://doi.org/10.1111/j.1472-4642.2010.00725.x">doi:10.1111/j.1472-4642.2010.00725.x</a></p>
+</div></blockquote>
+<p>It <a class="reference external" href="https://methodsblog.com/2013/02/20/some-big-news-about-maxent/">has been pointed out</a> that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.</p>
+</div>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -201,16 +275,16 @@ name: ir<a class="headerlink" href="#jupytext-formats-md-myst-text-representatio
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "python"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "python3",
+            kernelName: "ir",
             path: "./practical_2"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'python3'</script>
+    <script>kernelName = 'ir'</script>
 
               </div>
               
@@ -226,7 +300,7 @@ name: ir<a class="headerlink" href="#jupytext-formats-md-myst-text-representatio
     <div class="container">
       <p>
         
-          By The Jupyter Book community<br/>
+          By David Orme<br/>
         
             &copy; Copyright 2020.<br/>
       </p>

@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Practical One: GIS data and plotting &#8212; My Jupyter Book</title>
+    <title>Practical One: GIS data and plotting &#8212; GIS and Spatial Methods in R</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -77,7 +77,7 @@
 <a class="navbar-brand text-wrap" href="../index.html">
   
   
-  <h1 class="site-logo" id="site-title">My Jupyter Book</h1>
+  <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
   
 </a>
 </div>
@@ -1328,7 +1328,7 @@ values     : 1, 494  (min, max)
 <caption>A matrix: 2 × 2 of type dbl</caption>
 <tbody>
 	<tr><td>1</td><td>3</td></tr>
-	<tr><td>6</td><td>7</td></tr>
+	<tr><td>5</td><td>7</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1904,23 +1904,13 @@ CRS:            4326
 <span class="nf">plot</span><span class="p">(</span><span class="n">so_topo</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">sea_pal</span><span class="p">(</span><span class="m">100</span><span class="p">),</span> <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">contour</span><span class="p">(</span><span class="n">so_topo</span><span class="p">,</span> <span class="n">levels</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">-2000</span><span class="p">,</span> <span class="m">-4000</span><span class="p">,</span> <span class="m">-6000</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey80&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">so_ne_10</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey90&#39;</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;grey40&#39;</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s">&#39;chlorophyll&#39;</span><span class="p">],</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">viridis</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s">&#39;chlorophyll&#39;</span><span class="p">],</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">hcl.colors</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="s">&#39;white&#39;</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">.image_scale</span><span class="p">(</span><span class="nf">log10</span><span class="p">(</span><span class="n">so_data</span><span class="o">$</span><span class="n">chlorophyll</span><span class="p">),</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">18</span><span class="p">),</span> <span class="n">key.length</span><span class="o">=</span><span class="m">0.8</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">plot</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> <span class="p">:</span> <span class="nb">object</span> <span class="s1">&#39;viridis&#39;</span> <span class="ow">not</span> <span class="n">found</span>
-<span class="ne">Traceback</span>:
-
-<span class="mi">1</span><span class="o">.</span> <span class="n">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
- <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
-<span class="mi">2</span><span class="o">.</span> <span class="n">plot</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
- <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
-<span class="mi">3</span><span class="o">.</span> <span class="n">plot</span><span class="o">.</span><span class="n">sf</span><span class="p">(</span><span class="n">so_data</span><span class="p">[</span><span class="s2">&quot;chlorophyll&quot;</span><span class="p">],</span> <span class="n">add</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">logz</span> <span class="o">=</span> <span class="n">TRUE</span><span class="p">,</span> <span class="n">pch</span> <span class="o">=</span> <span class="mi">20</span><span class="p">,</span> 
- <span class="o">.</span>     <span class="n">cex</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">pal</span> <span class="o">=</span> <span class="n">viridis</span><span class="p">,</span> <span class="n">border</span> <span class="o">=</span> <span class="s2">&quot;white&quot;</span><span class="p">,</span> <span class="n">reset</span> <span class="o">=</span> <span class="n">FALSE</span><span class="p">)</span>
-</pre></div>
-</div>
+<img alt="../_images/practical_1_119_0.png" src="../_images/practical_1_119_0.png" />
 <img alt="../_images/practical_1_119_1.png" src="../_images/practical_1_119_1.png" />
 </div>
 </div>
@@ -1949,6 +1939,9 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_121_0.png" src="../_images/practical_1_121_0.png" />
+</div>
 </div>
 <p>In order to join these data together we need to turn the <code class="docutils literal notranslate"><span class="pre">mosquito_points</span></code> object from a geometry column (<code class="docutils literal notranslate"><span class="pre">sfc</span></code>) into a full <code class="docutils literal notranslate"><span class="pre">sf</span></code> data frame, so it can have attributes and then we can simply add the country name (‘ADMIN’) onto the points.</p>
 <div class="cell docutils container">
@@ -1961,6 +1954,9 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_123_0.png" src="../_images/practical_1_123_0.png" />
+</div>
 </div>
 <p>We can now aggregate the points within countries. This can give us a count of the number of points in each country and also converts multiple rows of <code class="docutils literal notranslate"><span class="pre">POINT</span></code> into a single <code class="docutils literal notranslate"><span class="pre">MULTIPOINT</span></code> feature per country.</p>
 <div class="cell docutils container">
@@ -1971,6 +1967,23 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A sf: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>country</th><th scope=col>n_outbreaks</th><th scope=col>geometry</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;GEOMETRY [m]&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>Algeria     </td><td>91</td><td>MULTIPOINT ((-682422.1 2972...</td></tr>
+	<tr><th scope=row>2</th><td>Angola      </td><td>41</td><td>MULTIPOINT ((1133960 -56731...</td></tr>
+	<tr><th scope=row>3</th><td>Benin       </td><td> 1</td><td>POINT (236471.4 903118.7)</td></tr>
+	<tr><th scope=row>4</th><td>Botswana    </td><td>12</td><td>MULTIPOINT ((1943318 -26749...</td></tr>
+	<tr><th scope=row>5</th><td>Burkina Faso</td><td> 7</td><td>MULTIPOINT ((-415457.6 1238...</td></tr>
+	<tr><th scope=row>6</th><td>Burundi     </td><td> 1</td><td>POINT (2768345 -393948.5)</td></tr>
+</tbody>
+</table>
+</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1980,6 +1993,23 @@ CRS:            4326
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A sf: 6 × 6</caption>
+<thead>
+	<tr><th></th><th scope=col>ADMIN</th><th scope=col>POP_EST</th><th scope=col>country</th><th scope=col>n_outbreaks</th><th scope=col>geometry</th><th scope=col>area</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;MULTIPOLYGON [m]&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>2</th><td>Somaliland  </td><td> 3500000</td><td>Somaliland  </td><td> 5</td><td>MULTIPOLYGON (((4597353 122...</td><td>1.388201e+11</td></tr>
+	<tr><th scope=row>6</th><td>Angola      </td><td>29310273</td><td>Angola      </td><td>41</td><td>MULTIPOLYGON (((1226185 -51...</td><td>1.039192e+12</td></tr>
+	<tr><th scope=row>16</th><td>Burundi     </td><td>11466756</td><td>Burundi     </td><td> 1</td><td>MULTIPOLYGON (((2877605 -25...</td><td>2.156439e+10</td></tr>
+	<tr><th scope=row>18</th><td>Benin       </td><td>11038805</td><td>Benin       </td><td> 1</td><td>MULTIPOLYGON (((253782.4 66...</td><td>9.698961e+10</td></tr>
+	<tr><th scope=row>19</th><td>Burkina Faso</td><td>20107509</td><td>Burkina Faso</td><td> 7</td><td>MULTIPOLYGON (((-508076 110...</td><td>2.265447e+11</td></tr>
+	<tr><th scope=row>30</th><td>Botswana    </td><td> 2214858</td><td>Botswana    </td><td>12</td><td>MULTIPOLYGON (((2721227 -23...</td><td>5.125633e+11</td></tr>
+</tbody>
+</table>
+</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1990,6 +2020,9 @@ CRS:            4326
      <span class="n">ylab</span><span class="o">=</span><span class="s">&#39;Number of outbreaks&#39;</span><span class="p">,</span> <span class="n">xlab</span><span class="o">=</span><span class="s">&#39;Area (m2)&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_127_0.png" src="../_images/practical_1_127_0.png" />
 </div>
 </div>
 <div class="admonition-alien-invasion admonition">
@@ -2018,6 +2051,15 @@ CRS:            4326
 <span class="nf">plot</span><span class="p">(</span><span class="n">ne_110</span><span class="p">[</span><span class="s">&#39;aliens_per_capita&#39;</span><span class="p">],</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="n">pal</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<img alt="../_images/practical_1_129_2.png" src="../_images/practical_1_129_2.png" />
 </div>
 </div>
 </div>
@@ -2049,6 +2091,9 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_133_0.png" src="../_images/practical_1_133_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="raster-cell-statistics-and-locations">
@@ -2063,6 +2108,14 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html">1195</div><div class="output text_html"><style>
+.dl-inline {width: auto; margin:0; padding: 0}
+.dl-inline>dt, .dl-inline>dd {float: none; width: auto; display: inline-block}
+.dl-inline>dt::after {content: ":\0020"; padding-right: .5ex}
+.dl-inline>dt:not(:first-of-type) {padding-left: .5ex}
+</style><dl class=dl-inline><dt>0%</dt><dd>-64</dd><dt>25%</dt><dd>53</dd><dt>50%</dt><dd>104</dd><dt>75%</dt><dd>204</dd><dt>100%</dt><dd>1195</dd></dl>
+</div><div class="output text_html">113536</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2071,6 +2124,14 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>111980</li><li>111981</li><li>112761</li><li>112771</li><li>113536</li><li>113541</li><li>114318</li></ol>
+</div></div>
 </div>
 <div class="admonition-highlight-highest-point-and-areas-below-sea-level admonition">
 <p class="admonition-title">Highlight highest point and areas below sea level</p>
@@ -2095,6 +2156,9 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_138_0.png" src="../_images/practical_1_138_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="the-extract-function">
@@ -2113,12 +2177,85 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 5 features and 2 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
+CRS:            EPSG:4326
+       name           geometry elev
+1    London  POINT (-0.1 51.5)    8
+2   Cardiff  POINT (-3.2 51.5)   21
+3 Edinburgh  POINT (-3.2 55.8)  279
+4   Belfast    POINT (-6 54.6)  269
+5    Dublin POINT (-6.25 53.3)   43
+</pre></div>
+</div>
+</div>
 </div>
 <p>Polygons are also easy but there is a little more detail about the output. By default, the <code class="docutils literal notranslate"><span class="pre">extract</span></code> function for polygons returns a set of <em>all</em> the raster values within each polygon. However, you can use the <code class="docutils literal notranslate"><span class="pre">fun</span></code> argument to specify that <code class="docutils literal notranslate"><span class="pre">extract</span></code> does something with those values. This  effectively duplicates the extremely useful <strong>Zonal Statistics</strong> function from other GIS programs.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span><span class="o">$</span><span class="n">mean_height</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">uk_eire</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="n">uk_eire</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
+<span class="n">uk_eire</span><span class="o">$</span><span class="n">mean_height</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">uk_eire</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="n">mean</span><span class="p">,</span> <span class="n">na.rm</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterLayer 
+dimensions : 600, 780, 468000  (nrow, ncol, ncell)
+resolution : 0.01666667, 0.01666667  (x, y)
+extent     : -11.00833, 1.991667, 49.49167, 59.49167  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
+source     : memory
+names      : etopo_uk 
+values     : -64, 1195  (min, max)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 6 fields
+Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 3 NA&#39;s
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:            EPSG:4326
+              name   capital n_km2                       geometry
+1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
+2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
+3           London      &lt;NA&gt;  4500 POLYGON ((0.151944 51.51361...
+4 Northern Ireland   Belfast   133 POLYGON ((-6.91875 55.3, -5...
+5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
+6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
+               area    length log_n_km2
+1  80555.367 [km^2] 1326.7639        NA
+2 125982.255 [km^2] 2062.4843  2.414973
+3   1515.813 [km^2]  143.7962  3.653213
+4  13656.055 [km^2]  480.9682  2.123852
+5  76276.261 [km^2] 1255.5772  1.826075
+6  28948.401 [km^2]  689.8315  2.178977
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 7 fields
+Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 4 NA&#39;s
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:            EPSG:4326
+              name   capital n_km2                       geometry
+1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
+2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
+3           London      &lt;NA&gt;  4500 POLYGON ((0.151944 51.51361...
+4 Northern Ireland   Belfast   133 POLYGON ((-6.91875 55.3, -5...
+5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
+6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
+               area    length log_n_km2 mean_height
+1  80555.367 [km^2] 1326.7639        NA   108.64256
+2 125982.255 [km^2] 2062.4843  2.414973   110.57183
+3   1515.813 [km^2]  143.7962  3.653213    57.20426
+4  13656.055 [km^2]  480.9682  2.123852   125.03498
+5  76276.261 [km^2] 1255.5772  1.826075   270.21158
+6  28948.401 [km^2]  689.8315  2.178977   218.65102
 </pre></div>
 </div>
 </div>
@@ -2136,6 +2273,26 @@ exact altitude or surface temperature of sampling sites or average values within
 <span class="c1"># load the data, showing off the ability to use SQL queries to load subsets of the data</span>
 <span class="n">pennine_way</span> <span class="o">&lt;-</span> <span class="nf">st_read</span><span class="p">(</span><span class="s">&#39;data/National_Trails_Pennine_Way.gpx&#39;</span><span class="p">,</span> <span class="n">layer</span><span class="o">=</span><span class="s">&#39;routes&#39;</span><span class="p">,</span> 
                       <span class="n">query</span><span class="o">=</span><span class="s">&quot;select * from routes where name=&#39;Pennine Way&#39;&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Driver: GPX 
+Available layers:
+    layer_name     geometry_type features fields
+1    waypoints             Point        0     23
+2       routes       Line String        5     12
+3       tracks Multi Line String        0     12
+4 route_points             Point    10971     25
+5 track_points             Point        0     26
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `routes&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/National_Trails_Pennine_Way.gpx&#39; using driver `GPX&#39;
+Simple feature collection with 1 feature and 12 fields
+geometry type:  LINESTRING
+dimension:      XY
+bbox:           xmin: -2.562267 ymin: 53.36435 xmax: -1.816825 ymax: 55.54717
+CRS:            4326
 </pre></div>
 </div>
 </div>
@@ -2182,6 +2339,17 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(pennine_way_BNG_simple, add = TRUE, col = &quot;darkred&quot;):
+“ignoring all but the first attribute”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(pennine_way_BNG_simple, add = TRUE, col = &quot;darkred&quot;):
+“ignoring all but the first attribute”
+</pre></div>
+</div>
+<img alt="../_images/practical_1_148_2.png" src="../_images/practical_1_148_2.png" />
+</div>
 </div>
 <p>Now we can extract the elevations and cell IDs under the route. We can also simply use Pythagoras’ Theorem to find the distance between cells along the transect and hence the cumulative distance.</p>
 <div class="cell docutils container">
@@ -2212,6 +2380,16 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>List of 1
+ $ : num [1:758, 1:2] 138457 138456 138456 138455 138455 ...
+  ..- attr(*, &quot;dimnames&quot;)=List of 2
+  .. ..$ : chr [1:758] &quot;&quot; &quot;&quot; &quot;&quot; &quot;&quot; ...
+  .. ..$ : chr [1:2] &quot;cell&quot; &quot;etopo_uk&quot;
+</pre></div>
+</div>
+<img alt="../_images/practical_1_150_1.png" src="../_images/practical_1_150_1.png" />
+</div>
 </div>
 </div>
 </div>
@@ -2220,18 +2398,22 @@ exact altitude or surface temperature of sampling sites or average values within
 <p>You should now have the skills to tackle the miniproject below. Give them a go - the answers are still available but try and puzzle it out.</p>
 <div class="section" id="precipitation-transect-for-new-guinea">
 <h3>Precipitation transect for  New Guinea<a class="headerlink" href="#precipitation-transect-for-new-guinea" title="Permalink to this headline">¶</a></h3>
-<div class="admonition-create-a-total-annual-precipitation-transect-for-new-guinea admonition">
-<p class="admonition-title">Create a total annual precipitation transect for New Guinea</p>
-<ul>
-<li><p>Use the 0.5 arc minute worldclim data from <code class="docutils literal notranslate"><span class="pre">getData</span></code> - you will need to specify a location to get the tile including New Guinea.</p></li>
-<li><p>Use UTM 54S (<a class="reference external" href="https://epsg.io/32754">https://epsg.io/32754</a>) and use a 1 km resolution to reproject raster data. You will need to find an extent in UTM 54S to cover the study area and choose extent coordinates to create neat 1km cell boundaries</p></li>
-<li><p>Create a transect with the following (WGS84 Long + Lat) coordinates:</p>
+<p>You have been given the following coordinates of a transect through New Guinea</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">transect_long</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">132.3</span><span class="p">,</span> <span class="m">135.2</span><span class="p">,</span> <span class="m">146.4</span><span class="p">,</span> <span class="m">149.3</span><span class="p">)</span>
 <span class="n">transect_lat</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span> <span class="m">-3.9</span><span class="p">,</span> <span class="m">-7.7</span><span class="p">,</span> <span class="m">-9.8</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>You will need to reproject the transect into UTM 54S and then use the function <code class="docutils literal notranslate"><span class="pre">st_segmentize</span></code> to create regular 1000m sampling points along the transect.</p>
-</li>
+</div>
+</div>
+<div class="admonition-create-a-total-annual-precipitation-transect-for-new-guinea admonition">
+<p class="admonition-title">Create a total annual precipitation transect for New Guinea</p>
+<ul class="simple">
+<li><p>Use the 0.5 arc minute worldclim data from <code class="docutils literal notranslate"><span class="pre">getData</span></code> - you will need to specify a location to get the tile including New Guinea.</p></li>
+<li><p>Use UTM 54S (<a class="reference external" href="https://epsg.io/32754">https://epsg.io/32754</a>) and use a 1 km resolution to reproject raster data. You will need to find an extent in UTM 54S to cover the study area and choose extent coordinates to create neat 1km cell boundaries</p></li>
+<li><p>Create a transect with the following (WGS84 Long + Lat) coordinates:</p></li>
+<li><p>You will need to reproject the transect into UTM 54S and then use the function <code class="docutils literal notranslate"><span class="pre">st_segmentize</span></code> to create regular 1000m sampling points along the transect.</p></li>
 </ul>
 <p>Note that some of these steps are handling a lot of data and may take a few minutes to complete.</p>
 </div>
@@ -2294,6 +2476,26 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>POLYGON ((-712615.3 8874187, 1490218 8880999, 1...
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 1 feature 
+geometry type:  POLYGON
+dimension:      XY
+bbox:           xmin: -731666 ymin: 8874187 xmax: 1505647 ymax: 1e+07
+CRS:            EPSG:32754
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(ne_10_ng_utm, add = TRUE, col = NA, border = &quot;grey50&quot;):
+“ignoring all but the first attribute”
+</pre></div>
+</div>
+<img alt="../_images/practical_1_154_4.png" src="../_images/practical_1_154_4.png" />
+</div>
 </div>
 </div>
 <div class="section" id="fishing-pressure-in-fiji">
@@ -2310,6 +2512,40 @@ exact altitude or surface temperature of sampling sites or average values within
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">gdistance</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">openxlsx</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: igraph
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: ‘igraph’
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from ‘package:raster’:
+
+    union
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following objects are masked from ‘package:stats’:
+
+    decompose, spectrum
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from ‘package:base’:
+
+    union
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: Matrix
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Attaching package: ‘gdistance’
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>The following object is masked from ‘package:igraph’:
+
+    normalize
 </pre></div>
 </div>
 </div>
@@ -2346,6 +2582,9 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_158_0.png" src="../_images/practical_1_158_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="create-the-cost-surface">
@@ -2361,7 +2600,7 @@ exact altitude or surface temperature of sampling sites or average values within
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a template raster covering the whole study area, at a given resolution</span>
 <span class="n">res</span> <span class="o">&lt;-</span> <span class="m">100</span>
-<span class="n">r</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="n">xmn</span><span class="o">=</span><span class="m">590000</span><span class="p">,</span> <span class="n">xmx</span><span class="o">=</span><span class="m">670000</span><span class="p">,</span> <span class="n">ymn</span><span class="o">=</span><span class="m">7870000</span><span class="p">,</span> <span class="n">ymx</span><span class="o">=</span><span class="m">7940000</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="m">32760</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
+<span class="n">r</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="n">xmn</span><span class="o">=</span><span class="m">590000</span><span class="p">,</span> <span class="n">xmx</span><span class="o">=</span><span class="m">670000</span><span class="p">,</span> <span class="n">ymn</span><span class="o">=</span><span class="m">7870000</span><span class="p">,</span> <span class="n">ymx</span><span class="o">=</span><span class="m">7940000</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&#39;+init=EPSG:32760&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="n">res</span><span class="p">)</span>
 
 <span class="c1"># Rasterize the island as a POLYGON to get cells that cannot be traversed</span>
 <span class="n">kadavu_poly</span> <span class="o">&lt;-</span> <span class="nf">rasterize</span><span class="p">(</span><span class="nf">as</span><span class="p">(</span><span class="n">kadavu</span><span class="p">,</span> <span class="s">&#39;Spatial&#39;</span><span class="p">),</span> <span class="n">r</span><span class="p">,</span> 
@@ -2380,6 +2619,9 @@ exact altitude or surface temperature of sampling sites or average values within
 <span class="nf">plot</span><span class="p">(</span><span class="n">sea_r</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_160_0.png" src="../_images/practical_1_160_0.png" />
 </div>
 </div>
 </div>
@@ -2403,6 +2645,9 @@ exact altitude or surface temperature of sampling sites or average values within
 <span class="nf">plot</span><span class="p">(</span><span class="n">launch_points</span><span class="p">,</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;darkgreen&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_162_0.png" src="../_images/practical_1_162_0.png" />
 </div>
 </div>
 <p>We can add the launch points in to our <code class="docutils literal notranslate"><span class="pre">villages</span></code> object. It is possible to have more than one geometry associated with a row of data: you just have to set which one is being used.</p>
@@ -2440,6 +2685,9 @@ exact altitude or surface temperature of sampling sites or average values within
 <span class="nf">plot</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_166_0.png" src="../_images/practical_1_166_0.png" />
 </div>
 </div>
 <ol class="simple">
@@ -2492,6 +2740,9 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_170_0.png" src="../_images/practical_1_170_0.png" />
+</div>
 </div>
 </div>
 </div>
@@ -2509,6 +2760,9 @@ exact altitude or surface temperature of sampling sites or average values within
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_172_0.png" src="../_images/practical_1_172_0.png" />
+</div>
 </div>
 <p>There are several <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> extensions for <code class="docutils literal notranslate"><span class="pre">sf</span></code> that make it easier to colour and label your <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> maps.</p>
 <div class="cell docutils container">
@@ -2521,6 +2775,24 @@ exact altitude or surface temperature of sampling sites or average values within
        <span class="nf">geom_sf_text</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">label</span> <span class="o">=</span> <span class="n">ADMIN</span><span class="p">),</span> <span class="n">pointsize</span><span class="o">=</span><span class="m">9</span><span class="p">,</span> <span class="n">colour</span> <span class="o">=</span> <span class="s">&quot;grey20&quot;</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“attribute variables are assumed to be spatially constant throughout all geometries”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“Ignoring unknown parameters: pointsize”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_point_on_surface.sfc(sf::st_zm(x)):
+“st_point_on_surface may not give correct results for longitude/latitude data”
+</pre></div>
+</div>
+<img alt="../_images/practical_1_174_4.png" src="../_images/practical_1_174_4.png" />
 </div>
 </div>
 <div class="admonition-european-life-expectancy admonition">
@@ -2536,6 +2808,9 @@ exact altitude or surface temperature of sampling sites or average values within
        <span class="nf">theme_bw</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_176_0.png" src="../_images/practical_1_176_0.png" />
 </div>
 </div>
 <p>What is wrong with that map? Can you fix it?</p>
@@ -2571,6 +2846,9 @@ default.</p>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_178_0.png" src="../_images/practical_1_178_0.png" />
+</div>
 </div>
 <p>The first group are spectral palettes that are most similar to <code class="docutils literal notranslate"><span class="pre">viridis</span></code> and
 good for representing continous data. The second group are qualitative palettes
@@ -2585,6 +2863,9 @@ colourblind-friendly.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">display.brewer.all</span><span class="p">(</span><span class="n">colorblindFriendly</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_1_180_0.png" src="../_images/practical_1_180_0.png" />
 </div>
 </div>
 <p>As with <code class="docutils literal notranslate"><span class="pre">viridis</span></code> you can use <code class="docutils literal notranslate"><span class="pre">scale_color_brewer()</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_fill_brewer()</span></code>
@@ -2631,7 +2912,7 @@ Make a GIF which mapping the time series of the global life expectancy for all c
     <div class="container">
       <p>
         
-          By The Jupyter Book community<br/>
+          By David Orme<br/>
         
             &copy; Copyright 2020.<br/>
       </p>
