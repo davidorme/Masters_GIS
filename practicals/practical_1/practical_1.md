@@ -1336,7 +1336,7 @@ Remember from above the difference between rasterizing a polygon and a linestrin
 :tags: [hide-cell]
 
 # Create a template raster covering the whole study area, at a given resolution
-res <- 1000
+res <- 100
 r <- raster(xmn=590000, xmx=670000, ymn=7870000, ymx=7940000, crs='+init=EPSG:32760', res=res)
 
 # Rasterize the island as a POLYGON to get cells that cannot be traversed

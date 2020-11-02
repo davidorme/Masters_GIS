@@ -4,4 +4,4 @@ author: David Orme
 
 # Some cells take a while to run
 execute:
-  timeout: 1000
+  timeout: 10000
