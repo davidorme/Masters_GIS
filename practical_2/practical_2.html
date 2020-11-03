@@ -268,12 +268,12 @@
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#maxent-model">
+     MaxEnt model
+    </a>
+   </li>
   </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#fitting-a-maxent-model">
-   Fitting a MaxEnt model
-  </a>
  </li>
 </ul>
 
@@ -818,8 +818,8 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9645809 
-cor            : 0.6650839 
+AUC            : 0.9658458 
+cor            : 0.6955885 
 max TPR+TNR at : 0.02 
 </pre></div>
 </div>
@@ -872,7 +872,7 @@ max TPR+TNR at : 0.02
 
 <span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">tapir_range</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;red&#39;</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">tapir_range_2050</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;red&#39;</span><span class="p">)))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">tapir_range_2050</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;red&#39;</span><span class="p">))</span>
 
 <span class="c1"># This is a bit of a hack - adding 2 * hist + 2050 gives:</span>
 <span class="c1"># 0 + 0 - present in neither model</span>
@@ -887,25 +887,20 @@ max TPR+TNR at : 0.02
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="n">parse</span><span class="p">(</span><span class="n">text</span> <span class="o">=</span> <span class="n">x</span><span class="p">,</span> <span class="n">srcfile</span> <span class="o">=</span> <span class="n">src</span><span class="p">):</span> <span class="o">&lt;</span><span class="n">text</span><span class="o">&gt;</span><span class="p">:</span><span class="mi">8</span><span class="p">:</span><span class="mi">58</span><span class="p">:</span> <span class="n">unexpected</span> <span class="s1">&#39;)&#39;</span>
-<span class="mi">7</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">tapir_range</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">))</span>
-<span class="mi">8</span><span class="p">:</span> <span class="n">plot</span><span class="p">(</span><span class="n">tapir_range_2050</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">c</span><span class="p">(</span><span class="s1">&#39;grey&#39;</span><span class="p">,</span><span class="s1">&#39;red&#39;</span><span class="p">)))</span>
-                                                            <span class="o">^</span>
-<span class="ne">Traceback</span>:
-</pre></div>
+<img alt="../_images/practical_2_37_0.png" src="../_images/practical_2_37_0.png" />
 </div>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="fitting-a-maxent-model">
-<h2>Fitting a MaxEnt model<a class="headerlink" href="#fitting-a-maxent-model" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="maxent-model">
+<h3>MaxEnt model<a class="headerlink" href="#maxent-model" title="Permalink to this headline">¶</a></h3>
+<p>Not sure I’ll do maxent</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is crashing all over the shop</span>
 <span class="n">mod</span> <span class="o">&lt;-</span> <span class="nf">maxent</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">,</span> <span class="nf">as</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="s">&#39;Spatial&#39;</span><span class="p">))</span>
 </pre></div>
 </div>
 <p>plot(mod)</p>
+</div>
 </div>
 </div>
 

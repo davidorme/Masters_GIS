@@ -354,7 +354,7 @@ tapir_range_2050 <- bioclim_pred_2050 >= max_kappa
 
 par(mfrow=c(1,3))
 plot(tapir_range, legend=FALSE, col=c('grey','red'))
-plot(tapir_range_2050, legend=FALSE, col=c('grey','red')))
+plot(tapir_range_2050, legend=FALSE, col=c('grey','red'))
 
 # This is a bit of a hack - adding 2 * hist + 2050 gives:
 # 0 + 0 - present in neither model
@@ -371,7 +371,9 @@ legend('topleft', fill=cols, legend=c('Absent','Future','Historical', 'Both'), b
 
 
 
-## Fitting a MaxEnt model
+###  MaxEnt model
+
+Not sure I'll do maxent
 
 ```r
 # This is crashing all over the shop
