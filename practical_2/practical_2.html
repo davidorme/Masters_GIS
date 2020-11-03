@@ -196,13 +196,6 @@
   <a class="reference internal nav-link" href="#required-packages">
    Required packages
   </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#installing-maxent">
-     Installing MaxEnt
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#introduction">
@@ -210,8 +203,8 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data">
-   Data
+  <a class="reference internal nav-link" href="#data-preparation">
+   Data preparation
   </a>
   <ul class="nav section-nav flex-column">
    <li class="toc-h3 nav-item toc-entry">
@@ -269,11 +262,60 @@
     </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#maxent-model">
-     MaxEnt model
+    <a class="reference internal nav-link" href="#generalised-linear-model-glm">
+     Generalised Linear Model (GLM)
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-restructuring">
+       Data restructuring
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id1">
+       Fitting the model
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#model-predictions-and-evaluation">
+       Model predictions and evaluation
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Species distribution
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sandbox-things-to-try-with-sdms">
+   Sandbox - things to try with SDMs
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#modelling-a-different-species">
+     Modelling a different species
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#does-our-background-choice-matter">
+     Does our background choice matter?
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#looking-at-test-and-training-data-partitions">
+     Looking at test and training data partitions
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#reducing-the-set-of-variables">
+   Reducing the set of variables
+  </a>
  </li>
 </ul>
 
@@ -301,7 +343,6 @@
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sp&#39;</span><span class="p">)</span> <span class="c1"># Another core vector GIS package</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;dismo&#39;</span><span class="p">)</span> <span class="c1"># Species Distribution Modelling</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgdal&#39;</span><span class="p">)</span> <span class="c1"># Interface to the Geospatial Data Abstraction Library</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rJava&#39;</span><span class="p">)</span> <span class="c1"># R interface to the JAVA programming language</span>
 </pre></div>
 </div>
 <p>To load the packages:</p>
@@ -311,36 +352,37 @@
 <span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sp</span><span class="p">)</span>
-<span class="nf">library</span><span class="p">(</span><span class="n">dismo</span><span class="p">)</span> <span class="c1"># loads rJava</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">dismo</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 </div>
 </div>
-<div class="section" id="installing-maxent">
-<h3>Installing MaxEnt<a class="headerlink" href="#installing-maxent" title="Permalink to this headline">¶</a></h3>
-<p>We are going to be using the MAXENT species distribution modelling program. Using MaxEnt in R is a bit of a pain, because it requires the MAXENT program to be separately installed and also requires the <code class="docutils literal notranslate"><span class="pre">rJava</span></code> package. The RStudio Cloud project for this practical is all ready to go, but if you want to follow this on your own machine then you will need to:</p>
-<ol class="simple">
-<li><p>Download the MAXENT program - this is a compiled Java program file <code class="docutils literal notranslate"><span class="pre">maxent.jar</span></code>:</p></li>
-</ol>
-<p><a class="reference external" href="https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true">https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true</a></p>
-<ol class="simple">
-<li><p>Save that into the <code class="docutils literal notranslate"><span class="pre">dismo/java</span></code> folder in your R library.</p></li>
-</ol>
-<p>MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species models. We are <em>not</em> going to be getting into the details of the way the algorithm works, but you can read up on that here:</p>
-<blockquote>
-<div><p>Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17: 43-57. <a class="reference external" href="https://doi.org/10.1111/j.1472-4642.2010.00725.x">doi:10.1111/j.1472-4642.2010.00725.x</a></p>
-</div></blockquote>
-<p>It <a class="reference external" href="https://methodsblog.com/2013/02/20/some-big-news-about-maxent/">has been pointed out</a> that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.</p>
-</div>
+<!-- ### Installing MaxEnt
+
+We are going to be using the MAXENT species distribution modelling program. Using MaxEnt in R is a bit of a pain, because it requires the MAXENT program to be separately installed and also requires the `rJava` package. The RStudio Cloud project for this practical is all ready to go, but if you want to follow this on your own machine then you will need to:
+
+1. Download the MAXENT program - this is a compiled Java program file `maxent.jar`:
+
+[https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true](https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true)
+
+2. Save that into the `dismo/java` folder in your R library.
+
+MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species models. We are *not* going to be getting into the details of the way the algorithm works, but you can read up on that here:
+
+> Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17: 43-57. [doi:10.1111/j.1472-4642.2010.00725.x](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
+
+It [has been pointed out](https://methodsblog.com/2013/02/20/some-big-news-about-maxent/) that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.
+
+-->
 </div>
 <div class="section" id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
 <p>This practical gives a basic introduction to species distribution modelling using R. We will be using R to characterise a selected species environmental requirements under present day climatic conditions and then projecting the availability of suitable climatic conditions into the future. This information will then be used to analyse projected range changes due to climate change. During this process we will analyse the performance of species distribution models and the impacts of threshold choice, variable selection and data availability on model quality.</p>
 </div>
-<div class="section" id="data">
-<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="data-preparation">
+<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
 <p>There are two main inputs to a species distribution model. The first is a set of points describing locations in which the species is known to be found. The second is a set of environmental raster layers – these are the variables that will be used to characterise the species’ environmental niche by looking at the environmental values where the species is found.</p>
 <div class="section" id="focal-species-distribution">
 <h3>Focal species distribution<a class="headerlink" href="#focal-species-distribution" title="Permalink to this headline">¶</a></h3>
@@ -401,8 +443,9 @@ CRS:            4326
                          <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="c1"># Drop rows with missing coordinates</span>
 <span class="n">tapir_GBIF</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">decimalLatitude</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">decimalLongitude</span><span class="p">))</span>
-<span class="c1"># Convert to an sf object</span>
+<span class="c1"># Convert to an sf object </span>
 <span class="n">tapir_GBIF</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;decimalLongitude&#39;</span><span class="p">,</span> <span class="s">&#39;decimalLatitude&#39;</span><span class="p">))</span>
+<span class="nf">st_crs</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="m">4326</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -412,7 +455,7 @@ CRS:            4326
 geometry type:  POINT
 dimension:      XY
 bbox:           xmin: -78.64301 ymin: -3.101066 xmax: -75.15 ymax: 7.07
-CRS:            NA
+CRS:            EPSG:4326
 First 10 features:
        gbifID                           datasetKey
 1  2868401965 50c9509d-22c7-4a22-a47d-8c48425ef4a7
@@ -697,6 +740,43 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_buffer.sfc(st_geometry(x), dist, nQuadSegs, endCapStyle = endCapStyle, :
+“st_buffer does not correctly buffer longitude/latitude data”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dist is assumed to be in decimal degrees (arc_degrees).
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_buffer.sfc(st_geometry(x), dist, nQuadSegs, endCapStyle = endCapStyle, :
+“st_buffer does not correctly buffer longitude/latitude data”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>dist is assumed to be in decimal degrees (arc_degrees).
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_difference assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+</div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
 <div class="cell docutils container">
@@ -780,7 +860,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <img alt="../_images/practical_2_27_0.png" src="../_images/practical_2_27_0.png" />
 </div>
 </div>
-<p>In that second plot, note that these two variables (mean annual temperature <code class="docutils literal notranslate"><span class="pre">BIO1</span></code> and maximum temperature of the warmest month ‘BIO5’) are <strong>extremely strongly correlated</strong>. This is not likely to be an issue for this method, but in many models it is a <strong>very bad idea</strong> to have strongly correlated explanatory variables: it is called <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">Multicollinearity</a></strong> and can cause serious statistical issues.</p>
+<p>In that second plot, note that these two variables (mean annual temperature <code class="docutils literal notranslate"><span class="pre">BIO1</span></code> and maximum temperature of the warmest month ‘BIO5’) are <strong>extremely strongly correlated</strong>. This is not likely to be an issue for this method, but in many models it is a <strong>very bad idea</strong> to have strongly correlated explanatory variables: it is called <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">Multicollinearity</a></strong> and can cause serious statistical issues. We will revisit this in the GLM example further down.</p>
 </div>
 <div class="section" id="model-predictions">
 <h4>Model predictions<a class="headerlink" href="#model-predictions" title="Permalink to this headline">¶</a></h4>
@@ -809,7 +889,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">test_locs</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">kfold</span> <span class="o">==</span> <span class="m">1</span><span class="p">))</span>
 <span class="n">test_pseudo</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">pseudo_nearby</span><span class="p">,</span> <span class="n">kfold</span> <span class="o">==</span> <span class="m">1</span><span class="p">))</span>
 <span class="n">bioclim_eval</span> <span class="o">&lt;-</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">test_locs</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">test_pseudo</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">bioclim_model</span><span class="p">,</span> 
-                    <span class="n">x</span><span class="o">=</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span><span class="m">1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.01</span><span class="p">))</span>
+                    <span class="n">x</span><span class="o">=</span><span class="n">bioclim_hist_local</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">bioclim_eval</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -818,9 +898,9 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9658458 
-cor            : 0.6955885 
-max TPR+TNR at : 0.02 
+AUC            : 0.9472086 
+cor            : 0.699336 
+max TPR+TNR at : 0.01950784 
 </pre></div>
 </div>
 </div>
@@ -832,7 +912,7 @@ max TPR+TNR at : 0.02
 <span class="c1"># Plot the ROC curve</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">bioclim_eval</span><span class="p">,</span> <span class="s">&#39;ROC&#39;</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
 <span class="c1"># Find the maximum kappa and show how kappa changes with the model threshold</span>
-<span class="n">max_kappa</span> <span class="o">&lt;-</span><span class="nf">threshold</span><span class="p">(</span><span class="n">bioclim_eval</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s">&#39;kappa&#39;</span><span class="p">)</span>
+<span class="n">max_kappa</span> <span class="o">&lt;-</span> <span class="nf">threshold</span><span class="p">(</span><span class="n">bioclim_eval</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s">&#39;kappa&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">bioclim_eval</span><span class="p">,</span> <span class="s">&#39;kappa&#39;</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
 <span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">max_kappa</span><span class="p">,</span> <span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
 </pre></div>
@@ -892,14 +972,383 @@ max TPR+TNR at : 0.02
 </div>
 </div>
 </div>
-<div class="section" id="maxent-model">
-<h3>MaxEnt model<a class="headerlink" href="#maxent-model" title="Permalink to this headline">¶</a></h3>
-<p>Not sure I’ll do maxent</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is crashing all over the shop</span>
-<span class="n">mod</span> <span class="o">&lt;-</span> <span class="nf">maxent</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">,</span> <span class="nf">as</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="s">&#39;Spatial&#39;</span><span class="p">))</span>
+<div class="section" id="generalised-linear-model-glm">
+<h3>Generalised Linear Model (GLM)<a class="headerlink" href="#generalised-linear-model-glm" title="Permalink to this headline">¶</a></h3>
+<p>We are going to jump the gun a bit here and use a GLM. You will cover the statistical background for this later in the course, but essentially it is a kind of regression that allows us to model presence/absence as a <strong>binary response variable</strong> more appropriately. <strong>Do not worry about the statistical details here</strong>: we will treat this as just another algorithm for predicting species presence. You will learn about GLMs later in more theoretical depth - they are hugely useful.</p>
+<div class="section" id="data-restructuring">
+<h4>Data restructuring<a class="headerlink" href="#data-restructuring" title="Permalink to this headline">¶</a></h4>
+<p>The <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> model allowed us just to provide points and some maps but many other distribution models require us to use a <strong>model formula</strong>, as you saw last week with linear models. So we need to restructure our data into a data frame of species presence/absence and the environmental values observed at the locations of those observations.</p>
+<p>First, we need to combine <code class="docutils literal notranslate"><span class="pre">tapir_GBIF</span></code> and <code class="docutils literal notranslate"><span class="pre">pseudo_nearby</span></code> into a single data frame:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a single sf object holding presence and pseudo-absence data.</span>
+<span class="c1"># - reduce the GBIF data and pseudo-absence to just kfold and a presence-absence value</span>
+<span class="n">present</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="s">&#39;kfold&#39;</span><span class="p">)</span>
+<span class="n">present</span><span class="o">$</span><span class="n">pa</span> <span class="o">&lt;-</span> <span class="m">1</span>
+<span class="n">absent</span> <span class="o">&lt;-</span> <span class="n">pseudo_nearby</span>
+<span class="n">absent</span><span class="o">$</span><span class="n">pa</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="c1"># - rename the geometry column of absent to match so we can stack them together.</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">absent</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;geometry&#39;</span><span class="p">,</span><span class="s">&#39;kfold&#39;</span><span class="p">,</span><span class="s">&#39;pa&#39;</span><span class="p">)</span>
+<span class="nf">st_geometry</span><span class="p">(</span><span class="n">absent</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="s">&#39;geometry&#39;</span>
+<span class="c1"># - stack the two dataframes</span>
+<span class="n">pa_data</span> <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="n">present</span><span class="p">,</span> <span class="n">absent</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">pa_data</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>plot(mod)</p>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A sf: 6 × 3</caption>
+<thead>
+	<tr><th></th><th scope=col>kfold</th><th scope=col>pa</th><th scope=col>geometry</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>1</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>5</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>2</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>5</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+<p>Second, we need to extract the environmental values for each of those points and add it into the data frame.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">envt_data</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">pa_data</span><span class="p">)</span>
+<span class="n">pa_data</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">pa_data</span><span class="p">,</span> <span class="n">envt_data</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">pa_data</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A sf: 6 × 22</caption>
+<thead>
+	<tr><th></th><th scope=col>kfold</th><th scope=col>pa</th><th scope=col>bio1</th><th scope=col>bio2</th><th scope=col>bio3</th><th scope=col>bio4</th><th scope=col>bio5</th><th scope=col>bio6</th><th scope=col>bio7</th><th scope=col>bio8</th><th scope=col>geometry</th><th scope=col>⋯</th><th scope=col>bio11</th><th scope=col>bio12</th><th scope=col>bio13</th><th scope=col>bio14</th><th scope=col>bio15</th><th scope=col>bio16</th><th scope=col>bio17</th><th scope=col>bio18</th><th scope=col>bio19</th><th scope=col>geometry</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>1</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>5</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>2</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>5</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
+</tbody>
+</table>
+</div></div>
+</div>
+</div>
+<div class="section" id="id1">
+<h4>Fitting the model<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h4>
+<p>We can now fit the GLM using a model formula: the <code class="docutils literal notranslate"><span class="pre">family=binomial(link</span> <span class="pre">=</span> <span class="pre">&quot;logit&quot;)</span></code> is the change that allows us to model binary data better, but we do not need the gory details here.</p>
+<p>Three things you do need to know:</p>
+<ul class="simple">
+<li><p>The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> variables are very strongly correlated. The five variables are chosen to represent related groups of variables (<a class="reference external" href="#Reducing-the-set-of-variables">show me how!</a>).</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument is used to hold back one of the <code class="docutils literal notranslate"><span class="pre">kfold</span></code> partitions for testing.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method for a GLM needs an extra argument (<code class="docutils literal notranslate"><span class="pre">type='response'</span></code>) to make it give us predictions as the probability of species occurence. This crops up in a couple of places.</p></li>
+</ul>
+<p>The model fitting code is:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">glm_model</span> <span class="o">&lt;-</span> <span class="nf">glm</span><span class="p">(</span><span class="n">pa</span> <span class="o">~</span> <span class="n">bio2</span> <span class="o">+</span> <span class="n">bio4</span> <span class="o">+</span> <span class="n">bio3</span> <span class="o">+</span> <span class="n">bio1</span> <span class="o">+</span> <span class="n">bio12</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pa_data</span><span class="p">,</span> 
+                 <span class="n">family</span><span class="o">=</span><span class="nf">binomial</span><span class="p">(</span><span class="n">link</span> <span class="o">=</span> <span class="s">&quot;logit&quot;</span><span class="p">),</span>
+                 <span class="n">subset</span><span class="o">=</span><span class="n">kfold</span> <span class="o">!=</span> <span class="m">1</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Using a GLM gives us the significance of different variables - this table is very similar to a linear model summary. It is interpreted in much the same way.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Look at the variable significances - which are important</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">glm_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &quot;logit&quot;), 
+    data = pa_data, subset = kfold != 1)
+
+Deviance Residuals: 
+     Min        1Q    Median        3Q       Max  
+-2.91007  -0.10713   0.02748   0.38536   3.00554  
+
+Coefficients:
+              Estimate Std. Error z value Pr(&gt;|z|)    
+(Intercept) -6.2555462  8.6119784  -0.726   0.4676    
+bio2         0.0474717  0.0268350   1.769   0.0769 .  
+bio4        -0.0025542  0.0024038  -1.063   0.2880    
+bio3         0.1101829  0.0916864   1.202   0.2295    
+bio1        -0.0775429  0.0077797  -9.967  &lt; 2e-16 ***
+bio12        0.0016198  0.0002808   5.769 7.98e-09 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+(Dispersion parameter for binomial family taken to be 1)
+
+    Null deviance: 848.41  on 611  degrees of freedom
+Residual deviance: 265.35  on 606  degrees of freedom
+AIC: 277.35
+
+Number of Fisher Scoring iterations: 7
+</pre></div>
+</div>
+</div>
+</div>
+<p>It can also be helpful to look at <strong>response plots</strong>: these show how the probability of a species being present changes with a given variable. These are predictions for each variable in turn, holding all the other variables at their median value.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Response plots</span>
+<span class="nf">response</span><span class="p">(</span><span class="n">glm_model</span><span class="p">,</span> <span class="n">fun</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="kc">...</span><span class="p">)</span> <span class="nf">predict</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;response&#39;</span><span class="p">,</span> <span class="kc">...</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_47_0.png" src="../_images/practical_2_47_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="model-predictions-and-evaluation">
+<h4>Model predictions and evaluation<a class="headerlink" href="#model-predictions-and-evaluation" title="Permalink to this headline">¶</a></h4>
+<p>We can now evaluate our model using the same techniques as before:</p>
+<ol class="simple">
+<li><p>Create a prediction layer.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">glm_pred</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">glm_model</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;response&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>Evaluate the model using the test data.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the test presence and absence</span>
+<span class="n">test_present</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">pa_data</span><span class="p">,</span> <span class="n">pa</span> <span class="o">==</span> <span class="m">1</span> <span class="o">&amp;</span> <span class="n">kfold</span> <span class="o">==</span> <span class="m">1</span><span class="p">))</span>
+<span class="n">test_absent</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">pa_data</span><span class="p">,</span> <span class="n">pa</span> <span class="o">==</span> <span class="m">0</span> <span class="o">&amp;</span> <span class="n">kfold</span> <span class="o">==</span> <span class="m">1</span><span class="p">))</span>
+<span class="n">glm_eval</span> <span class="o">&lt;-</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">test_present</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">test_absent</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">glm_model</span><span class="p">,</span> 
+                     <span class="n">x</span><span class="o">=</span><span class="n">bioclim_hist_local</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
+n presences    : 77 
+n absences     : 77 
+AUC            : 0.9657615 
+cor            : 0.7944736 
+max TPR+TNR at : 0.5028157 
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>Find the maximum kappa threshold</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">max_kappa</span> <span class="o">&lt;-</span> <span class="nf">threshold</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s">&#39;kappa&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">max_kappa</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.5028157
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>Look at some model performance plots</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="c1"># ROC curve and kappa by model threshold</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">,</span> <span class="s">&#39;ROC&#39;</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">,</span> <span class="s">&#39;kappa&#39;</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;l&#39;</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">v</span><span class="o">=</span><span class="n">max_kappa</span><span class="p">,</span> <span class="n">lty</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;blue&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_55_0.png" src="../_images/practical_2_55_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="id2">
+<h4>Species distribution<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>We can now again use the threshold to convert the model outputs into a predicted species’ distribution map and compare current suitability to future suitability.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="c1"># Modelled probability</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_pred</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="s">&#39;Blue-Red&#39;</span><span class="p">))</span>
+<span class="c1"># Threshold map</span>
+<span class="n">glm_map</span> <span class="o">&lt;-</span> <span class="n">glm_pred</span> <span class="o">&gt;=</span> <span class="n">max_kappa</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_map</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;red&#39;</span><span class="p">))</span>
+<span class="c1"># Future predictions</span>
+<span class="n">glm_pred_2050</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">bioclim_2050_local</span><span class="p">,</span> <span class="n">glm_model</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;response&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_pred_2050</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="s">&#39;Blue-Red&#39;</span><span class="p">))</span>
+<span class="c1"># Threshold map</span>
+<span class="n">glm_map_2050</span> <span class="o">&lt;-</span> <span class="n">glm_pred_2050</span> <span class="o">&gt;=</span> <span class="n">max_kappa</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_map_2050</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;red&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_57_0.png" src="../_images/practical_2_57_0.png" />
+</div>
+</div>
+<p>One simple way to describe the modelled changes is simply to look at a table of the pair of model predictions:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">table</span><span class="p">(</span><span class="nf">values</span><span class="p">(</span><span class="n">glm_map</span><span class="p">),</span> <span class="nf">values</span><span class="p">(</span><span class="n">glm_map_2050</span><span class="p">),</span> <span class="n">dnn</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;hist&#39;</span><span class="p">,</span> <span class="s">&#39;2050&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
+hist    FALSE TRUE
+  FALSE  5369    0
+  TRUE     64  139
+</pre></div>
+</div>
+</div>
+</div>
+<p>This GLM predicts a 31% loss of existing range for this species by 2050 and almost no expansion into new areas.</p>
+</div>
+</div>
+</div>
+<div class="section" id="sandbox-things-to-try-with-sdms">
+<h2>Sandbox - things to try with SDMs<a class="headerlink" href="#sandbox-things-to-try-with-sdms" title="Permalink to this headline">¶</a></h2>
+<p>The previous sections have introduced the main approaches for fitting and assessing models so the following sections are intended to give you some things to try. You do not have to try all of them in the practical - pick things that interest you and give them a go.</p>
+<p>One of the things to take away from these options are that SDMs have an extremely wide range of options, so testing and comparing many approaches is vital to identifying the features of model predictions that are comparable.</p>
+<div class="section" id="modelling-a-different-species">
+<h3>Modelling a different species<a class="headerlink" href="#modelling-a-different-species" title="Permalink to this headline">¶</a></h3>
+<p>The environmental data is global, so we can use it to model any terrestrial organism for which we can get location data. So:</p>
+<ol class="simple">
+<li><p>Have a look at the <a class="reference external" href="https://www.gbif.org/species/search">GBIF species data page</a> and pick a species you would like to model. It probably makes sense to pick something with a relatively limited range.</p></li>
+<li><p>You can the easily get the recorded points using the <code class="docutils literal notranslate"><span class="pre">dismo</span></code> function <code class="docutils literal notranslate"><span class="pre">gbif</span></code>. The example below gets the data for the Mountain Tapir direct from GBIF. It is worth running the command with <code class="docutils literal notranslate"><span class="pre">download=FALSE</span></code> first to get an idea of the number of records you will get - pick a species that has a few thousand at most.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the species without downloading - this shows the number of records</span>
+<span class="nf">gbif</span><span class="p">(</span><span class="s">&#39;Tapirus&#39;</span><span class="p">,</span> <span class="s">&#39;pinchaque&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="c1"># Download the data</span>
+<span class="n">locs</span> <span class="o">&lt;-</span> <span class="nf">gbif</span><span class="p">(</span><span class="s">&#39;Tapirus&#39;</span><span class="p">,</span> <span class="s">&#39;pinchaque&#39;</span><span class="p">)</span>
+<span class="n">locs</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span>
+<span class="c1"># Convert to an sf object </span>
+<span class="n">locs</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;lon&#39;</span><span class="p">,</span> <span class="s">&#39;lat&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">449</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>449 records found
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>300-
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>449 records downloaded
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>You will then need to clean the GBIF points - have a look at the <code class="docutils literal notranslate"><span class="pre">sdm</span></code> vignette mentioned above for ways to tackle cleaning the data. One tip - check the <code class="docutils literal notranslate"><span class="pre">basisOfRecord</span></code> field because the GBIF occurence database includes things like the location of museum specimens. It is <em>much</em> harder to identify species introductions though.</p></li>
+<li><p>Select an appropriate extent for the modelling.</p></li>
+<li><p>Follow the process above to create tour model</p></li>
+</ol>
+</div>
+<div class="section" id="does-our-background-choice-matter">
+<h3>Does our background choice matter?<a class="headerlink" href="#does-our-background-choice-matter" title="Permalink to this headline">¶</a></h3>
+<p>The examples above have used the spatially structured background data. Does this matter? The plot below compares the GLM fitted with the structured background to the wider sample created using <code class="docutils literal notranslate"><span class="pre">randomPoints</span></code>. Can you create this model?</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Create the new dataset</span>
+<span class="n">present</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="s">&#39;kfold&#39;</span><span class="p">)</span>
+<span class="n">present</span><span class="o">$</span><span class="n">pa</span> <span class="o">&lt;-</span> <span class="m">1</span>
+<span class="n">absent</span> <span class="o">&lt;-</span> <span class="n">pseudo_dismo</span>
+<span class="n">absent</span><span class="o">$</span><span class="n">pa</span> <span class="o">&lt;-</span> <span class="m">0</span>
+<span class="c1"># - rename the geometry column of absent to match so we can stack them together.</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">absent</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;geometry&#39;</span><span class="p">,</span><span class="s">&#39;kfold&#39;</span><span class="p">,</span><span class="s">&#39;pa&#39;</span><span class="p">)</span>
+<span class="nf">st_geometry</span><span class="p">(</span><span class="n">absent</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="s">&#39;geometry&#39;</span>
+<span class="c1"># - stack the two dataframes</span>
+<span class="n">pa_data_bg2</span> <span class="o">&lt;-</span> <span class="nf">rbind</span><span class="p">(</span><span class="n">present</span><span class="p">,</span> <span class="n">absent</span><span class="p">)</span>
+<span class="c1"># - Add the envt.</span>
+<span class="n">envt_data</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">pa_data_bg2</span><span class="p">)</span>
+<span class="n">pa_data_bg2</span> <span class="o">&lt;-</span> <span class="nf">cbind</span><span class="p">(</span><span class="n">pa_data_bg2</span><span class="p">,</span> <span class="n">envt_data</span><span class="p">)</span>
+
+<span class="c1"># 2. Fit the model</span>
+<span class="n">glm_model_bg2</span> <span class="o">&lt;-</span><span class="nf">glm</span><span class="p">(</span><span class="n">pa</span> <span class="o">~</span> <span class="n">bio2</span> <span class="o">+</span> <span class="n">bio4</span> <span class="o">+</span> <span class="n">bio3</span> <span class="o">+</span> <span class="n">bio1</span> <span class="o">+</span> <span class="n">bio12</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pa_data_bg2</span><span class="p">,</span> 
+                  <span class="n">family</span><span class="o">=</span><span class="nf">binomial</span><span class="p">(</span><span class="n">link</span> <span class="o">=</span> <span class="s">&quot;logit&quot;</span><span class="p">),</span>
+                  <span class="n">subset</span><span class="o">=</span><span class="n">kfold</span> <span class="o">!=</span> <span class="m">1</span><span class="p">)</span>
+
+<span class="c1"># 3. New predictions</span>
+<span class="n">glm_pred_bg2</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">glm_model_bg2</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;response&#39;</span><span class="p">)</span>
+
+<span class="c1"># 4. Plot modelled probability using the same colour scheme and using</span>
+<span class="c1"># axis args to keep a nice simple axis on the legend</span>
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">3</span><span class="p">))</span>
+<span class="n">bks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.01</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">&lt;-</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="m">100</span><span class="p">,</span> <span class="s">&#39;Blue-Red&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_pred</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Buffered Background&#39;</span><span class="p">,</span>
+     <span class="n">axis.args</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">1</span><span class="p">)))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_pred_bg2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Extent Background&#39;</span><span class="p">,</span>
+     <span class="n">axis.args</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">at</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">0.5</span><span class="p">,</span> <span class="m">1</span><span class="p">)))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">glm_pred</span> <span class="o">-</span> <span class="n">glm_pred_bg2</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="m">100</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Difference&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_63_0.png" src="../_images/practical_2_63_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="looking-at-test-and-training-data-partitions">
+<h3>Looking at test and training data partitions<a class="headerlink" href="#looking-at-test-and-training-data-partitions" title="Permalink to this headline">¶</a></h3>
+</div>
+</div>
+<div class="section" id="reducing-the-set-of-variables">
+<h2>Reducing the set of variables<a class="headerlink" href="#reducing-the-set-of-variables" title="Permalink to this headline">¶</a></h2>
+<p>The details of this selection process are hidden below. I’m using clustering to find groups - you do not need to look at this but I do not like hiding my working!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># We can use the values from the environmental data in a cluster algorithm.</span>
+<span class="c1"># This is a statistical process that groups sets of values by their similarity</span>
+<span class="c1"># and here we are using the local raster data (to get a good local sample of the </span>
+<span class="c1"># data correlation) to perform that clustering.</span>
+<span class="n">clust_data</span> <span class="o">&lt;-</span> <span class="nf">values</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">)</span>
+<span class="n">clust_data</span> <span class="o">&lt;-</span> <span class="nf">na.omit</span><span class="p">(</span><span class="n">clust_data</span><span class="p">)</span>
+<span class="c1"># Scale and center the data</span>
+<span class="n">clust_data</span> <span class="o">&lt;-</span> <span class="nf">scale</span><span class="p">(</span><span class="n">clust_data</span><span class="p">)</span>
+<span class="c1"># Transpose the data matrix to give variables as rows</span>
+<span class="n">clust_data</span> <span class="o">&lt;-</span> <span class="nf">t</span><span class="p">(</span><span class="n">clust_data</span><span class="p">)</span>
+<span class="c1"># Find the distance between variables and cluster</span>
+<span class="n">clust_dist</span> <span class="o">&lt;-</span> <span class="nf">dist</span><span class="p">(</span><span class="n">clust_data</span><span class="p">)</span>
+<span class="n">clust_output</span> <span class="o">&lt;-</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">clust_dist</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">clust_output</span><span class="p">)</span>
+<span class="c1"># And then pick one from each of five blocks - haphazardly.</span>
+<span class="nf">rect.hclust</span><span class="p">(</span><span class="n">clust_output</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_65_0.png" src="../_images/practical_2_65_0.png" />
+</div>
 </div>
 </div>
 </div>

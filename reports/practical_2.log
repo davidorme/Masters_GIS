@@ -17,35 +17,31 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Predict from the same model but using the future data
-bioclim_pred_2050 <- predict(bioclim_2050_local, bioclim_model)
-# Apply the same threshold
-tapir_range_2050 <- bioclim_pred_2050 >= max_kappa
-
-par(mfrow=c(1,3))
-plot(tapir_range, legend=FALSE, col=c('grey','red'))
-plot(tapir_range_2050, legend=FALSE, col=c('grey','red')))
-
-# This is a bit of a hack - adding 2 * hist + 2050 gives:
-# 0 + 0 - present in neither model
-# 0 + 1 - only in future
-# 2 + 0 - only in hist
-# 2 + 1 - in both
-tapir_change <- 2 * (tapir_range) + tapir_range_2050
-cols <- c('lightgrey', 'blue', 'red', 'grey30')
-plot(tapir_change, col=cols, legend=FALSE)
-legend('topleft', fill=cols, legend=c('Absent','Future','Historical', 'Both'), bg='white')
+# Response plots
+response(glm_model, at='median',
+         fun=function(x, y, ...) predict(x, y, type='response', ...))
 ------------------
 
-Error in parse(text = x, srcfile = src): <text>:8:58: unexpected ')'
-7: plot(tapir_range, legend=FALSE, col=c('grey','red'))
-8: plot(tapir_range_2050, legend=FALSE, col=c('grey','red')))
-                                                            ^
+Error in eval(predvars, data, env): object 'bio4' not found
 Traceback:
 
-ERROR: Error in parse(text = x, srcfile = src): <text>:8:58: unexpected ')'
-7: plot(tapir_range, legend=FALSE, col=c('grey','red'))
-8: plot(tapir_range_2050, legend=FALSE, col=c('grey','red')))
-                                                            ^
+1. response(glm_model, at = "median", fun = function(x, y, ...) predict(x, 
+ .     y, type = "response", ...))
+2. response(glm_model, at = "median", fun = function(x, y, ...) predict(x, 
+ .     y, type = "response", ...))
+3. .local(x, ...)
+4. .doResponse(x, var, at, data, cn, expand, rug, ylim, col, lwd, 
+ .     add, fun, ...)
+5. fun(x, mm)
+6. predict(x, y, type = "response", ...)   # at line 3 of file <text>
+7. predict(x, y, type = "response", ...)
+8. predict.glm(x, y, type = "response", ...)
+9. predict.lm(object, newdata, se.fit, scale = 1, type = if (type == 
+ .     "link") "response" else type, terms = terms, na.action = na.action)
+10. model.frame(Terms, newdata, na.action = na.action, xlev = object$xlevels)
+11. model.frame.default(Terms, newdata, na.action = na.action, xlev = object$xlevels)
+12. eval(predvars, data, env)
+13. eval(predvars, data, env)
+ERROR: Error in eval(predvars, data, env): object 'bio4' not found
 
 

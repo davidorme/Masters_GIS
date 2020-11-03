@@ -38,22 +38,20 @@ install.packages('sf') # Core vector GIS data package
 install.packages('sp') # Another core vector GIS package
 install.packages('dismo') # Species Distribution Modelling
 install.packages('rgdal') # Interface to the Geospatial Data Abstraction Library
-install.packages('rJava') # R interface to the JAVA programming language
 ```
 
 To load the packages:
 
 ```{code-cell} r
 :tags: [remove-stderr]
-
 library(rgdal)
 library(raster)
 library(sf)
 library(sp)
-library(dismo) # loads rJava
+library(dismo)
 ```
 
-### Installing MaxEnt
+<!-- ### Installing MaxEnt
 
 We are going to be using the MAXENT species distribution modelling program. Using MaxEnt in R is a bit of a pain, because it requires the MAXENT program to be separately installed and also requires the `rJava` package. The RStudio Cloud project for this practical is all ready to go, but if you want to follow this on your own machine then you will need to:
 
@@ -69,16 +67,14 @@ MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit
 
 It [has been pointed out](https://methodsblog.com/2013/02/20/some-big-news-about-maxent/) that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.
 
+-->
 
 
 ## Introduction
 
 This practical gives a basic introduction to species distribution modelling using R. We will be using R to characterise a selected species environmental requirements under present day climatic conditions and then projecting the availability of suitable climatic conditions into the future. This information will then be used to analyse projected range changes due to climate change. During this process we will analyse the performance of species distribution models and the impacts of threshold choice, variable selection and data availability on model quality.
 
-
-
-## Data
-
+## Data preparation
 
 There are two main inputs to a species distribution model. The first is a set of points describing locations in which the species is known to be found. The second is a set of environmental raster layers – these are the variables that will be used to characterise the species’ environmental niche by looking at the environmental values where the species is found. 
 
@@ -118,8 +114,9 @@ tapir_GBIF <- read.delim('data/gbif_mountain_tapir.csv',
                          stringsAsFactors=FALSE)
 # Drop rows with missing coordinates
 tapir_GBIF <- subset(tapir_GBIF, ! is.na(decimalLatitude) | ! is.na(decimalLongitude))
-# Convert to an sf object
+# Convert to an sf object 
 tapir_GBIF <- st_as_sf(tapir_GBIF, coords=c('decimalLongitude', 'decimalLatitude'))
+st_crs(tapir_GBIF) <- 4326
 print(tapir_GBIF)
 ```
 
@@ -290,7 +287,7 @@ plot(bioclim_model, a=1, b=2, p=0.9)
 plot(bioclim_model, a=1, b=5, p=0.9)
 ```
 
-In that second plot, note that these two variables (mean annual temperature `BIO1` and maximum temperature of the warmest month 'BIO5') are **extremely strongly correlated**. This is not likely to be an issue for this method, but in many models it is a **very bad idea** to have strongly correlated explanatory variables: it is called **[Multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity)** and can cause serious statistical issues.
+In that second plot, note that these two variables (mean annual temperature `BIO1` and maximum temperature of the warmest month 'BIO5') are **extremely strongly correlated**. This is not likely to be an issue for this method, but in many models it is a **very bad idea** to have strongly correlated explanatory variables: it is called **[Multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity)** and can cause serious statistical issues. We will revisit this in the GLM example further down.
 
 #### Model predictions
 
@@ -313,7 +310,7 @@ We can also now evaluate our model using the retained test data. Note that here,
 test_locs <- st_coordinates(subset(tapir_GBIF, kfold == 1))
 test_pseudo <- st_coordinates(subset(pseudo_nearby, kfold == 1))
 bioclim_eval <- evaluate(p=test_locs, a=test_pseudo, model=bioclim_model, 
-                    x=bioclim_hist_local, tr=seq(0,1, by=0.01))
+                    x=bioclim_hist_local)
 print(bioclim_eval)
 ```
 
@@ -324,7 +321,7 @@ par(mfrow=c(1,2))
 # Plot the ROC curve
 plot(bioclim_eval, 'ROC', type='l')
 # Find the maximum kappa and show how kappa changes with the model threshold
-max_kappa <-threshold(bioclim_eval, stat='kappa')
+max_kappa <- threshold(bioclim_eval, stat='kappa')
 plot(bioclim_eval, 'kappa', type='l')
 abline(v=max_kappa, lty=2, col='blue')
 ```
@@ -345,8 +342,10 @@ plot(st_geometry(tapir_GBIF), add=TRUE, pch=4, col='#00000022')
 The figure below shows the predicted distribution of the Mountain Tapir in 2050 and the predicted range change - can you figure out how to create these plots?
 
 ```
-```{code-cell} R
+
+```{code-cell} r
 :tags: [hide-input]
+
 # Predict from the same model but using the future data
 bioclim_pred_2050 <- predict(bioclim_2050_local, bioclim_model)
 # Apply the same threshold
@@ -365,20 +364,234 @@ tapir_change <- 2 * (tapir_range) + tapir_range_2050
 cols <- c('lightgrey', 'blue', 'red', 'grey30')
 plot(tapir_change, col=cols, legend=FALSE)
 legend('topleft', fill=cols, legend=c('Absent','Future','Historical', 'Both'), bg='white')
-
 ```
 
+### Generalised Linear Model (GLM)
+
+We are going to jump the gun a bit here and use a GLM. You will cover the statistical background for this later in the course, but essentially it is a kind of regression that allows us to model presence/absence as a **binary response variable** more appropriately. **Do not worry about the statistical details here**: we will treat this as just another algorithm for predicting species presence. You will learn about GLMs later in more theoretical depth - they are hugely useful.
+
+#### Data restructuring
 
 
+The `bioclim` model allowed us just to provide points and some maps but many other distribution models require us to use a **model formula**, as you saw last week with linear models. So we need to restructure our data into a data frame of species presence/absence and the environmental values observed at the locations of those observations. 
 
-###  MaxEnt model
+First, we need to combine `tapir_GBIF` and `pseudo_nearby` into a single data frame:
 
-Not sure I'll do maxent
-
-```r
-# This is crashing all over the shop
-mod <- maxent(bioclim_hist, as(tapir_GBIF, 'Spatial'))
+```{code-cell} r
+# Create a single sf object holding presence and pseudo-absence data.
+# - reduce the GBIF data and pseudo-absence to just kfold and a presence-absence value
+present <- subset(tapir_GBIF, select='kfold')
+present$pa <- 1
+absent <- pseudo_nearby
+absent$pa <- 0
+# - rename the geometry column of absent to match so we can stack them together.
+names(absent) <- c('geometry','kfold','pa')
+st_geometry(absent) <- 'geometry'
+# - stack the two dataframes
+pa_data <- rbind(present, absent)
+head(pa_data)
 ```
 
+Second, we need to extract the environmental values for each of those points and add it into the data frame.
 
- plot(mod)
+```{code-cell} r
+envt_data <- extract(bioclim_hist_local, pa_data)
+pa_data <- cbind(pa_data, envt_data)
+head(pa_data)
+```
+
+#### Fitting the model
+
+We can now fit the GLM using a model formula: the `family=binomial(link = "logit")` is the change that allows us to model binary data better, but we do not need the gory details here. 
+
+Three things you do need to know:
+
+* The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of `bioclim` variables are very strongly correlated. The five variables are chosen to represent related groups of variables ([show me how!](#Reducing-the-set-of-variables)). 
+
+* The `subset` argument is used to hold back one of the `kfold` partitions for testing.
+
+* The `predict` method for a GLM needs an extra argument (`type='response'`) to make it give us predictions as the probability of species occurence. This crops up in a couple of places.
+
+The model fitting code is:
+
+```{code-cell} r
+glm_model <- glm(pa ~ bio2 + bio4 + bio3 + bio1 + bio12, data=pa_data, 
+                 family=binomial(link = "logit"),
+                 subset=kfold != 1)
+```
+
+Using a GLM gives us the significance of different variables - this table is very similar to a linear model summary. It is interpreted in much the same way.
+
+```{code-cell} r
+# Look at the variable significances - which are important
+summary(glm_model)
+```
+
+It can also be helpful to look at **response plots**: these show how the probability of a species being present changes with a given variable. These are predictions for each variable in turn, holding all the other variables at their median value. 
+
+```{code-cell} r
+# Response plots
+response(glm_model, fun=function(x, y, ...) predict(x, y, type='response', ...))
+```
+
+#### Model predictions and evaluation
+
+We can now evaluate our model using the same techniques as before:
+
+1. Create a prediction layer.
+
+```{code-cell} R
+glm_pred <- predict(bioclim_hist_local, glm_model, type='response')
+```
+
+2. Evaluate the model using the test data.
+
+```{code-cell} R
+# Extract the test presence and absence
+test_present <- st_coordinates(subset(pa_data, pa == 1 & kfold == 1))
+test_absent <- st_coordinates(subset(pa_data, pa == 0 & kfold == 1))
+glm_eval <- evaluate(p=test_present, a=test_absent, model=glm_model, 
+                     x=bioclim_hist_local)
+print(glm_eval)
+```
+
+3. Find the maximum kappa threshold
+
+```{code-cell} R
+max_kappa <- threshold(glm_eval, stat='kappa')
+print(max_kappa)
+```
+
+4. Look at some model performance plots
+
+```{code-cell} R
+par(mfrow=c(1,2))
+# ROC curve and kappa by model threshold
+plot(glm_eval, 'ROC', type='l')
+plot(glm_eval, 'kappa', type='l')
+abline(v=max_kappa, lty=2, col='blue')
+```
+
+#### Species distribution
+
+We can now again use the threshold to convert the model outputs into a predicted species' distribution map and compare current suitability to future suitability.
+
+```{code-cell} R
+par(mfrow=c(2,2))
+# Modelled probability
+plot(glm_pred, col=hcl.colors(20, 'Blue-Red'))
+# Threshold map
+glm_map <- glm_pred >= max_kappa
+plot(glm_map, legend=FALSE, col=c('grey','red'))
+# Future predictions
+glm_pred_2050 <- predict(bioclim_2050_local, glm_model, type='response')
+plot(glm_pred_2050, col=hcl.colors(20, 'Blue-Red'))
+# Threshold map
+glm_map_2050 <- glm_pred_2050 >= max_kappa
+plot(glm_map_2050, legend=FALSE, col=c('grey','red'))
+```
+
+One simple way to describe the modelled changes is simply to look at a table of the pair of model predictions:
+
+```{code-cell} R
+table(values(glm_map), values(glm_map_2050), dnn=c('hist', '2050'))
+```
+
+This GLM predicts a 31% loss of existing range for this species by 2050 and almost no expansion into new areas.
+
+## Sandbox - things to try with SDMs
+
+The previous sections have introduced the main approaches for fitting and assessing models so the following sections are intended to give you some things to try. You do not have to try all of them in the practical - pick things that interest you and give them a go.
+
+One of the things to take away from these options are that SDMs have an extremely wide range of options, so testing and comparing many approaches is vital to identifying the features of model predictions that are comparable.
+
+### Modelling a different species
+
+The environmental data is global, so we can use it to model any terrestrial organism for which we can get location data. So:
+
+1. Have a look at the [GBIF species data page](https://www.gbif.org/species/search) and pick a species you would like to model. It probably makes sense to pick something with a relatively limited range.
+
+2. You can the easily get the recorded points using the `dismo` function `gbif`. The example below gets the data for the Mountain Tapir direct from GBIF. It is worth running the command with `download=FALSE` first to get an idea of the number of records you will get - pick a species that has a few thousand at most.
+
+```{code-cell} R
+# Check the species without downloading - this shows the number of records
+gbif('Tapirus', 'pinchaque', download=FALSE)
+# Download the data
+locs <- gbif('Tapirus', 'pinchaque')
+locs <- subset(locs, ! is.na(lat) | ! is.na(lon))
+# Convert to an sf object 
+locs <- st_as_sf(locs, coords=c('lon', 'lat'))
+```
+
+3. You will then need to clean the GBIF points - have a look at the `sdm` vignette mentioned above for ways to tackle cleaning the data. One tip - check the `basisOfRecord` field because the GBIF occurence database includes things like the location of museum specimens. It is _much_ harder to identify species introductions though. 
+
+4. Select an appropriate extent for the modelling.
+
+5. Follow the process above to create tour model
+
+### Does our background choice matter?
+
+The examples above have used the spatially structured background data. Does this matter? The plot below compares the GLM fitted with the structured background to the wider sample created using `randomPoints`. Can you create this model?
+
+```{code-cell} R
+:tags: [hide-input]
+# 1. Create the new dataset
+present <- subset(tapir_GBIF, select='kfold')
+present$pa <- 1
+absent <- pseudo_dismo
+absent$pa <- 0
+# - rename the geometry column of absent to match so we can stack them together.
+names(absent) <- c('geometry','kfold','pa')
+st_geometry(absent) <- 'geometry'
+# - stack the two dataframes
+pa_data_bg2 <- rbind(present, absent)
+# - Add the envt.
+envt_data <- extract(bioclim_hist_local, pa_data_bg2)
+pa_data_bg2 <- cbind(pa_data_bg2, envt_data)
+
+# 2. Fit the model
+glm_model_bg2 <-glm(pa ~ bio2 + bio4 + bio3 + bio1 + bio12, data=pa_data_bg2, 
+                  family=binomial(link = "logit"),
+                  subset=kfold != 1)
+
+# 3. New predictions
+glm_pred_bg2 <- predict(bioclim_hist_local, glm_model_bg2, type='response')
+
+# 4. Plot modelled probability using the same colour scheme and using
+# axis args to keep a nice simple axis on the legend
+par(mfrow=c(1,3))
+bks <- seq(0, 1, by=0.01)
+cols <- hcl.colors(100, 'Blue-Red')
+plot(glm_pred, col=cols, breaks=bks, main='Buffered Background',
+     axis.args=list(at=c(0, 0.5, 1)))
+plot(glm_pred_bg2, col=cols, breaks=bks, main='Extent Background',
+     axis.args=list(at=c(0, 0.5, 1)))
+plot(glm_pred - glm_pred_bg2, col= hcl.colors(100), main='Difference')
+```
+
+### Looking at test and training data partitions
+
+
+
+## Reducing the set of variables
+
+The details of this selection process are hidden below. I'm using clustering to find groups - you do not need to look at this but I do not like hiding my working!
+
+```{code-cell} r
+# We can use the values from the environmental data in a cluster algorithm.
+# This is a statistical process that groups sets of values by their similarity
+# and here we are using the local raster data (to get a good local sample of the 
+# data correlation) to perform that clustering.
+clust_data <- values(bioclim_hist_local)
+clust_data <- na.omit(clust_data)
+# Scale and center the data
+clust_data <- scale(clust_data)
+# Transpose the data matrix to give variables as rows
+clust_data <- t(clust_data)
+# Find the distance between variables and cluster
+clust_dist <- dist(clust_data)
+clust_output <- hclust(clust_dist)
+plot(clust_output)
+# And then pick one from each of five blocks - haphazardly.
+rect.hclust(clust_output, k=5)
+```
