@@ -1328,7 +1328,7 @@ values     : 1, 494  (min, max)
 <caption>A matrix: 2 × 2 of type dbl</caption>
 <tbody>
 	<tr><td>1</td><td>3</td></tr>
-	<tr><td>5</td><td>7</td></tr>
+	<tr><td>6</td><td>7</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1552,33 +1552,6 @@ values     : 1, 494  (min, max)
 <p>There are a huge range of different formats for spatial data. Fortunately, the <code class="docutils literal notranslate"><span class="pre">sf</span></code> and <code class="docutils literal notranslate"><span class="pre">raster</span></code> packages make life easy: the <code class="docutils literal notranslate"><span class="pre">st_read</span></code> function in <code class="docutils literal notranslate"><span class="pre">sf</span></code> reads most vector data and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> function in <code class="docutils literal notranslate"><span class="pre">raster</span></code> reads most raster formats. There are odd file formats that are harder to read but most are covered by these two packages. The two packages also provide functions to save data to a file.</p>
 <div class="section" id="saving-vector-data">
 <h3>Saving vector data<a class="headerlink" href="#saving-vector-data" title="Permalink to this headline">¶</a></h3>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># This chunk removes existing demo outputs so they can be recreated in the following chunks</span>
-<span class="n">files</span> <span class="o">&lt;-</span> <span class="nf">dir</span><span class="p">(</span><span class="s">&#39;data&#39;</span><span class="p">,</span> <span class="s">&#39;uk_eire*|uk_raster_*&#39;</span><span class="p">,</span> <span class="n">full.names</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-<span class="nf">file.remove</span><span class="p">(</span><span class="n">files</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> [1] &quot;data/uk_eire_BNG.dbf&quot;          &quot;data/uk_eire_BNG.prj&quot;         
- [3] &quot;data/uk_eire_BNG.shp&quot;          &quot;data/uk_eire_BNG.shx&quot;         
- [5] &quot;data/uk_eire_WGS84.dbf&quot;        &quot;data/uk_eire_WGS84.geojson&quot;   
- [7] &quot;data/uk_eire_WGS84.gpkg&quot;       &quot;data/uk_eire_WGS84.json&quot;      
- [9] &quot;data/uk_eire_WGS84.prj&quot;        &quot;data/uk_eire_WGS84.shp&quot;       
-[11] &quot;data/uk_eire_WGS84.shx&quot;        &quot;data/uk_raster_BNG_interp.tif&quot;
-[13] &quot;data/uk_raster_BNG_ngb.asc&quot;   
-</pre></div>
-</div>
-<div class="output text_html"><style>
-.list-inline {list-style: none; margin:0; padding: 0}
-.list-inline>li {display: inline-block}
-.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
-</style>
-<ol class=list-inline><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li><li>TRUE</li></ol>
-</div></div>
-</div>
 <p>The most common vector data file format is the shapefile. This was developed by ESRI for use in ArcGIS but has become a common standard. We can save our <code class="docutils literal notranslate"><span class="pre">uk_eire</span></code> data to a shapfile using the <code class="docutils literal notranslate"><span class="pre">st_write</span></code> function from the <code class="docutils literal notranslate"><span class="pre">sf</span></code> package.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

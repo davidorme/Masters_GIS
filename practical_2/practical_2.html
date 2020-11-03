@@ -204,6 +204,43 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#introduction">
+   Introduction
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data">
+   Data
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#predictor-variables">
+     Predictor variables
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#focal-species-distribution">
+     Focal species distribution
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#pseudo-absence-data">
+     Pseudo-absence data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#testing-and-training-dataset">
+     Testing and training dataset
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-bioclim-model">
+   The BIOCLIM model
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -253,7 +290,7 @@
 <ol class="simple">
 <li><p>Download the MAXENT program - this is a compiled Java program file <code class="docutils literal notranslate"><span class="pre">maxent.jar</span></code>:</p></li>
 </ol>
-<p><span class="xref myst">https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true</span></p>
+<p><a class="reference external" href="https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true">https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true</a></p>
 <ol class="simple">
 <li><p>Save that into the <code class="docutils literal notranslate"><span class="pre">dismo/java</span></code> folder in your R library.</p></li>
 </ol>
@@ -263,6 +300,424 @@
 </div></blockquote>
 <p>It <a class="reference external" href="https://methodsblog.com/2013/02/20/some-big-news-about-maxent/">has been pointed out</a> that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.</p>
 </div>
+</div>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>This practical gives a basic introduction to species distribution modelling using R. We will be using R to characterise a selected species environmental requirements under present day climatic conditions and then projecting the availability of suitable climatic conditions into the future. This information will then be used to analyse projected range changes due to climate change. During this process we will analyse the performance of species distribution models and the impacts of threshold choice, variable selection and data availability on model quality.</p>
+</div>
+<div class="section" id="data">
+<h2>Data<a class="headerlink" href="#data" title="Permalink to this headline">¶</a></h2>
+<p>There are two main inputs to a species distribution model. The first is a set of environmental raster layers – these are the variables that will be used to characterise the species’ environmental niche. The second is a set of points describing locations in which the species is known to be found – these points will be used to sample the environmental variables.</p>
+<div class="section" id="predictor-variables">
+<h3>Predictor variables<a class="headerlink" href="#predictor-variables" title="Permalink to this headline">¶</a></h3>
+<p>Several sources of different environmental data were mentioned in the lecture, but in this practical we will be using climatic variables to describe the environment. In particular, we will be using the BIOCLIM variables. These are based on simple temperature and precipitation values, but in 19 combinations that are thought to capture more biologically relevant aspects of the climate. These variables are described here:</p>
+<p><a class="reference external" href="https://www.worldclim.org/data/bioclim.html">https://www.worldclim.org/data/bioclim.html</a></p>
+<p>The data we will us here have been downloaded using the <code class="docutils literal notranslate"><span class="pre">getData</span></code> function from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package, so should load directly. If you are using your own computer, this code will fetch the data first. The data consist of a stack of the 19 BIOCLIM variables at 10 arc-minute resolution (1/6th degree).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data</span>
+<span class="n">bioclim_hist</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;worldclim&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;bio&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">10</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
+<span class="n">bioclim_2050</span> <span class="o">&lt;-</span> <span class="nf">getData</span><span class="p">(</span><span class="s">&#39;CMIP5&#39;</span><span class="p">,</span> <span class="n">var</span><span class="o">=</span><span class="s">&#39;bio&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">10</span><span class="p">,</span> <span class="n">rcp</span><span class="o">=</span><span class="m">60</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="s">&#39;HD&#39;</span><span class="p">,</span> <span class="n">year</span><span class="o">=</span><span class="m">50</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
+
+<span class="c1"># Relabel the future variables to match the historical ones</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">bioclim_2050</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">names</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">)</span>
+
+<span class="c1"># Look at the data structure</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterStack 
+dimensions : 900, 2160, 1944000, 19  (nrow, ncol, ncell, nlayers)
+resolution : 0.1666667, 0.1666667  (x, y)
+extent     : -180, 180, -60, 90  (xmin, xmax, ymin, ymax)
+crs        : +proj=longlat +datum=WGS84 +ellps=WGS84 +towgs84=0,0,0 
+names      :  bio1,  bio2,  bio3,  bio4,  bio5,  bio6,  bio7,  bio8,  bio9, bio10, bio11, bio12, bio13, bio14, bio15, ... 
+min values :  -269,     9,     8,    72,   -59,  -547,    53,  -251,  -450,   -97,  -488,     0,     0,     0,     0, ... 
+max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   380,   289,  9916,  2088,   652,   261, ... 
+</pre></div>
+</div>
+</div>
+</div>
+<p>The two datasets loaded contain <em>historical</em> climate data (1970-2000) and <em>projected future</em> climate for 2050 taken from the Hadley model using <a class="reference external" href="https://en.wikipedia.org/wiki/Representative_Concentration_Pathway">RCP 6.0</a>. Note that this is CMIP5 data, which is now considered outdated, but is easy to download! Both these datasets are sourced from <a class="reference external" href="http://www.worldclim.org">http://www.worldclim.org</a>.</p>
+<p>We can compare <code class="docutils literal notranslate"><span class="pre">BIO</span> <span class="pre">1</span></code> (Mean Annual Temperature) between the two datasets:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
+<span class="c1"># Create a shared colour scheme</span>
+<span class="n">breaks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-300</span><span class="p">,</span> <span class="m">350</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+<span class="n">cols</span> <span class="o">&lt;-</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="nf">length</span><span class="p">(</span><span class="n">breaks</span><span class="p">)</span> <span class="o">-</span> <span class="m">1</span><span class="p">)</span>
+<span class="c1"># Plot the historical and projected data</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">[[</span><span class="m">1</span><span class="p">]],</span> <span class="n">breaks</span><span class="o">=</span><span class="n">breaks</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bioclim_2050</span><span class="p">[[</span><span class="m">1</span><span class="p">]],</span> <span class="n">breaks</span><span class="o">=</span><span class="n">breaks</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">)</span>
+<span class="c1"># Plot the temperature difference</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bioclim_2050</span><span class="p">[[</span><span class="m">1</span><span class="p">]]</span> <span class="o">-</span> <span class="n">bioclim_hist</span><span class="p">[[</span><span class="m">1</span><span class="p">]],</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s">&#39;Inferno&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_6_0.png" src="../_images/practical_2_6_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="focal-species-distribution">
+<h3>Focal species distribution<a class="headerlink" href="#focal-species-distribution" title="Permalink to this headline">¶</a></h3>
+<p>We will be using the Mountain Tapir (<em>Tapirus pinchaque</em>) as an example species.</p>
+<p><img alt="Tapirus pinchaque. © Diego Lizcano" src="../_images/tapirus-pinchaque.jpg" />
+<em>Tapirus pinchaque</em>. © Diego Lizcano</p>
+<p>I have picked this because it has a fairly narrow distribution but also because there is reasonable data in two distribution data sources:</p>
+<ul class="simple">
+<li><p>The IUCN Red List database: <a class="reference external" href="https://www.iucnredlist.org/species/21473/45173922">Mountain Tapir</a>, which is a good source of polygon species ranges. These ranges are usually <em>expert drawn maps</em>: interpretations of sighting data and local information.</p></li>
+<li><p>The GBIF database: <a class="reference external" href="https://www.gbif.org/species/2440899">Mountain Tapir</a>, which is a source of point observations of species. It is hugely important to be critical of point observation data and carefully clean it. There is a great description of this process in the <code class="docutils literal notranslate"><span class="pre">dismo</span></code> vignette on species distribution modelling:</p></li>
+</ul>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">vignette</span><span class="p">(</span><span class="s">&#39;sdm&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can view both kinds of data for this species.</p>
+<ul class="simple">
+<li><p>The IUCN data is a single MULTIPOLYGON feature showing the discontinuous sections of the species’ range. There are a number of feature attributes, described in detail in <a class="reference external" href="https://nc.iucnredlist.org/redlist/resources/files/1539098236-Mapping_Standards_Version_1.16_2018.pdf">this pdf</a>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">tapir_IUCN</span> <span class="o">&lt;-</span> <span class="nf">st_read</span><span class="p">(</span><span class="s">&#39;data/iucn_mountain_tapir/data_0.shp&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">tapir_IUCN</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `data_0&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_2/data/iucn_mountain_tapir/data_0.shp&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 1 feature and 15 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -79.62289 ymin: -5.962554 xmax: -73.82314 ymax: 5.031971
+CRS:            4326
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 1 feature and 15 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -79.62289 ymin: -5.962554 xmax: -73.82314 ymax: 5.031971
+CRS:            4326
+  ASSESSMENT ID_NO          BINOMIAL PRESENCE ORIGIN SEASONAL COMPILER YEAR
+1   45173922 21473 Tapirus pinchaque        1      1        1     IUCN 2008
+                                               CITATION            LEGEND
+1 IUCN (International Union for Conservation of Nature) Extant (resident)
+  SUBSPECIES SUBPOP DIST_COMM ISLAND TAX_COMM                       geometry
+1       &lt;NA&gt;   &lt;NA&gt;      &lt;NA&gt;   &lt;NA&gt;     &lt;NA&gt; MULTIPOLYGON (((-78.00009 0...
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>The GBIF data is a table of observations, some of which include coordinates. One thing that GBIF does is to publish a DOI for every download, to make it easy to track particular data use. This one is <a class="reference external" href="https://doi.org/10.15468/dl.t2bkzx">https://doi.org/10.15468/dl.t2bkzx</a>.</p></li>
+</ul>
+<p>There are some tricks to loading the GBIF data. Although GBIF use the file <code class="docutils literal notranslate"><span class="pre">.csv</span></code> suffix, the file is in fact <em>tab</em> delimited so we need to use <code class="docutils literal notranslate"><span class="pre">read.delim()</span></code>. There is a lot of text data in the file, so the option <code class="docutils literal notranslate"><span class="pre">stringsAsFactors=FALSE</span></code> to turn off R’s daft default behaviour of turning all text fields into categorical variables is really useful. Lastly, we need to remove rows with no coordinates.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data frame</span>
+<span class="n">tapir_GBIF</span> <span class="o">&lt;-</span> <span class="nf">read.delim</span><span class="p">(</span><span class="s">&#39;data/gbif_mountain_tapir.csv&#39;</span><span class="p">,</span> 
+                         <span class="n">stringsAsFactors</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="c1"># Drop rows with missing coordinates</span>
+<span class="n">tapir_GBIF</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">decimalLatitude</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">decimalLongitude</span><span class="p">))</span>
+<span class="c1"># Convert to an sf object</span>
+<span class="n">tapir_GBIF</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;decimalLongitude&#39;</span><span class="p">,</span> <span class="s">&#39;decimalLatitude&#39;</span><span class="p">))</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 383 features and 48 fields
+geometry type:  POINT
+dimension:      XY
+bbox:           xmin: -78.64301 ymin: -3.101066 xmax: -75.15 ymax: 7.07
+CRS:            NA
+First 10 features:
+       gbifID                           datasetKey
+1  2868401965 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+3  2862366111 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+7  2826214836 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+8  2826213266 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+9  2802920084 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+10 2634586094 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+11 2634268748 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+12 2634229763 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+13 2626674279 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+14 2626629230 50c9509d-22c7-4a22-a47d-8c48425ef4a7
+                                        occurrenceID  kingdom   phylum    class
+1  https://www.inaturalist.org/observations/60606393 Animalia Chordata Mammalia
+3  https://www.inaturalist.org/observations/58911027 Animalia Chordata Mammalia
+7  https://www.inaturalist.org/observations/54217994 Animalia Chordata Mammalia
+8  https://www.inaturalist.org/observations/54475159 Animalia Chordata Mammalia
+9  https://www.inaturalist.org/observations/49679592 Animalia Chordata Mammalia
+10 https://www.inaturalist.org/observations/48281689 Animalia Chordata Mammalia
+11 https://www.inaturalist.org/observations/46779183 Animalia Chordata Mammalia
+12 https://www.inaturalist.org/observations/46651584 Animalia Chordata Mammalia
+13 https://www.inaturalist.org/observations/46628805 Animalia Chordata Mammalia
+14 https://www.inaturalist.org/observations/46628849 Animalia Chordata Mammalia
+            order    family   genus           species infraspecificEpithet
+1  Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+3  Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+7  Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+8  Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+9  Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+10 Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+11 Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+12 Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+13 Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+14 Perissodactyla Tapiridae Tapirus Tapirus pinchaque                     
+   taxonRank                   scientificName verbatimScientificName
+1    SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+3    SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+7    SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+8    SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+9    SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+10   SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+11   SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+12   SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+13   SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+14   SPECIES Tapirus pinchaque (Roulin, 1829)      Tapirus pinchaque
+   verbatimScientificNameAuthorship countryCode locality stateProvince
+1                                            EC                   Napo
+3                                            EC                   Napo
+7                                            EC                   Napo
+8                                            CO              Risaralda
+9                                            CO              Risaralda
+10                                           EC                   Napo
+11                                           EC               Imbabura
+12                                           EC               Imbabura
+13                                           EC               Imbabura
+14                                           EC               Imbabura
+   occurrenceStatus individualCount                     publishingOrgKey
+1           PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+3           PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+7           PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+8           PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+9           PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+10          PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+11          PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+12          PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+13          PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+14          PRESENT              NA 28eb1a3f-1c15-4a95-931a-4af90ecb574d
+   coordinateUncertaintyInMeters coordinatePrecision elevation
+1                          31451                  NA        NA
+3                          31451                  NA        NA
+7                          31451                  NA        NA
+8                          31398                  NA        NA
+9                          31398                  NA        NA
+10                         31451                  NA        NA
+11                         68218                  NA        NA
+12                         68218                  NA        NA
+13                         68218                  NA        NA
+14                         68218                  NA        NA
+   elevationAccuracy depth depthAccuracy           eventDate day month year
+1                 NA    NA            NA 2020-09-21T16:25:00  21     9 2020
+3                 NA    NA            NA 2020-01-23T16:59:18  23     1 2020
+7                 NA    NA            NA 2020-07-24T10:25:00  24     7 2020
+8                 NA    NA            NA 2020-02-10T07:22:55  10     2 2020
+9                 NA    NA            NA 2019-02-11T22:57:00  11     2 2019
+10                NA    NA            NA 2019-01-16T07:59:00  16     1 2019
+11                NA    NA            NA 2011-11-21T12:28:00  21    11 2011
+12                NA    NA            NA 2013-10-13T09:25:00  13    10 2013
+13                NA    NA            NA 2015-01-18T09:49:00  18     1 2015
+14                NA    NA            NA 2019-05-07T08:51:00   7     5 2019
+   taxonKey speciesKey     basisOfRecord institutionCode collectionCode
+1   2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+3   2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+7   2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+8   2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+9   2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+10  2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+11  2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+12  2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+13  2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+14  2440899    2440899 HUMAN_OBSERVATION     iNaturalist   Observations
+   catalogNumber recordNumber   identifiedBy      dateIdentified      license
+1       60606393                   Luis Yupa 2020-09-24T13:40:40 CC_BY_NC_4_0
+3       58911027                  zacpfeifer 2020-09-08T01:44:23 CC_BY_NC_4_0
+7       54217994                   Luis Yupa 2020-07-25T00:21:16 CC_BY_NC_4_0
+8       54475159              westerntanager 2020-07-27T01:23:57 CC_BY_NC_4_0
+9       49679592              Aurélie Letort 2020-06-15T03:19:40 CC_BY_NC_4_0
+10      48281689                   Luis Yupa 2020-06-02T22:34:49 CC_BY_NC_4_0
+11      46779183               Andres Laguna 2020-05-21T22:40:08 CC_BY_NC_4_0
+12      46651584               Andres Laguna 2020-05-20T21:35:07 CC_BY_NC_4_0
+13      46628805               Andres Laguna 2020-05-20T18:19:54 CC_BY_NC_4_0
+14      46628849               Andres Laguna 2020-05-20T18:20:08 CC_BY_NC_4_0
+     rightsHolder     recordedBy typeStatus establishmentMeans
+1       Luis Yupa      Luis Yupa                              
+3      zacpfeifer     zacpfeifer                              
+7       Luis Yupa      Luis Yupa                              
+8  westerntanager westerntanager                              
+9  Aurélie Letort Aurélie Letort                              
+10      Luis Yupa      Luis Yupa                              
+11  Andres Laguna  Andres Laguna                              
+12  Andres Laguna  Andres Laguna                              
+13  Andres Laguna  Andres Laguna                              
+14  Andres Laguna  Andres Laguna                              
+            lastInterpreted  mediaType
+1  2020-11-01T15:58:25.043Z StillImage
+3  2020-11-01T15:58:02.786Z StillImage
+7  2020-11-01T15:57:07.545Z StillImage
+8  2020-11-01T16:14:14.996Z StillImage
+9  2020-11-01T15:57:00.134Z           
+10 2020-11-01T15:57:21.890Z StillImage
+11 2020-11-01T16:13:00.382Z           
+12 2020-11-01T16:13:57.930Z           
+13 2020-11-01T15:57:20.164Z           
+14 2020-11-01T15:57:00.386Z           
+                                             issue                    geometry
+1  COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84 POINT (-78.14574 -0.573515)
+3  COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84 POINT (-78.08383 -0.316876)
+7  COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84 POINT (-78.28517 -0.467604)
+8  COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84  POINT (-75.63315 4.763309)
+9  COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84   POINT (-75.57059 4.66022)
+10 COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84 POINT (-78.02654 -0.215449)
+11 COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84  POINT (-78.16163 0.255812)
+12 COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84   POINT (-78.1211 0.293161)
+13 COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84  POINT (-78.09455 0.288503)
+14 COORDINATE_ROUNDED;GEODETIC_DATUM_ASSUMED_WGS84  POINT (-78.07301 0.291433)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now superimpose the two datasets to show they <em>broadly</em> agree. There aren’t any obvious problems that require data cleaning.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load some (coarse) country background data</span>
+<span class="n">ne110</span> <span class="o">&lt;-</span> <span class="nf">st_read</span><span class="p">(</span><span class="s">&#39;data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `ne_110m_admin_0_countries&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_2/data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp&#39; using driver `ESRI Shapefile&#39;
+Simple feature collection with 177 features and 94 fields
+geometry type:  MULTIPOLYGON
+dimension:      XY
+bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+CRS:            4326
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a cropping area to plot</span>
+<span class="n">model_extent</span> <span class="o">&lt;-</span> <span class="nf">extent</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">-85</span><span class="p">,</span><span class="m">-70</span><span class="p">,</span><span class="m">-5</span><span class="p">,</span><span class="m">12</span><span class="p">))</span>
+
+<span class="c1"># Plot the species data over a basemap</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">ne110</span><span class="p">),</span> <span class="n">xlim</span><span class="o">=</span><span class="n">model_extent</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">2</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="n">model_extent</span><span class="p">[</span><span class="m">3</span><span class="o">:</span><span class="m">4</span><span class="p">],</span> 
+     <span class="n">bg</span><span class="o">=</span><span class="s">&#39;lightblue&#39;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;ivory&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">tapir_IUCN</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">,</span> <span class="n">border</span><span class="o">=</span><span class="kc">NA</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.6</span><span class="p">)</span>
+<span class="nf">box</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_13_0.png" src="../_images/practical_2_13_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="pseudo-absence-data">
+<h3>Pseudo-absence data<a class="headerlink" href="#pseudo-absence-data" title="Permalink to this headline">¶</a></h3>
+<p>Many of the methods below require <strong>absence data</strong>, either for fitting a model or for evaluating the model performance. Rarely, we might actually have real absence data from exhaustive surveys, but usually we only have presence data.</p>
+<p>A really useful starting point for this topic is the following study:</p>
+<blockquote>
+<div><p>Barbet‐Massin, M., Jiguet, F., Albert, C.H. and Thuiller, W. (2012), Selecting pseudo‐absences for species distribution models: how, where and how many?. Methods in Ecology and Evolution, 3: 327-338. <span class="xref myst">doi:10.1111/j.2041-210X.2011.00172.x</span></p>
+</div></blockquote>
+</div>
+<div class="section" id="testing-and-training-dataset">
+<h3>Testing and training dataset<a class="headerlink" href="#testing-and-training-dataset" title="Permalink to this headline">¶</a></h3>
+<p>One important part of the modelling process is to keep separate data for <em>training</em> the model (the process of fitting the model to data) and for <em>testing</em> the model (the process of checking model performance). Here we will use a 20:80 split - retaining 20% of the data for testing.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use kfold to add labels to the data, splitting it into 5 parts</span>
+<span class="n">tapir_GBIF</span><span class="o">$</span><span class="n">kfold</span> <span class="o">&lt;-</span> <span class="nf">kfold</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>One other important concept in test and training is <strong>cross validation</strong>. This is where a model is fitted and tested multiple times, using different subsets of the data, to check that model performance is not dependent on one specific partition of the data. One common approach is <em>k-fold</em> cross-validation (hence the function name above). This splits the data into <span class="math notranslate nohighlight">\(k\)</span> partitions and then uses each partition in turn as the test data.</p>
+<p>If you come to use species distribution models in research, it is worth reading the following paper on an alternative approach to model evaluation that moves away from the standard performance statistics towards a more ecologically informed approach.</p>
+<blockquote>
+<div><p>Warren, DL, Matzke, NJ, Iglesias, TL. Evaluating presence‐only species distribution models with discrimination accuracy is uninformative for many applications. J Biogeogr. 2020; 47: 167– 180. <a class="reference external" href="https://doi.org/10.1111/jbi.13705">https://doi.org/10.1111/jbi.13705</a>.</p>
+</div></blockquote>
+</div>
+</div>
+<div class="section" id="the-bioclim-model">
+<h2>The BIOCLIM model<a class="headerlink" href="#the-bioclim-model" title="Permalink to this headline">¶</a></h2>
+<p>One of the earliest species distribution models is BIOCLIM.</p>
+<blockquote>
+<div><p>Nix, H.A., 1986. A biogeographic analysis of Australian elapid snakes. In: Atlas of Elapid Snakes of Australia. (Ed.) R. Longmore, pp. 4-15. Australian Flora and Fauna Series Number 7. Australian Government Publishing Service: Canberra.</p>
+</div></blockquote>
+<p>It is not a particularly good method, but it is possible to use it with <strong>only species presence data</strong>. The way the model works is to sample environmental layers at species locations. A cell in the wider map then gets a score based on how close to the species’ median value for each layer it is.</p>
+<p>This kind of approach is often called a <em>bioclimatic envelope</em>, which is where the model name comes from. The BIOCLIM <em>variables</em> that we loaded earlier were designed to be used with the BIOCLIM algorithm.</p>
+<p>The first thing to do is to crop the environmental data down to a sensible modelling region. What counts as <em>sensible</em> here is very hard to define and you may end up changing it when you see model outputs, but here we use a small subset to make things run quickly.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Reduce the global maps down to the species&#39; range</span>
+<span class="n">bioclim_hist_local</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">bioclim_hist</span><span class="p">,</span> <span class="n">model_extent</span><span class="p">)</span>
+<span class="n">bioclim_2050_local</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">bioclim_2050</span><span class="p">,</span> <span class="n">model_extent</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now fit a bioclimatic envelope - we need the environmental layers and a matrix of XY coordinates for the training data showing where the species is observed. The <code class="docutils literal notranslate"><span class="pre">st_coordinates</span></code> function is a useful <code class="docutils literal notranslate"><span class="pre">sf</span></code> function for extracting point coordinates: it does also work with lines and polygons, but the output is much more complex!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the coordinates of 80% of the data for training </span>
+<span class="n">train_locs</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">kfold</span> <span class="o">!=</span> <span class="m">1</span><span class="p">))</span>
+<span class="c1"># Fit the model</span>
+<span class="n">bc</span> <span class="o">&lt;-</span> <span class="nf">bioclim</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">train_locs</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can now plot the model output to show the envelopes. In the plots below, the argument <code class="docutils literal notranslate"><span class="pre">p</span></code> is used to show the climatic envelop that contains a certain proportion of the data. The <code class="docutils literal notranslate"><span class="pre">a</span></code> and <code class="docutils literal notranslate"><span class="pre">b</span></code> arguments set which layers in the environmental data are compared.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bc</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="m">0.9</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bc</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">p</span><span class="o">=</span><span class="m">0.9</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_21_0.png" src="../_images/practical_2_21_0.png" />
+</div>
+</div>
+<p>In that second plot, note that these two variables (mean annual temperature <code class="docutils literal notranslate"><span class="pre">BIO1</span></code> and maximum temperature of the warmest month ‘BIO5’) are <strong>extremely strongly correlated</strong>. This is not likely to be an issue for this method, but in many models it is a <strong>very bad idea</strong> to have strongly correlated explanatory variables: it is called <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">Multicollinearity</a></strong> and can cause serious statistical issues.</p>
+<p>We’ve now fitted our model and can use the model parameters to predict the <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> score for the whole map. Note that a lot of the map has a <strong>score of zero</strong>: none of the environmental variables in these cells fall within the range seen in the occupied cells.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">pb</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">bc</span><span class="p">)</span>
+<span class="c1"># create a land map (scores of 0 or more) and then set the</span>
+<span class="c1"># zero scores to be NA</span>
+<span class="n">land</span> <span class="o">&lt;-</span> <span class="n">pb</span> <span class="o">&gt;=</span> <span class="m">0</span>
+<span class="n">pb</span><span class="p">[</span><span class="n">pb</span> <span class="o">==</span> <span class="m">0</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="kc">NA</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">land</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">pb</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">,</span> <span class="n">palette</span><span class="o">=</span><span class="s">&#39;Blue-Red&#39;</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_2_23_0.png" src="../_images/practical_2_23_0.png" />
+</div>
+</div>
+<p>We can also now evaluate our model using the retained test data.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>test_locs &lt;- st_coordinates(subset(tapir_GBIF, kfold == 1))
+evaluate(p=test_locs, a=NULL, bc)
+
+
+
+## Fitting a MaxEnt model
+
+```r
+# This is crashing all over the shop
+mod &lt;- maxent(bioclim_hist, as(tapir_GBIF, &#39;Spatial&#39;))
+</pre></div>
+</div>
+<p>plot(mod)</p>
 </div>
 </div>
 

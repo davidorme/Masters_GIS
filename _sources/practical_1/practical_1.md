@@ -727,8 +727,7 @@ There are a huge range of different formats for spatial data. Fortunately, the `
 ### Saving vector data
 
 ```{code-cell} r
-:tags: []
-
+:tags: [remove-cell]
 # This chunk removes existing demo outputs so they can be recreated in the following chunks
 files <- dir('data', 'uk_eire*|uk_raster_*', full.names=TRUE)
 print(files)
