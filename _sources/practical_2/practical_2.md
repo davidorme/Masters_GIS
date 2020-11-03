@@ -80,43 +80,7 @@ This practical gives a basic introduction to species distribution modelling usin
 ## Data
 
 
-There are two main inputs to a species distribution model. The first is a set of environmental raster layers – these are the variables that will be used to characterise the species’ environmental niche. The second is a set of points describing locations in which the species is known to be found – these points will be used to sample the environmental variables.
-
-### Predictor variables
-
-Several sources of different environmental data were mentioned in the lecture, but in this practical we will be using climatic variables to describe the environment. In particular, we will be using the BIOCLIM variables. These are based on simple temperature and precipitation values, but in 19 combinations that are thought to capture more biologically relevant aspects of the climate. These variables are described here:
-
-[https://www.worldclim.org/data/bioclim.html](https://www.worldclim.org/data/bioclim.html)
-
-The data we will us here have been downloaded using the `getData` function from the `raster` package, so should load directly. If you are using your own computer, this code will fetch the data first. The data consist of a stack of the 19 BIOCLIM variables at 10 arc-minute resolution (1/6th degree).
-
-```{code-cell} r
-# Load the data
-bioclim_hist <- getData('worldclim', var='bio', res=10, path='data')
-bioclim_2050 <- getData('CMIP5', var='bio', res=10, rcp=60, model='HD', year=50, path='data')
-
-# Relabel the future variables to match the historical ones
-names(bioclim_2050) <- names(bioclim_hist)
-
-# Look at the data structure
-print(bioclim_hist)
-```
-
-The two datasets loaded contain _historical_ climate data (1970-2000) and _projected future_ climate for 2050 taken from the Hadley model using [RCP 6.0](https://en.wikipedia.org/wiki/Representative_Concentration_Pathway). Note that this is CMIP5 data, which is now considered outdated, but is easy to download! Both these datasets are sourced from [http://www.worldclim.org](http://www.worldclim.org).
-
-We can compare `BIO 1` (Mean Annual Temperature) between the two datasets:
-
-```{code-cell} r
-par(mfrow=c(3,1), mar=c(1,1,1,1))
-# Create a shared colour scheme
-breaks <- seq(-300, 350, by=20)
-cols <- hcl.colors(length(breaks) - 1)
-# Plot the historical and projected data
-plot(bioclim_hist[[1]], breaks=breaks, col=cols)
-plot(bioclim_2050[[1]], breaks=breaks, col=cols)
-# Plot the temperature difference
-plot(bioclim_2050[[1]] - bioclim_hist[[1]], col=hcl.colors(20, palette='Inferno'))
-```
+There are two main inputs to a species distribution model. The first is a set of points describing locations in which the species is known to be found. The second is a set of environmental raster layers – these are the variables that will be used to characterise the species’ environmental niche by looking at the environmental values where the species is found. 
 
 ### Focal species distribution
 
@@ -178,21 +142,112 @@ plot(st_geometry(tapir_GBIF), add=TRUE, col='red', pch=4, cex=0.6)
 box()
 ```
 
+### Predictor variables
+
+Several sources of different environmental data were mentioned in the lecture, but in this practical we will be using climatic variables to describe the environment. In particular, we will be using the BIOCLIM variables. These are based on simple temperature and precipitation values, but in 19 combinations that are thought to capture more biologically relevant aspects of the climate. These variables are described here:
+
+[https://www.worldclim.org/data/bioclim.html](https://www.worldclim.org/data/bioclim.html)
+
+The data we will us here have been downloaded using the `getData` function from the `raster` package, so should load directly. If you are using your own computer, this code will fetch the data first. The data consist of a stack of the 19 BIOCLIM variables at 10 arc-minute resolution (1/6th degree).
+
+```{code-cell} r
+# Load the data
+bioclim_hist <- getData('worldclim', var='bio', res=10, path='data')
+bioclim_2050 <- getData('CMIP5', var='bio', res=10, rcp=60, model='HD', year=50, path='data')
+
+# Relabel the future variables to match the historical ones
+names(bioclim_2050) <- names(bioclim_hist)
+
+# Look at the data structure
+print(bioclim_hist)
+```
+
+The two datasets loaded contain _historical_ climate data (1970-2000) and _projected future_ climate for 2050 taken from the Hadley model using [RCP 6.0](https://en.wikipedia.org/wiki/Representative_Concentration_Pathway). Note that this is CMIP5 data, which is now considered outdated, but is easy to download! Both these datasets are sourced from [http://www.worldclim.org](http://www.worldclim.org).
+
+We can compare `BIO 1` (Mean Annual Temperature) between the two datasets:
+
+```{code-cell} r
+par(mfrow=c(3,1), mar=c(1,1,1,1))
+# Create a shared colour scheme
+breaks <- seq(-300, 350, by=20)
+cols <- hcl.colors(length(breaks) - 1)
+# Plot the historical and projected data
+plot(bioclim_hist[[1]], breaks=breaks, col=cols)
+plot(bioclim_2050[[1]], breaks=breaks, col=cols)
+# Plot the temperature difference
+plot(bioclim_2050[[1]] - bioclim_hist[[1]], col=hcl.colors(20, palette='Inferno'))
+```
+
+We are immediately going to crop the environmental data down to a sensible modelling region. What counts as _sensible_ here is very hard to define and you may end up changing it when you see model outputs, but here we use a small spatial subset to make things run quickly.
+
+```{code-cell} r
+# Reduce the global maps down to the species' range
+bioclim_hist_local <- crop(bioclim_hist, model_extent)
+bioclim_2050_local <- crop(bioclim_2050, model_extent)
+```
+
 ### Pseudo-absence data
 
-Many of the methods below require **absence data**, either for fitting a model or for evaluating the model performance. Rarely, we might actually have real absence data from exhaustive surveys, but usually we only have presence data.
+Many of the methods below require **absence data**, either for fitting a model or for evaluating the model performance. Rarely, we might actually have real absence data from exhaustive surveys, but usually we only have presence data. So, modelling commonly uses *pseudo-absence* or *background* locations. The difference between those two terms is subtle: I haven't seen a clean definition but *background* data might be sampled completely at random, where *pseudo-absence* makes some attempt to pick locations that are somehow separated from presence observations.
 
-A really useful starting point for this topic is the following study:
+The `dismo` package provides the `randomPoints` function to select background data. It is useful because it works directly with the environmental layers to pick **points representing cells**. This avoids getting duplicate points in the same cells. You do need to provide a **mask layer** that shows which cells are valid choices. You can also exclude cells that contain observed locations by setting `p` to use the coordinates of your observed locations.
 
-> Barbet‐Massin, M., Jiguet, F., Albert, C.H. and Thuiller, W. (2012), Selecting pseudo‐absences for species distribution models: how, where and how many?. Methods in Ecology and Evolution, 3: 327-338. [doi:10.1111/j.2041-210X.2011.00172.x](doi:10.1111/j.2041-210X.2011.00172.x)
+```{code-cell} r
+# Create a simple land mask
+land <- bioclim_hist_local[[1]] >= 0
+# How many points to create? We'll use the same as number of observations
+n_pseudo <- nrow(tapir_GBIF)
+# Sample the points
+pseudo_dismo <- randomPoints(mask=land, n=n_pseudo, p=st_coordinates(tapir_GBIF))
+# Convert this data into an sf object, for consistency with the
+# next example.
+pseudo_dismo <- st_as_sf(data.frame(pseudo_dismo), coords=c('x','y'), crs=4326)
+```
+
+We can also use GIS to do something a little more sophisticated. This isn't necessarily the best choice here, but is an example of how to do something more structured. The aim here is to pick points that are within about 100 km of observed points, but not closer than 20km. We are going to cheat and use degrees (1° is very roughly 100 km at the equator), but in practice it would be better to reproject the data and work with real distance units.
+
+```{code-cell} r
+# Create buffers around the observed points
+nearby <- st_buffer(tapir_GBIF, dist=1)
+too_close <- st_buffer(tapir_GBIF, dist=0.2)
+# merge those buffers
+nearby <- st_union(nearby)
+too_close <- st_union(too_close)
+# Find the area that is nearby but _not_ too close
+nearby <- st_difference(nearby, too_close)
+# Get some points within that feature in an sf dataframe
+pseudo_nearby <- st_as_sf(st_sample(nearby, n_pseudo))
+```
+
+We can plot those two points side by side for comparison.
+
+```{code-cell} r
+par(mfrow=c(1,2), mar=c(1,1,1,1))
+# Random points on land
+plot(land, col='grey', legend=FALSE)
+plot(st_geometry(tapir_GBIF), add=TRUE, col='red')
+plot(pseudo_dismo, add=TRUE)
+# Random points within ~ 100 km but not closer than ~ 20 km
+plot(land, col='grey', legend=FALSE)
+plot(st_geometry(tapir_GBIF), add=TRUE, col='red')
+plot(pseudo_nearby, add=TRUE)
+```
+
+A really useful starting point for further detail on pseudo absences is the following study:
+
+> Barbet‐Massin, M., Jiguet, F., Albert, C.H. and Thuiller, W. (2012), Selecting pseudo‐absences for species distribution models: how, where and how many?. Methods in Ecology and Evolution, 3: 327-338. [doi:10.1111/j.2041-210X.2011.00172.x](https://doi:10.1111/j.2041-210X.2011.00172.x)
+
 
 ### Testing and training dataset 
 
-One important part of the modelling process is to keep separate data for *training* the model (the process of fitting the model to data) and for *testing* the model (the process of checking model performance). Here we will use a 20:80 split - retaining 20% of the data for testing. 
+One important part of the modelling process is to keep separate data for *training* the model (the process of fitting the model to data) and for *testing* the model (the process of checking model performance). Here we will use a 20:80 split - retaining 20% of the data for testing.
 
-```{code-cell} R
+```{code-cell} r
 # Use kfold to add labels to the data, splitting it into 5 parts
 tapir_GBIF$kfold <- kfold(tapir_GBIF, k=5)
+# Do the same for the pseudo-random points
+pseudo_dismo$kfold <- kfold(pseudo_dismo, k=5)
+pseudo_nearby$kfold <- kfold(pseudo_nearby, k=5)
 ```
 
 One other important concept in test and training is **cross validation**. This is where a model is fitted and tested multiple times, using different subsets of the data, to check that model performance is not dependent on one specific partition of the data. One common approach is *k-fold* cross-validation (hence the function name above). This splits the data into $k$ partitions and then uses each partition in turn as the test data.
@@ -202,62 +257,117 @@ If you come to use species distribution models in research, it is worth reading 
 > Warren, DL, Matzke, NJ, Iglesias, TL. Evaluating presence‐only species distribution models with discrimination accuracy is uninformative for many applications. J Biogeogr. 2020; 47: 167– 180. [https://doi.org/10.1111/jbi.13705](https://doi.org/10.1111/jbi.13705).
 
 
+## Species Distribution Modelling
 
+Now we've got all of our data set up we can progress to some actual modelling!
 
-
-## The BIOCLIM model
+### The BIOCLIM model
 
 One of the earliest species distribution models is BIOCLIM. 
 
 > Nix, H.A., 1986. A biogeographic analysis of Australian elapid snakes. In: Atlas of Elapid Snakes of Australia. (Ed.) R. Longmore, pp. 4-15. Australian Flora and Fauna Series Number 7. Australian Government Publishing Service: Canberra.
 
-It is not a particularly good method, but it is possible to use it with **only species presence data**. The way the model works is to sample environmental layers at species locations. A cell in the wider map then gets a score based on how close to the species' median value for each layer it is. 
+It is not a particularly good method, but it is possible to fit the model and predict with **only species presence data** and without using (pseudo-)absence data. The way the model works is to sample environmental layers at species locations. A cell in the wider map then gets a score based on how close to the species' median value for each layer it is. 
 
 This kind of approach is often called a _bioclimatic envelope_, which is where the model name comes from. The BIOCLIM *variables* that we loaded earlier were designed to be used with the BIOCLIM algorithm.
 
-The first thing to do is to crop the environmental data down to a sensible modelling region. What counts as _sensible_ here is very hard to define and you may end up changing it when you see model outputs, but here we use a small subset to make things run quickly.
+#### Fitting the model
+
+To fit a bioclimatic envelope, we need the environmental layers and a matrix of XY coordinates for the training data showing where the species is observed. The `st_coordinates` function is a useful `sf` function for extracting point coordinates: it does also work with lines and polygons, but the output is much more complex!
 
 ```{code-cell} r
-# Reduce the global maps down to the species' range
-bioclim_hist_local <- crop(bioclim_hist, model_extent)
-bioclim_2050_local <- crop(bioclim_2050, model_extent)
-```
- We can now fit a bioclimatic envelope - we need the environmental layers and a matrix of XY coordinates for the training data showing where the species is observed. The `st_coordinates` function is a useful `sf` function for extracting point coordinates: it does also work with lines and polygons, but the output is much more complex!
-
-```{code-cell} R
 # Get the coordinates of 80% of the data for training 
 train_locs <- st_coordinates(subset(tapir_GBIF, kfold != 1))
 # Fit the model
-bc <- bioclim(bioclim_hist_local, train_locs)
+bioclim_model <- bioclim(bioclim_hist_local, train_locs)
 ```
 
 We can now plot the model output to show the envelopes. In the plots below, the argument `p` is used to show the climatic envelop that contains a certain proportion of the data. The `a` and `b` arguments set which layers in the environmental data are compared.
 
 ```{code-cell} r
 par(mfrow=c(1,2))
-plot(bc, a=1, b=2, p=0.9)
-plot(bc, a=1, b=5, p=0.9)
+plot(bioclim_model, a=1, b=2, p=0.9)
+plot(bioclim_model, a=1, b=5, p=0.9)
 ```
 
 In that second plot, note that these two variables (mean annual temperature `BIO1` and maximum temperature of the warmest month 'BIO5') are **extremely strongly correlated**. This is not likely to be an issue for this method, but in many models it is a **very bad idea** to have strongly correlated explanatory variables: it is called **[Multicollinearity](https://en.wikipedia.org/wiki/Multicollinearity)** and can cause serious statistical issues.
 
+#### Model predictions
+
 We've now fitted our model and can use the model parameters to predict the `bioclim` score for the whole map. Note that a lot of the map has a **score of zero**: none of the environmental variables in these cells fall within the range seen in the occupied cells.
 
 ```{code-cell} r
-pb <- predict(bioclim_hist_local, bc)
-# create a land map (scores of 0 or more) and then set the
-# zero scores to be NA
-land <- pb >= 0
-pb[pb == 0] <- NA
+bioclim_pred <- predict(bioclim_hist_local, bioclim_model)
+# Create a copy removing zero scores to focus on within envelope locations
+bioclim_non_zero <- bioclim_pred
+bioclim_non_zero[bioclim_non_zero == 0] <- NA
 plot(land, col='grey', legend=FALSE)
-plot(pb, col=hcl.colors(20, palette='Blue-Red'), add=TRUE)
+plot(bioclim_non_zero, col=hcl.colors(20, palette='Blue-Red'), add=TRUE)
 ```
 
-We can also now evaluate our model using the retained test data.
+#### Model evaluation
 
-```
+We can also now evaluate our model using the retained test data. Note that here, we do have to **provide absence data**: all of the standard performance metrics come from a confusion matrix, which requires false and true negatives. The output of `evaluate` gives us some key statistics, including AUC.
+
+```{code-cell} r
 test_locs <- st_coordinates(subset(tapir_GBIF, kfold == 1))
-evaluate(p=test_locs, a=NULL, bc)
+test_pseudo <- st_coordinates(subset(pseudo_nearby, kfold == 1))
+bioclim_eval <- evaluate(p=test_locs, a=test_pseudo, model=bioclim_model, 
+                    x=bioclim_hist_local, tr=seq(0,1, by=0.01))
+print(bioclim_eval)
+```
+
+We can also create some standard plots. One plot is the ROC curve and the other is a graph of how kappa changes as the threshold used on the model predictions varies. The `threshold` function allows us to find an optimal threshold for a particular measure of performance: here we find the threshold that gives the best kappa.
+
+```{code-cell} r
+par(mfrow=c(1,2))
+# Plot the ROC curve
+plot(bioclim_eval, 'ROC', type='l')
+# Find the maximum kappa and show how kappa changes with the model threshold
+max_kappa <-threshold(bioclim_eval, stat='kappa')
+plot(bioclim_eval, 'kappa', type='l')
+abline(v=max_kappa, lty=2, col='blue')
+```
+
+#### Species distribution
+
+That gives us all the information we need to make a prediction about the species distribution:
+
+```{code-cell} r
+# Apply the threshold to the model predictions
+tapir_range <- bioclim_pred >= max_kappa
+plot(tapir_range, legend=FALSE, col=c('grey','red'))
+plot(st_geometry(tapir_GBIF), add=TRUE, pch=4, col='#00000022')
+```
+
+```{admonition} Future distribution of the tapir
+
+The figure below shows the predicted distribution of the Mountain Tapir in 2050 and the predicted range change - can you figure out how to create these plots?
+
+```
+```{code-cell} R
+:tags: [hide-input]
+# Predict from the same model but using the future data
+bioclim_pred_2050 <- predict(bioclim_2050_local, bioclim_model)
+# Apply the same threshold
+tapir_range_2050 <- bioclim_pred_2050 >= max_kappa
+
+par(mfrow=c(1,3))
+plot(tapir_range, legend=FALSE, col=c('grey','red'))
+plot(tapir_range_2050, legend=FALSE, col=c('grey','red')))
+
+# This is a bit of a hack - adding 2 * hist + 2050 gives:
+# 0 + 0 - present in neither model
+# 0 + 1 - only in future
+# 2 + 0 - only in hist
+# 2 + 1 - in both
+tapir_change <- 2 * (tapir_range) + tapir_range_2050
+cols <- c('lightgrey', 'blue', 'red', 'grey30')
+plot(tapir_change, col=cols, legend=FALSE)
+legend('topleft', fill=cols, legend=c('Absent','Future','Historical', 'Both'), bg='white')
+
+```
+
 
 
 
