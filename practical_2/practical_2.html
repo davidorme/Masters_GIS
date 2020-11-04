@@ -57,6 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Practical One: GIS data and plotting" href="../practical_1/practical_1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -94,10 +95,15 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_1/practical_1.html">
    Practical One: GIS data and plotting
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Practical Two: Species Distribution Modelling
   </a>
  </li>
 </ul>
@@ -762,6 +768,12 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
@@ -884,9 +896,9 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9753753 
-cor            : 0.7405882 
-max TPR+TNR at : 0.01950784 
+AUC            : 0.9662675 
+cor            : 0.7130342 
+max TPR+TNR at : 0.01623987 
 </pre></div>
 </div>
 </div>
@@ -990,12 +1002,12 @@ max TPR+TNR at : 0.01950784
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>3</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>4</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>4</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>5</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>5</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>2</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>2</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>2</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>1</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>3</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>4</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1014,15 +1026,15 @@ max TPR+TNR at : 0.01950784
 <caption>A sf: 6 × 22</caption>
 <thead>
 	<tr><th></th><th scope=col>kfold</th><th scope=col>pa</th><th scope=col>bio1</th><th scope=col>bio2</th><th scope=col>bio3</th><th scope=col>bio4</th><th scope=col>bio5</th><th scope=col>bio6</th><th scope=col>bio7</th><th scope=col>bio8</th><th scope=col>geometry</th><th scope=col>⋯</th><th scope=col>bio11</th><th scope=col>bio12</th><th scope=col>bio13</th><th scope=col>bio14</th><th scope=col>bio15</th><th scope=col>bio16</th><th scope=col>bio17</th><th scope=col>bio18</th><th scope=col>bio19</th><th scope=col>geometry</th></tr>
-	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>⋯</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>3</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>4</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>5</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>5</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>2</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>2</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>3</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>2</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>1</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>3</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1062,24 +1074,24 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
 
 Deviance Residuals: 
      Min        1Q    Median        3Q       Max  
--2.90990  -0.09098   0.03349   0.37146   3.13512  
+-2.88447  -0.14238   0.03881   0.35305   3.00720  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -9.9233357  8.5594512  -1.159   0.2463    
-bio2         0.0411290  0.0234899   1.751   0.0800 .  
-bio4        -0.0006460  0.0022773  -0.284   0.7767    
-bio3         0.1529523  0.0880597   1.737   0.0824 .  
-bio1        -0.0736828  0.0073161 -10.071  &lt; 2e-16 ***
-bio12        0.0013744  0.0002404   5.716 1.09e-08 ***
+(Intercept) -9.441e+00  8.040e+00  -1.174   0.2403    
+bio2         5.105e-02  2.706e-02   1.887   0.0592 .  
+bio4         1.424e-05  2.342e-03   0.006   0.9951    
+bio3         1.330e-01  8.359e-02   1.591   0.1115    
+bio1        -7.113e-02  6.838e-03 -10.403  &lt; 2e-16 ***
+bio12        1.303e-03  2.671e-04   4.879 1.07e-06 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 265.32  on 606  degrees of freedom
-AIC: 277.32
+Residual deviance: 259.20  on 606  degrees of freedom
+AIC: 271.2
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1130,9 +1142,9 @@ Number of Fisher Scoring iterations: 7
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9777365 
-cor            : 0.8094166 
-max TPR+TNR at : 1.395631 
+AUC            : 0.9138135 
+cor            : 0.7529484 
+max TPR+TNR at : 0.3829958 
 </pre></div>
 </div>
 </div>
@@ -1148,7 +1160,7 @@ max TPR+TNR at : 1.395631
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 1.395631
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.3829958
 </pre></div>
 </div>
 </div>
@@ -1204,8 +1216,9 @@ max TPR+TNR at : 1.395631
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
-hist    FALSE
-  FALSE  5572
+hist    FALSE TRUE
+  FALSE  5313    0
+  TRUE     75  184
 </pre></div>
 </div>
 </div>
@@ -1295,11 +1308,7 @@ hist    FALSE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
-“glm.fit: fitted probabilities numerically 0 or 1 occurred”
-</pre></div>
-</div>
-<img alt="../_images/practical_2_63_1.png" src="../_images/practical_2_63_1.png" />
+<img alt="../_images/practical_2_63_0.png" src="../_images/practical_2_63_0.png" />
 </div>
 </div>
 </div>
@@ -1396,10 +1405,10 @@ hist    FALSE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9777365 0.9677978 0.9706527 0.9658934 0.9583404
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9138135 0.9705679 0.9268005 0.9814751 0.9718334
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9680842
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.952898
 </pre></div>
 </div>
 <img alt="../_images/practical_2_68_2.png" src="../_images/practical_2_68_2.png" />
@@ -1466,6 +1475,7 @@ hist    FALSE
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="../practical_1/practical_1.html" title="previous page">Practical One: GIS data and plotting</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
