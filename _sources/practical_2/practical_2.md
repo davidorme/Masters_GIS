@@ -12,13 +12,6 @@ kernelspec:
   name: ir
 ---
 
-```{code-cell} r
-:tags: [remove-input]
-
-# Libraries just used for producing graphics in the page, not used 
-# by any of the exercises.
-```
-
 # Practical Two: Species Distribution Modelling
 
 ## Required packages
@@ -128,7 +121,7 @@ ne110 <- st_read('data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp')
 ```
 
 ```{code-cell} r
-# Create a cropping area to plot
+# Create a modelling extent for plotting and cropping the global data.
 model_extent <- extent(c(-85,-70,-5,12))
 
 # Plot the species data over a basemap
@@ -410,7 +403,7 @@ Three things you do need to know:
 
 * The `subset` argument is used to hold back one of the `kfold` partitions for testing.
 
-* The `predict` method for a GLM needs an extra argument (`type='response'`) to make it give us predictions as the probability of species occurence. This crops up in a couple of places.
+* The `predict` method for a GLM needs an extra argument (`type='response'`) to make it give us predictions as the probability of species occurence. The default model prediction output (`?predict.glm`) is on the *scale of the linear predictors* - do not worry about what this means now, but note that there are a few places where we need to make this change from the default.
 
 The model fitting code is:
 
@@ -516,6 +509,10 @@ The environmental data is global, so we can use it to model any terrestrial orga
 ```{code-cell} R
 # Check the species without downloading - this shows the number of records
 gbif('Tapirus', 'pinchaque', download=FALSE)
+```
+
+```{code-cell} R
+:tags: [remove-stderr]
 # Download the data
 locs <- gbif('Tapirus', 'pinchaque')
 locs <- subset(locs, ! is.na(lat) | ! is.na(lon))
@@ -525,9 +522,9 @@ locs <- st_as_sf(locs, coords=c('lon', 'lat'))
 
 3. You will then need to clean the GBIF points - have a look at the `sdm` vignette mentioned above for ways to tackle cleaning the data. One tip - check the `basisOfRecord` field because the GBIF occurence database includes things like the location of museum specimens. It is _much_ harder to identify species introductions though. 
 
-4. Select an appropriate extent for the modelling.
+4. Select an appropriate extent for the modelling and update `model_extent`.
 
-5. Follow the process above to create tour model
+5. Follow the process above to create your model.
 
 ### Does our background choice matter?
 
@@ -569,9 +566,90 @@ plot(glm_pred_bg2, col=cols, breaks=bks, main='Extent Background',
 plot(glm_pred - glm_pred_bg2, col= hcl.colors(100), main='Difference')
 ```
 
-### Looking at test and training data partitions
+### Cross validation
 
+```{attention}
+This exercise calls for more programming skills - you need to be able to write a loop and set up object to store data for each iteration through the loop.
+```
 
+The models above always use the same partitions for testing and training. A better approach is to perform **k-fold cross validation** to check that the model behavour is consistent across different partitions. This allows you to compare the performance of models taking into account the arbitrary structure of the partitioning. 
+
+Here, we have used a completely random partition of the data, but it is worth looking at this recent paper arguing for a spatially structured approach to data partitions in SDM testing:
+
+> Valavi, R, Elith, J, Lahoz‐Monfort, JJ, Guillera‐Arroita, G. blockCV: An r package for generating spatially or environmentally separated folds for k‐fold cross‐validation of species distribution models. Methods Ecol Evol. 2019; 10: 225– 232. [https://doi.org/10.1111/2041-210X.13107](https://doi.org/10.1111/2041-210X.13107)
+
+Try and create the output below, collecting the ROC lines and AUCs across all five possible test partitions of the GLM model. There are two things here that are more difficult:
+
+1.  A way to get the ROC data from the output of `evaluate` - this is not obvious because `dismo` uses a different coding approach ([S4 methods](http://adv-r.had.co.nz/S4.html)) that is a bit more obscure. Don't worry about this - just use the function! Similarly, you need to know that to get the AUC value, you need to use `glm_eval@auc`.
+
+```{code-cell} R
+get_roc_data <- function(eval){
+    #' get_roc_data
+    #' 
+    #' This is a function to return a dataframe of true positive
+    #' rate and false positive rate from a dismo evalulate output
+    #' 
+    #' @param eval An object create by `evaluate` (S4 class ModelEvaluation)
+    
+    roc <- data.frame(FPR = eval@FPR, TPR = eval@TPR)
+    return(roc)
+}
+```
+
+2. You want each model evaluation to be carried out using the **same threshold breakpoints**, otherwise it is difficult to align the outputs of the different partitions. We can give `evaluate` a set of breakpoints but - for the GLM - the breakpoints are on that mysterious *scale of the linear predictors*. The following approach allows you to set those breakpoints. 
+
+```{code-cell} R
+# Take a sequence of probability values from 0 to 1
+thresholds <- seq(0, 1, by=0.01)
+# Convert to the default scale for a binomial GLM
+thresholds <- qlogis(thresholds)
+# Use in evaluate
+eval <- evaluate(p=test_present, a=test_absent, model=glm_model, 
+                  x=bioclim_hist_local, tr=thresholds)
+```
+
+```{code-cell} R
+:tags: [hide-input]
+# Make some objects to store the data
+tpr_all <- matrix(ncol=5, nrow=length(thresholds))
+fpr_all <- matrix(ncol=5, nrow=length(thresholds))
+auc <- numeric(length=5)
+
+# Loop over the values 1 to 5
+for (test_partition in 1:5) {
+
+    # Fit the model, holding back this test partition
+    model <- glm(pa ~ bio2 + bio4 + bio3 + bio1 + bio12, data=pa_data, 
+                 family=binomial(link = "logit"),
+                 subset=kfold != test_partition)
+    
+    # Evaluate the model using the retained partition
+    test_present <- st_coordinates(subset(pa_data, pa == 1 & kfold == test_partition))
+    test_absent <- st_coordinates(subset(pa_data, pa == 0 & kfold == test_partition))
+    eval <- evaluate(p=test_present, a=test_absent, model=glm_model, 
+                     x=bioclim_hist_local, tr=thresholds)
+
+    # Store the data
+    auc[test_partition] <- eval@auc
+    roc <- get_roc_data(eval)
+    tpr_all[,test_partition] <- roc$TPR
+    fpr_all[,test_partition] <- roc$FPR
+}
+
+# Create a blank plot to showing the mean ROC and the individual traces
+plot(rowMeans(fpr_all), rowMeans(tpr_all), type='n')
+
+# Add the individual lines
+for (test_partition in 1:5) {
+  lines(fpr_all[, test_partition], tpr_all[, test_partition], col='grey')
+}
+
+# Add the mean line
+lines(rowMeans(fpr_all), rowMeans(tpr_all))
+
+print(auc)
+print(mean(auc))
+```
 
 ## Reducing the set of variables
 

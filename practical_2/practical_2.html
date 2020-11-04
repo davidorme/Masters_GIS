@@ -306,8 +306,8 @@
     </a>
    </li>
    <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#looking-at-test-and-training-data-partitions">
-     Looking at test and training data partitions
+    <a class="reference internal nav-link" href="#cross-validation">
+     Cross validation
     </a>
    </li>
   </ul>
@@ -328,9 +328,7 @@
         
               <div>
                 
-  <div class="cell tag_remove-input docutils container">
-</div>
-<div class="section" id="practical-two-species-distribution-modelling">
+  <div class="section" id="practical-two-species-distribution-modelling">
 <h1>Practical Two: Species Distribution Modelling<a class="headerlink" href="#practical-two-species-distribution-modelling" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="required-packages">
 <h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
@@ -625,7 +623,7 @@ CRS:            4326
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a cropping area to plot</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a modelling extent for plotting and cropping the global data.</span>
 <span class="n">model_extent</span> <span class="o">&lt;-</span> <span class="nf">extent</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">-85</span><span class="p">,</span><span class="m">-70</span><span class="p">,</span><span class="m">-5</span><span class="p">,</span><span class="m">12</span><span class="p">))</span>
 
 <span class="c1"># Plot the species data over a basemap</span>
@@ -638,7 +636,7 @@ CRS:            4326
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_9_0.png" src="../_images/practical_2_9_0.png" />
+<img alt="../_images/practical_2_8_0.png" src="../_images/practical_2_8_0.png" />
 </div>
 </div>
 </div>
@@ -691,7 +689,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_13_0.png" src="../_images/practical_2_13_0.png" />
+<img alt="../_images/practical_2_12_0.png" src="../_images/practical_2_12_0.png" />
 </div>
 </div>
 <p>We are immediately going to crop the environmental data down to a sensible modelling region. What counts as <em>sensible</em> here is very hard to define and you may end up changing it when you see model outputs, but here we use a small spatial subset to make things run quickly.</p>
@@ -764,18 +762,6 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
 </div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
@@ -794,7 +780,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_21_0.png" src="../_images/practical_2_21_0.png" />
+<img alt="../_images/practical_2_20_0.png" src="../_images/practical_2_20_0.png" />
 </div>
 </div>
 <p>A really useful starting point for further detail on pseudo absences is the following study:</p>
@@ -857,7 +843,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_27_0.png" src="../_images/practical_2_27_0.png" />
+<img alt="../_images/practical_2_26_0.png" src="../_images/practical_2_26_0.png" />
 </div>
 </div>
 <p>In that second plot, note that these two variables (mean annual temperature <code class="docutils literal notranslate"><span class="pre">BIO1</span></code> and maximum temperature of the warmest month ‘BIO5’) are <strong>extremely strongly correlated</strong>. This is not likely to be an issue for this method, but in many models it is a <strong>very bad idea</strong> to have strongly correlated explanatory variables: it is called <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">Multicollinearity</a></strong> and can cause serious statistical issues. We will revisit this in the GLM example further down.</p>
@@ -877,7 +863,7 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_29_0.png" src="../_images/practical_2_29_0.png" />
+<img alt="../_images/practical_2_28_0.png" src="../_images/practical_2_28_0.png" />
 </div>
 </div>
 </div>
@@ -898,8 +884,8 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9472086 
-cor            : 0.699336 
+AUC            : 0.9753753 
+cor            : 0.7405882 
 max TPR+TNR at : 0.01950784 
 </pre></div>
 </div>
@@ -919,7 +905,7 @@ max TPR+TNR at : 0.01950784
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_33_0.png" src="../_images/practical_2_33_0.png" />
+<img alt="../_images/practical_2_32_0.png" src="../_images/practical_2_32_0.png" />
 </div>
 </div>
 </div>
@@ -936,7 +922,7 @@ max TPR+TNR at : 0.01950784
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_35_0.png" src="../_images/practical_2_35_0.png" />
+<img alt="../_images/practical_2_34_0.png" src="../_images/practical_2_34_0.png" />
 </div>
 </div>
 <div class="admonition-future-distribution-of-the-tapir admonition">
@@ -967,7 +953,7 @@ max TPR+TNR at : 0.01950784
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_37_0.png" src="../_images/practical_2_37_0.png" />
+<img alt="../_images/practical_2_36_0.png" src="../_images/practical_2_36_0.png" />
 </div>
 </div>
 </div>
@@ -1004,12 +990,12 @@ max TPR+TNR at : 0.01950784
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>1</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>5</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>2</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>1</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>5</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>3</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>4</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>4</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>5</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>5</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>2</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1028,15 +1014,15 @@ max TPR+TNR at : 0.01950784
 <caption>A sf: 6 × 22</caption>
 <thead>
 	<tr><th></th><th scope=col>kfold</th><th scope=col>pa</th><th scope=col>bio1</th><th scope=col>bio2</th><th scope=col>bio3</th><th scope=col>bio4</th><th scope=col>bio5</th><th scope=col>bio6</th><th scope=col>bio7</th><th scope=col>bio8</th><th scope=col>geometry</th><th scope=col>⋯</th><th scope=col>bio11</th><th scope=col>bio12</th><th scope=col>bio13</th><th scope=col>bio14</th><th scope=col>bio15</th><th scope=col>bio16</th><th scope=col>bio17</th><th scope=col>bio18</th><th scope=col>bio19</th><th scope=col>geometry</th></tr>
-	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
+	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>⋯</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>1</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>5</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>2</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>1</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>5</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>3</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>4</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>5</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>5</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>2</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1049,7 +1035,7 @@ max TPR+TNR at : 0.01950784
 <ul class="simple">
 <li><p>The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> variables are very strongly correlated. The five variables are chosen to represent related groups of variables (<a class="reference external" href="#Reducing-the-set-of-variables">show me how!</a>).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument is used to hold back one of the <code class="docutils literal notranslate"><span class="pre">kfold</span></code> partitions for testing.</p></li>
-<li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method for a GLM needs an extra argument (<code class="docutils literal notranslate"><span class="pre">type='response'</span></code>) to make it give us predictions as the probability of species occurence. This crops up in a couple of places.</p></li>
+<li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method for a GLM needs an extra argument (<code class="docutils literal notranslate"><span class="pre">type='response'</span></code>) to make it give us predictions as the probability of species occurence. The default model prediction output (<code class="docutils literal notranslate"><span class="pre">?predict.glm</span></code>) is on the <em>scale of the linear predictors</em> - do not worry about what this means now, but note that there are a few places where we need to make this change from the default.</p></li>
 </ul>
 <p>The model fitting code is:</p>
 <div class="cell docutils container">
@@ -1076,24 +1062,24 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
 
 Deviance Residuals: 
      Min        1Q    Median        3Q       Max  
--2.91007  -0.10713   0.02748   0.38536   3.00554  
+-2.90990  -0.09098   0.03349   0.37146   3.13512  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -6.2555462  8.6119784  -0.726   0.4676    
-bio2         0.0474717  0.0268350   1.769   0.0769 .  
-bio4        -0.0025542  0.0024038  -1.063   0.2880    
-bio3         0.1101829  0.0916864   1.202   0.2295    
-bio1        -0.0775429  0.0077797  -9.967  &lt; 2e-16 ***
-bio12        0.0016198  0.0002808   5.769 7.98e-09 ***
+(Intercept) -9.9233357  8.5594512  -1.159   0.2463    
+bio2         0.0411290  0.0234899   1.751   0.0800 .  
+bio4        -0.0006460  0.0022773  -0.284   0.7767    
+bio3         0.1529523  0.0880597   1.737   0.0824 .  
+bio1        -0.0736828  0.0073161 -10.071  &lt; 2e-16 ***
+bio12        0.0013744  0.0002404   5.716 1.09e-08 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 265.35  on 606  degrees of freedom
-AIC: 277.35
+Residual deviance: 265.32  on 606  degrees of freedom
+AIC: 277.32
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1109,7 +1095,7 @@ Number of Fisher Scoring iterations: 7
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_47_0.png" src="../_images/practical_2_47_0.png" />
+<img alt="../_images/practical_2_46_0.png" src="../_images/practical_2_46_0.png" />
 </div>
 </div>
 </div>
@@ -1144,9 +1130,9 @@ Number of Fisher Scoring iterations: 7
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9657615 
-cor            : 0.7944736 
-max TPR+TNR at : 0.5028157 
+AUC            : 0.9777365 
+cor            : 0.8094166 
+max TPR+TNR at : 1.395631 
 </pre></div>
 </div>
 </div>
@@ -1162,7 +1148,7 @@ max TPR+TNR at : 0.5028157
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.5028157
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 1.395631
 </pre></div>
 </div>
 </div>
@@ -1181,7 +1167,7 @@ max TPR+TNR at : 0.5028157
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_55_0.png" src="../_images/practical_2_55_0.png" />
+<img alt="../_images/practical_2_54_0.png" src="../_images/practical_2_54_0.png" />
 </div>
 </div>
 </div>
@@ -1206,7 +1192,7 @@ max TPR+TNR at : 0.5028157
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_57_0.png" src="../_images/practical_2_57_0.png" />
+<img alt="../_images/practical_2_56_0.png" src="../_images/practical_2_56_0.png" />
 </div>
 </div>
 <p>One simple way to describe the modelled changes is simply to look at a table of the pair of model predictions:</p>
@@ -1218,9 +1204,8 @@ max TPR+TNR at : 0.5028157
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
-hist    FALSE TRUE
-  FALSE  5369    0
-  TRUE     64  139
+hist    FALSE
+  FALSE  5572
 </pre></div>
 </div>
 </div>
@@ -1244,7 +1229,15 @@ hist    FALSE TRUE
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Check the species without downloading - this shows the number of records</span>
 <span class="nf">gbif</span><span class="p">(</span><span class="s">&#39;Tapirus&#39;</span><span class="p">,</span> <span class="s">&#39;pinchaque&#39;</span><span class="p">,</span> <span class="n">download</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
-<span class="c1"># Download the data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">449</div></div>
+</div>
+<div class="cell tag_remove-stderr docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the data</span>
 <span class="n">locs</span> <span class="o">&lt;-</span> <span class="nf">gbif</span><span class="p">(</span><span class="s">&#39;Tapirus&#39;</span><span class="p">,</span> <span class="s">&#39;pinchaque&#39;</span><span class="p">)</span>
 <span class="n">locs</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">locs</span><span class="p">,</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">lat</span><span class="p">)</span> <span class="o">|</span> <span class="o">!</span> <span class="nf">is.na</span><span class="p">(</span><span class="n">lon</span><span class="p">))</span>
 <span class="c1"># Convert to an sf object </span>
@@ -1253,24 +1246,12 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">449</div><div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>449 records found
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>0-
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>300-
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>449 records downloaded
-</pre></div>
-</div>
 </div>
 </div>
 <ol class="simple">
 <li><p>You will then need to clean the GBIF points - have a look at the <code class="docutils literal notranslate"><span class="pre">sdm</span></code> vignette mentioned above for ways to tackle cleaning the data. One tip - check the <code class="docutils literal notranslate"><span class="pre">basisOfRecord</span></code> field because the GBIF occurence database includes things like the location of museum specimens. It is <em>much</em> harder to identify species introductions though.</p></li>
-<li><p>Select an appropriate extent for the modelling.</p></li>
-<li><p>Follow the process above to create tour model</p></li>
+<li><p>Select an appropriate extent for the modelling and update <code class="docutils literal notranslate"><span class="pre">model_extent</span></code>.</p></li>
+<li><p>Follow the process above to create your model.</p></li>
 </ol>
 </div>
 <div class="section" id="does-our-background-choice-matter">
@@ -1314,12 +1295,116 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_63_0.png" src="../_images/practical_2_63_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“glm.fit: fitted probabilities numerically 0 or 1 occurred”
+</pre></div>
+</div>
+<img alt="../_images/practical_2_63_1.png" src="../_images/practical_2_63_1.png" />
 </div>
 </div>
 </div>
-<div class="section" id="looking-at-test-and-training-data-partitions">
-<h3>Looking at test and training data partitions<a class="headerlink" href="#looking-at-test-and-training-data-partitions" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="cross-validation">
+<h3>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+<div class="admonition attention">
+<p class="admonition-title">Attention</p>
+<p>This exercise calls for more programming skills - you need to be able to write a loop and set up object to store data for each iteration through the loop.</p>
+</div>
+<p>The models above always use the same partitions for testing and training. A better approach is to perform <strong>k-fold cross validation</strong> to check that the model behavour is consistent across different partitions. This allows you to compare the performance of models taking into account the arbitrary structure of the partitioning.</p>
+<p>Here, we have used a completely random partition of the data, but it is worth looking at this recent paper arguing for a spatially structured approach to data partitions in SDM testing:</p>
+<blockquote>
+<div><p>Valavi, R, Elith, J, Lahoz‐Monfort, JJ, Guillera‐Arroita, G. blockCV: An r package for generating spatially or environmentally separated folds for k‐fold cross‐validation of species distribution models. Methods Ecol Evol. 2019; 10: 225– 232. <a class="reference external" href="https://doi.org/10.1111/2041-210X.13107">https://doi.org/10.1111/2041-210X.13107</a></p>
+</div></blockquote>
+<p>Try and create the output below, collecting the ROC lines and AUCs across all five possible test partitions of the GLM model. There are two things here that are more difficult:</p>
+<ol class="simple">
+<li><p>A way to get the ROC data from the output of <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> - this is not obvious because <code class="docutils literal notranslate"><span class="pre">dismo</span></code> uses a different coding approach (<a class="reference external" href="http://adv-r.had.co.nz/S4.html">S4 methods</a>) that is a bit more obscure. Don’t worry about this - just use the function! Similarly, you need to know that to get the AUC value, you need to use <code class="docutils literal notranslate"><span class="pre">glm_eval&#64;auc</span></code>.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">get_roc_data</span> <span class="o">&lt;-</span> <span class="nf">function</span><span class="p">(</span><span class="n">eval</span><span class="p">){</span>
+    <span class="c1">#&#39; get_roc_data</span>
+    <span class="c1">#&#39; </span>
+    <span class="c1">#&#39; This is a function to return a dataframe of true positive</span>
+    <span class="c1">#&#39; rate and false positive rate from a dismo evalulate output</span>
+    <span class="c1">#&#39; </span>
+    <span class="c1">#&#39; @param eval An object create by `evaluate` (S4 class ModelEvaluation)</span>
+    
+    <span class="n">roc</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">FPR</span> <span class="o">=</span> <span class="n">eval</span><span class="o">@</span><span class="n">FPR</span><span class="p">,</span> <span class="n">TPR</span> <span class="o">=</span> <span class="n">eval</span><span class="o">@</span><span class="n">TPR</span><span class="p">)</span>
+    <span class="nf">return</span><span class="p">(</span><span class="n">roc</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ol class="simple">
+<li><p>You want each model evaluation to be carried out using the <strong>same threshold breakpoints</strong>, otherwise it is difficult to align the outputs of the different partitions. We can give <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> a set of breakpoints but - for the GLM - the breakpoints are on that mysterious <em>scale of the linear predictors</em>. The following approach allows you to set those breakpoints.</p></li>
+</ol>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Take a sequence of probability values from 0 to 1</span>
+<span class="n">thresholds</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="m">1</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">0.01</span><span class="p">)</span>
+<span class="c1"># Convert to the default scale for a binomial GLM</span>
+<span class="n">thresholds</span> <span class="o">&lt;-</span> <span class="nf">qlogis</span><span class="p">(</span><span class="n">thresholds</span><span class="p">)</span>
+<span class="c1"># Use in evaluate</span>
+<span class="n">eval</span> <span class="o">&lt;-</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">test_present</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">test_absent</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">glm_model</span><span class="p">,</span> 
+                  <span class="n">x</span><span class="o">=</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="n">thresholds</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make some objects to store the data</span>
+<span class="n">tpr_all</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">thresholds</span><span class="p">))</span>
+<span class="n">fpr_all</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">thresholds</span><span class="p">))</span>
+<span class="n">auc</span> <span class="o">&lt;-</span> <span class="nf">numeric</span><span class="p">(</span><span class="n">length</span><span class="o">=</span><span class="m">5</span><span class="p">)</span>
+
+<span class="c1"># Loop over the values 1 to 5</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">test_partition</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+
+    <span class="c1"># Fit the model, holding back this test partition</span>
+    <span class="n">model</span> <span class="o">&lt;-</span> <span class="nf">glm</span><span class="p">(</span><span class="n">pa</span> <span class="o">~</span> <span class="n">bio2</span> <span class="o">+</span> <span class="n">bio4</span> <span class="o">+</span> <span class="n">bio3</span> <span class="o">+</span> <span class="n">bio1</span> <span class="o">+</span> <span class="n">bio12</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">pa_data</span><span class="p">,</span> 
+                 <span class="n">family</span><span class="o">=</span><span class="nf">binomial</span><span class="p">(</span><span class="n">link</span> <span class="o">=</span> <span class="s">&quot;logit&quot;</span><span class="p">),</span>
+                 <span class="n">subset</span><span class="o">=</span><span class="n">kfold</span> <span class="o">!=</span> <span class="n">test_partition</span><span class="p">)</span>
+    
+    <span class="c1"># Evaluate the model using the retained partition</span>
+    <span class="n">test_present</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">pa_data</span><span class="p">,</span> <span class="n">pa</span> <span class="o">==</span> <span class="m">1</span> <span class="o">&amp;</span> <span class="n">kfold</span> <span class="o">==</span> <span class="n">test_partition</span><span class="p">))</span>
+    <span class="n">test_absent</span> <span class="o">&lt;-</span> <span class="nf">st_coordinates</span><span class="p">(</span><span class="nf">subset</span><span class="p">(</span><span class="n">pa_data</span><span class="p">,</span> <span class="n">pa</span> <span class="o">==</span> <span class="m">0</span> <span class="o">&amp;</span> <span class="n">kfold</span> <span class="o">==</span> <span class="n">test_partition</span><span class="p">))</span>
+    <span class="n">eval</span> <span class="o">&lt;-</span> <span class="nf">evaluate</span><span class="p">(</span><span class="n">p</span><span class="o">=</span><span class="n">test_present</span><span class="p">,</span> <span class="n">a</span><span class="o">=</span><span class="n">test_absent</span><span class="p">,</span> <span class="n">model</span><span class="o">=</span><span class="n">glm_model</span><span class="p">,</span> 
+                     <span class="n">x</span><span class="o">=</span><span class="n">bioclim_hist_local</span><span class="p">,</span> <span class="n">tr</span><span class="o">=</span><span class="n">thresholds</span><span class="p">)</span>
+
+    <span class="c1"># Store the data</span>
+    <span class="n">auc</span><span class="p">[</span><span class="n">test_partition</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">eval</span><span class="o">@</span><span class="n">auc</span>
+    <span class="n">roc</span> <span class="o">&lt;-</span> <span class="nf">get_roc_data</span><span class="p">(</span><span class="n">eval</span><span class="p">)</span>
+    <span class="n">tpr_all</span><span class="p">[,</span><span class="n">test_partition</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">roc</span><span class="o">$</span><span class="n">TPR</span>
+    <span class="n">fpr_all</span><span class="p">[,</span><span class="n">test_partition</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="n">roc</span><span class="o">$</span><span class="n">FPR</span>
+<span class="p">}</span>
+
+<span class="c1"># Create a blank plot to showing the mean ROC and the individual traces</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">rowMeans</span><span class="p">(</span><span class="n">fpr_all</span><span class="p">),</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">tpr_all</span><span class="p">),</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;n&#39;</span><span class="p">)</span>
+
+<span class="c1"># Add the individual lines</span>
+<span class="nf">for </span><span class="p">(</span><span class="n">test_partition</span> <span class="n">in</span> <span class="m">1</span><span class="o">:</span><span class="m">5</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nf">lines</span><span class="p">(</span><span class="n">fpr_all</span><span class="p">[,</span> <span class="n">test_partition</span><span class="p">],</span> <span class="n">tpr_all</span><span class="p">[,</span> <span class="n">test_partition</span><span class="p">],</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;grey&#39;</span><span class="p">)</span>
+<span class="p">}</span>
+
+<span class="c1"># Add the mean line</span>
+<span class="nf">lines</span><span class="p">(</span><span class="nf">rowMeans</span><span class="p">(</span><span class="n">fpr_all</span><span class="p">),</span> <span class="nf">rowMeans</span><span class="p">(</span><span class="n">tpr_all</span><span class="p">))</span>
+
+<span class="nf">print</span><span class="p">(</span><span class="n">auc</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="nf">mean</span><span class="p">(</span><span class="n">auc</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9777365 0.9677978 0.9706527 0.9658934 0.9583404
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9680842
+</pre></div>
+</div>
+<img alt="../_images/practical_2_68_2.png" src="../_images/practical_2_68_2.png" />
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="reducing-the-set-of-variables">
@@ -1347,7 +1432,7 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_65_0.png" src="../_images/practical_2_65_0.png" />
+<img alt="../_images/practical_2_70_0.png" src="../_images/practical_2_70_0.png" />
 </div>
 </div>
 </div>
