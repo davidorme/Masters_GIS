@@ -727,8 +727,7 @@ There are a huge range of different formats for spatial data. Fortunately, the `
 ### Saving vector data
 
 ```{code-cell} r
-:tags: []
-
+:tags: [remove-cell]
 # This chunk removes existing demo outputs so they can be recreated in the following chunks
 files <- dir('data', 'uk_eire*|uk_raster_*', full.names=TRUE)
 print(files)
@@ -797,7 +796,7 @@ The life expectancy plot has been altered to show less blocky colours in a nicer
 ```
 
 ```{code-cell} r
-:tags: [hide-cell]
+:tags: [hide-input]
 
 # Generate two stacked plots with narrow margins
 par(mfrow=c(2,1), mar=c(1,1,1,1))
