@@ -796,7 +796,7 @@ The life expectancy plot has been altered to show less blocky colours in a nicer
 ```
 
 ```{code-cell} r
-:tags: [hide-cell]
+:tags: [hide-input]
 
 # Generate two stacked plots with narrow margins
 par(mfrow=c(2,1), mar=c(1,1,1,1))

@@ -448,10 +448,10 @@ glm_eval <- evaluate(p=test_present, a=test_absent, model=glm_model,
 print(glm_eval)
 ```
 
-3. Find the maximum kappa threshold
+3. Find the maximum kappa threshold. This is a little more complicated than before the threshold we get is again on the *scale of the linear predictor*. For this kind of GLM, we can use `plogis` to convert back.
 
 ```{code-cell} R
-max_kappa <- threshold(glm_eval, stat='kappa')
+max_kappa <- plogis(threshold(glm_eval, stat='kappa'))
 print(max_kappa)
 ```
 

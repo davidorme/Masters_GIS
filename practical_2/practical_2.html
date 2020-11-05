@@ -774,6 +774,12 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
@@ -896,9 +902,9 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9662675 
-cor            : 0.7130342 
-max TPR+TNR at : 0.01623987 
+AUC            : 0.9685444 
+cor            : 0.711078 
+max TPR+TNR at : 0.02277582 
 </pre></div>
 </div>
 </div>
@@ -1002,11 +1008,11 @@ max TPR+TNR at : 0.01623987
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>2</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>2</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>1</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>3</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>1</th><td>1</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>4</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>5</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>4</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
 	<tr><th scope=row>10</th><td>4</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
@@ -1029,11 +1035,11 @@ max TPR+TNR at : 0.01623987
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>2</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>2</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>1</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>3</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>1</th><td>1</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>5</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>4</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
 	<tr><th scope=row>10</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
@@ -1073,25 +1079,25 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
     data = pa_data, subset = kfold != 1)
 
 Deviance Residuals: 
-     Min        1Q    Median        3Q       Max  
--2.88447  -0.14238   0.03881   0.35305   3.00720  
+    Min       1Q   Median       3Q      Max  
+-2.9439  -0.1356   0.0347   0.4295   3.0607  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -9.441e+00  8.040e+00  -1.174   0.2403    
-bio2         5.105e-02  2.706e-02   1.887   0.0592 .  
-bio4         1.424e-05  2.342e-03   0.006   0.9951    
-bio3         1.330e-01  8.359e-02   1.591   0.1115    
-bio1        -7.113e-02  6.838e-03 -10.403  &lt; 2e-16 ***
-bio12        1.303e-03  2.671e-04   4.879 1.07e-06 ***
+(Intercept) -9.895e+00  7.770e+00  -1.274   0.2028    
+bio2         5.657e-02  2.459e-02   2.300   0.0214 *  
+bio4        -7.802e-05  2.003e-03  -0.039   0.9689    
+bio3         1.245e-01  7.734e-02   1.610   0.1074    
+bio1        -7.509e-02  7.417e-03 -10.124  &lt; 2e-16 ***
+bio12        1.862e-03  3.334e-04   5.584 2.35e-08 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 259.20  on 606  degrees of freedom
-AIC: 271.2
+Residual deviance: 285.94  on 606  degrees of freedom
+AIC: 297.94
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1142,25 +1148,25 @@ Number of Fisher Scoring iterations: 7
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9138135 
-cor            : 0.7529484 
-max TPR+TNR at : 0.3829958 
+AUC            : 0.9389442 
+cor            : 0.7740639 
+max TPR+TNR at : 1.178624 
 </pre></div>
 </div>
 </div>
 </div>
 <ol class="simple">
-<li><p>Find the maximum kappa threshold</p></li>
+<li><p>Find the maximum kappa threshold. This is a little more complicated than before the threshold we get is again on the <em>scale of the linear predictor</em>. For this kind of GLM, we can use <code class="docutils literal notranslate"><span class="pre">plogis</span></code> to convert back.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">max_kappa</span> <span class="o">&lt;-</span> <span class="nf">threshold</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s">&#39;kappa&#39;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">max_kappa</span> <span class="o">&lt;-</span> <span class="nf">plogis</span><span class="p">(</span><span class="nf">threshold</span><span class="p">(</span><span class="n">glm_eval</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s">&#39;kappa&#39;</span><span class="p">))</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">max_kappa</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.3829958
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.7647003
 </pre></div>
 </div>
 </div>
@@ -1217,8 +1223,8 @@ max TPR+TNR at : 0.3829958
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
 hist    FALSE TRUE
-  FALSE  5313    0
-  TRUE     75  184
+  FALSE  5435    0
+  TRUE     62   75
 </pre></div>
 </div>
 </div>
@@ -1405,10 +1411,10 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9138135 0.9705679 0.9268005 0.9814751 0.9718334
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9389442 0.9406163 0.9559791 0.9880540 0.9686288
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.952898
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9584445
 </pre></div>
 </div>
 <img alt="../_images/practical_2_68_2.png" src="../_images/practical_2_68_2.png" />
