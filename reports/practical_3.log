@@ -17,33 +17,20 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Calculate correlograms for the residuals in the two models
-simple.correlog <- with(data_sf, correlog(x, y, simple_resid, increment=distance, resamp=0))
-sar.correlog <- with(data_sf, correlog(x, y, sar_resid, increment=distance, resamp=0))
-
-# Convert those to make them easier to plot
-simple.correlog <- data.frame(simple.correlog[1:3])
-sar.correlog <- data.frame(sar.correlog[1:3])
-
-# plot a correlogram for shorter distances
-plot(correlation ~ mean.of.class, data=simple.correlog, type='o', subset=mean.of.class < 5000)
-# add the data for the SAR model to compare them
-lines(correlation ~ mean.of.class, data=sar.correlog, type='o', subset=mean.of.class < 5000, col='red')
-
-# add a horizontal  zero correlation line
-abline(h=0)
+eigen_mod <- lm(avian_richness ~ mean_aet + elev + mean_temp) + ev_1 + ev_2 +
+                ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9, data=data_sf)
+summary(eigen_mod)
 ------------------
 
-Error in dmat/increment: non-numeric argument to binary operator
+Error in parse(text = x, srcfile = src): <text>:2:63: unexpected ','
+1: eigen_mod <- lm(avian_richness ~ mean_aet + elev + mean_temp) + ev_1 + ev_2 +
+2:                 ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9,
+                                                                 ^
 Traceback:
 
-1. with(data_sf, correlog(x, y, simple_resid, increment = distance, 
- .     resamp = 0))
-2. with.default(data_sf, correlog(x, y, simple_resid, increment = distance, 
- .     resamp = 0))
-3. eval(substitute(expr), data, enclos = parent.frame())
-4. eval(substitute(expr), data, enclos = parent.frame())
-5. correlog(x, y, simple_resid, increment = distance, resamp = 0)
-ERROR: Error in dmat/increment: non-numeric argument to binary operator
+ERROR: Error in parse(text = x, srcfile = src): <text>:2:63: unexpected ','
+1: eigen_mod <- lm(avian_richness ~ mean_aet + elev + mean_temp) + ev_1 + ev_2 +
+2:                 ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9,
+                                                                 ^
 
 

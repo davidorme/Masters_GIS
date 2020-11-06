@@ -303,6 +303,11 @@
    Generalised least squares
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#eigenvector-filtering">
+   Eigenvector filtering
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -336,6 +341,7 @@
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spatialreg&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;nlme&#39;</span><span class="p">)</span> <span class="c1"># GLS</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spgwr&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spmoran&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>As usual, you then need to load the packages:</p>
@@ -349,6 +355,7 @@
 <span class="nf">library</span><span class="p">(</span><span class="n">spatialreg</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">nlme</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">spgwr</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">spmoran</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1110,7 +1117,7 @@ Degrees of freedom: 2479 total; 2475 residual
 </div>
 </div>
 </div>
-<p>That looks very like the normal <code class="docutils literal notranslate"><span class="pre">lm</span></code> output, except that it has added a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see <span class="xref myst">Practical 2</span>).</p>
+<p>That looks very like the normal <code class="docutils literal notranslate"><span class="pre">lm</span></code> output - and indeed the coefficients are identical to the same model fitted using <code class="docutils literal notranslate"><span class="pre">lm</span></code> above. One difference is <code class="docutils literal notranslate"><span class="pre">gls</span></code> output includes a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see <span class="xref myst">Practical 2</span>).</p>
 <p>To add spatial autocorrelation into the model we have to create a spatial correlation structure. The example below uses the Gaussian model. You can look at <code class="docutils literal notranslate"><span class="pre">?corGaus</span></code> for the equation but essentially this model describes how the expected correlation decreases from an initial value with increasing distance until a range threshold is met - after that the data is expected to be uncorrelated. The constructor needs to know the spatial coordinates of the data (using <code class="docutils literal notranslate"><span class="pre">form</span></code>) and then the other arguments set the shape of the curve. You can set <code class="docutils literal notranslate"><span class="pre">fixed=FALSE</span></code> and the model will then try and optimise the range and nugget parameters, but this can take hours.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1220,6 +1227,142 @@ Degrees of freedom: 2479 total; 2475 residual
 <div class="cell_output docutils container">
 <img alt="../_images/practical_3_69_0.png" src="../_images/practical_3_69_0.png" />
 </div>
+</div>
+</div>
+<div class="section" id="eigenvector-filtering">
+<h2>Eigenvector filtering<a class="headerlink" href="#eigenvector-filtering" title="Permalink to this headline">¶</a></h2>
+<p>This is yet another approach to incorporating spatial structure. In the example below, we take a set of neighbourhood weights and convert them into eigenvector filters using the <code class="docutils literal notranslate"><span class="pre">meigen</span></code> function from <code class="docutils literal notranslate"><span class="pre">spmoran</span></code>. Again, the package vignette is a great place for further data (although the vignette name is a bit unhelpfully generic!)</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">vignette</span><span class="p">(</span><span class="s">&#39;vignettes&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s">&#39;spmoran&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="admonition-sidebar-about-package-quality admonition">
+<p class="admonition-title">Sidebar about package quality</p>
+<p>If you look at the details of <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> you will see that it is (currently!) version <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>. A version number less than 1.0.0 means that the package is in development. It is often a good idea to be wary of in development and infrequently used packages: packages on CRAN have to be formatted correctly so that they build and install cleanly but there is no systematic check that the code they contain works correctly.</p>
+<p>In this case, Daisuke Murakami is a co-author of many papers with Daniel Griffith on eigenvector filtering and the quality and detail in the vignette is an <em>excellent</em> indication of the care and attention put into the package.</p>
+<blockquote>
+<div><p>Murakami, D. and Griffith, D.A. (2015) Random effects specifications in eigenvector spatial
+filtering: a simulation study. Journal of Geographical Systems, 17 (4), 311-331.</p>
+</div></blockquote>
+</div>
+<p>In order to use this, we first need to extract the eigenvectors from our neighbourhood list. We need a different format, so we need to recreate the initial neighbours and then convert those to a weights <em>matrix</em> rather than sets of neighbour weights.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the neighbours</span>
+<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+<span class="c1"># Convert to eigenvector filters - this is a bit slow</span>
+<span class="n">queen_eigen</span> <span class="o">&lt;-</span> <span class="nf">meigen</span><span class="p">(</span><span class="n">cmat</span> <span class="o">=</span> <span class="nf">nb2mat</span><span class="p">(</span><span class="n">queen</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;W&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> Note:
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   cmat is symmetrized by ( cmat + t( cmat ) ) / 2
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span> 836/2479 eigen-pairs are extracted
+</pre></div>
+</div>
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">queen_eigen</span></code> object contains a matrix <code class="docutils literal notranslate"><span class="pre">sf</span></code> of spatial filters (not the same as the <code class="docutils literal notranslate"><span class="pre">sf</span></code> data frame class!) and a vector <code class="docutils literal notranslate"><span class="pre">ev</span></code> of eigenvalues. Each column in <code class="docutils literal notranslate"><span class="pre">queen_eigen$sf</span></code> shows a different pattern in the spatial structure and has a value for each data point; the corresponding eigenvalue is a measure of the strength of that pattern.</p>
+<p>We’ll look at some examples:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the `sf` matrix of eigenvectors into a data frame</span>
+<span class="n">queen_eigen_filters</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">queen_eigen</span><span class="o">$</span><span class="n">sf</span><span class="p">)</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">queen_eigen_filters</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;ev_&#39;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="nf">ncol</span><span class="p">(</span><span class="n">queen_eigen_filters</span><span class="p">))</span>
+
+<span class="c1"># Combine this with the model data frame - note this approach</span>
+<span class="c1"># for combining an sf dataframe and another dataframe by rows</span>
+<span class="n">data_sf</span> <span class="o">&lt;-</span> <span class="nf">st_sf</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">queen_eigen_filters</span><span class="p">))</span>
+
+<span class="c1"># Visualise 9 of the strongest filters and 1 weaker one for comparison</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;ev_1&#39;</span><span class="p">,</span> <span class="s">&#39;ev_2&#39;</span><span class="p">,</span> <span class="s">&#39;ev_3&#39;</span><span class="p">,</span> <span class="s">&#39;ev_4&#39;</span><span class="p">,</span> <span class="s">&#39;ev_5&#39;</span><span class="p">,</span> <span class="s">&#39;ev_6&#39;</span><span class="p">,</span> 
+               <span class="s">&#39;ev_7&#39;</span><span class="p">,</span> <span class="s">&#39;ev_8&#39;</span><span class="p">,</span> <span class="s">&#39;ev_9&#39;</span><span class="p">,</span> <span class="s">&#39;ev_800&#39;</span><span class="p">)],</span>
+     <span class="n">pal</span><span class="o">=</span><span class="n">hcl.colors</span><span class="p">,</span> <span class="n">max.plot</span><span class="o">=</span><span class="m">10</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_73_0.png" src="../_images/practical_3_73_0.png" />
+</div>
+</div>
+<p>The <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package provides a set of more sophisticated (and time-consuming) approaches but here we are simply going to add some eigenvector filters to a standard linear model. We will use the first 9 eigenvectors.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">eigen_mod</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">mean_aet</span> <span class="o">+</span> <span class="n">elev</span> <span class="o">+</span> <span class="n">mean_temp</span> <span class="o">+</span> <span class="n">ev_1</span> <span class="o">+</span> <span class="n">ev_2</span> <span class="o">+</span>
+                <span class="n">ev_3</span> <span class="o">+</span> <span class="n">ev_4</span> <span class="o">+</span> <span class="n">ev_5</span> <span class="o">+</span> <span class="n">ev_6</span> <span class="o">+</span> <span class="n">ev_7</span> <span class="o">+</span> <span class="n">ev_8</span> <span class="o">+</span> <span class="n">ev_9</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">eigen_mod</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = avian_richness ~ mean_aet + elev + mean_temp + ev_1 + 
+    ev_2 + ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9, data = data_sf)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-186.443  -49.031    0.535   48.127  315.401 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  2.506e+02  3.536e+01   7.086 1.79e-12 ***
+mean_aet     1.443e-01  5.567e-03  25.917  &lt; 2e-16 ***
+elev         5.575e-02  6.288e-03   8.867  &lt; 2e-16 ***
+mean_temp   -5.142e+00  1.227e+00  -4.190 2.89e-05 ***
+ev_1         3.781e+02  7.007e+01   5.396 7.48e-08 ***
+ev_2         1.560e+03  7.314e+01  21.333  &lt; 2e-16 ***
+ev_3        -1.056e+03  7.256e+01 -14.558  &lt; 2e-16 ***
+ev_4        -1.997e+02  1.182e+02  -1.690   0.0912 .  
+ev_5         1.557e+02  1.032e+02   1.509   0.1315    
+ev_6         1.916e+02  9.099e+01   2.106   0.0353 *  
+ev_7         1.508e+02  7.029e+01   2.146   0.0320 *  
+ev_8         1.166e+03  7.479e+01  15.585  &lt; 2e-16 ***
+ev_9        -3.158e+02  6.994e+01  -4.515 6.62e-06 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 68.23 on 2466 degrees of freedom
+Multiple R-squared:  0.6251,	Adjusted R-squared:  0.6232 
+F-statistic: 342.6 on 12 and 2466 DF,  p-value: &lt; 2.2e-16
+</pre></div>
+</div>
+</div>
+</div>
+<p>In that output, we do not really care about the coefficients for each filter: those elements are just in the model to control for spatial autocorrelation. We might want to remove filters that are not significant.</p>
+<p>Using the tools above, we can look at the residual spatial autocorrelation and predictions from this model.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">eigen_fit</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">eigen_mod</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">eigen_resid</span> <span class="o">&lt;-</span> <span class="nf">resid</span><span class="p">(</span><span class="n">eigen_mod</span><span class="p">)</span>
+
+<span class="n">eigen.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">eigen_resid</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
+<span class="n">eigen.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">eigen.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+
+<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="s">&#39;eigen_fit&#39;</span><span class="p">],</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.7</span><span class="p">,</span>  <span class="n">key.pos</span><span class="o">=</span><span class="kc">NULL</span><span class="p">,</span> <span class="n">reset</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="c1"># plot a correlogram for shorter distances</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">simple.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">)</span>
+<span class="c1"># add the data for the SAR model to compare them</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">eigen.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_77_0.png" src="../_images/practical_3_77_0.png" />
+</div>
+</div>
+<p>That is not much of an improvement either. To be fair to the <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package, the approach is intended to consider a much larger set of filters and go through a selection process. The modelling functions in <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> do not use the formula interface - which is a bit hardcore - but the code would be as follows. I <strong>do not recommend running</strong> this now - I have no idea of how long it would take to finish but it is at least quarter of an hour and might be days.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a dataframe of the explanatory variables</span>
+<span class="n">expl</span> <span class="o">&lt;-</span> <span class="n">data_sf</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;elev&#39;</span><span class="p">,</span><span class="s">&#39;mean_temp&#39;</span><span class="p">,</span><span class="s">&#39;mean_aet&#39;</span><span class="p">)]</span>
+<span class="c1"># This retains the geometry, so we need to convert back to a simple dataframe</span>
+<span class="nf">st_geometry</span><span class="p">(</span><span class="n">expl</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="kc">NULL</span>
+<span class="c1"># Fit the model, optimising the AIC</span>
+<span class="n">eigen_spmoran</span> <span class="o">&lt;-</span> <span class="nf">esf</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">meig</span><span class="o">=</span><span class="n">queen_eigen</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="s">&#39;aic&#39;</span><span class="p">)</span>
+</pre></div>
 </div>
 </div>
 </div>
