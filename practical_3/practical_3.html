@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Spatial modelling in R &#8212; GIS and Spatial Methods in R</title>
+    <title>Practical 3: Spatial modelling in R &#8212; GIS and Spatial Methods in R</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -108,7 +108,7 @@
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Spatial modelling in R
+   Practical 3: Spatial modelling in R
   </a>
  </li>
 </ul>
@@ -314,8 +314,8 @@
         
               <div>
                 
-  <div class="section" id="spatial-modelling-in-r">
-<h1>Spatial modelling in R<a class="headerlink" href="#spatial-modelling-in-r" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="practical-3-spatial-modelling-in-r">
+<h1>Practical 3: Spatial modelling in R<a class="headerlink" href="#practical-3-spatial-modelling-in-r" title="Permalink to this headline">¶</a></h1>
 <p>This practical looks at some of the problems of fitting statistical models to spatial data, using the statistical software R. We are going to be covering a lot of ground but:</p>
 <blockquote>
 <div><p>Do <strong>not</strong> panic.</p>
@@ -333,6 +333,7 @@
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;SpatialPack&#39;</span><span class="p">)</span> <span class="c1"># For clifford test</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spdep&#39;</span><span class="p">)</span> <span class="c1"># Spatial dependence</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spatialreg&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;nlme&#39;</span><span class="p">)</span> <span class="c1"># GLS</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spgwr&#39;</span><span class="p">)</span>
 </pre></div>
@@ -345,6 +346,7 @@
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">spdep</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">SpatialPack</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">spatialreg</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">nlme</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">spgwr</span><span class="p">)</span>
 </pre></div>
@@ -939,73 +941,8 @@ F-statistic: 721.4 on 3 and 2475 DF,  p-value: &lt; 2.2e-16
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
-“Function errorsarlm moved to the spatialreg package”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Registered S3 methods overwritten by &#39;spatialreg&#39;:
-  method                   from 
-  residuals.stsls          spdep
-  deviance.stsls           spdep
-  coef.stsls               spdep
-  print.stsls              spdep
-  summary.stsls            spdep
-  print.summary.stsls      spdep
-  residuals.gmsar          spdep
-  deviance.gmsar           spdep
-  coef.gmsar               spdep
-  fitted.gmsar             spdep
-  print.gmsar              spdep
-  summary.gmsar            spdep
-  print.summary.gmsar      spdep
-  print.lagmess            spdep
-  summary.lagmess          spdep
-  print.summary.lagmess    spdep
-  residuals.lagmess        spdep
-  deviance.lagmess         spdep
-  coef.lagmess             spdep
-  fitted.lagmess           spdep
-  logLik.lagmess           spdep
-  fitted.SFResult          spdep
-  print.SFResult           spdep
-  fitted.ME_res            spdep
-  print.ME_res             spdep
-  print.lagImpact          spdep
-  plot.lagImpact           spdep
-  summary.lagImpact        spdep
-  HPDinterval.lagImpact    spdep
-  print.summary.lagImpact  spdep
-  print.sarlm              spdep
-  summary.sarlm            spdep
-  residuals.sarlm          spdep
-  deviance.sarlm           spdep
-  coef.sarlm               spdep
-  vcov.sarlm               spdep
-  fitted.sarlm             spdep
-  logLik.sarlm             spdep
-  anova.sarlm              spdep
-  predict.sarlm            spdep
-  print.summary.sarlm      spdep
-  print.sarlm.pred         spdep
-  as.data.frame.sarlm.pred spdep
-  residuals.spautolm       spdep
-  deviance.spautolm        spdep
-  coef.spautolm            spdep
-  fitted.spautolm          spdep
-  print.spautolm           spdep
-  summary.spautolm         spdep
-  logLik.spautolm          spdep
-  print.summary.spautolm   spdep
-  print.WXImpact           spdep
-  summary.WXImpact         spdep
-  print.summary.WXImpact   spdep
-  predict.SLX              spdep
-</pre></div>
-</div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:spatialreg::errorsarlm(formula = formula, data = data, listw = listw, 
-    na.action = na.action, Durbin = Durbin, etype = etype, method = method, 
-    quiet = quiet, zero.policy = zero.policy, interval = interval, 
-    tol.solve = tol.solve, trs = trs, control = control)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:errorsarlm(formula = avian_richness ~ mean_aet + elev + mean_temp, 
+    data = data_sf, listw = queen)
 
 Residuals:
        Min         1Q     Median         3Q        Max 
@@ -1034,7 +971,7 @@ AIC: 22398, (AIC for lm: 28844)
 </div>
 </div>
 <p>We can then look at the <strong>predictions</strong> of those models. We can extract the predicted values for each point and put them into our spatial data frame and then map them.</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the predictions from the model into the spatial data frame</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">simple_fit</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">simple_model</span><span class="p">)</span>
@@ -1046,9 +983,6 @@ AIC: 22398, (AIC for lm: 28844)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This method assumes the response is known - see manual page
-</pre></div>
-</div>
 <img alt="../_images/practical_3_51_1.png" src="../_images/practical_3_51_1.png" />
 </div>
 </div>
@@ -1058,30 +992,13 @@ AIC: 22398, (AIC for lm: 28844)
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the residuals from the model into the spatial data frame</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">simple_resid</span> <span class="o">&lt;-</span> <span class="nf">residuals</span><span class="p">(</span><span class="n">simple_model</span><span class="p">)</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">sar_resid</span> <span class="o">&lt;-</span> <span class="nf">residuals</span><span class="p">(</span><span class="n">sar_model</span><span class="p">)</span>
-<span class="c1"># Create a 21 colour ramp from blue to red, centred on zero</span>
-<span class="n">colPal</span> <span class="o">&lt;-</span> <span class="nf">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;cornflowerblue&#39;</span><span class="p">,</span> <span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;firebrick&#39;</span><span class="p">))</span>
-<span class="n">colours</span> <span class="o">&lt;-</span> <span class="nf">colPal</span><span class="p">(</span><span class="m">21</span><span class="p">)</span>
-<span class="n">breaks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-600</span><span class="p">,</span> <span class="m">600</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="m">21</span><span class="p">)</span>
-<span class="c1"># plot the residuals side by side</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;avian_richness&#39;</span><span class="p">,</span><span class="s">&#39;simple_fit&#39;</span><span class="p">,</span><span class="s">&#39;sar_fit&#39;</span><span class="p">)],</span> 
-     <span class="n">col</span><span class="o">=</span><span class="n">colours</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="n">breaks</span><span class="p">)</span>
+ <span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;avian_richness&#39;</span><span class="p">,</span><span class="s">&#39;simple_resid&#39;</span><span class="p">,</span> <span class="s">&#39;sar_resid&#39;</span><span class="p">)],</span> 
+      <span class="n">pal</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="s">&#39;Blue-Red&#39;</span><span class="p">),</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
-“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
-“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
-“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
-</pre></div>
-</div>
-<img alt="../_images/practical_3_53_3.png" src="../_images/practical_3_53_3.png" />
+<img alt="../_images/practical_3_53_0.png" src="../_images/practical_3_53_0.png" />
 </div>
 </div>
 <div class="section" id="correlograms">

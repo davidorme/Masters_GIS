@@ -12,7 +12,7 @@ kernelspec:
   name: ir
 ---
 
-# Spatial modelling in R
+# Practical 3: Spatial modelling in R
 
 This practical looks at some of the problems of fitting statistical models to spatial data, using the statistical software R. We are going to be covering a lot of ground but:
 
@@ -38,6 +38,7 @@ install.packages('raster')
 install.packages('sf')
 install.packages('SpatialPack') # For clifford test
 install.packages('spdep') # Spatial dependence
+install.packages('spatialreg')
 install.packages('nlme') # GLS
 install.packages('spgwr')
 ```
@@ -51,6 +52,7 @@ library(raster)
 library(sf)
 library(spdep)
 library(SpatialPack)
+library(spatialreg)
 library(nlme)
 library(spgwr)
 ```
@@ -413,6 +415,7 @@ summary(sar_model)
 We can then look at the **predictions** of those models. We can extract the predicted values for each point and put them into our spatial data frame and then map them. 
 
 ```{code-cell} R
+:tags: [remove-stderr]
 # extract the predictions from the model into the spatial data frame
 data_sf$simple_fit <- predict(simple_model)
 data_sf$sar_fit <- predict(sar_model)
@@ -427,13 +430,8 @@ We can also look at the **residuals** of those models -  the differences between
 # extract the residuals from the model into the spatial data frame
 data_sf$simple_resid <- residuals(simple_model)
 data_sf$sar_resid <- residuals(sar_model)
-# Create a 21 colour ramp from blue to red, centred on zero
-colPal <- colorRampPalette(c('cornflowerblue', 'grey','firebrick'))
-colours <- colPal(21)
-breaks <- seq(-600, 600, length=21)
-# plot the residuals side by side
-plot(data_sf[c('avian_richness','simple_fit','sar_fit')], 
-     col=colours, at=breaks)
+ plot(data_sf[c('avian_richness','simple_resid', 'sar_resid')], 
+      pal=function(n) hcl.colors(n, pal='Blue-Red'), key.pos=4)
 ```
 
 ### Correlograms
