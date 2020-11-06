@@ -399,7 +399,7 @@ We can now fit the GLM using a model formula: the `family=binomial(link = "logit
 
 Three things you do need to know:
 
-* The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of `bioclim` variables are very strongly correlated. The five variables are chosen to represent related groups of variables ([show me how!](#Reducing-the-set-of-variables)). 
+* The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of `bioclim` variables are very strongly correlated. The five variables are chosen to represent related groups of variables ([show me how!](#reducing-the-set-of-variables)). 
 
 * The `subset` argument is used to hold back one of the `kfold` partitions for testing.
 

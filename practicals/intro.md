@@ -22,7 +22,7 @@ There will be a team of demonstrators to help you when you get stuck but please 
 
 1. Ask *yourself* what you are trying to do: often stepping back and trying to write out an explanation for your problem helps you solve it.
 
-2. Ask the *internet*: Sites like [stackoverflow.com]() are an invaluable resource.
+2. Ask the *internet*: Sites like [stackoverflow.com](https://stackoverflow.com) are an invaluable resource and you can use *tags* on `stackoverflow` (e.g. `[R]` or `[sf]`) to narrow down your search.
 
 3. Ask *each other*: it can be really helpful to get together in a short Team meeting and crowd source an answer.
 
