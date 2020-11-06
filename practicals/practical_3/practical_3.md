@@ -41,6 +41,7 @@ install.packages('spdep') # Spatial dependence
 install.packages('spatialreg')
 install.packages('nlme') # GLS
 install.packages('spgwr')
+install.packages('spmoran')
 ```
 
 As usual, you then need to load the packages:
@@ -55,6 +56,7 @@ library(SpatialPack)
 library(spatialreg)
 library(nlme)
 library(spgwr)
+library(spmoran)
 ```
 
 ## The dataset
@@ -487,7 +489,6 @@ lines(correlation ~ mean.of.class, data=sar.correlog, type='o', subset=mean.of.c
 abline(h=0)
 ```
 
-
 ## Generalised least squares
 
 Generalised least squares (GLS) is an another extension of the linear model framework that allows us to include the expected correlation between our data points in the model fitting. The immediate way it differs from spatial autoregressive models is that it does not use a list of cell neighbourhoods, instead it uses a mathematical function to describe a model of how correlation changes with distance.
@@ -499,7 +500,7 @@ gls_simple <- gls(avian_richness ~ mean_aet + mean_temp + elev, data=data_sf)
 summary(gls_simple)
 ```
 
-That looks very like the normal `lm` output, except that it has added a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see [Practical 2](/practical_2/practical_2.html)).
+That looks very like the normal `lm` output - and indeed the coefficients are identical to the same model fitted using `lm` above. One difference is `gls` output includes a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see [Practical 2](/practical_2/practical_2.html)).
 
 To add spatial autocorrelation into the model we have to create a spatial correlation structure. The example below uses the Gaussian model. You can look at `?corGaus` for the equation but essentially this model describes how the expected correlation decreases from an initial value with increasing distance until a range threshold is met - after that the data is expected to be uncorrelated. The constructor needs to know the spatial coordinates of the data (using `form`) and then the other arguments set the shape of the curve. You can set `fixed=FALSE` and the model will then try and optimise the range and nugget parameters, but this can take hours.
 
@@ -560,3 +561,87 @@ plot(avian_richness ~ gls_gauss_pred, data=data_sf, xlim=lims, ylim=lims)
 abline(a=0, b=1, col='red', lwd=2)
 ```
 
+## Eigenvector filtering
+
+This is yet another approach to incorporating spatial structure. In the example below, we take a set of neighbourhood weights and convert them into eigenvector filters using the `meigen` function from `spmoran`. Again, the package vignette is a great place for further data (although the vignette name is a bit unhelpfully generic!)
+
+```r
+vignette('vignettes', package='spmoran')
+```
+
+```{admonition} Sidebar about package quality
+
+If you look at the details of `spmoran` you will see that it is (currently!) version `0.2.0`. A version number less than 1.0.0 means that the package is in development. It is often a good idea to be wary of in development and infrequently used packages: packages on CRAN have to be formatted correctly so that they build and install cleanly but there is no systematic check that the code they contain works correctly.
+
+In this case, Daisuke Murakami is a co-author of many papers with Daniel Griffith on eigenvector filtering and the quality and detail in the vignette is an *excellent* indication of the care and attention put into the package.
+
+> Murakami, D. and Griffith, D.A. (2015) Random effects specifications in eigenvector spatial
+filtering: a simulation study. Journal of Geographical Systems, 17 (4), 311-331.
+
+```
+
+In order to use this, we first need to extract the eigenvectors from our neighbourhood list. We need a different format, so we need to recreate the initial neighbours and then convert those to a weights *matrix* rather than sets of neighbour weights.
+
+```{code-cell} R
+# Get the neighbours
+queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize + 1)
+# Convert to eigenvector filters - this is a bit slow
+queen_eigen <- meigen(cmat = nb2mat(queen, style='W'))
+```
+
+The `queen_eigen` object contains a matrix `sf` of spatial filters (not the same as the `sf` data frame class!) and a vector `ev` of eigenvalues. Each column in `queen_eigen$sf` shows a different pattern in the spatial structure and has a value for each data point; the corresponding eigenvalue is a measure of the strength of that pattern. 
+
+We'll look at some examples:
+
+```{code-cell} R
+# Convert the `sf` matrix of eigenvectors into a data frame
+queen_eigen_filters <- data.frame(queen_eigen$sf)
+names(queen_eigen_filters) <- paste0('ev_', 1:ncol(queen_eigen_filters))
+
+# Combine this with the model data frame - note this approach
+# for combining an sf dataframe and another dataframe by rows
+data_sf <- st_sf(data.frame(data_sf, queen_eigen_filters))
+
+# Visualise 9 of the strongest filters and 1 weaker one for comparison
+plot(data_sf[c('ev_1', 'ev_2', 'ev_3', 'ev_4', 'ev_5', 'ev_6', 
+               'ev_7', 'ev_8', 'ev_9', 'ev_800')],
+     pal=hcl.colors, max.plot=10, cex=0.2)
+```
+
+The `spmoran` package provides a set of more sophisticated (and time-consuming) approaches but here we are simply going to add some eigenvector filters to a standard linear model. We will use the first 9 eigenvectors.
+
+```{code-cell} R
+eigen_mod <- lm(avian_richness ~ mean_aet + elev + mean_temp + ev_1 + ev_2 +
+                ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9, data=data_sf)
+summary(eigen_mod)
+```
+
+In that output, we do not really care about the coefficients for each filter: those elements are just in the model to control for spatial autocorrelation. We might want to remove filters that are not significant.
+
+Using the tools above, we can look at the residual spatial autocorrelation and predictions from this model.
+
+```{code-cell} R
+data_sf$eigen_fit <- predict(eigen_mod)
+data_sf$eigen_resid <- resid(eigen_mod)
+
+eigen.correlog <- with(data_sf, correlog(x, y, eigen_resid, increment=cellsize, resamp=0))
+eigen.correlog <- data.frame(eigen.correlog[1:3])
+
+par(mfrow=c(1,2))
+plot(data_sf['eigen_fit'], pch=20, cex=0.7,  key.pos=NULL, reset=FALSE)
+# plot a correlogram for shorter distances
+plot(correlation ~ mean.of.class, data=simple.correlog, type='o', subset=mean.of.class < 5000)
+# add the data for the SAR model to compare them
+lines(correlation ~ mean.of.class, data=eigen.correlog, type='o', subset=mean.of.class < 5000, col='red')
+```
+
+That is not much of an improvement either. To be fair to the `spmoran` package, the approach is intended to consider a much larger set of filters and go through a selection process. The modelling functions in `spmoran` do not use the formula interface - which is a bit hardcore - but the code would be as follows. I **do not recommend running** this now - I have no idea of how long it would take to finish but it is at least quarter of an hour and might be days.
+
+```r
+# Get a dataframe of the explanatory variables
+expl <- data_sf[,c('elev','mean_temp','mean_aet')]
+# This retains the geometry, so we need to convert back to a simple dataframe
+st_geometry(expl) <- NULL
+# Fit the model, optimising the AIC
+eigen_spmoran <- esf(data_sf$avian_richness, xx, meig=queen_eigen, fn='aic')
+```
