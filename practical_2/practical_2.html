@@ -57,6 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Spatial modelling in R" href="../practical_3/practical_3.html" />
     <link rel="prev" title="Practical One: GIS data and plotting" href="../practical_1/practical_1.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -104,6 +105,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Practical Two: Species Distribution Modelling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_3/practical_3.html">
+   Spatial modelling in R
   </a>
  </li>
 </ul>
@@ -768,18 +774,6 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
-</pre></div>
-</div>
 </div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
@@ -902,9 +896,9 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9685444 
-cor            : 0.711078 
-max TPR+TNR at : 0.02277582 
+AUC            : 0.9617136 
+cor            : 0.6974252 
+max TPR+TNR at : 0.03911569 
 </pre></div>
 </div>
 </div>
@@ -1008,12 +1002,12 @@ max TPR+TNR at : 0.02277582
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>1</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>4</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>5</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>1</th><td>5</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>2</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>1</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
 	<tr><th scope=row>8</th><td>4</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>1</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>4</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>9</th><td>3</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>1</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1035,12 +1029,12 @@ max TPR+TNR at : 0.02277582
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>1</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>5</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>1</th><td>5</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>2</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>1</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
 	<tr><th scope=row>8</th><td>4</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>1</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>9</th><td>3</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>1</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1051,7 +1045,7 @@ max TPR+TNR at : 0.02277582
 <p>We can now fit the GLM using a model formula: the <code class="docutils literal notranslate"><span class="pre">family=binomial(link</span> <span class="pre">=</span> <span class="pre">&quot;logit&quot;)</span></code> is the change that allows us to model binary data better, but we do not need the gory details here.</p>
 <p>Three things you do need to know:</p>
 <ul class="simple">
-<li><p>The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> variables are very strongly correlated. The five variables are chosen to represent related groups of variables (<a class="reference external" href="#Reducing-the-set-of-variables">show me how!</a>).</p></li>
+<li><p>The number of bioclim variables has been reduced from the full set of 19 down to five. This is because of the issue of multicollinearity - some pairs of <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> variables are very strongly correlated. The five variables are chosen to represent related groups of variables (<a class="reference external" href="#reducing-the-set-of-variables">show me how!</a>).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument is used to hold back one of the <code class="docutils literal notranslate"><span class="pre">kfold</span></code> partitions for testing.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method for a GLM needs an extra argument (<code class="docutils literal notranslate"><span class="pre">type='response'</span></code>) to make it give us predictions as the probability of species occurence. The default model prediction output (<code class="docutils literal notranslate"><span class="pre">?predict.glm</span></code>) is on the <em>scale of the linear predictors</em> - do not worry about what this means now, but note that there are a few places where we need to make this change from the default.</p></li>
 </ul>
@@ -1079,25 +1073,25 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
     data = pa_data, subset = kfold != 1)
 
 Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.9439  -0.1356   0.0347   0.4295   3.0607  
+     Min        1Q    Median        3Q       Max  
+-2.65309  -0.12820   0.03024   0.40045   3.06532  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -9.895e+00  7.770e+00  -1.274   0.2028    
-bio2         5.657e-02  2.459e-02   2.300   0.0214 *  
-bio4        -7.802e-05  2.003e-03  -0.039   0.9689    
-bio3         1.245e-01  7.734e-02   1.610   0.1074    
-bio1        -7.509e-02  7.417e-03 -10.124  &lt; 2e-16 ***
-bio12        1.862e-03  3.334e-04   5.584 2.35e-08 ***
+(Intercept) -9.1056169  8.1029254  -1.124  0.26112    
+bio2         0.0645488  0.0245896   2.625  0.00866 ** 
+bio4        -0.0015503  0.0020847  -0.744  0.45706    
+bio3         0.1154076  0.0793454   1.454  0.14581    
+bio1        -0.0780607  0.0077600 -10.059  &lt; 2e-16 ***
+bio12        0.0019163  0.0003304   5.800 6.63e-09 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 285.94  on 606  degrees of freedom
-AIC: 297.94
+Residual deviance: 270.48  on 606  degrees of freedom
+AIC: 282.48
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1148,9 +1142,9 @@ Number of Fisher Scoring iterations: 7
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9389442 
-cor            : 0.7740639 
-max TPR+TNR at : 1.178624 
+AUC            : 0.9736886 
+cor            : 0.7976579 
+max TPR+TNR at : 0.3090734 
 </pre></div>
 </div>
 </div>
@@ -1166,7 +1160,7 @@ max TPR+TNR at : 1.178624
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.7647003
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.5766591
 </pre></div>
 </div>
 </div>
@@ -1223,8 +1217,8 @@ max TPR+TNR at : 1.178624
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
 hist    FALSE TRUE
-  FALSE  5435    0
-  TRUE     62   75
+  FALSE  5363    0
+  TRUE     72  137
 </pre></div>
 </div>
 </div>
@@ -1411,10 +1405,10 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9389442 0.9406163 0.9559791 0.9880540 0.9686288
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9736886 0.9845914 0.9762186 0.9674515 0.9635689
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9584445
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9731038
 </pre></div>
 </div>
 <img alt="../_images/practical_2_68_2.png" src="../_images/practical_2_68_2.png" />
@@ -1482,6 +1476,7 @@ hist    FALSE TRUE
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="../practical_1/practical_1.html" title="previous page">Practical One: GIS data and plotting</a>
+    <a class='right-next' id="next-link" href="../practical_3/practical_3.html" title="next page">Spatial modelling in R</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

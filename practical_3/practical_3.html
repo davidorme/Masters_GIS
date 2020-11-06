@@ -57,6 +57,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Practical Two: Species Distribution Modelling" href="../practical_2/practical_2.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
@@ -94,7 +95,7 @@
   </a>
  </li>
 </ul>
-<ul class="nav sidenav_l1">
+<ul class="current nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_1/practical_1.html">
    Practical One: GIS data and plotting
@@ -103,6 +104,11 @@
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_2/practical_2.html">
    Practical Two: Species Distribution Modelling
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Spatial modelling in R
   </a>
  </li>
 </ul>
@@ -197,80 +203,104 @@
         </div>
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   Spatial modelling in R
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#required-packages">
+   Required packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#the-dataset">
+   The dataset
   </a>
   <ul class="nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#required-packages">
-     Required packages
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading-the-data">
+     Loading the data
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-dataset">
-     The dataset
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#loading-the-data">
-       Loading the data
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#formatting-the-data-as-a-data-frame">
-       Formatting the data as a data frame
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#more-data-exploration">
-       More data exploration
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#correlations-and-spatial-data">
-     Correlations and spatial data
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#formatting-the-data-as-a-data-frame">
+     Formatting the data as a data frame
     </a>
    </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#neighbourhoods">
-     Neighbourhoods
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#dnearneigh">
-       dnearneigh
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#knearneigh">
-       knearneigh
-      </a>
-     </li>
-     <li class="toc-h3 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#spatial-weights">
-       Spatial weights
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-autocorrelation-metrics">
-     Spatial autocorrelation metrics
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-data-exploration">
+     More data exploration
     </a>
    </li>
   </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#correlations-and-spatial-data">
+   Correlations and spatial data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#neighbourhoods">
+   Neighbourhoods
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#dnearneigh">
+     dnearneigh
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#knearneigh">
+     knearneigh
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#spatial-weights">
+     Spatial weights
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#more-data-cleaning">
+       More data cleaning
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calculating-weights">
+       Calculating weights
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#spatial-autocorrelation-metrics">
+   Spatial autocorrelation metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#global-spatial-autocorrelation">
+     Global spatial autocorrelation
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#local-spatial-autocorrelation">
+     Local spatial autocorrelation
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#autoregressive-models">
    Autoregressive models
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#correlograms">
+     Correlograms
+    </a>
+   </li>
+  </ul>
  </li>
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#correlograms">
-   Correlograms
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#generalised-least-squares">
+   Generalised least squares
   </a>
  </li>
 </ul>
@@ -303,37 +333,24 @@
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;SpatialPack&#39;</span><span class="p">)</span> <span class="c1"># For clifford test</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spdep&#39;</span><span class="p">)</span> <span class="c1"># Spatial dependence</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;nlme&#39;</span><span class="p">)</span> <span class="c1"># GLS</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;spgwr&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>As usual, you then need to load the packages:</p>
-<div class="cell docutils container">
+<div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">ncf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">spdep</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">SpatialPack</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">nlme</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">spgwr</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: sp
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Linking to GEOS 3.7.2, GDAL 2.4.2, PROJ 5.2.0
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: spData
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>To access larger datasets in this package, install the spDataLarge
-package with: `install.packages(&#39;spDataLarge&#39;,
-repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Loading required package: fastmatrix
-</pre></div>
-</div>
 </div>
 </div>
 </div>
@@ -344,7 +361,7 @@ repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`
 <div><p>McInnes, L., Purvis, A., &amp; Orme, C. D. L. (2009). Where do species’ geographic ranges stop and why? Landscape impermeability and the Afrotropical avifauna. Proceedings of the Royal Society Series B - Biological Sciences, 276(1670), 3063-3070. <a class="reference external" href="http://doi.org/10.1098/rspb.2009.0656">http://doi.org/10.1098/rspb.2009.0656</a></p>
 </div></blockquote>
 <p>We won’t actually be looking at range edges but we’re going to use four variables taken from the data used in this paper. The data is all saved as GeoTIFF files, so we’re starting with raster data. The files cover the Afrotropics and are all projected in the Behrmann equal area projection. This is a cylindrical equal area projection with a <em>latitude of true scale</em> of 30°. What that <em>means</em> is that distances on the projected map correspond to distances over the surface of the Earth at ±30° of latitude.</p>
-<p>That is the reason for the odd resolution of this data: 96.268 km. The circumference of the Earth at ±30° - the length of the parallels at ±30° - is 34656.48 km and this resolution splits the map into 360 cells so the resolution is comparable to a degree longitude at 30° N. Unlike a one degree resolution grid, however, these grid cells all cover an equal area on the ground (<span class="math notranslate nohighlight">\(96.268 \times 96.268 = 9309.6 \text{km}^2\)</span>, roughly the land area of Cyprus).</p>
+<p>That is the reason for the odd resolution of this data: 96.48627 km. The circumference of the Earth at ±30° - the length of the parallels at ±30° - is ~ 34735.06 km and this resolution splits the map into 360 cells giving a resolution comparable to a degree longitude at 30° N. Unlike a one degree resolution grid, however, these grid cells all cover an <strong>equal area</strong> on the ground (<span class="math notranslate nohighlight">\(96.48627 \times 96.48627 = 9309.6 \text{km}^2\)</span>, roughly the land area of Cyprus).</p>
 <p>The variables for each grid cell are:</p>
 <ul class="simple">
 <li><p>the avian species richness across the Afrotropics,</p></li>
@@ -371,7 +388,7 @@ repos=&#39;https://nowosad.github.io/drat/&#39;, type=&#39;source&#39;)`
 </div></blockquote>
 <p>So we will quickly use some techniques to explore the data we have just loaded.</p>
 <ol class="simple">
-<li><p>We will look at the summary of the richness data. That shows us the dimensions of the data, resolution, extent and coordinate reference system and the range of the data: between 10 and 667 species per cell (10,000 square kilometers).</p></li>
+<li><p>We will look at the summary of the richness data. That shows us the dimensions of the data, resolution, extent and coordinate reference system and the range of the data: between 10 and 667 species per cell.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -489,7 +506,7 @@ Data attributes:
 <p>We can also that into a <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, which we have been using in previous practicals. These differ in how they represent the geometry:</p>
 <ul class="simple">
 <li><p><code class="docutils literal notranslate"><span class="pre">SpatialPixelDataFrame</span></code>: this holds the data as values in <em>pixels</em>, so ‘knows’ that the values represents an area.</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">sf</span></code>: the conversion we use here holds the data as values at a point.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">sf</span></code>: the default conversion here holds the data as values at a point.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -520,12 +537,34 @@ First 10 features:
 </div>
 </div>
 </div>
+<div class="admonition-affine-transformation-sidebar admonition">
+<p class="admonition-title">Affine transformation sidebar</p>
+<p>Just to show off <code class="docutils literal notranslate"><span class="pre">sf</span></code> a bit - and do something a bit more complex with <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects - we can turn that point data into polygon data. Each cell is the centre of a cell with sides of ~96 km: we can use those points to define <a class="reference external" href="https://r-spatial.github.io/sf/articles/sf3.html">affine transformations</a>. This means we can create a template polygon that is the right size for the grid cells, centred on zero and then use the points to move them all into the right place.</p>
+<p>This code is a little bit trickier! Also, if I’m being honest, a polygon grid isn’t a great way to store raster data!</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the cell resolution</span>
+<span class="n">cellsize</span> <span class="o">&lt;-</span> <span class="nf">res</span><span class="p">(</span><span class="n">rich</span><span class="p">)[[</span><span class="m">1</span><span class="p">]]</span>
+<span class="c1"># Make the template polygon</span>
+<span class="n">template</span> <span class="o">&lt;-</span> <span class="nf">st_polygon</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">-1</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">-1</span><span class="p">,</span><span class="m">-1</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">/</span> <span class="m">2</span><span class="p">))</span>
+<span class="c1"># Add each of the data points to the template</span>
+<span class="n">polygon_data</span> <span class="o">&lt;-</span> <span class="nf">lapply</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">geometry</span><span class="p">,</span> <span class="nf">function</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span> <span class="n">template</span> <span class="o">+</span> <span class="n">pt</span><span class="p">)</span>
+<span class="n">data_poly</span> <span class="o">&lt;-</span> <span class="nf">st_sf</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">=</span> <span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> 
+                   <span class="n">geometry</span><span class="o">=</span><span class="n">polygon_data</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_poly</span><span class="p">[</span><span class="s">&#39;avian_richness&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_17_0.png" src="../_images/practical_3_17_0.png" />
+</div>
+</div>
 </div>
 <div class="section" id="more-data-exploration">
 <h3>More data exploration<a class="headerlink" href="#more-data-exploration" title="Permalink to this headline">¶</a></h3>
 <p>We now have new data structures that have spatial information and matches up the different variables across locations.</p>
-<p>We can still plot the data as a map and the images below show the difference between the <code class="docutils literal notranslate"><span class="pre">SpatialPixelsDataFrame</span></code> and the <code class="docutils literal notranslate"><span class="pre">sf</span></code> version of the data. The code has lots of odd options: this combination of settings avoids each plot command insisting on the layout it wants to use and lets us control the layout of the plots.</p>
-<p>https://www.r-spatial.org/r/2016/03/08/plotting-spatial-grids.html</p>
+<p>We can still plot the data as a map and the images below show the difference between the <code class="docutils literal notranslate"><span class="pre">SpatialPixelsDataFrame</span></code> and the <code class="docutils literal notranslate"><span class="pre">sf</span></code> version of the data. The code has lots of odd options: this combination of settings avoids each plot command insisting on the layout it wants to use and lets us <a class="reference external" href="https://www.r-spatial.org/r/2016/03/08/plotting-spatial-grids.html">control the layout of the plots</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the richness data as point data</span>
@@ -538,7 +577,7 @@ First 10 features:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_3_17_0.png" src="../_images/practical_3_17_0.png" />
+<img alt="../_images/practical_3_19_0.png" src="../_images/practical_3_19_0.png" />
 </div>
 </div>
 <p>We can also plot the variables against each other, by treating the new object as a data frame:</p>
@@ -554,7 +593,7 @@ First 10 features:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_3_19_0.png" src="../_images/practical_3_19_0.png" />
+<img alt="../_images/practical_3_21_0.png" src="../_images/practical_3_21_0.png" />
 </div>
 </div>
 </div>
@@ -563,7 +602,7 @@ First 10 features:
 <h2>Correlations and spatial data<a class="headerlink" href="#correlations-and-spatial-data" title="Permalink to this headline">¶</a></h2>
 <p>A <strong>correlation coefficient</strong> is a standardised measure between -1 and 1 showing how much observations of two variables tend to co-vary. For a positive correlation, both variables tend to have high values in the same locations and low values in the same locations. Negative correlations show the opposite. Once you’ve calculated a correlation, you need to assess how strong that correlation is <em>given the amount of data you have</em>: it is easy to get large <span class="math notranslate nohighlight">\(r\)</span> values in small datasets by chance.</p>
 <p>However, correlation coefficients assume that the data points are independent and this is not true for spatial data. Nearby data points tend to be similar: if you are in a warm location, surrounding areas will also tend to be warm. One relatively simple way of removing this non-independence is to calculate the significance of tests as if you had fewer data points.</p>
-<p>We will use this approach to  compare standard measures of correlation to spatially corrected ones. We need to load a new set of functions that implement a modification to the correlation test that accounts for spatial similarity, described in (this paper)[https://jstor.org/stable/2532039]. The modified test does not change the correlation statistic itself but calculates a new effective sample size and uses this in calculating the <span class="math notranslate nohighlight">\(F\)</span> statistic.</p>
+<p>We will use this approach to  compare standard measures of correlation to spatially corrected ones. We need to load a new set of functions that implement a modification to the correlation test that accounts for spatial similarity, described in <a class="reference external" href="https://jstor.org/stable/2532039">this paper</a>. The modified test does not change the correlation statistic itself but calculates a new effective sample size and uses this in calculating the <span class="math notranslate nohighlight">\(F\)</span> statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the modified.ttest function from SpatialPack</span>
@@ -597,11 +636,9 @@ sample correlation: -0.3722
 <p>We can use this function to find which cells are within a given distance of a focal point. We can also put a minimum distance to exclude nearby, but we will keep that at zero here. Working with raster data,where points are on an even grid, we can use this function to generate the <strong>Rook</strong> and <strong>Queen</strong> move neighbours. To do that we need to get the resolution of the raster and use that to set appropriate distances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the raster resolution as a distance</span>
-<span class="n">distance</span> <span class="o">&lt;-</span> <span class="nf">res</span><span class="p">(</span><span class="n">rich</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span>
-<span class="c1"># Give dnearneigh the coordinates of the points and the distances to use</span>
-<span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">distance</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Give dnearneigh the coordinates of the points and the distances to use</span>
+<span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="n">cellsize</span><span class="p">)</span>
+<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cellsize</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -621,7 +658,8 @@ sample correlation: -0.3722
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">card_rook</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">rook</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Store the neighbourhood cardinalities in data_sf</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">card_rook</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">rook</span><span class="p">)</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">card_queen</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">queen</span><span class="p">)</span>
 <span class="c1"># Look at the count of rook and queen neighbours for each point</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;card_rook&#39;</span><span class="p">,</span> <span class="s">&#39;card_queen&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
@@ -629,7 +667,7 @@ sample correlation: -0.3722
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_3_25_0.png" src="../_images/practical_3_25_0.png" />
+<img alt="../_images/practical_3_27_0.png" src="../_images/practical_3_27_0.png" />
 </div>
 </div>
 <p>That does <strong>not</strong> look correct - we should not be seeing those stripes in central Africa with only two or three rook neighbours. The reason for this is using <em>exactly</em> the resolution as our distance: minor rounding differences can lead to distance based measures going wrong, so it is once again <strong>always a good idea to plot your data and check</strong>!</p>
@@ -639,11 +677,9 @@ sample correlation: -0.3722
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Add one kilometer on to the distance</span>
-<span class="n">distance</span> <span class="o">&lt;-</span> <span class="nf">res</span><span class="p">(</span><span class="n">rich</span><span class="p">)[</span><span class="m">1</span><span class="p">]</span> <span class="o">+</span> <span class="m">1</span>
-<span class="c1"># Recreate the neighbours</span>
-<span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="n">distance</span><span class="p">)</span>
-<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">distance</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Recreate the neighbour adding 1km to the distance</span>
+<span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="n">cellsize</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">card_rook</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">rook</span><span class="p">)</span>
 <span class="n">data_sf</span><span class="o">$</span><span class="n">card_queen</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">queen</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;card_rook&#39;</span><span class="p">,</span> <span class="s">&#39;card_queen&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
@@ -651,13 +687,13 @@ sample correlation: -0.3722
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_3_27_0.png" src="../_images/practical_3_27_0.png" />
+<img alt="../_images/practical_3_29_0.png" src="../_images/practical_3_29_0.png" />
 </div>
 </div>
 </div>
 <div class="section" id="knearneigh">
 <h3>knearneigh<a class="headerlink" href="#knearneigh" title="Permalink to this headline">¶</a></h3>
-<p>One thing to not in the details of <code class="docutils literal notranslate"><span class="pre">rook</span></code> and <code class="docutils literal notranslate"><span class="pre">queen</span></code> are the bits that say:</p>
+<p>One thing to note in the details of <code class="docutils literal notranslate"><span class="pre">rook</span></code> and <code class="docutils literal notranslate"><span class="pre">queen</span></code> are the bits that say:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="mi">3</span> <span class="n">regions</span> <span class="k">with</span> <span class="n">no</span> <span class="n">links</span><span class="p">:</span>
 <span class="mi">1311</span> <span class="mi">1817</span> <span class="mi">2204</span> 
 </pre></div>
@@ -707,124 +743,567 @@ sample correlation: -0.3722
 <li><p>Remove the points with no neighbours - given these are isolated offshore islands, this seems reasonable.</p></li>
 <li><p>Use a neighbourhood system in which they are not isolated. We already have this using <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code>, but you do have to ask yourself if a model that arbitrarily links offshore islands is realistic.</p></li>
 </ol>
-<p>Removing those isolated cells is tricky!</p>
-<p>There are several weighting options and choosing different weighting strategies obviously affects the resulting statistics.</p>
+<div class="section" id="more-data-cleaning">
+<h4>More data cleaning<a class="headerlink" href="#more-data-cleaning" title="Permalink to this headline">¶</a></h4>
+<p>It would be easy to use <code class="docutils literal notranslate"><span class="pre">subset</span></code> on <code class="docutils literal notranslate"><span class="pre">data_sf</span></code> to remove cells with zero neighbours, but we really should remove Mauritius as well (two cells with cardinality of 1). Unfortunately there is a coastal cell with a rook cardinality of 1 in the north of Madagascar, and that probably is reasonable to include! So, we will use a GIS operation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon covering Mauritius</span>
+<span class="n">mauritius</span> <span class="o">&lt;-</span> <span class="nf">st_polygon</span><span class="p">(</span><span class="nf">list</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="m">5000</span><span class="p">,</span> <span class="m">6000</span><span class="p">,</span> <span class="m">6000</span><span class="p">,</span> <span class="m">5000</span><span class="p">,</span> <span class="m">5000</span><span class="p">,</span>
+                                    <span class="m">0</span><span class="p">,</span> <span class="m">0</span><span class="p">,</span> <span class="m">-4000</span><span class="p">,</span> <span class="m">-4000</span><span class="p">,</span> <span class="m">0</span><span class="p">),</span> 
+                                    <span class="n">ncol</span><span class="o">=</span><span class="m">2</span><span class="p">)))</span>
+<span class="n">mauritius</span> <span class="o">&lt;-</span> <span class="nf">st_sfc</span><span class="p">(</span><span class="n">mauritius</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="nf">crs</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">asText</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">))</span>
+<span class="c1"># Remove the island cells with zero neighbours</span>
+<span class="n">data_sf</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">card_rook</span> <span class="o">&gt;</span> <span class="m">0</span><span class="p">)</span>
+<span class="c1"># Remove Mauritius</span>
+<span class="n">data_sf</span> <span class="o">&lt;-</span> <span class="nf">st_difference</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">mauritius</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“attribute variables are assumed to be spatially constant throughout all geometries”
+</pre></div>
+</div>
+</div>
+</div>
+<p>We do now need to recalculate our neighbourhood objects to use that reduced set of locations.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="n">cellsize</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">dnearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">d1</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">d2</span><span class="o">=</span><span class="nf">sqrt</span><span class="p">(</span><span class="m">2</span><span class="p">)</span> <span class="o">*</span> <span class="n">cellsize</span> <span class="o">+</span> <span class="m">1</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">card_rook</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">rook</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">card_queen</span> <span class="o">&lt;-</span> <span class="nf">card</span><span class="p">(</span><span class="n">queen</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">&lt;-</span> <span class="nf">knearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="calculating-weights">
+<h4>Calculating weights<a class="headerlink" href="#calculating-weights" title="Permalink to this headline">¶</a></h4>
+<p>There are several weighting styles and choosing different strategies obviously affects the resulting statistics. One option is <strong>binary</strong> weights (cells are either connected or not) but there are other options. Here we will use the default <em>row standardised</em> (<code class="docutils literal notranslate"><span class="pre">style='W'</span></code>), which just means that the neighbours of location all get the same weight but the sum of neighbour weights for location is always one.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">knn</span></code> needs to be converted to the same format (<code class="docutils literal notranslate"><span class="pre">nb</span></code>) as the rook and queen neighbourhoods first.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">nb2listw</span><span class="p">(</span><span class="n">rook</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;W&#39;</span><span class="p">)</span>
+<span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">nb2listw</span><span class="p">(</span><span class="n">queen</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;W&#39;</span><span class="p">)</span>
+<span class="n">knn</span> <span class="o">&lt;-</span> <span class="nf">nb2listw</span><span class="p">(</span><span class="nf">knn2nb</span><span class="p">(</span><span class="n">knn</span><span class="p">),</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;W&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="section" id="spatial-autocorrelation-metrics">
 <h2>Spatial autocorrelation metrics<a class="headerlink" href="#spatial-autocorrelation-metrics" title="Permalink to this headline">¶</a></h2>
-<p>There are a number of statistics that quantify the level of spatial autocorrelation. We will be looking at Moran’s <span class="math notranslate nohighlight">\(I\)</span> statistic and Geary’s <span class="math notranslate nohighlight">\(C\)</span> statistic.</p>
+<p>Spatial autocorrelation describes the extent to which points that are close together in space show similar values. It can be measured globally and locally - note that <strong>global</strong> here means <em>the whole of the dataset</em> and not the whole of the Earth.</p>
+<div class="section" id="global-spatial-autocorrelation">
+<h3>Global spatial autocorrelation<a class="headerlink" href="#global-spatial-autocorrelation" title="Permalink to this headline">¶</a></h3>
+<p>There are a number of statistics that quantify the level of global spatial autocorrelation in a dataset. These statistics test if the dataset as a whole shows spatial autocorrelation.</p>
+<p>We will be looking at the commonly used Moran’s <span class="math notranslate nohighlight">\(I\)</span> and Geary’s <span class="math notranslate nohighlight">\(C\)</span> statistics</p>
 <ul class="simple">
 <li><p>Moran’s <span class="math notranslate nohighlight">\(I\)</span> takes values between -1 and 1, with the central value of 0 showing that there is no spatial autocorrelation. Values close to -1 show strong negative autocorrelation, which is the unusual case that nearby cells have unexpectedly <strong>different</strong> values and values close to 1 show that nearby cells have unexpectedly <strong>similar</strong> values.</p></li>
-<li><p>Geary’s <span class="math notranslate nohighlight">\(C\)</span> scales the other way around</p></li>
+<li><p>Geary’s <span class="math notranslate nohighlight">\(C\)</span> scales the other way around. It is not perfectly correlated with Moran’s <span class="math notranslate nohighlight">\(I\)</span> but closely related.</p></li>
 </ul>
-<p>Spatial autocorrelation is all about saying how similar nearby points are to each other, so we first need to define ‘nearby’. There are two main ways of doing this - you can choose the <span class="math notranslate nohighlight">\(k\)</span> nearest neighbours of a point or you can choose all points within a particular distance. We will take this second approach using the <code class="docutils literal notranslate"><span class="pre">dnearneigh()</span></code> function, but for reference the function <code class="docutils literal notranslate"><span class="pre">knearneigh()</span></code> allows you to do the first one.</p>
-<p>If we use a distance cutoff of 150 km then all cells that share an edge or a corner with a given cell will be considered its neighbour. Using chess as an analogy, this is sometimes called Queen’s move connections (although it is actually like a King’s move!) and the alternative where only cells sharing an edge are neighbours is called Rook’s move. In the code below, we also have to set <code class="docutils literal notranslate"><span class="pre">zero.policy=TRUE</span></code>: this allows the code to ignore some checks on isolated points that have no neighbours within 150 km.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># All cells with centres closer than 150km are neighbours of a cell
-neighbours &lt;- dnearneigh(data_df, d1=0, d2=150)
-# convert that to a weighted list of neighbours
-neighbours.lw &lt;- nb2listw(neighbours, zero.policy=TRUE)
-# global Moran&#39;s I for avian richness
-rich.moran &lt;- moran.test(data_df$avian_richness, 
-                           neighbours.lw, zero.policy=TRUE)
-rich.moran
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">moran_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">moran.test</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">moran_avian_richness</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">moran.test()</span></code> function gives a single value representing the overall level of spatial autocorrelation in a variable, but we can also look at local indicators of spatial autocorrelation (LISA), which can reveal areas of stronger or weaker similarity. These calculate a similar statistic but only within a window around each cell and report back the calculated value for each cell, which we can then map. Local Moran’s I is still centred on zero for no spatial autocorrelation but values are not constrained between -1 and 1.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># Use the same neighbour definition to get local autocorrelation
-rich.lisa &lt;- localmoran(data_df$avian_richness, 
-                                    neighbours.lw, zero.policy=TRUE)
-# The rich.lisa results contain several variables in columns: we
-# add one to our dataframe to plot it
-data_df$rich_lisa &lt;- rich.lisa[,1]
-# plot the values. 
-spplot(data_df, zcol=&#39;rich_lisa&#39;, col.regions=heat.colors(20), 
-         scales=list(draw=TRUE))
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>	Moran I test under randomisation
+
+data:  data_sf$avian_richness  
+weights: rook    
+
+Moran I statistic standard deviate = 64.66, p-value &lt; 2.2e-16
+alternative hypothesis: greater
+sample estimates:
+Moran I statistic       Expectation          Variance 
+     0.9499254829     -0.0004035513      0.0002160130 
 </pre></div>
 </div>
-<div style='background-color:lightgreen'>
-* As we might predict, avian richness shows strong positive spatial autocorrelation, which seems to be particularly strong in the mountains around Lake Victoria. Try these measures out on the other variables!
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">geary_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">geary.test</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">geary_avian_richness</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>	Geary C test under randomisation
+
+data:  data_sf$avian_richness 
+weights: rook 
+
+Geary C statistic standard deviate = 64.254, p-value &lt; 2.2e-16
+alternative hypothesis: Expectation greater than statistic
+sample estimates:
+Geary C statistic       Expectation          Variance 
+     0.0468078533      1.0000000000      0.0002200701 
+</pre></div>
+</div>
+</div>
+</div>
+<div class="admonition-variables-and-neighbours admonition">
+<p class="admonition-title">Variables and neighbours</p>
+<p>Look to see if the different neighbourhood schemes increase or decrease spatial autocorrelation. Do all of the other three variables show significant spatial autocorrelation?</p>
+</div>
+</div>
+<div class="section" id="local-spatial-autocorrelation">
+<h3>Local spatial autocorrelation<a class="headerlink" href="#local-spatial-autocorrelation" title="Permalink to this headline">¶</a></h3>
+<p>We can also look at local indicators of spatial autocorrelation (LISA) to show areas of stronger or weaker similarity. These calculate a similar statistic but only within the neighbourhood around each cell and report back the calculated value for each cell, which we can then map.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">localmoran</span></code> function outputs a matrix of values. The columns contain observed <span class="math notranslate nohighlight">\(I\)</span>, the expected value, variance, <span class="math notranslate nohighlight">\(z\)</span> statistics and <span class="math notranslate nohighlight">\(p\)</span> value and the rows contain the location specific measures of each variable, so we can load them into <code class="docutils literal notranslate"><span class="pre">data_sf</span></code>.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">local_moran_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">localmoran</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">local_moran_avian_richness</span> <span class="o">&lt;-</span> <span class="n">local_moran_avian_richness</span><span class="p">[,</span> <span class="s">&#39;Ii&#39;</span><span class="p">]</span> <span class="c1"># Observed Moran&#39;s I</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="s">&#39;local_moran_avian_richness&#39;</span><span class="p">],</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.6</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_44_0.png" src="../_images/practical_3_44_0.png" />
+</div>
+</div>
+<p>The similar function <code class="docutils literal notranslate"><span class="pre">localG</span></code> just calculates a <span class="math notranslate nohighlight">\(z\)</span> statistic showing strength of local autocorrelation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">local_g_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">localG</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="s">&#39;local_g_avian_richness&#39;</span><span class="p">],</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.6</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_46_0.png" src="../_images/practical_3_46_0.png" />
+</div>
+</div>
+<div class="admonition-exploring-local-spatial-autocorrelation admonition">
+<p class="admonition-title">Exploring local spatial autocorrelation</p>
+<p>As we might predict, avian richness shows strong positive spatial autocorrelation, which seems to be particularly strong in the mountains around Lake Victoria. Try these measures out on the other variables and neighbourhoods.</p>
 </div>
 </div>
 </div>
 <div class="section" id="autoregressive-models">
-<h1>Autoregressive models<a class="headerlink" href="#autoregressive-models" title="Permalink to this headline">¶</a></h1>
+<h2>Autoregressive models<a class="headerlink" href="#autoregressive-models" title="Permalink to this headline">¶</a></h2>
 <p>Our definition of a set of neighbours allows us to fit a spatial autoregressive (SAR) model. This is a statistical model that predicts the value of a response variable in a cell using the predictor variables and values of the response variable in neighbouring cells. This is why they are called autoregressive models: they fit the response variable partly as a response to itself.</p>
 <p>They come in many different possible forms. This is a great paper explaining some of the different forms with some great appendices including example R code:</p>
-<p>Kissling, W. D., &amp; Carl, G. (2008). Spatial autocorrelation and the selection of simultaneous autoregressive models. Global Ecology and Biogeography, 17(1), 59–71.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># Fit a simple linear model
-simple_model &lt;- lm(avian_richness ~ mean_aet + elev + mean_temp, data=data_df)
-summary(simple_model)
-# Fit a spatial autoregressive model: this is much slower and can take minutes to calculate
-sar_model &lt;- errorsarlm(avian_richness ~ mean_aet + elev + mean_temp, data=data_df, listw=neighbours.lw, zero.policy=TRUE)
-summary(sar_model)
+<blockquote>
+<div><p>Kissling, W.D. and Carl, G. (2008), Spatial autocorrelation and the selection of simultaneous autoregressive models. Global Ecology and Biogeography, 17: 59-71. <a class="reference external" href="https://doi.org/10.1111/j.1466-8238.2007.00334.x">doi:10.1111/j.1466-8238.2007.00334.x</a></p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit a simple linear model</span>
+<span class="n">simple_model</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">mean_aet</span> <span class="o">+</span> <span class="n">elev</span> <span class="o">+</span> <span class="n">mean_temp</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">simple_model</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>Lets look at the <strong>predictions</strong> of those models. We can extract the predicted values for each point and put them into our spatial data frame and then map them.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># extract the predictions from the model into the spatial data frame
-data_df$simple_fit &lt;- predict(simple_model)
-data_df$sar_fit &lt;- predict(sar_model)
-# Compare those two predictions with the data
-spplot(data_df, c(&#39;avian_richness&#39;,&#39;simple_fit&#39;,&#39;sar_fit&#39;), 
-        col.regions=heat.colors(20), scales=list(draw=TRUE))
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = avian_richness ~ mean_aet + elev + mean_temp, data = data_sf)
+
+Residuals:
+    Min      1Q  Median      3Q     Max 
+-286.82  -53.00   -1.53   51.95  324.58 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) 198.276692  21.062878   9.414  &lt; 2e-16 ***
+mean_aet      0.178391   0.004665  38.238  &lt; 2e-16 ***
+elev          0.073595   0.005422  13.573  &lt; 2e-16 ***
+mean_temp    -4.508362   0.713118  -6.322 3.05e-10 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 81.24 on 2475 degrees of freedom
+Multiple R-squared:  0.4665,	Adjusted R-squared:  0.4659 
+F-statistic: 721.4 on 3 and 2475 DF,  p-value: &lt; 2.2e-16
 </pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Fit a spatial autoregressive model: this is much slower and can take minutes to calculate</span>
+<span class="n">sar_model</span> <span class="o">&lt;-</span> <span class="nf">errorsarlm</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">mean_aet</span> <span class="o">+</span> <span class="n">elev</span> <span class="o">+</span> <span class="n">mean_temp</span><span class="p">,</span> 
+                        <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">listw</span><span class="o">=</span><span class="n">queen</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">sar_model</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“Function errorsarlm moved to the spatialreg package”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Registered S3 methods overwritten by &#39;spatialreg&#39;:
+  method                   from 
+  residuals.stsls          spdep
+  deviance.stsls           spdep
+  coef.stsls               spdep
+  print.stsls              spdep
+  summary.stsls            spdep
+  print.summary.stsls      spdep
+  residuals.gmsar          spdep
+  deviance.gmsar           spdep
+  coef.gmsar               spdep
+  fitted.gmsar             spdep
+  print.gmsar              spdep
+  summary.gmsar            spdep
+  print.summary.gmsar      spdep
+  print.lagmess            spdep
+  summary.lagmess          spdep
+  print.summary.lagmess    spdep
+  residuals.lagmess        spdep
+  deviance.lagmess         spdep
+  coef.lagmess             spdep
+  fitted.lagmess           spdep
+  logLik.lagmess           spdep
+  fitted.SFResult          spdep
+  print.SFResult           spdep
+  fitted.ME_res            spdep
+  print.ME_res             spdep
+  print.lagImpact          spdep
+  plot.lagImpact           spdep
+  summary.lagImpact        spdep
+  HPDinterval.lagImpact    spdep
+  print.summary.lagImpact  spdep
+  print.sarlm              spdep
+  summary.sarlm            spdep
+  residuals.sarlm          spdep
+  deviance.sarlm           spdep
+  coef.sarlm               spdep
+  vcov.sarlm               spdep
+  fitted.sarlm             spdep
+  logLik.sarlm             spdep
+  anova.sarlm              spdep
+  predict.sarlm            spdep
+  print.summary.sarlm      spdep
+  print.sarlm.pred         spdep
+  as.data.frame.sarlm.pred spdep
+  residuals.spautolm       spdep
+  deviance.spautolm        spdep
+  coef.spautolm            spdep
+  fitted.spautolm          spdep
+  print.spautolm           spdep
+  summary.spautolm         spdep
+  logLik.spautolm          spdep
+  print.summary.spautolm   spdep
+  print.WXImpact           spdep
+  summary.WXImpact         spdep
+  print.summary.WXImpact   spdep
+  predict.SLX              spdep
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:spatialreg::errorsarlm(formula = formula, data = data, listw = listw, 
+    na.action = na.action, Durbin = Durbin, etype = etype, method = method, 
+    quiet = quiet, zero.policy = zero.policy, interval = interval, 
+    tol.solve = tol.solve, trs = trs, control = control)
+
+Residuals:
+       Min         1Q     Median         3Q        Max 
+-218.57762   -9.64130   -0.54812    9.09747  109.78562 
+
+Type: error 
+Coefficients: (asymptotic standard errors) 
+              Estimate Std. Error z value  Pr(&gt;|z|)
+(Intercept) 44.2663338 64.8564135  0.6825   0.49490
+mean_aet     0.0581636  0.0070908  8.2027 2.220e-16
+elev         0.0485815  0.0067335  7.2149 5.396e-13
+mean_temp    3.0505866  1.2710584  2.4000   0.01639
+
+Lambda: 0.99316, LR test value: 6447.6, p-value: &lt; 2.22e-16
+Asymptotic standard error: 0.0017541
+    z-value: 566.2, p-value: &lt; 2.22e-16
+Wald statistic: 320580, p-value: &lt; 2.22e-16
+
+Log likelihood: -11193.01 for error model
+ML residual variance (sigma squared): 364.6, (sigma: 19.095)
+Number of observations: 2479 
+Number of parameters estimated: 6 
+AIC: 22398, (AIC for lm: 28844)
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can then look at the <strong>predictions</strong> of those models. We can extract the predicted values for each point and put them into our spatial data frame and then map them.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the predictions from the model into the spatial data frame</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">simple_fit</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">simple_model</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">sar_fit</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">sar_model</span><span class="p">)</span>
+<span class="c1"># Compare those two predictions with the data</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;avian_richness&#39;</span><span class="p">,</span><span class="s">&#39;simple_fit&#39;</span><span class="p">,</span><span class="s">&#39;sar_fit&#39;</span><span class="p">)],</span> 
+     <span class="n">pal</span><span class="o">=</span><span class="nf">function</span><span class="p">(</span><span class="n">n</span><span class="p">)</span> <span class="nf">hcl.colors</span><span class="p">(</span><span class="n">n</span><span class="p">,</span> <span class="n">pal</span><span class="o">=</span><span class="s">&#39;Blue-Red&#39;</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>This method assumes the response is known - see manual page
+</pre></div>
+</div>
+<img alt="../_images/practical_3_51_1.png" src="../_images/practical_3_51_1.png" />
+</div>
 </div>
 <p>We can also look at the <strong>residuals</strong> of those models -  the differences between the prediction and the actual values - to highlight where the models aren’t working well. We’ll manipulate the colours so negative residuals are blue and positive residuals are red.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># extract the residuals from the model into the spatial data frame
-data_df$simple_resid &lt;- residuals(simple_model)
-data_df$sar_resid &lt;- residuals(sar_model)
-# Create a 21 colour ramp from blue to red, centred on zero
-colPal &lt;- colorRampPalette(c(&#39;cornflowerblue&#39;, &#39;grey&#39;,&#39;firebrick&#39;))
-colours &lt;- colPal(21)
-breaks &lt;- seq(-600, 600, length=21)
-# plot the residuals side by side
-spplot(data_df, c(&#39;simple_resid&#39;,&#39;sar_resid&#39;), 
-        col.regions=colours, at=breaks, scales=list(draw=TRUE))
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the residuals from the model into the spatial data frame</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">simple_resid</span> <span class="o">&lt;-</span> <span class="nf">residuals</span><span class="p">(</span><span class="n">simple_model</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">sar_resid</span> <span class="o">&lt;-</span> <span class="nf">residuals</span><span class="p">(</span><span class="n">sar_model</span><span class="p">)</span>
+<span class="c1"># Create a 21 colour ramp from blue to red, centred on zero</span>
+<span class="n">colPal</span> <span class="o">&lt;-</span> <span class="nf">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;cornflowerblue&#39;</span><span class="p">,</span> <span class="s">&#39;grey&#39;</span><span class="p">,</span><span class="s">&#39;firebrick&#39;</span><span class="p">))</span>
+<span class="n">colours</span> <span class="o">&lt;-</span> <span class="nf">colPal</span><span class="p">(</span><span class="m">21</span><span class="p">)</span>
+<span class="n">breaks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-600</span><span class="p">,</span> <span class="m">600</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="m">21</span><span class="p">)</span>
+<span class="c1"># plot the residuals side by side</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;avian_richness&#39;</span><span class="p">,</span><span class="s">&#39;simple_fit&#39;</span><span class="p">,</span><span class="s">&#39;sar_fit&#39;</span><span class="p">)],</span> 
+     <span class="n">col</span><span class="o">=</span><span class="n">colours</span><span class="p">,</span> <span class="n">at</span><span class="o">=</span><span class="n">breaks</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
+“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
+“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in plot.sf(x[, cname], main = cname, pal = pal, nbreaks = nbreaks, :
+“col is not of length 1 or nrow(x): colors will be recycled; use pal to specify a color palette”
+</pre></div>
+</div>
+<img alt="../_images/practical_3_53_3.png" src="../_images/practical_3_53_3.png" />
 </div>
 </div>
 <div class="section" id="correlograms">
-<h1>Correlograms<a class="headerlink" href="#correlograms" title="Permalink to this headline">¶</a></h1>
+<h3>Correlograms<a class="headerlink" href="#correlograms" title="Permalink to this headline">¶</a></h3>
 <p>Correlograms are another way of visualising spatial autocorrelation. They show how the correlation within a variable changes as the distance between pairs of points being compared increases. To show this, we need the coordinates of the spatial data and the values of a variable at each point.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># Install a missing library to calculate correlograms
-library(ncf)
-# extract the X and Y coordinates
-data_xy &lt;- data.frame(coordinates(data_df))
-# calculate a correlogram for avian richness: a slow process!
-rich.correlog &lt;- correlog(data_xy$x, data_xy$y, data_df$avian_richness, increment=100, resamp=0)
-plot(rich.correlog)
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the X and Y coordinates to the data frame</span>
+<span class="n">data_xy</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="nf">st_coordinates</span><span class="p">(</span><span class="n">data_sf</span><span class="p">))</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">x</span> <span class="o">&lt;-</span> <span class="n">data_xy</span><span class="o">$</span><span class="n">X</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">y</span> <span class="o">&lt;-</span> <span class="n">data_xy</span><span class="o">$</span><span class="n">Y</span>
+
+<span class="c1"># calculate a correlogram for avian richness: a slow process!</span>
+<span class="n">rich.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">avian_richness</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">rich.correlog</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>To explain that a bit further: we take a focal point and then make pairs of the value of that point and all other points. These pairs are assigned to bins based on how far apart the points are: the <em>increment</em> is the width of those bins. Once we’ve done this for all points - yes, that is a lot of pairs! - we calculate the correlations between the sets of pairs in each bin. Each bin has a mean distance among the points in that class.</p>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_55_0.png" src="../_images/practical_3_55_0.png" />
+</div>
+</div>
+<p>To explain that a bit further: we take a focal point and then make pairs of the value of that point and all other points. These pairs are assigned to bins based on how far apart the points are: the <code class="docutils literal notranslate"><span class="pre">increment</span></code> is the width of those bins in map units. Once we’ve done this for all points - yes, that is a lot of pairs! - we calculate the correlations between the sets of pairs in each bin. Each bin has a mean distance among the points in that class.</p>
 <p>We can get the significance of the correlations at each distance by resampling the data, but it is a very slow process, which is why the correlograms here have been set not to do any resampling (<code class="docutils literal notranslate"><span class="pre">resamp=0</span></code>).</p>
-<p>We can get more control on that by creating a data frame. First, we can see that the number of pairs in a class drops off dramatically at large distances: that upswing on the right is based on few pairs, so we can generally ignore it and look at just shorter distances.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span>par(mfrow=c(1,2))
-# convert three key variables into a data frame
-rich.correlog &lt;- data.frame(rich.correlog[1:3])
-# plot the size of the distance bins
-plot(n ~ mean.of.class, data=rich.correlog, type=&#39;o&#39;)
-# plot a correlogram for shorter distances
-plot(correlation ~ mean.of.class, data=rich.correlog, type=&#39;o&#39;, subset=mean.of.class &lt; 5000)
-# add a horizontal  zero correlation line
-abline(h=0)
+<p>We can get more control on that plot by turning the object into a data frame. First, we can see that the number of pairs in a class drops off dramatically at large distances: that upswing on the right is based on few pairs, so we can generally ignore it and look at just shorter distances.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="c1"># convert three key variables into a data frame</span>
+<span class="n">rich.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">rich.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+<span class="c1"># plot the size of the distance bins</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">n</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">rich.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">)</span>
+<span class="c1"># plot a correlogram for shorter distances</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">rich.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">)</span>
+<span class="c1"># add a horizontal  zero correlation line</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_57_0.png" src="../_images/practical_3_57_0.png" />
+</div>
 </div>
 <p>One key use of correlograms is to assess how well models have controlled for spatial autocorrelation by looking at the correlation in the residuals. We can compare our two models like this and see how much better the SAR is at controlling for the autocorrelation in the data.</p>
-<div class="highlight-{r notranslate"><div class="highlight"><pre><span></span># Calculate correlograms for the residuals in the two models
-simple.correlog &lt;- correlog(data_xy$x, data_xy$y, data_df$simple_resid, increment=100, resamp=0)
-sar.correlog &lt;- correlog(data_xy$x, data_xy$y, data_df$sar_resid, increment=100, resamp=0)
-# Convert those to make them easier to plot
-simple.correlog &lt;- data.frame(simple.correlog[1:3])
-sar.correlog &lt;- data.frame(sar.correlog[1:3])
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate correlograms for the residuals in the two models</span>
+<span class="n">simple.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">simple_resid</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
+<span class="n">sar.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">sar_resid</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
 
-# plot a correlogram for shorter distances
-plot(correlation ~ mean.of.class, data=simple.correlog, type=&#39;o&#39;, subset=mean.of.class &lt; 5000)
-# add the data for the SAR model to compare them
-lines(correlation ~ mean.of.class, data=sar.correlog, type=&#39;o&#39;, subset=mean.of.class &lt; 5000, col=&#39;red&#39;)
+<span class="c1"># Convert those to make them easier to plot</span>
+<span class="n">simple.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">simple.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+<span class="n">sar.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">sar.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
 
-# add a horizontal  zero correlation line
-abline(h=0)
+<span class="c1"># plot a correlogram for shorter distances</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">simple.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">)</span>
+<span class="c1"># add the data for the SAR model to compare them</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sar.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># add a horizontal  zero correlation line</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_59_0.png" src="../_images/practical_3_59_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="generalised-least-squares">
+<h2>Generalised least squares<a class="headerlink" href="#generalised-least-squares" title="Permalink to this headline">¶</a></h2>
+<p>Generalised least squares (GLS) is an another extension of the linear model framework that allows us to include the expected correlation between our data points in the model fitting. The immediate way it differs from spatial autoregressive models is that it does not use a list of cell neighbourhoods, instead it uses a mathematical function to describe a model of how correlation changes with distance.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">gls</span></code> function works in the same way as <code class="docutils literal notranslate"><span class="pre">lm</span></code> but permits extra arguments, so we can fit the simple model:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">gls_simple</span> <span class="o">&lt;-</span> <span class="nf">gls</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">mean_aet</span> <span class="o">+</span> <span class="n">mean_temp</span> <span class="o">+</span> <span class="n">elev</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">gls_simple</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generalized least squares fit by REML
+  Model: avian_richness ~ mean_aet + mean_temp + elev 
+  Data: data_sf 
+       AIC      BIC    logLik
+  28858.04 28887.11 -14424.02
+
+Coefficients:
+                Value Std.Error  t-value p-value
+(Intercept) 198.27669 21.062878  9.41356       0
+mean_aet      0.17839  0.004665 38.23824       0
+mean_temp    -4.50836  0.713118 -6.32204       0
+elev          0.07360  0.005422 13.57341       0
+
+ Correlation: 
+          (Intr) mean_t mn_tmp
+mean_aet  -0.315              
+mean_temp -0.975  0.148       
+elev      -0.821  0.184  0.753
+
+Standardized residuals:
+       Min         Q1        Med         Q3        Max 
+-3.5303243 -0.6523947 -0.0187891  0.6394739  3.9951462 
+
+Residual standard error: 81.24335 
+Degrees of freedom: 2479 total; 2475 residual
+</pre></div>
+</div>
+</div>
+</div>
+<p>That looks very like the normal <code class="docutils literal notranslate"><span class="pre">lm</span></code> output, except that it has added a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see <span class="xref myst">Practical 2</span>).</p>
+<p>To add spatial autocorrelation into the model we have to create a spatial correlation structure. The example below uses the Gaussian model. You can look at <code class="docutils literal notranslate"><span class="pre">?corGaus</span></code> for the equation but essentially this model describes how the expected correlation decreases from an initial value with increasing distance until a range threshold is met - after that the data is expected to be uncorrelated. The constructor needs to know the spatial coordinates of the data (using <code class="docutils literal notranslate"><span class="pre">form</span></code>) and then the other arguments set the shape of the curve. You can set <code class="docutils literal notranslate"><span class="pre">fixed=FALSE</span></code> and the model will then try and optimise the range and nugget parameters, but this can take hours.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the correlation structure</span>
+<span class="n">cor_struct_gauss</span> <span class="o">&lt;-</span> <span class="nf">corGaus</span><span class="p">(</span><span class="n">value</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">range</span><span class="o">=</span><span class="m">650</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="m">0.1</span><span class="p">),</span> <span class="n">form</span><span class="o">=~</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span><span class="p">,</span> <span class="n">fixed</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">nugget</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># Add that to the simple model - this might take a few minutes to run!</span>
+<span class="n">gls_gauss</span> <span class="o">&lt;-</span> <span class="nf">update</span><span class="p">(</span><span class="n">gls_simple</span><span class="p">,</span>  <span class="n">corr</span><span class="o">=</span><span class="n">cor_struct_gauss</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">gls_gauss</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Generalized least squares fit by REML
+  Model: avian_richness ~ mean_aet + mean_temp + elev 
+  Data: data_sf 
+       AIC      BIC    logLik
+  24586.56 24615.63 -12288.28
+
+Correlation Structure: Gaussian spatial correlation
+ Formula: ~x + y 
+ Parameter estimate(s):
+ range nugget 
+ 650.0    0.1 
+
+Coefficients:
+               Value Std.Error   t-value p-value
+(Intercept) 357.1643  46.27826  7.717755   0.000
+mean_aet      0.0533   0.00851  6.257810   0.000
+mean_temp    -7.8843   1.60945 -4.898760   0.000
+elev          0.0106   0.00929  1.141019   0.254
+
+ Correlation: 
+          (Intr) mean_t mn_tmp
+mean_aet  -0.165              
+mean_temp -0.926  0.045       
+elev      -0.878  0.076  0.935
+
+Standardized residuals:
+       Min         Q1        Med         Q3        Max 
+-2.0344981 -0.0253260  0.6173762  1.1890697  4.3973486 
+
+Residual standard error: 96.62373 
+Degrees of freedom: 2479 total; 2475 residual
+</pre></div>
+</div>
+</div>
+</div>
+<p>That output looks very similar but now includes a description of the correlation structure. Note that all of the <strong>model coefficients have changed</strong> and the <strong>significance of the variables</strong> has changed. Elevation is no longer significant when we account for autocorrelation.</p>
+<p>We can map the two model predictions</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">gls_simple_pred</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gls_simple</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">gls_gauss_pred</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">gls_gauss</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">data_sf</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;gls_simple_pred&#39;</span><span class="p">,</span><span class="s">&#39;gls_gauss_pred&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.6</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">20</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_65_0.png" src="../_images/practical_3_65_0.png" />
+</div>
+</div>
+<div class="admonition-compare-the-residual-autocorrelation admonition">
+<p class="admonition-title">Compare the residual autocorrelation</p>
+<p>Using the example at the end of the section on <span class="xref myst">autoregressive models</span>, create this plot comparing the autocorrelation in the residuals from the two GLS models.</p>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1">#Extract the residuals</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">gls_simple_resid</span> <span class="o">&lt;-</span> <span class="nf">resid</span><span class="p">(</span><span class="n">gls_simple</span><span class="p">)</span>
+<span class="n">data_sf</span><span class="o">$</span><span class="n">gls_gauss_resid</span> <span class="o">&lt;-</span> <span class="nf">resid</span><span class="p">(</span><span class="n">gls_gauss</span><span class="p">)</span>
+
+<span class="c1"># Calculate correlograms for the residuals in the two models</span>
+<span class="n">simple.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">gls_simple_resid</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
+<span class="n">gauss.correlog</span> <span class="o">&lt;-</span> <span class="nf">with</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="nf">correlog</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">gls_gauss_resid</span><span class="p">,</span> <span class="n">increment</span><span class="o">=</span><span class="n">cellsize</span><span class="p">,</span> <span class="n">resamp</span><span class="o">=</span><span class="m">0</span><span class="p">))</span>
+
+<span class="c1"># Convert those to make them easier to plot</span>
+<span class="n">simple.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">simple.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+<span class="n">gauss.correlog</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">gauss.correlog</span><span class="p">[</span><span class="m">1</span><span class="o">:</span><span class="m">3</span><span class="p">])</span>
+
+<span class="c1"># plot a correlogram for shorter distances</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">simple.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">)</span>
+<span class="c1"># add the data for the SAR model to compare them</span>
+<span class="nf">lines</span><span class="p">(</span><span class="n">correlation</span> <span class="o">~</span> <span class="n">mean.of.class</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">gauss.correlog</span><span class="p">,</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;o&#39;</span><span class="p">,</span> <span class="n">subset</span><span class="o">=</span><span class="n">mean.of.class</span> <span class="o">&lt;</span> <span class="m">5000</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+
+<span class="c1"># add a horizontal  zero correlation line</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">h</span><span class="o">=</span><span class="m">0</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_67_0.png" src="../_images/practical_3_67_0.png" />
+</div>
+</div>
+<p>Oh dear - that is <strong>not the improvement we were looking for</strong>. We can also look at the relationship between observed and predicted richness. It is clear that - although it may be dealing with spatial autocorrelation - this spatial GLS is not a good description of the data! Do not forget that <strong>all models require careful model criticism</strong>!</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">))</span>
+<span class="c1"># set the plot limits to show the scaling clearly</span>
+<span class="n">lims</span> <span class="o">&lt;-</span> <span class="nf">c</span><span class="p">(</span><span class="m">0</span><span class="p">,</span> <span class="nf">max</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">gls_simple_pred</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="n">lims</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="n">lims</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">gls_gauss_pred</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">xlim</span><span class="o">=</span><span class="n">lims</span><span class="p">,</span> <span class="n">ylim</span><span class="o">=</span><span class="n">lims</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">a</span><span class="o">=</span><span class="m">0</span><span class="p">,</span> <span class="n">b</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">,</span> <span class="n">lwd</span><span class="o">=</span><span class="m">2</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/practical_3_69_0.png" src="../_images/practical_3_69_0.png" />
+</div>
+</div>
 </div>
 </div>
 
@@ -856,6 +1335,7 @@ abline(h=0)
     
     <div class='prev-next-bottom'>
         
+    <a class='left-prev' id="prev-link" href="../practical_2/practical_2.html" title="previous page">Practical Two: Species Distribution Modelling</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
