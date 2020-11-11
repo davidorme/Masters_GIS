@@ -1,0 +1,16 @@
+# Not currently being used but a way to preload functions into RStudio 
+# Cloud in a quiet way - this can be put in /home/rstudio-user and will
+# be loaded when the session starts.
+
+.First <- function(){
+  
+    cat('Welcome to Session xxx')
+    
+    # Create objects - these have to be created in an enviroment 
+    # and then attached
+    .__Rprofile_env__. <- new.env(parent = emptyenv())
+    
+    assign('x', 1:10, envir=.__Rprofile_env__.)
+    
+    attach(.__Rprofile_env__.)
+}
