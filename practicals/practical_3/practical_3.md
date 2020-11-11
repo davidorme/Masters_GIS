@@ -643,5 +643,5 @@ expl <- data_sf[,c('elev','mean_temp','mean_aet')]
 # This retains the geometry, so we need to convert back to a simple dataframe
 st_geometry(expl) <- NULL
 # Fit the model, optimising the AIC
-eigen_spmoran <- esf(data_sf$avian_richness, xx, meig=queen_eigen, fn='aic')
+eigen_spmoran <- esf(data_sf$avian_richness, expl, meig=queen_eigen, fn='aic')
 ```
