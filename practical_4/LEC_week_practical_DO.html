@@ -1,0 +1,1426 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Landscape metric analysis &#8212; GIS and Spatial Methods in R</title>
+    
+  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+  <link rel="stylesheet"
+    href="../_static/vendor/open-sans_all/1.44.1/index.css">
+  <link rel="stylesheet"
+    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
+
+    
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="en" />
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  
+  <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Introduction to the practicals
+  </a>
+ </li>
+</ul>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_1/practical_1.html">
+   Practical One: GIS data and plotting
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_2/practical_2.html">
+   Practical Two: Species Distribution Modelling
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../practical_3/practical_3.html">
+   Practical 3: Spatial modelling in R
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/practical_4/LEC_week_practical_DO.md"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.md</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+                title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#requirements">
+   Requirements
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-sets">
+   Data sets
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#species-data">
+     Species data
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#sites-data">
+       Sites data
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#abundance-data">
+       Abundance data
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#species-trait-data">
+       Species trait data
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#data-checking">
+       Data checking
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#landcover-data">
+     Landcover data
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-landscape-metrics">
+   Calculating landscape metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#landscape-data-processing">
+     Landscape data processing
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#extracting-landscape-metrics">
+     Extracting landscape metrics
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#landscape-levels">
+       Landscape levels
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#merging-landscape-metrics-onto-sites">
+       Merging landscape metrics onto sites
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#group-exercise">
+     Group exercise
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#calculating-biodiversity-metrics">
+   Calculating biodiversity metrics
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness">
+     Measuring site abundance, species richness, species diversity and evenness
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#exercise">
+       Exercise
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#species-rank-abundance">
+       Species rank abundance
+      </a>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#measuring-community-composition">
+     Measuring community composition
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#transforming-site-by-species-data">
+       Transforming site by species data.
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#calculating-dissimilarity-indices">
+       Calculating dissimilarity Indices
+      </a>
+     </li>
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#principal-coordinate-analysis">
+       Principal coordinate analysis
+      </a>
+      <ul class="nav section-nav flex-column">
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#community-separation-in-space">
+         Community separation in space
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#id1">
+         Exercise
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#how-many-axes-to-consider">
+         How many axes to consider
+        </a>
+       </li>
+       <li class="toc-h5 nav-item toc-entry">
+        <a class="reference internal nav-link" href="#sidebar-shepard-diagrams">
+         Sidebar: Shepard diagrams
+        </a>
+       </li>
+      </ul>
+     </li>
+    </ul>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-1-community-metric-variations">
+     Exercise 1 - community metric variations.
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#exercise-2-regression-of-landscape-and-community-metrics">
+     Exercise 2 - regression of landscape and community metrics
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-diversity">
+     Functional diversity
+    </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#id2">
+       Exercise
+      </a>
+     </li>
+    </ul>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#id3">
+   Group exercise
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#presenting-your-results-on-friday-20th-november">
+   Presenting your results on Friday 20th November.
+  </a>
+ </li>
+</ul>
+
+        </nav>
+        
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="landscape-metric-analysis">
+<h1>Landscape metric analysis<a class="headerlink" href="#landscape-metric-analysis" title="Permalink to this headline">¶</a></h1>
+<p>In this practical, we are going to use R to:</p>
+<ol class="simple">
+<li><p>obtain landscape metrics from a map,</p></li>
+<li><p>obtain community metrics from a bird dataset and</p></li>
+<li><p>analyse the data to assess how Atlantic Forest birds are impacted by habitat loss and fragmentation.</p></li>
+</ol>
+<p>Everyone in the class will have access to the same data but each group will be assigned a specific question that needs to be answered by Friday 20th November 2020. On Friday, one representative from each group (make sure to decide this beforehand), will present their results on slides. A discussion will follow.</p>
+<div class="section" id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<p>This practical needs the following R packages. They have all been installed on the RStudio Cloud Project for this practical, but if you are following this practical on your own laptop, you will need to install the following:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;landscapemetrics&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ggplot&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgdal&#39;</span><span class="p">)</span>
+<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;vegan&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>You can now load the required packages:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">landscapemetrics</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">vegan</span><span class="p">)</span>
+<span class="nf">library</span><span class="p">(</span><span class="n">ggplot</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in library(ggplot): there is no package called &#39;ggplot&#39;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-sets">
+<h2>Data sets<a class="headerlink" href="#data-sets" title="Permalink to this headline">¶</a></h2>
+<p>The first step is to load and explore the datasets.</p>
+<div class="section" id="species-data">
+<h3>Species data<a class="headerlink" href="#species-data" title="Permalink to this headline">¶</a></h3>
+<p>This is a bird data set that was collected in the Brazilian Atlantic Forest between 2001 and 2007. The data set contains the abundance of 140 species that were captured in 65 sites, from three different landscapes with different proportions of forest cover at the 10,000 hectare scale.</p>
+<p>More info about the data set can be found in the following papers:</p>
+<ul class="simple">
+<li><p>Banks-Leite, C., Ewers, R. M., &amp; Metzger, J. P. (2012). Unraveling the drivers of community dissimilarity and species extinction in fragmented landscapes. Ecology 93(12), 2560-2569. <a class="reference external" href="https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1">https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1</a></p></li>
+<li><p>Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., &amp; Metzger, J. P. (2011). Comparing species and measures of landscape structure as indicators of conservation importance. Journal of Applied Ecology 48(3), 706-714. <a class="reference external" href="https://doi.org/10.1111/j.1365-2664.2011.01966.x">https://doi.org/10.1111/j.1365-2664.2011.01966.x</a></p></li>
+</ul>
+<p>There are three files to load.</p>
+<div class="section" id="sites-data">
+<h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this headline">¶</a></h4>
+<p>First, we can load the sites data and use the longitude and latitude coordinates (WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/sites.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Lon&#39;</span><span class="p">,</span><span class="s">&#39;Lat&#39;</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">sites</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Landscape_ID&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-3" src="../_images/unnamed-chunk-3-1.png" /></p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">View</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>The three landscapes (A B and C) are spatially separated in areas with different overall levels of deforestation, but each has four control sites in local continuous forest. The <code class="docutils literal notranslate"><span class="pre">sites</span></code> data set also describes the characteristics of the sites:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">Landscape</span></code>: whether the site belong to a fragmented or a continuously-forested control landscape,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Percent</span></code>: the proportion of forest cover at the 10,000 ha landscape scale, and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Frag_Cont</span></code>: as we just saw, fragmented landscapes were paired with a control landscape, so this variable gives you the information of which sites were closer together.</p></li>
+</ul>
+</div>
+<div class="section" id="abundance-data">
+<h4>Abundance data<a class="headerlink" href="#abundance-data" title="Permalink to this headline">¶</a></h4>
+<p>Next, read in the  data set showing the sites x species abundance matrix. As you’ll see, a lot of the species were only caught once or twice and there are lots of 0s in the matrix. Most species are globally common or rare in the dataset: few species have variable levels of abundance.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the abundance data and use the first column (site names) as row names</span>
+<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/abundance.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">View</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="species-trait-data">
+<h4>Species trait data<a class="headerlink" href="#species-trait-data" title="Permalink to this headline">¶</a></h4>
+<p>Last, the bird trait data set includes information about:</p>
+<ul class="simple">
+<li><p>The main diet of all species, split into five categories (<code class="docutils literal notranslate"><span class="pre">Invertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Vertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Fruits</span></code>, <code class="docutils literal notranslate"><span class="pre">Nectar</span></code>, <code class="docutils literal notranslate"><span class="pre">Seeds</span></code>).</p></li>
+<li><p>The preferred foraging strata, split into four categories (<code class="docutils literal notranslate"><span class="pre">Ground</span></code>, <code class="docutils literal notranslate"><span class="pre">Understory</span></code>, <code class="docutils literal notranslate"><span class="pre">Midstory</span></code>, <code class="docutils literal notranslate"><span class="pre">Canopy</span></code>)</p></li>
+<li><p>The species’ mean body size (<code class="docutils literal notranslate"><span class="pre">BMass</span></code>).</p></li>
+<li><p>The number of habitats the species uses (<code class="docutils literal notranslate"><span class="pre">Nhabitats</span></code>), representing specialisation.</p></li>
+</ul>
+<p>The values used for the diet and foraging strata are a semi-quantititiave measure of use frequency: always (3), frequently (2), rarely (1), never (0). This matrix thus contains semi-quantitative variables and continuous variables.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">View</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="data-checking">
+<h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this headline">¶</a></h4>
+<p>It is always wise to check data carefully before analysis, particularly to look for missing data. Some key tools:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">str</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## &#39;data.frame&#39;:	65 obs. of  140 variables:</span>
+<span class="c1">##  $ species1  : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species2  : int  0 0 0 0 0 0 0 0 1 0 ...</span>
+<span class="c1">##  $ species3  : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species4  : int  0 0 0 0 1 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species5  : int  0 0 0 3 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species6  : int  0 0 1 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species7  : int  2 0 0 1 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species8  : int  0 0 4 2 0 0 0 0 3 12 ...</span>
+<span class="c1">##  $ species9  : int  0 0 0 0 0 1 0 0 0 0 ...</span>
+<span class="c1">##  $ species10 : int  10 5 8 1 1 3 1 1 9 8 ...</span>
+<span class="c1">##  $ species11 : int  2 4 4 1 0 2 6 3 6 7 ...</span>
+<span class="c1">##  $ species12 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species13 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species14 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species15 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species16 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species17 : int  0 0 0 0 1 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species18 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species19 : int  11 2 13 3 1 1 7 14 2 9 ...</span>
+<span class="c1">##  $ species20 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species21 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species22 : int  0 0 0 0 5 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species23 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species24 : int  0 0 1 0 0 0 0 0 0 2 ...</span>
+<span class="c1">##  $ species25 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species26 : int  7 5 9 6 0 8 5 5 13 18 ...</span>
+<span class="c1">##  $ species27 : int  0 0 0 1 0 0 0 1 0 0 ...</span>
+<span class="c1">##  $ species28 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species29 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species30 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species31 : int  0 0 0 0 0 0 0 1 0 0 ...</span>
+<span class="c1">##  $ species32 : int  2 2 0 0 1 1 0 1 0 0 ...</span>
+<span class="c1">##  $ species33 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species34 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species35 : int  0 3 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species36 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species37 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species38 : int  5 1 9 4 1 2 3 2 2 5 ...</span>
+<span class="c1">##  $ species39 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species40 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species41 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species42 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species43 : int  0 0 0 0 0 0 0 3 0 0 ...</span>
+<span class="c1">##  $ species44 : int  1 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species45 : int  0 0 1 0 2 0 0 0 0 6 ...</span>
+<span class="c1">##  $ species46 : int  1 0 0 3 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species47 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species48 : int  0 2 2 1 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species49 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species50 : int  0 0 0 0 0 0 2 0 0 0 ...</span>
+<span class="c1">##  $ species51 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species52 : int  0 1 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species53 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species54 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species55 : int  1 1 0 0 0 3 0 0 0 1 ...</span>
+<span class="c1">##  $ species56 : int  0 0 0 0 0 2 0 0 0 0 ...</span>
+<span class="c1">##  $ species57 : int  1 1 2 0 0 0 1 0 0 4 ...</span>
+<span class="c1">##  $ species58 : int  8 3 4 2 0 5 5 6 0 9 ...</span>
+<span class="c1">##  $ species59 : int  0 0 1 0 0 0 0 0 0 1 ...</span>
+<span class="c1">##  $ species60 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species61 : int  1 0 2 0 0 0 0 0 2 1 ...</span>
+<span class="c1">##  $ species62 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species63 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species64 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species65 : int  0 0 0 0 0 0 0 0 1 0 ...</span>
+<span class="c1">##  $ species66 : int  0 1 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species67 : int  2 0 0 0 0 0 0 0 1 0 ...</span>
+<span class="c1">##  $ species68 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species69 : int  2 1 1 3 1 0 1 2 2 1 ...</span>
+<span class="c1">##  $ species70 : int  0 0 0 1 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species71 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species72 : int  0 0 0 2 2 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species73 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species74 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species75 : int  0 0 0 3 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species76 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species77 : int  0 0 0 0 1 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species78 : int  0 0 0 0 0 0 1 0 0 0 ...</span>
+<span class="c1">##  $ species79 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species80 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species81 : int  0 0 0 1 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species82 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species83 : int  0 0 0 0 3 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species84 : int  6 1 1 0 4 1 0 3 0 0 ...</span>
+<span class="c1">##  $ species85 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species86 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species87 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species88 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species89 : int  1 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species90 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species91 : int  0 0 0 0 0 0 0 0 1 0 ...</span>
+<span class="c1">##  $ species92 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species93 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species94 : int  2 0 1 0 0 0 0 0 1 1 ...</span>
+<span class="c1">##  $ species95 : int  0 0 0 0 2 1 0 0 0 0 ...</span>
+<span class="c1">##  $ species96 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##  $ species97 : int  13 2 4 4 5 2 6 5 3 10 ...</span>
+<span class="c1">##  $ species98 : int  8 1 0 7 1 0 2 3 0 0 ...</span>
+<span class="c1">##  $ species99 : int  0 0 0 0 0 0 0 0 0 0 ...</span>
+<span class="c1">##   [list output truncated]</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span> <span class="c1"># NAs will be counted if found</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##     species1          species2          species3          species4     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.04615   Mean   :0.06154   Mean   :0.07692   Mean   :0.2462  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :2.00000   Max.   :1.00000   Max.   :3.00000   Max.   :5.0000  </span>
+<span class="c1">##     species5          species6          species7         species8     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   : 0.000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.: 0.000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.0000   Median : 1.000  </span>
+<span class="c1">##  Mean   :0.06154   Mean   :0.09231   Mean   :0.2923   Mean   : 2.169  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.: 4.000  </span>
+<span class="c1">##  Max.   :3.00000   Max.   :2.00000   Max.   :2.0000   Max.   :14.000  </span>
+<span class="c1">##     species9        species10        species11        species12      </span>
+<span class="c1">##  Min.   :0.0000   Min.   : 0.000   Min.   : 0.000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.: 2.000   1st Qu.: 1.000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.0000   Median : 4.000   Median : 4.000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.1692   Mean   : 4.846   Mean   : 4.154   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.:0.0000   3rd Qu.: 8.000   3rd Qu.: 6.000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :3.0000   Max.   :17.000   Max.   :24.000   Max.   :3.00000  </span>
+<span class="c1">##    species13         species14         species15         species16      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   :0.01538   Mean   :0.04615   Mean   :0.03077  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :2.00000   Max.   :1.00000   Max.   :1.00000   Max.   :1.00000  </span>
+<span class="c1">##    species17        species18         species19        species20      </span>
+<span class="c1">##  Min.   :0.0000   Min.   :0.00000   Min.   : 0.000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.: 3.000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.0000   Median :0.00000   Median : 6.000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.2308   Mean   :0.03077   Mean   : 6.815   Mean   :0.01538  </span>
+<span class="c1">##  3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.: 9.000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :4.0000   Max.   :1.00000   Max.   :24.000   Max.   :1.00000  </span>
+<span class="c1">##    species21         species22        species23        species24     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.0000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.1692   Mean   :0.1385   Mean   :0.1077  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :5.0000   Max.   :4.0000   Max.   :2.0000  </span>
+<span class="c1">##    species25         species26        species27         species28     </span>
+<span class="c1">##  Min.   :0.00000   Min.   : 0.000   Min.   :0.00000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.: 4.000   1st Qu.:0.00000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median : 5.000   Median :0.00000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   : 6.385   Mean   :0.04615   Mean   :0.2923  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.: 9.000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :20.000   Max.   :1.00000   Max.   :7.0000  </span>
+<span class="c1">##    species29         species30         species31        species32     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.0000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.01538   Mean   :0.2462   Mean   :0.7538  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:1.0000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :4.0000   Max.   :4.0000  </span>
+<span class="c1">##    species33         species34         species35         species36      </span>
+<span class="c1">##  Min.   : 0.0000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.: 0.0000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median : 0.0000   Median :0.00000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   : 0.5385   Mean   :0.01538   Mean   :0.06154   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.: 0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :11.0000   Max.   :1.00000   Max.   :3.00000   Max.   :1.00000  </span>
+<span class="c1">##    species37         species38        species39         species40      </span>
+<span class="c1">##  Min.   :0.00000   Min.   : 0.000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.: 2.000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median : 3.000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.09231   Mean   : 3.677   Mean   :0.01538   Mean   :0.06154  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.: 5.000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :3.00000   Max.   :18.000   Max.   :1.00000   Max.   :1.00000  </span>
+<span class="c1">##    species41         species42        species43        species44      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.06154   Mean   :0.1538   Mean   :0.3538   Mean   :0.07692  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :3.00000   Max.   :4.0000   Max.   :3.0000   Max.   :2.00000  </span>
+<span class="c1">##    species45        species46        species47         species48     </span>
+<span class="c1">##  Min.   : 0.000   Min.   : 0.000   Min.   :0.00000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.: 0.000   1st Qu.: 0.000   1st Qu.:0.00000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median : 0.000   Median : 0.000   Median :0.00000   Median :0.0000  </span>
+<span class="c1">##  Mean   : 1.046   Mean   : 1.154   Mean   :0.04615   Mean   :0.2615  </span>
+<span class="c1">##  3rd Qu.: 1.000   3rd Qu.: 2.000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :13.000   Max.   :20.000   Max.   :2.00000   Max.   :5.0000  </span>
+<span class="c1">##    species49         species50        species51         species52      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.3538   Mean   :0.01538   Mean   :0.06154  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :5.0000   Max.   :1.00000   Max.   :1.00000  </span>
+<span class="c1">##    species53         species54         species55       species56      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.04615   Mean   :0.01538   Mean   :1.092   Mean   :0.09231  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:2.000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :6.000   Max.   :2.00000  </span>
+<span class="c1">##    species57        species58        species59        species60      </span>
+<span class="c1">##  Min.   :0.0000   Min.   : 0.000   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.: 2.000   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :1.0000   Median : 4.000   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.9077   Mean   : 3.908   Mean   :0.3077   Mean   :0.01538  </span>
+<span class="c1">##  3rd Qu.:2.0000   3rd Qu.: 6.000   3rd Qu.:0.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :4.0000   Max.   :12.000   Max.   :2.0000   Max.   :1.00000  </span>
+<span class="c1">##    species61        species62        species63         species64      </span>
+<span class="c1">##  Min.   :0.0000   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.0000   Median :0.0000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.4769   Mean   :0.3231   Mean   :0.01538   Mean   :0.03077  </span>
+<span class="c1">##  3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :3.0000   Max.   :5.0000   Max.   :1.00000   Max.   :1.00000  </span>
+<span class="c1">##    species65         species66        species67         species68  </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.0  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.0  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.00000   Median :0.0  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.1692   Mean   :0.09231   Mean   :0.2  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.0  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :3.0000   Max.   :2.00000   Max.   :3.0  </span>
+<span class="c1">##    species69       species70        species71     species72      </span>
+<span class="c1">##  Min.   :0.000   Min.   :0.0000   Min.   :0.0   Min.   : 0.0000  </span>
+<span class="c1">##  1st Qu.:0.000   1st Qu.:0.0000   1st Qu.:0.0   1st Qu.: 0.0000  </span>
+<span class="c1">##  Median :1.000   Median :0.0000   Median :0.0   Median : 0.0000  </span>
+<span class="c1">##  Mean   :1.538   Mean   :0.1538   Mean   :0.2   Mean   : 0.8154  </span>
+<span class="c1">##  3rd Qu.:2.000   3rd Qu.:0.0000   3rd Qu.:0.0   3rd Qu.: 0.0000  </span>
+<span class="c1">##  Max.   :7.000   Max.   :2.0000   Max.   :4.0   Max.   :12.0000  </span>
+<span class="c1">##    species73         species74     species75        species76      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   :0.2   Mean   :0.4923   Mean   :0.01538  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0   3rd Qu.:1.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :6.0   Max.   :4.0000   Max.   :1.00000  </span>
+<span class="c1">##    species77         species78        species79         species80      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   :0.1077   Mean   :0.01538   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :2.0000   Max.   :1.00000   Max.   :3.00000  </span>
+<span class="c1">##    species81         species82         species83        species84     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   : 0.000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.: 0.000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.0000   Median : 2.000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   :0.01538   Mean   :0.5846   Mean   : 2.538  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.: 4.000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :9.0000   Max.   :11.000  </span>
+<span class="c1">##    species85         species86        species87         species88      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.04615   Mean   :0.1077   Mean   :0.04615   Mean   :0.06154  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :3.00000   Max.   :2.0000   Max.   :2.00000   Max.   :3.00000  </span>
+<span class="c1">##    species89        species90         species91         species92      </span>
+<span class="c1">##  Min.   :0.0000   Min.   :0.00000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.0000   Median :0.00000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.1231   Mean   :0.04615   Mean   :0.06154   Mean   :0.09231  </span>
+<span class="c1">##  3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :2.0000   Max.   :1.00000   Max.   :1.00000   Max.   :2.00000  </span>
+<span class="c1">##    species93         species94        species95        species96      </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.0000   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.0000   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.04615   Mean   :0.3231   Mean   :0.4769   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:0.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :2.0000   Max.   :5.0000   Max.   :2.00000  </span>
+<span class="c1">##    species97        species98        species99         species100     </span>
+<span class="c1">##  Min.   : 0.000   Min.   : 0.000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.: 3.000   1st Qu.: 0.000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median : 5.000   Median : 2.000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   : 4.831   Mean   : 3.215   Mean   :0.09231   Mean   :0.01538  </span>
+<span class="c1">##  3rd Qu.: 6.000   3rd Qu.: 5.000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :13.000   Max.   :13.000   Max.   :3.00000   Max.   :1.00000  </span>
+<span class="c1">##    species101        species102        species103       species104     </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.01538   Mean   :0.1385   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :4.0000   Max.   :2.00000  </span>
+<span class="c1">##    species105       species106      species107        species108   </span>
+<span class="c1">##  Min.   :0.0000   Min.   :0.000   Min.   :0.00000   Min.   :0.000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.:0.000   1st Qu.:0.00000   1st Qu.:0.000  </span>
+<span class="c1">##  Median :0.0000   Median :1.000   Median :0.00000   Median :1.000  </span>
+<span class="c1">##  Mean   :0.6615   Mean   :1.538   Mean   :0.01538   Mean   :1.908  </span>
+<span class="c1">##  3rd Qu.:1.0000   3rd Qu.:3.000   3rd Qu.:0.00000   3rd Qu.:3.000  </span>
+<span class="c1">##  Max.   :4.0000   Max.   :8.000   Max.   :1.00000   Max.   :8.000  </span>
+<span class="c1">##    species109        species110       species111        species112     </span>
+<span class="c1">##  Min.   :0.00000   Min.   : 0.000   Min.   :0.00000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.: 0.000   1st Qu.:0.00000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median : 2.000   Median :0.00000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   : 2.338   Mean   :0.03077   Mean   :0.01538  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.: 4.000   3rd Qu.:0.00000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :10.000   Max.   :1.00000   Max.   :1.00000  </span>
+<span class="c1">##    species113        species114       species115      species116     </span>
+<span class="c1">##  Min.   :0.00000   Min.   : 0.000   Min.   :0.000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.: 0.000   1st Qu.:0.000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median : 1.000   Median :1.000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   : 1.677   Mean   :1.385   Mean   :0.04615  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.: 2.000   3rd Qu.:2.000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :11.000   Max.   :6.000   Max.   :1.00000  </span>
+<span class="c1">##    species117        species118       species119       species120     </span>
+<span class="c1">##  Min.   :0.00000   Min.   : 0.000   Min.   :0.0000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.: 0.000   1st Qu.:0.0000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median :0.00000   Median : 2.000   Median :0.0000   Median :0.00000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   : 2.738   Mean   :0.1231   Mean   :0.03077  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.: 4.000   3rd Qu.:0.0000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :16.000   Max.   :7.0000   Max.   :1.00000  </span>
+<span class="c1">##    species121       species122        species123       species124     </span>
+<span class="c1">##  Min.   : 0.000   Min.   :0.00000   Min.   : 0.000   Min.   :0.00000  </span>
+<span class="c1">##  1st Qu.: 0.000   1st Qu.:0.00000   1st Qu.: 1.000   1st Qu.:0.00000  </span>
+<span class="c1">##  Median : 0.000   Median :0.00000   Median : 2.000   Median :0.00000  </span>
+<span class="c1">##  Mean   : 1.215   Mean   :0.01538   Mean   : 2.985   Mean   :0.03077  </span>
+<span class="c1">##  3rd Qu.: 2.000   3rd Qu.:0.00000   3rd Qu.: 4.000   3rd Qu.:0.00000  </span>
+<span class="c1">##  Max.   :10.000   Max.   :1.00000   Max.   :14.000   Max.   :1.00000  </span>
+<span class="c1">##    species125        species126        species127        species128    </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.00000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.00000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.01538   Mean   :0.01538   Mean   :0.03077   Mean   :0.3846  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :2.00000   Max.   :2.0000  </span>
+<span class="c1">##    species129       species130        species131        species132    </span>
+<span class="c1">##  Min.   : 0.000   Min.   :0.00000   Min.   :0.00000   Min.   : 0.000  </span>
+<span class="c1">##  1st Qu.: 3.000   1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.: 2.000  </span>
+<span class="c1">##  Median : 6.000   Median :0.00000   Median :0.00000   Median : 4.000  </span>
+<span class="c1">##  Mean   : 6.431   Mean   :0.01538   Mean   :0.06154   Mean   : 4.692  </span>
+<span class="c1">##  3rd Qu.: 9.000   3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.: 6.000  </span>
+<span class="c1">##  Max.   :16.000   Max.   :1.00000   Max.   :1.00000   Max.   :20.000  </span>
+<span class="c1">##    species133       species134        species135       species136    </span>
+<span class="c1">##  Min.   :0.0000   Min.   :0.00000   Min.   : 0.000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.0000   1st Qu.:0.00000   1st Qu.: 1.000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.0000   Median :0.00000   Median : 4.000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.2154   Mean   :0.06154   Mean   : 4.431   Mean   :0.2615  </span>
+<span class="c1">##  3rd Qu.:0.0000   3rd Qu.:0.00000   3rd Qu.: 7.000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :3.0000   Max.   :1.00000   Max.   :20.000   Max.   :2.0000  </span>
+<span class="c1">##    species137        species138        species139       species140    </span>
+<span class="c1">##  Min.   :0.00000   Min.   :0.00000   Min.   :0.0000   Min.   :0.0000  </span>
+<span class="c1">##  1st Qu.:0.00000   1st Qu.:0.00000   1st Qu.:0.0000   1st Qu.:0.0000  </span>
+<span class="c1">##  Median :0.00000   Median :0.00000   Median :0.0000   Median :0.0000  </span>
+<span class="c1">##  Mean   :0.03077   Mean   :0.03077   Mean   :0.4615   Mean   :0.1538  </span>
+<span class="c1">##  3rd Qu.:0.00000   3rd Qu.:0.00000   3rd Qu.:1.0000   3rd Qu.:0.0000  </span>
+<span class="c1">##  Max.   :1.00000   Max.   :1.00000   Max.   :3.0000   Max.   :3.0000</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">View</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="nf">any</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">abundance</span><span class="p">))</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## [1] FALSE</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="landcover-data">
+<h3>Landcover data<a class="headerlink" href="#landcover-data" title="Permalink to this headline">¶</a></h3>
+<p>We will take data to calculate the landscape metrics from a landcover map for the study region. If you want to know more about the origin of the map, check <a class="reference external" href="https://mapbiomas.org">https://mapbiomas.org</a>. It is in Portugese but Google should translate it for you! This is a database of land cover through time for the entire country of Brazil - we are using data contemporary with the bird sampling.</p>
+<p>The map is a GEOTIFF file of landcover classes, therefore we are going to use the function <code class="docutils literal notranslate"><span class="pre">raster</span></code> from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to load the map.  First, load the map and check its coordinate system:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># load map</span>
+<span class="n">landcover</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="s">&quot;data/map.tif&quot;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## class      : RasterLayer </span>
+<span class="c1">## dimensions : 7421, 11132, 82610572  (nrow, ncol, ncell)</span>
+<span class="c1">## resolution : 0.0002694946, 0.0002694946  (x, y)</span>
+<span class="c1">## extent     : -49.00004, -46.00003, -24.99993, -23.00002  (xmin, xmax, ymin, ymax)</span>
+<span class="c1">## crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="c1">## source     : /Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_4/data/map.tif </span>
+<span class="c1">## names      : map </span>
+<span class="c1">## values     : 0, 33  (min, max)</span>
+</pre></div>
+</div>
+<p>The map has 33 values for the <strong>33 different landcover classes</strong> including: forest, plantation, mangroves, etc. We will only be looking at forests (landcover class 3).</p>
+<p>Another important thing is that the map is quite large and  has a <strong>very fine resolution</strong> (0.000269° is about 1 arcsecond or ~30 metres). There are over 82 million pixels in the image and so the data is slow to handle. In fact, although the file loaded quickly, it <strong>did not load the actual data</strong>. The <code class="docutils literal notranslate"><span class="pre">raster</span></code> package often does this to keep the memory load low - it only loads data when requested and has tricks for only loading the data it needs. You can see this:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">inMemory</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## [1] FALSE</span>
+</pre></div>
+</div>
+<p>We’re not even going to try and plot this map! This is something that would be much easier to view in QGIS, which handles visualising big data well. We will extract some data from it in the next section.</p>
+</div>
+</div>
+<div class="section" id="calculating-landscape-metrics">
+<h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="landscape-data-processing">
+<h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Permalink to this headline">¶</a></h3>
+<p>Before we calculate landscape metrics, we first need to process the land cover data to make it easier to work with. In particular, using the whole landscape map is very computationally demanding so we need to reduce the data down to the scale of the focal landscapes in order to extract landscape metrics for each site. In order to do that we need to:</p>
+<ol class="simple">
+<li><p>Identify a smaller region of interest for the sites</p></li>
+<li><p>Crop the landcover raster down to this region, to use a small dataset.</p></li>
+<li><p>Convert the landcover to a binary forest - matrix map.</p></li>
+<li><p>Reproject the data into a suitable projected coordinate system.</p></li>
+</ol>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the bounding box and convert to a polygon</span>
+<span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_as_sfc</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites</span><span class="p">))</span>
+<span class="c1"># Buffer the region by 0.1 degrees to get coverage around the </span>
+<span class="c1"># - this throws out a warning, but this is only a rough border.</span>
+<span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_buffer</span><span class="p">(</span><span class="n">sites_region</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span>
+
+<span class="c1"># Convert to a `sp` extent object for use in `crop`</span>
+<span class="n">sites_extent</span> <span class="o">&lt;-</span> <span class="nf">extent</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites_region</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="m">2</span><span class="p">))</span>
+
+<span class="c1"># Crop the landcover data and convert to a binary forest map</span>
+<span class="n">sites_landcover</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span> <span class="n">sites_extent</span><span class="p">)</span>
+<span class="n">sites_forest</span> <span class="o">&lt;-</span> <span class="n">sites_landcover</span> <span class="o">==</span> <span class="m">3</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## class      : RasterLayer </span>
+<span class="c1">## dimensions : 2843, 6120, 17399160  (nrow, ncol, ncell)</span>
+<span class="c1">## resolution : 0.0002694946, 0.0002694946  (x, y)</span>
+<span class="c1">## extent     : -48.49447, -46.84517, -24.34156, -23.57539  (xmin, xmax, ymin, ymax)</span>
+<span class="c1">## crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 </span>
+<span class="c1">## source     : /private/var/folders/62/cz0ctby96lq7ggnytfbtd__40000gn/T/RtmpEa4iSS/raster/r_tmp_2020-11-13_165624_65379_61378.grd </span>
+<span class="c1">## names      : layer </span>
+<span class="c1">## values     : 0, 1  (min, max)</span>
+</pre></div>
+</div>
+<p>If you check that final output, you will see that the values changed to <code class="docutils literal notranslate"><span class="pre">values:</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">(min,</span> <span class="pre">max)</span></code>.</p>
+<p>Now that we have the regional forest for the sites, we can reproject the data. We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code> when projecting the data.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="m">32723</span><span class="p">)</span>
+<span class="c1"># This takes a little while to run!</span>
+<span class="n">sites_forest_utm23S</span> <span class="o">&lt;-</span> <span class="nf">projectRaster</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&quot;+init=epsg:32723&quot;</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;ngb&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Just to check, we should now be able to plot the sites and forest.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">sites_forest_utm23S</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">sites_utm23S</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-11" src="../_images/unnamed-chunk-11-1.png" /></p>
+</div>
+<div class="section" id="extracting-landscape-metrics">
+<h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Permalink to this headline">¶</a></h3>
+<p>You can now explore the functions in the package <a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a> to measure different landscape metrics. You can also look at the complete set of <strong>132</strong> landscape metrics that the package will calculate:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">lsm_abbreviation_names</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in eval(expr, envir, enclos): object &#39;lsm_abbreviation_names&#39; not found</span>
+</pre></div>
+</div>
+<div class="section" id="landscape-levels">
+<h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Permalink to this headline">¶</a></h4>
+<p>There are three core levels of calculation and it is important to understand how these are applied within a local landscape:</p>
+<ul class="simple">
+<li><p>The <strong>patch</strong> level metrics are things that are calculated for every single patch in the local landscape. So in the output, there is one row for each patch and it is identified with a patch <code class="docutils literal notranslate"><span class="pre">id</span></code> and a <code class="docutils literal notranslate"><span class="pre">class</span></code> id.</p></li>
+<li><p>The <strong>class</strong> level metrics are aggregated across all patches of a specific class, so there is a row for each class that appears in the local landscape, labelled with a <code class="docutils literal notranslate"><span class="pre">class</span></code> id (but no patch).</p></li>
+<li><p>The <strong>landscape</strong> metrics aggregate <em>all</em> patches, so there is just one row per landscape.</p></li>
+</ul>
+<p>To show how these values are reported - and how we can use them - the following code uses the <code class="docutils literal notranslate"><span class="pre">sample_lsm</span></code> function to calculate a set of metrics for patch counts and areas at all three levels, along with the proportion landcover of each class. The local landscape is defined as a circle with a radius of 600 meters. We will use the Alce site as an example:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate patch areas at patch, class and landscape scale.</span>
+<span class="n">lsm</span> <span class="o">&lt;-</span> <span class="nf">sample_lsm</span><span class="p">(</span><span class="n">sites_forest_utm23S</span><span class="p">,</span> <span class="n">sites_utm23S</span><span class="p">,</span> 
+                  <span class="n">shape</span> <span class="o">=</span> <span class="s">&quot;circle&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">600</span><span class="p">,</span> 
+                  <span class="n">plot_id</span> <span class="o">=</span> <span class="n">sites_utm23S</span><span class="o">$</span><span class="n">Site</span><span class="p">,</span> 
+                  <span class="n">what</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;lsm_p_area&#39;</span><span class="p">,</span>
+                           <span class="s">&#39;lsm_c_np&#39;</span><span class="p">,</span> <span class="s">&#39;lsm_l_np&#39;</span><span class="p">,</span> 
+                           <span class="s">&#39;lsm_c_area_mn&#39;</span><span class="p">,</span> <span class="s">&#39;lsm_l_area_mn&#39;</span><span class="p">,</span>
+                           <span class="s">&#39;lsm_c_pland&#39;</span><span class="p">))</span>
+
+<span class="c1"># Use Alce as an example</span>
+<span class="n">alce</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">plot_id</span><span class="o">==</span><span class="s">&#39;Alce&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## # A tibble: 21 x 8</span>
+<span class="c1">##    layer level     class    id metric   value plot_id percentage_inside</span>
+<span class="c1">##    &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt; &lt;fct&gt;               &lt;dbl&gt;</span>
+<span class="c1">##  1     1 class         0    NA area_mn 25.5   Alce                 101.</span>
+<span class="c1">##  2     1 class         1    NA area_mn  3.70  Alce                 101.</span>
+<span class="c1">##  3     1 class         0    NA np       3     Alce                 101.</span>
+<span class="c1">##  4     1 class         1    NA np      10     Alce                 101.</span>
+<span class="c1">##  5     1 class         0    NA pland   67.4   Alce                 101.</span>
+<span class="c1">##  6     1 class         1    NA pland   32.6   Alce                 101.</span>
+<span class="c1">##  7     1 landscape    NA    NA area_mn  8.74  Alce                 101.</span>
+<span class="c1">##  8     1 landscape    NA    NA np      13     Alce                 101.</span>
+<span class="c1">##  9     1 patch         0     1 area    75.5   Alce                 101.</span>
+<span class="c1">## 10     1 patch         0     2 area     0.246 Alce                 101.</span>
+<span class="c1">## # … with 11 more rows</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate total area</span>
+<span class="nf">sum</span><span class="p">(</span><span class="n">alce</span><span class="o">$</span><span class="n">value</span><span class="p">[</span><span class="n">alce</span><span class="o">$</span><span class="n">metric</span> <span class="o">==</span> <span class="s">&#39;area&#39;</span><span class="p">])</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## [1] 113.6314</span>
+</pre></div>
+</div>
+<p>From that table, you can see that there are 13 patches in the Alce local landscape that sum to 113.63 hectares. That is not quite the precise area of the circular landscape (<span class="math notranslate nohighlight">\(\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha\)</span>) because the landscape is used to select a set of whole pixels. The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics summarise the areas of the patches by class (10 forest patches, 3 matrix patches) and the <code class="docutils literal notranslate"><span class="pre">landscape</span></code> metrics aggregate everything. We can use the table to calculate the <code class="docutils literal notranslate"><span class="pre">lsm_l_area_mn</span></code> value by hand:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Weighted average of class patch sizes (with some rounding error)</span>
+<span class="m">25.5</span> <span class="o">*</span> <span class="m">3</span> <span class="o">+</span> <span class="m">3.7</span> <span class="o">*</span> <span class="m">10</span><span class="p">)</span> <span class="o">/</span> <span class="m">13</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error: &lt;text&gt;:2:20: unexpected &#39;)&#39;</span>
+<span class="c1">## 1: # Weighted average of class patch sizes (with some rounding error)</span>
+<span class="c1">## 2: 25.5 * 3 + 3.7 * 10)</span>
+<span class="c1">##                       ^</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="merging-landscape-metrics-onto-sites">
+<h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Permalink to this headline">¶</a></h4>
+<p>The contents of <code class="docutils literal notranslate"><span class="pre">lsm</span></code> is rather unhelpful in two ways:</p>
+<ol class="simple">
+<li><p>The variables are not in separate columns, but stacked in the <code class="docutils literal notranslate"><span class="pre">value</span></code> and <code class="docutils literal notranslate"><span class="pre">metric</span></code> fields.</p></li>
+<li><p>Class variables include rows for both the matrix and forest, and we are primarily interested in the forest class metrics.</p></li>
+</ol>
+<p>So, we need a couple of tools to help convert this output into something easier to use:</p>
+<ol class="simple">
+<li><p>We can use <code class="docutils literal notranslate"><span class="pre">subset</span></code> to keep just the columns and rows we actually want: forest class metrics and values.</p></li>
+<li><p>We need to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the data frame to have a column for each measure. (The help and syntax of the <code class="docutils literal notranslate"><span class="pre">reshape</span></code> function is <em>notoriously</em> unhelpful - there are other, better tools but this simple recipe works here).</p></li>
+<li><p>Along the way, we should make sure that our variable names are clear - we want the method of calculation of each value to be obvious.</p></li>
+</ol>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop the patch data and landscape rows</span>
+<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">level</span> <span class="o">==</span> <span class="s">&#39;class&#39;</span><span class="p">)</span>
+<span class="c1"># Drop down to the forest class and also reduce to the three core fields</span>
+<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">class</span> <span class="o">==</span> <span class="m">1</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">plot_id</span><span class="p">))</span>
+
+<span class="c1"># Rename the value field so that - when combined with the metric</span>
+<span class="c1"># name - the local landscape details are recorded</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;C600&#39;</span>
+
+<span class="c1"># Reshape that dataset so that each metric has its own column</span>
+<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">reshape</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">),</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;wide&#39;</span><span class="p">,</span> 
+                      <span class="n">timevar</span><span class="o">=</span><span class="s">&#39;metric&#39;</span><span class="p">,</span> <span class="n">idvar</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##    plot_id C600.area_mn C600.np C600.pland</span>
+<span class="c1">## 1     Alce     3.703055      10   32.58832</span>
+<span class="c1">## 4  Alcides     5.509523       8   38.98551</span>
+<span class="c1">## 7  Alteres    28.182544       1   24.89146</span>
+<span class="c1">## 10 Antenor    95.853420       1   84.78261</span>
+<span class="c1">## 13  Areial   113.303658       1  100.00000</span>
+<span class="c1">## 16  Baleia     8.075563       7   50.14535</span>
+</pre></div>
+</div>
+<p>Now it is easy to match those landscape metrics to the <code class="docutils literal notranslate"><span class="pre">sites</span></code> data.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">lsm_forest</span><span class="p">,</span> <span class="n">by.x</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">,</span> <span class="n">by.y</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="group-exercise">
+<h3>Group exercise<a class="headerlink" href="#group-exercise" title="Permalink to this headline">¶</a></h3>
+<p>This exercise will consist of obtaining a number of landscape metrics for each of our 65 sites, so we can later use them as explanatory variables in a model to understand how birds are affected by habitat loss and fragmentation.</p>
+<p>Each group will focus on a set of metrics that capture different aspects of landscape structure.  Look up and read the information for your metrics, so you can have a better understanding of what they mean, and collate them all to the <em>sites.csv</em> spreadsheet (or you can create another spreadsheet).</p>
+<p>In all cases, we are interested in the <strong>forest specific values of the <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics</strong>, so you will need to subset and reshape the data as above. There is a help page for each metric: for example, <code class="docutils literal notranslate"><span class="pre">?lsm_c_area_cv</span></code>.</p>
+<ul class="simple">
+<li><p><strong>Groups SP01, SP02, SP03</strong>: Patch size &amp; number of patches</p>
+<ul>
+<li><p>Coefficient of variation of patch area (<code class="docutils literal notranslate"><span class="pre">lsm_c_area_cv</span></code>)</p></li>
+<li><p>Mean of patch area (<code class="docutils literal notranslate"><span class="pre">lsm_c_area_mn</span></code>)</p></li>
+<li><p>Number of patches  (<code class="docutils literal notranslate"><span class="pre">lsm_c_np</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Groups SP04, SP05, SP06</strong>: Connectivity</p>
+<ul>
+<li><p>Patch density (<code class="docutils literal notranslate"><span class="pre">lsm_c_pd</span></code>)</p></li>
+<li><p>Coefficient of variation of euclidean nearest-neighbor distance (<code class="docutils literal notranslate"><span class="pre">lsm_c_enn_cv</span></code>)</p></li>
+<li><p>Aggregation index (<code class="docutils literal notranslate"><span class="pre">lsm_c_ai</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Groups SP07, SP08, SP09</strong>: Edge effects</p>
+<ul>
+<li><p>Coefficient of variation perimeter-area ratio (<code class="docutils literal notranslate"><span class="pre">lsm_c_para_cv</span></code>)</p></li>
+<li><p>Coefficient of variation of related circumscribing circle (<code class="docutils literal notranslate"><span class="pre">lsm_c_circle_cv</span></code>)</p></li>
+<li><p>Edge density (<code class="docutils literal notranslate"><span class="pre">lsm_c_ed</span></code>)</p></li>
+</ul>
+</li>
+<li><p><strong>Groups SP13, SP14</strong>: Forest cover</p>
+<ul>
+<li><p>There is only one way to measure habitat cover: <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code>. These groups will also focus on exploring the <em>scale of effect</em>: the spatial scale at which responses are strongest. You’ll need to calculate forest cover using radii of 300, 500, 800, 1100 and 1400 m. Note that <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code> is a proportion of the area, so does not need to be adjusted for the changing landscape area.</p></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="calculating-biodiversity-metrics">
+<h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Permalink to this headline">¶</a></h2>
+<p>The over-riding research question we are looking at is:</p>
+<blockquote>
+<div><p>Is the structure of the bird community influenced by the spatial characteristics of the sites?</p>
+</div></blockquote>
+<p>However there are lots of different ways of measuring community structure. We will look at measures of overall diversity, community composition and functional diversity.</p>
+<div class="section" id="measuring-site-abundance-species-richness-species-diversity-and-evenness">
+<h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Permalink to this headline">¶</a></h3>
+<p>Abundance can be measured at the species level, but here we are interested in total community abundance, so the total number of individuals capture at each site. We can only measure bird abundance because this study used mist nets, where each individual was uniquely tagged.</p>
+<p>To measure species richness you can use the function <code class="docutils literal notranslate"><span class="pre">specnumber</span></code> from the <code class="docutils literal notranslate"><span class="pre">vegan</span></code> package. As we saw in the lecture, <strong>Measuring Biodiversity</strong>, sometimes you may need to control for sampling effort or number of individuals to compare species richness across sites. You can use rarefaction (with function <code class="docutils literal notranslate"><span class="pre">rarefy</span></code>) to estimate how many species would you have seen if you had lower sampling effort or fewer individuals.  If you’re interested in understanding how species diversity as measured by the Shannon index (<em>H</em>) you can then use function <code class="docutils literal notranslate"><span class="pre">diversity</span></code>. The <strong>vegan</strong> package doesn’t have any functions for measuring evenness, but Pielou’s Evenness (<span class="math notranslate nohighlight">\(J\)</span>) is easily measured with the formula below:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, we sort the rows of abundance to make sure that they are in the</span>
+<span class="c1"># same order as the sites data frame.</span>
+<span class="n">site_order</span> <span class="o">&lt;-</span> <span class="nf">match</span><span class="p">(</span><span class="nf">rownames</span><span class="p">(</span><span class="n">abundance</span><span class="p">),</span> <span class="n">sites</span><span class="o">$</span><span class="n">Site</span><span class="p">)</span>
+<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="n">abundance</span><span class="p">[</span><span class="n">site_order</span><span class="p">,</span> <span class="p">]</span>
+
+<span class="c1"># Now we can store diversity metrics values in the sites data frame</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span> <span class="o">&lt;-</span> <span class="nf">rowSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">richness</span> <span class="o">&lt;-</span> <span class="nf">specnumber</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">Srar</span> <span class="o">&lt;-</span> <span class="nf">rarefy</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="nf">min</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">))</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">H</span> <span class="o">&lt;-</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s">&#39;shannon&#39;</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">J</span> <span class="o">&lt;-</span> <span class="n">H</span> <span class="o">/</span> <span class="nf">log</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in eval(expr, envir, enclos): object &#39;H&#39; not found</span>
+</pre></div>
+</div>
+<div class="section" id="exercise">
+<h4>Exercise<a class="headerlink" href="#exercise" title="Permalink to this headline">¶</a></h4>
+<p>What is the correlation between richness, diversity, evenness and abundance across sites? You can use the function <code class="docutils literal notranslate"><span class="pre">cor()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> the results to better understand the results. Which biodiversity metrics would you choose to report your results and why?</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Example code:</span>
+<span class="nf">cor</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">,</span> <span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## [1] 0.6451641</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">richness</span> <span class="o">~</span> <span class="n">total_abundance</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-18" src="../_images/unnamed-chunk-18-1.png" /></p>
+<p>Hint: There is no right or wrong answer here. You can choose any metric as long as you understand its drawbacks.</p>
+</div>
+<div class="section" id="species-rank-abundance">
+<h4>Species rank abundance<a class="headerlink" href="#species-rank-abundance" title="Permalink to this headline">¶</a></h4>
+<p>We could also look quickly at the rank abundance of species. What is the prevalence of rare species? Rare species are those that were caught a few times only. This is <em>very</em> arbitrary and likely to be biased by how easily species are disturbed and trapped.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the total abundance of each _species_</span>
+<span class="n">freq</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="nf">table</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## freq</span>
+<span class="c1">##   1   2   3   4   5   6   7   8   9  10  11  13  14  15  16  17  19  20  21  23 </span>
+<span class="c1">##  28  14  15  10   2   6   3   2   2   3   3   3   1   1   2   2   2   1   2   2 </span>
+<span class="c1">##  25  30  31  32  35  38  43  49  53  59  68  71  75  79  90 100 109 124 141 152 </span>
+<span class="c1">##   1   1   2   1   1   1   1   1   1   1   1   1   1   1   1   2   1   1   1   1 </span>
+<span class="c1">## 165 178 194 209 239 254 270 288 305 314 315 415 418 443 </span>
+<span class="c1">##   1   1   1   1   1   1   1   1   1   1   1   1   1   1</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">hist</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-19" src="../_images/unnamed-chunk-19-1.png" /></p>
+</div>
+</div>
+<div class="section" id="measuring-community-composition">
+<h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Permalink to this headline">¶</a></h3>
+<p>Community composition is a class of biodiversity measure that incorporates information on species richness, abundance and species identity. That inclusivity makes them very informative biodiversity metric but they are also complex to compute and interpret.</p>
+<p>There are three stages to assessing community composition:</p>
+<ol class="simple">
+<li><p>The raw data for community composition is a site by species matrix showing the abundance (or presence) of each species in the overall species pool at each site. It is common to <strong>transform the site by species</strong> data in one or more ways to adjust the emphasis given to the different species before assessing composition.</p></li>
+<li><p>The site by species matrix is then transformed to a <strong>dissimilarity matrix</strong> - a site by site matrix that quantifies the differences between the communities at each pair of sites.</p></li>
+<li><p>The dissimilarity matrix represents a complex pattern of community differences and an <strong>ordination</strong> can then be used to identify independent axes of community variation across sites.</p></li>
+</ol>
+<p>All of these steps have multiple options!</p>
+<div class="section" id="transforming-site-by-species-data">
+<h4>Transforming site by species data.<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this headline">¶</a></h4>
+<p>There are several common approaches used for transforming site by species matrices <em>before</em> calculating dissimilarities. All of these approaches alter the weighting given to the prevalence or abundance of the different species.</p>
+<ol class="simple">
+<li><p>Reducing abundance data to a <strong>binary presence-absence data</strong>. This obviously emphasizes differences in species identity between sites, often giving measures of <span class="math notranslate nohighlight">\(\beta\)</span> diversity, and is also often used when sampling is not thought to give reliable abundance data. The <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function (see below) has the option (<code class="docutils literal notranslate"><span class="pre">binary=TRUE</span></code>) to do this automatically.</p></li>
+<li><p><strong>Scaling abundance data</strong>.  At the moment, a lot of the variation in the abundance data is driven by the common species. There were 443 individuals of Species 19 caught: dissimilarity will be heavily affected by the local abundance of this species. If scaling is applied to a dataset, then the balance of the analysis is altered to equally weight each species when calculating dissimilarity which <em>can</em> provide more biologically meaningful results.</p></li>
+<li><p>Although this seems counterintuitive, the detectability and distribution of rare species can confound community patterns among the common species. <strong>Removing rare species</strong> can therefore help make major compositional shifts more obvious.</p></li>
+</ol>
+<p>We will revisit this but for the moment we will stick with the raw abundance data.</p>
+</div>
+<div class="section" id="calculating-dissimilarity-indices">
+<h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Permalink to this headline">¶</a></h4>
+<p>Dissimilarity indices are used to compare two sites using the total number (or abundances) of species in each site (A + B), along with the number (or abundances) of species shared between the site (J). These can be calculated using the <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>. A huge number have been proposed and can be calculated in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>: look at the help for both <code class="docutils literal notranslate"><span class="pre">?vegdist</span></code> and <code class="docutils literal notranslate"><span class="pre">?designdist</span></code> for the details!</p>
+<p>We have very many options but we have to start somewhere: we will use the <a class="reference external" href="https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity">Bray-Curtis</a> dissimilarity index computed from raw abundances.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray</span>  <span class="o">&lt;-</span> <span class="nf">vegdist</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;bray&quot;</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Have a look at the association matrix (<code class="docutils literal notranslate"><span class="pre">print(bray)</span></code>), and notice it is triangular. Why do you think that is? We can visualise this data to help understand what is going on. We’re actually going to cheat a bit here - we have a big matrix and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package is really good at plotting those quickly…</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span> <span class="o">&lt;-</span> <span class="n">raster</span><span class="p">(</span><span class="k">as</span><span class="o">.</span><span class="n">matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
+<span class="n">plot</span><span class="p">(</span><span class="n">bray_r</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">hcl</span><span class="o">.</span><span class="n">colors</span><span class="p">(</span><span class="mi">20</span><span class="p">))</span>
+</pre></div>
+</div>
+<p>The first thing that jumps out is the diagonal - this is just that comparing a site to itself gives zero dissimilarity. All of the other pairwise combinations show a range of values.</p>
+<p>If we want to compute the dissimilarity matrix based on another index, we can simply change <code class="docutils literal notranslate"><span class="pre">method=&quot;bray&quot;</span></code> to any of the other indices provided in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>. Each dissimilarity metric has advantages and disadvantages but Bray-Curtis and Jaccard are commonly used for species abundance data.</p>
+<p>Note that some of these indices in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> are not appropriate for abundance data. For example, Euclidean distance is widely used for environmental data (landscape metrics, geographic distance, temperature, altitude, etc) but is <strong>not</strong> ecologically meaningful for biodiversity data!</p>
+</div>
+<div class="section" id="principal-coordinate-analysis">
+<h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Permalink to this headline">¶</a></h4>
+<p>We can now perform a principal coordinate analysis (PCoA) using the <code class="docutils literal notranslate"><span class="pre">bray</span></code> matrix as input. This is sometimes called <em>classical multidimensional scaling</em>, hence the function name: <code class="docutils literal notranslate"><span class="pre">cmdscale</span></code>. The PCoA will take your dissimilarity matrix and represent the structure in this dataset in a set of independent vectors (or ordination axes). You can then use ordination axes to represent how similar (or dissimilar) two sites are with respect to the species they have.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">pcoa</span> <span class="o">&lt;-</span> <span class="nf">cmdscale</span><span class="p">(</span><span class="n">bray</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">eig</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>A PCoA calculates multiple independent axes of variation in the community dissimilarity. In fact, it calculates as many axes are there are sites. However, these <strong>different axes differ in how much variation they describe</strong> - we rarely want to consider more than a few. Here, we have only kept the data for the first eight (<code class="docutils literal notranslate"><span class="pre">k=8</span></code>). We are also hanging on the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eig=TRUE</span></code>), which are measures of the amount variation associated with each axis.</p>
+<div class="section" id="community-separation-in-space">
+<h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Permalink to this headline">¶</a></h5>
+<p>We will now explore community composition graphically, which is most convenient in two dimensions. We have to extract the new coordinates of the data before being able to plot them. Once again, it is wise to give clear names to each variable, otherwise we end up with variable names like <code class="docutils literal notranslate"><span class="pre">X1</span></code>.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the scores </span>
+<span class="n">pcoa_axes</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">points</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;bray_raw_pcoa_&#39;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>We can look at the correlations between all of those axes. We are using <code class="docutils literal notranslate"><span class="pre">zapsmall</span></code> to hide all correlations smaller than <span class="math notranslate nohighlight">\(10^{-10}\)</span> - as expected, none of these axes are correlated.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">zapsmall</span><span class="p">(</span><span class="nf">cor</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">##                 bray_raw_pcoa_1 bray_raw_pcoa_2 bray_raw_pcoa_3 bray_raw_pcoa_4</span>
+<span class="c1">## bray_raw_pcoa_1               1               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_2               0               1               0               0</span>
+<span class="c1">## bray_raw_pcoa_3               0               0               1               0</span>
+<span class="c1">## bray_raw_pcoa_4               0               0               0               1</span>
+<span class="c1">## bray_raw_pcoa_5               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_6               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_7               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_8               0               0               0               0</span>
+<span class="c1">##                 bray_raw_pcoa_5 bray_raw_pcoa_6 bray_raw_pcoa_7 bray_raw_pcoa_8</span>
+<span class="c1">## bray_raw_pcoa_1               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_2               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_3               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_4               0               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_5               1               0               0               0</span>
+<span class="c1">## bray_raw_pcoa_6               0               1               0               0</span>
+<span class="c1">## bray_raw_pcoa_7               0               0               1               0</span>
+<span class="c1">## bray_raw_pcoa_8               0               0               0               1</span>
+</pre></div>
+</div>
+<p>Now we can merge them onto the site data to make sure that the landscape and community metrics are matched by site.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the pcoa axis values to a data frame and label by site</span>
+<span class="n">pcoa_axes_df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
+<span class="n">pcoa_axes_df</span><span class="o">$</span><span class="n">Site</span> <span class="o">&lt;-</span> <span class="nf">rownames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
+<span class="c1"># Merge onto the sites data - the PCoA axes get the labels X1 to X8</span>
+<span class="n">sites_pcoa</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">pcoa_axes_df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we can look to see how the community metrics reflect the landscape structure.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">sites_pcoa</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="p">,</span> <span class="n">bray_raw_pcoa_2</span><span class="p">))</span> <span class="o">+</span>
+  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">colour</span> <span class="o">=</span> <span class="n">C600.pland</span><span class="p">))</span> <span class="o">+</span> 
+  <span class="nf">scale_colour_gradientn</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span> <span class="o">+</span> 
+  <span class="nf">theme_classic</span><span class="p">()</span> 
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in ggplot(sites_pcoa, aes(bray_raw_pcoa_1, bray_raw_pcoa_2)): could not find function &quot;ggplot&quot;</span>
+</pre></div>
+</div>
+<p>Which patterns can you see from that plot? Along which axis do you see the trends varying the most, PCoA1 or PCoA2? Try looking at some of the other PCoA axes.</p>
+</div>
+<div class="section" id="id1">
+<h5>Exercise<a class="headerlink" href="#id1" title="Permalink to this headline">¶</a></h5>
+<p>Now plot PCoA axis 1 against the percentage of forest cover. Which trends do you get? And what about axis 2?</p>
+</div>
+<div class="section" id="how-many-axes-to-consider">
+<h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Permalink to this headline">¶</a></h5>
+<p>The eigenvalues show the variance - hence the information content - associated with each principal coordinate axis. Note that the eigenvalues are in descending order, so that the axes are numbered in order of their importance. Also note that some of the eigenvalues are negative - these axes cannot be interpreted biologically, but luckily this is never a problem for the first few axes which are the most meaningful anyway.</p>
+<p>To make it easier to decide on how many dimensions we will keep, we look at the proportion of the total variance in the data set that is explained by each of the principal coordinates. The cumulative sum of eigenvalues describes how much of the variation is explained by the first <em>n</em> principal coordinates. We will drop the negative eigenvalues - they just confuse the cumulative calculation!</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="n">eig</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="p">[</span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span> <span class="o">&gt;</span><span class="m">0</span><span class="p">]</span> 
+<span class="nf">barplot</span><span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Axis variation&#39;</span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="nf">cumsum</span><span class="p">(</span><span class="n">eig</span><span class="p">)</span><span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Cumulative variation&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-26" src="../_images/unnamed-chunk-26-1.png" /></p>
+<p>For this particular PCoA, the bar plot doesn’t really give a good indication about the number of principal coordinates to retain: the bars gradually decrease in size rather than showing a clear cutoff.  From those plots, we can see that the first principal coordinate contains almost twice as much information as the second one (23% versus 13 %). However, together they still only explain 36% of the variation - it is common to consider axes up to a cumulative proportion of 80%.</p>
+</div>
+<div class="section" id="sidebar-shepard-diagrams">
+<h5>Sidebar: Shepard diagrams<a class="headerlink" href="#sidebar-shepard-diagrams" title="Permalink to this headline">¶</a></h5>
+<p>Shepard diagram’s compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal</p>
+<p>We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use first 8 axes</span>
+<span class="n">shepard_8</span>  <span class="o">&lt;-</span> <span class="nf">vegdist</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;euc&quot;</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<span class="c1"># Use just the first 2</span>
+<span class="n">shepard_2</span>  <span class="o">&lt;-</span> <span class="nf">vegdist</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">[,</span> <span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">)],</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;euc&quot;</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now let’s plot this against the Bray-Curtis distances.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">shepard_8</span><span class="p">,</span> <span class="n">bray</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;First 8 axes&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">shepard_2</span><span class="p">,</span> <span class="n">bray</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;First 2 axes&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-28" src="../_images/unnamed-chunk-28-1.png" /></p>
+<p>The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?</p>
+</div>
+</div>
+</div>
+<div class="section" id="exercise-1-community-metric-variations">
+<h3>Exercise 1 - community metric variations.<a class="headerlink" href="#exercise-1-community-metric-variations" title="Permalink to this headline">¶</a></h3>
+<p>All of the information from that PCoA depends entirely on our choices for the original dissimilarity  matrix. If we change that metric then the <em>positions of sites in the ordination space will change</em> and so will <em>the relative importances of the PCoA axes</em>.</p>
+<p>So, now explore varying the steps in this analysis. Change your inputs, change the dissimilarity metric and recalculate your ordination.</p>
+<ol>
+<li><p>Use the command <code class="docutils literal notranslate"><span class="pre">scaled_abundance</span> <span class="pre">&lt;-</span> <span class="pre">scale(abundance)</span></code> and use this as an input to <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>. This will automatically scale the matrix by columns, so each column will have a mean of near 0, and standard deviation of 1.</p></li>
+<li><p>Use presence-absence data by using the argument <code class="docutils literal notranslate"><span class="pre">binary</span> <span class="pre">=TRUE</span></code> with <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>.</p></li>
+<li><p>Try excluding the rare species (e.g. all species with 5 or less individuals):</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose columns (species) from abundance where total abundance is greater than 5</span>
+<span class="n">total_abundance</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">common</span> <span class="o">&lt;-</span> <span class="n">abundance</span><span class="p">[,</span><span class="nf">which</span><span class="p">(</span><span class="n">abund</span> <span class="o">&gt;</span><span class="m">5</span><span class="p">)]</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in which(abund &gt; 5): object &#39;abund&#39; not found</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># data only has 71 columns now</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">common</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## Error in str(common): object &#39;common&#39; not found</span>
+</pre></div>
+</div>
+</li>
+<li><p>Try using at least another dissimilarity metric.</p></li>
+</ol>
+<p>Do any of these options seem to give a clearer relationship between the community composition and forest cover? There is no right or wrong answer here - different choices reflect different hypotheses.</p>
+</div>
+<div class="section" id="exercise-2-regression-of-landscape-and-community-metrics">
+<h3>Exercise 2 - regression of landscape and community metrics<a class="headerlink" href="#exercise-2-regression-of-landscape-and-community-metrics" title="Permalink to this headline">¶</a></h3>
+<p>In addition to looking at correlations, we can fit linear models to predict how community composition varies between fragmented landscapes and continuous landscapes?</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model community composition as a function of forest cover</span>
+<span class="n">mod_fc</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites_pcoa</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1">## </span>
+<span class="c1">## Call:</span>
+<span class="c1">## lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites_pcoa)</span>
+<span class="c1">## </span>
+<span class="c1">## Residuals:</span>
+<span class="c1">##      Min       1Q   Median       3Q      Max </span>
+<span class="c1">## -0.23636 -0.08187 -0.00709  0.09484  0.22351 </span>
+<span class="c1">## </span>
+<span class="c1">## Coefficients:</span>
+<span class="c1">##               Estimate Std. Error t value Pr(&gt;|t|)    </span>
+<span class="c1">## (Intercept)  0.2865165  0.0348962   8.211 1.53e-11 ***</span>
+<span class="c1">## C600.pland  -0.0053584  0.0005845  -9.168 3.32e-13 ***</span>
+<span class="c1">## ---</span>
+<span class="c1">## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span>
+<span class="c1">## </span>
+<span class="c1">## Residual standard error: 0.1252 on 63 degrees of freedom</span>
+<span class="c1">## Multiple R-squared:  0.5716,	Adjusted R-squared:  0.5648 </span>
+<span class="c1">## F-statistic: 84.06 on 1 and 63 DF,  p-value: 3.315e-13</span>
+</pre></div>
+</div>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the model</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites_pcoa</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-30" src="../_images/unnamed-chunk-30-1.png" /></p>
+<p>From this model, forest cover at the 600m landscape scale explains 56.5% of the variation in community composition. Hence, we see that the first principal coordinate can reveal interesting biological trends, even if it only contained 23% of the information in the original data set (see above).</p>
+</div>
+<div class="section" id="functional-diversity">
+<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Permalink to this headline">¶</a></h3>
+<p>There are many measures of functional diversity, evenness and composition. Here we will only use one approach <code class="docutils literal notranslate"><span class="pre">treedive</span></code>, which is available in the <code class="docutils literal notranslate"><span class="pre">vegan</span></code> package. This calculates functional diversity as the total branch length of a trait dendrogram. The higher the number the more variation we have in traits within a community, which in theory equals to higher functions provided.</p>
+<blockquote>
+<div><p>Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and looking forward. Ecology Letters 9, 741–758.</p>
+</div></blockquote>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a data frame holding only trait values, with rownames </span>
+<span class="n">traits_only</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">traits</span><span class="p">,</span> <span class="n">select</span><span class="o">=-</span><span class="n">Species</span><span class="p">)</span>
+<span class="nf">rownames</span><span class="p">(</span><span class="n">traits_only</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">traits</span><span class="o">$</span><span class="n">Species</span>
+<span class="c1"># Calculate the trait distance matrix</span>
+<span class="n">trait_dist</span> <span class="o">&lt;-</span> <span class="nf">taxa2dist</span><span class="p">(</span><span class="n">traits_only</span><span class="p">,</span> <span class="n">varstep</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># And get a trait dendrogram</span>
+<span class="n">trait_tree</span> <span class="o">&lt;-</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">trait_dist</span><span class="p">,</span> <span class="s">&quot;aver&quot;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">trait_tree</span><span class="p">,</span> <span class="n">hang</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+<p><img alt="plot of chunk unnamed-chunk-31" src="../_images/unnamed-chunk-31-1.png" /></p>
+<p>That dendrogram shows how species are clustered according to their trait similarity and the branch lengths measure an amount of functional diversity. The next step is is to find the set of species in each site, reduce the dendrogram to just those species and find out the total branch length of that subtree.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">treedive</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">trait_tree</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>Now we just need to bring that data into our <code class="docutils literal notranslate"><span class="pre">sites</span></code> dataset to be able to use it.</p>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">Site</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">trait_diversity</span><span class="p">),</span>
+                              <span class="n">trait_diversity</span><span class="o">=</span><span class="n">trait_diversity</span><span class="p">)</span>
+<span class="n">sites_pcoa</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites_pcoa</span><span class="p">,</span> <span class="n">trait_diversity</span><span class="p">)</span>
+</pre></div>
+</div>
+<div class="section" id="id2">
+<h4>Exercise<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h4>
+<p>How does functional diversity varies with percentage of forest cover across sites?</p>
+</div>
+</div>
+</div>
+<div class="section" id="id3">
+<h2>Group exercise<a class="headerlink" href="#id3" title="Permalink to this headline">¶</a></h2>
+<p>Each group already have their landscape metrics measured, now you will need to focus on choosing one response variable that best represents variation in your data. Choose it carefully because you will need to defend your choice when you present your results.</p>
+<ul class="simple">
+<li><p><strong>Groups SP01, SP04, SP07, SP13</strong>: Species richness and abundance</p></li>
+</ul>
+<p>We have explored different ways to measure abundance, richness, diversity, evenness. Select one of these  as your response variable.</p>
+<ul class="simple">
+<li><p><strong>Groups SP02, SP05, SP08, SP14</strong>: Community composition</p></li>
+</ul>
+<p>We have explored different ways to do an ordination. You can scale or not, use binary data or not, your choice. Select one of these as your response variable.</p>
+<ul class="simple">
+<li><p><strong>Groups SP03, SP06, SP09</strong>: Functional diversity</p></li>
+</ul>
+<p>We only explored one way of measuring functional diversity. But there are other more traditional ways of looking into traits of species that we have, for instance, species richness of insectivores, or abundance of specialists (those that only use one habitat). You have freedom to choose the response variable of preference.</p>
+</div>
+<div class="section" id="presenting-your-results-on-friday-20th-november">
+<h2>Presenting your results on Friday 20th November.<a class="headerlink" href="#presenting-your-results-on-friday-20th-november" title="Permalink to this headline">¶</a></h2>
+<p>Please have one slide ready to present with the graph of your response ~ exploratory variable. Please ensure that the labels can be read on small screens. Also, please include on this graph a fitted line, and ideally a confidence interval. The slide should also contain the <span class="math notranslate nohighlight">\(r^2\)</span> of the relationship and p-value. Do not worry if you don’t find significant results! That’s to be expected. Each group will have a maximum of 5 minutes to present their results.</p>
+<p>A final note on analyses: some of the variables we have used are better modelled using a GLM. That has not yet been covered in depth in the Masters modules. You are not expected to use a GLM here - although it would be good to say if a GLM might be appropriate might. If your group is happy to use them, please do, but it is not expected.</p>
+<p>It is anticipated that in each group, the exploratory variables <strong>will</strong> be correlated, so fitting more complex models (e.g. a multiple regression) may not be appropriate. This is the same problem of <strong>multicollinearity</strong> that was mentioned in the GIS week. For the moment, use single regressions for each exploratory variable at a time.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./practical_4"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By David Orme<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    
+  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
+
+
+    
+  </body>
+</html>

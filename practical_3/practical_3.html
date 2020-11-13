@@ -1361,7 +1361,7 @@ F-statistic: 342.6 on 12 and 2466 DF,  p-value: &lt; 2.2e-16
 <span class="c1"># This retains the geometry, so we need to convert back to a simple dataframe</span>
 <span class="nf">st_geometry</span><span class="p">(</span><span class="n">expl</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="kc">NULL</span>
 <span class="c1"># Fit the model, optimising the AIC</span>
-<span class="n">eigen_spmoran</span> <span class="o">&lt;-</span> <span class="nf">esf</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">xx</span><span class="p">,</span> <span class="n">meig</span><span class="o">=</span><span class="n">queen_eigen</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="s">&#39;aic&#39;</span><span class="p">)</span>
+<span class="n">eigen_spmoran</span> <span class="o">&lt;-</span> <span class="nf">esf</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">expl</span><span class="p">,</span> <span class="n">meig</span><span class="o">=</span><span class="n">queen_eigen</span><span class="p">,</span> <span class="n">fn</span><span class="o">=</span><span class="s">&#39;aic&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
