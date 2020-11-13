@@ -1,0 +1,66 @@
+Site,Landscape,Percent,Frag_Cont,Lon,Lat,Landscape_ID
+Alce,Fragmented,50,Frag50,-47.4603713,-23.85119925,B
+Alcides,Fragmented,30,Frag30,-47.06462663,-23.74428487,C
+Alteres,Fragmented,10, Frag10 ,-48.32628037,-24.05714601,A
+Antenor,Fragmented,50,Frag50,-47.45232393,-23.91993127,B
+Areial,Control,90,Control10,-48.16844414,-24.20919209,A
+Baleia,Fragmented,50,Frag50,-47.46038831,-23.88895796,B
+BetoJamil,Fragmented,30,Frag30 ,-47.07236595,-23.71519059,C
+Bicudinho,Fragmented,50,Frag50,-47.48320904,-23.886172,B
+Boiadeiro,Fragmented,10, Frag10 ,-48.32757726,-24.09556344,A
+Bojado,Fragmented,10, Frag10 ,-48.35224789,-24.05621681,A
+Campinho,Control,90,Control10,-48.2958006,-24.24148094,A
+Capinzal,Control,90,Control10,-48.23408171,-24.18021937,A
+CarmoMessias,Fragmented,30,Frag30,-47.0554803,-23.75020318,C
+Citadini,Fragmented,10, Frag10 ,-48.39356826,-24.06404795,A
+Cobrinha,Control,90,Control50,-47.40548484,-23.96109113,B
+Criscross,Control,90,Control50,-47.37691681,-23.95719435,B
+Cristo,Fragmented,50,Frag50,-47.47579157,-23.85130409,B
+Cromossomo,Fragmented,10, Frag10,-48.30060366,-24.09955678,A
+Dito,Fragmented,30,Frag30,-47.04576966,-23.76838933,C
+DitoAndre,Fragmented,30,Frag30,-47.05896843,-23.7356207,C
+Divisa,Fragmented,10, Frag10,-48.3752839,-24.06361787,A
+DnIvone,Fragmented,50,Frag50,-47.44917631,-23.85450103,B
+Eme,Fragmented,50,Frag50,-47.48037067,-23.87632457,B
+Escumador,Control,90,Control10,-48.19754193,-24.20507381,A
+Estrada,Fragmented,50,Frag50,-47.4908037,-23.87368271,B
+Falopio,Fragmented,10, Frag10,-48.30056252,-24.05694698,A
+Fuzue,Fragmented,50,Frag50,-47.44973052,-23.84378638,B
+Godoy,Fragmented,30,Frag30,-47.07332729,-23.72451323,C
+Haras,Fragmented,50,Frag50,-47.42247746,-23.85751421,B
+Harpa,Fragmented,10, Frag10,-48.31388925,-24.04944674,A
+Japones,Fragmented,30,Frag30,-47.06717972,-23.69410599,C
+Jeanzao,Fragmented,50,Frag50,-47.44377308,-23.86782027,B
+Jeazinho,Fragmented,50,Frag50,-47.46573948,-23.90297199,B
+Lila,Fragmented,30,Frag30,-47.11794393,-23.73039988,C
+Linha,Fragmented,50,Frag50,-47.47195064,-23.86765905,B
+Lira,Fragmented,10, Frag10,-48.30944781,-24.04139014,A
+LuizaOsmal,Fragmented,30,Frag30,-47.06232842,-23.73786013,C
+Machucado,Fragmented,10, Frag10,-48.38695224,-24.08250124,A
+Maria,Fragmented,30,Frag30,-47.08768302,-23.71521029,C
+Medico,Fragmented,50,Frag50,-47.48015121,-23.91369847,B
+Meninas,Fragmented,10, Frag10,-48.31861402,-24.06611857,A
+Mioko,Fragmented,30,Frag30,-47.06219443,-23.72498715,C
+Nelson,Fragmented,30,Frag30,-47.09767808,-23.71171646,C
+Odorico,Fragmented,50,Frag50,-47.43600577,-23.88076159,B
+Osasco,Fragmented,50,Frag50,-47.45390253,-23.90785534,B
+PadrePedro,Fragmented,10, Frag10,-48.34710554,-24.08686914,A
+PauloNunes,Fragmented,10, Frag10,-48.33833887,-24.10195191,A
+Pedro,Fragmented,30,Frag30,-47.09101516,-23.71386517,C
+PedroOnorio,Fragmented,10, Frag10,-48.37045314,-24.09514315,A
+Pedroso,Fragmented,30,Frag30,-47.07458673,-23.73592647,C
+Piramba,Control,90,Control50,-47.40958719,-23.951386,B
+Porteira,Control,90,Control50,-47.39624546,-23.94696405,B
+Professor,Fragmented,50,Frag50,-47.46969586,-23.91844341,B
+Radialista,Fragmented,10, Frag10,-48.34586239,-24.10758847,A
+Radji,Fragmented,10, Frag10,-48.39452513,-24.09693655,A
+Reizinho,Fragmented,30,Frag30,-47.09102514,-23.68988532,C
+T1,Control,90,Control30,-46.95858157,-23.67529012,C
+T2,Control,90,Control30,-46.95643301,-23.69557844,C
+T3,Control,90,Control30,-46.9451067,-23.71464612,C
+Takimoto,Fragmented,30,Frag30,-47.08218033,-23.70213893,C
+Teomar,Fragmented,50,Frag50,-47.44650598,-23.83355604,B
+Tereza,Fragmented,30,Frag30,-47.0721041,-23.70854907,C
+Torres,Fragmented,50,Frag50,-47.47896111,-23.89301053,B
+TR,Control,90,Control30,-46.9966061,-23.7960889,C
+Yoko,Fragmented,10, Frag10,-48.37555699,-24.04778224,A

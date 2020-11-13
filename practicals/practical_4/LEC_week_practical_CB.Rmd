@@ -1,0 +1,400 @@
+---
+title: "Landscape Ecology and Conservation - Practical session"
+author: "Cristina Banks-Leite & Flavia Bellotto-Trigo"
+date: "November 2020"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message=FALSE, warning=FALSE)
+```
+
+# Landscape Ecology and Conservation Practical
+
+In this practical, we are going to use R to (1) obtain landscape metrics from a map, (2) obtain community metrics from a bird dataset and (3) analyse the data to assess how Atlantic Forest birds are impacted by habitat loss and fragmentation. Everyone in the class will have access to the same data but each group will be assigned a specific question that needs to be answered by Friday 20th November 2020. On Friday, one representative from each group (make sure to decide this beforehand), will present their results on slides. A discussion will follow.
+
+## Data set
+The data to be analysed comprises of a freely available map from Mapbiomas.org and a bird data set that was collected in the Brazilian Atlantic Forest between 2001 and 2007. The data set contains the abundance of 140 species that were captured in 65 sites, belonging to three different regions, each with a control and a fragmented landscape  with different proportions of forest cover. Data on morphological and behavioural traits for the different species is also available.
+
+![ ](images/figure_sampling_sites.jpg)
+
+More info about the data set can be found in the the first lecture of the week and in the following papers:
+
+* Banks-Leite, C., Ewers, R. M., & Metzger, J. P. (2012). Unraveling the drivers of community dissimilarity and species extinction in fragmented landscapes. Ecology 93(12), 2560-2569. doi - 10.1890/11-2054.1
+
+* Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., & Metzger, J. P. (2011). Comparing species and measures of landscape structure as indicators of conservation importance. Journal of Applied Ecology 48(3), 706-714. doi - 10.1111/j.1365-2664.2011.01966.x
+
+
+
+## Calculating landscape metrics from a map
+
+Install the R packages **raster**, **sf** and **landscapemertics** if you don't have them already and attach them.
+
+```{r}
+## install.packages('raster')
+## install.packages('sf')
+## install.packages('landscapemetrics')
+
+library(raster)
+library(sf)
+library(landscapemetrics)
+
+
+```
+
+To calculate the landscape metrics, We are going to need the  GPS locations of the sites where the bird data were collected and a map of where the study region. If you want to know more about the origin of the map, check mapbiomas.org, and choose English. This is a database of land cover through time for the entire country of Brazil. 
+
+The map is a TIFF file with landcover information, therefore we are going to use the function *raster* from the **raster** package to load the map and we will use the **landscapemetrics** package to measure habitat loss and  fragmentation metrics.  
+
+Load the map and check its coordinate system.
+
+```{r}
+# load map
+Raster <- raster("./data/map.tif")
+
+# Typing the name of the raster into the console will print out the raster header
+Raster
+```
+
+you will see that our map has 33 values for the 33 different types of landuse, including: forest, plantation, mangroves, etc. For the sake of simplicity, we will only measure landscape metrics from forested areas. So, we are going to transform everything that it is NOT forest into matrix. In our map, forest is represented by number 3.
+
+```{r eval=FALSE}
+## this should take around 1-2 minutes in reasonable pc
+## transforms map into a binary map (1 = forest; 0 = matrix)
+forest <- Raster == 3
+```
+
+If you check your map now (note that it now is called **forest**), you will see that the 'values' changed to 'values: 0, 1 (min, max)'.
+
+So lets load the GPS location of the sites where data were collected. 
+
+The CRS of our map is the WGS84 geographic coordinate system. Our points were collected in this same projection, however we are loading a *csv* file, which means it has no georeference to it. Therefore, we have to transform these points into georeferenced points using the same projection as our map. 
+
+
+```{r}
+points <- read.csv("./data/gps_location.csv", header = TRUE)
+
+## st_as_sf uses the columns Lon and Lat to create a column called geometry
+## 4326 is a unique numeric code in the EPSG database of spatial coordinate systems that represents the WGS84 geographic coordinate system
+points_wgs <- st_as_sf(points, coords=c('Lon','Lat'), crs=4326)
+```
+
+We can now plot our map and add the points to check if both coordinates match.
+
+```{r}
+
+plot(forest, legend = FALSE)
+legend( "bottomright", legend = c("Matrix", "Forest"), fill = c("grey","forestgreen"))
+points(st_coordinates(points_wgs), col="black")
+
+```
+
+You can now use some of the functions in the package [landscapemetrics](https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf) to measure landscape metrics related to habitat amount, edge density, number of patches and connectivity.
+
+Here is one example to measure number of patches and edge density at landscape level with a radius of 600 meters:
+
+```{r eval=FALSE}
+## use Sites column from dataframe 'points' to name plots
+sites_id <- points$Sites
+
+## use the map and georeferenced points, then choose shape of buffer, radius of buffer, name of plots, level of analyse (other options are patch and area), and what metric you would like to measure
+metrics <- sample_lsm(forest, points_wgs, shape = "circle", size = 600, 
+                    plot_id = sites_id, level = "landscape", 
+                    what = c("lsm_l_np", "lsm_l_ed", "lsm_c_pland"))
+
+```
+
+###Group exercise
+
+This exercise will consist of obtaining a number of landscape metrics for each of our 65 sites, so we can later use them as explanatory variables in a model to understand how birds are affected by habitat loss and fragmentation. 
+
+Look up the pdf above for the landscapemetrics package. Identify these metrics below (just the ones for your group), read the information, so you can have a better understanding of what they mean, and collate them all to the *sites.csv* spreadsheet (or you can create another spreadhseet).
+
+#### Groups SP01, SP02, SP03 - Patch size & number of patches
+
+Coefficient of variation of patch area, Mean of patch area, Number of patches   
+
+#### Groups SP04, SP05, SP06 - Connectivity
+
+Patch density, Coefficient of variation of euclidean nearest-neighbor distance, Aggregation index   
+
+#### Groups SP07, SP08, SP09 - Edge effects
+
+Coefficient of variation perimeter-area ratio, Coefficient of variation of related circumscribing circle, edge density  
+
+#### Groups SP13, SP14, 
+
+These groups will focus on measuring forest cover only (pland). Because there is only one way to measure habitat cover (or amount), these groups will also focus on exploring the *scale of effect*. Scale of effect is the spatial scale at which responses are strongest, so you'll need to calculate forest cover at 300, 500, 800, 1100 and 1400 m.
+
+
+
+
+## Calculating biodiversity metrics from a dataset
+
+Now, let's obtain meaningful metrics from our bird dataset. First read the data into R:
+
+```{r}
+
+abundance <- read.csv("./data/abundance.csv", row.names=1, stringsAsFactors = FALSE)
+traits <- read.csv("./data/bird_traits.csv", row.names=1, stringsAsFactors = FALSE)
+sites <- read.csv("./data/sites.csv", row.names=1, stringsAsFactors = FALSE)
+
+```
+
+Install the R package vegan and tidyverse if you don't have it already and attach them.
+
+```{r}
+## install.packages('vegan')
+## install.packages('tidyverse')
+
+library(vegan)
+library(tidyverse)
+
+```
+
+### Exploring the data matrix
+
+Use the function *glimpse* from the **dplyr** package that has been installed with **tidyverse**.
+
+``` {r eval=FALSE}
+glimpse(abundance)
+glimpse(sites)
+glimpse(traits)
+```
+The *abundance* data set contains the sites x species matrix. As you'll see a lot of the species were only caught once or twice and there are lots of 0s in the matrix. Very few species have high levels of abundance.
+
+The *sites* data set describes the characteristics of the sites: Landscape (whether the site belong to a fragmented or a continuously-forested control landscape), Percent (the proportion of forest cover at the 10,000 ha landscape scale) and Frag_Cont (as you'll see from the map, the fragmented landscapes were paired with a control landscape, so this variable gives you the information of which sites were closer together).
+
+The bird *trait* data set includes information about the main diet of all species, preferred foraging strata, body size and number of habitats the species can be used (e.g. riparian forest and mature forest, or just secondary forest - it represents specialisation). The values ranging from 0 to 3 mean - always (3), frequently (2), rarely (1), never (0). This matrix thus contains semi-quantitative variables and continuous variables.
+
+Check that the order of the species and sites is the same in the three data sets:
+
+```{r}
+identical(names(abundance), rownames(traits)) ## the first column name in the abundance matrix represents 
+identical(rownames(abundance),rownames(sites))
+```
+
+Investigate the dataframe.
+
+```{r eval=FALSE}
+View(abundance)
+View(sites)
+View(traits)
+```
+
+Are there any missing data in the matrices? Look for NAs.
+
+```{r}
+table(is.na(abundance))
+table(is.na(sites))
+table(is.na(traits))
+```
+
+Are there rare species? Rare species are those that were caught a few times only (yes! Very arbitrary). 
+
+```{r eval=FALSE}
+sort(apply(abundance, 2, sum), decreasing=T)
+```
+
+### Measuring abundance, species richness, species diversity and evenness 
+
+Abundance can be measured at the species level, but here we are interested in total community abundance, so the total number of individuals capture at each site. We can only measure bird abundance because this study used mist nets, where each individual was uniquely tagged.  
+
+To measure species richness you can use the function *specnumber* from **vegan** package. As we saw in the lecture, **Measuring Biodiversity**, sometimes you may need to control for sampling effort or number of individuals to compare species richness across sites. You can use rarefaction (with function *rarefy*) to estimate how many species would you have seen if you had lower sampling effort or fewer individuals.  If you're interested in understanding how species diversity as measured by the Shannon index you can then use function *diversity*. The **vegan** package doesn't have any functions for measuring evenness, but Pielou's evenness is easily measured with the formula below:
+
+```{r eval=FALSE}
+
+abund <- apply(abundance,2, sum)
+
+richness <- specnumber(abundance)
+
+Srar <- rarefy(abundance, min(rowSums(abundance)))
+
+H <- diversity(abundance)
+
+J <- H/log(specnumber(abundance))
+
+
+```
+
+#####Exercise
+
+What is the correlation between richness, diversity, evenness and abundance? You can use the function *cor()* and *plot()* the results to better understand the results. Which biodiversity metrics would you choose to report your results and why?
+
+Hint: There is no right or wrong answer here. You can choose any metric as long as you understand its drawbacks.
+
+
+### Measuring community composition
+
+Community composition is a biodiversity measure that incorporates information on species richness, abundance and species identity. It is the most informative biodiversity metric but it is also the most difficult to compute and correctly interpret the results. To measure community composition, we need to run an ordination on an association matrix.    
+
+We first need to determine whether the data needs to be scaled, transformed into presence/absence and if rare species need to be excluded. We then need to assess which association measure is best, and how many axes are needed to accurately represent the variation in the data. The best way to determine the particulars of these analyses is to conduct them with a certain set of parameters, and then modify some of them to see what effect they have on results.  
+
+So, let's start with a Principal Coordinate Analysis (PCoA) based on a Bray-Curtis dissimilarity index computed from untransformed data. First step is to create the association matrix.
+
+
+#### Association matrix
+
+There are several different types of association coefficients (or dissimilarity indices), and **vegan** provides a range of options. Check which are available:
+
+```{r eval=FALSE}
+?vegdist
+```
+
+
+Note that vegdist allows to transform the abundance data matrix into binary data, such as 0 and 1. It is useful for calculating community composition on presence-absence data, which again may give you different results to what you obtain with abundance.
+
+```{r eval=FALSE}
+binary=TRUE
+```
+
+Now run the dissimilarity index to obtain the association matrix:
+
+```{r}
+bray  <- vegdist(abundance, method="bray", binary=FALSE)
+```
+
+Have a look at the association matrix, and see how it is triangular. Why do you think that is? 
+The matrix "bray" contains all pairwise associations between sites. The numbers (e.g., Alcides and Alce is 0.54) represent the percentage dissimilarity between two sites (so they are 46% similar in their community composition). If we want to compute the association matrix based on another index, we can simply change method="bray" to any of the other indices provided in *vegdist*. Each association coefficient has its advantages and disadvantages. Bray-Curtis and Jaccard are commonly used for species abundance data. The Euclidean distance is widely used for environmental data, such as landscape metrics, distance, temperature, altitude, etc. However, do **not** use Euclidean distance for biodiversity data!    
+
+Note that many of these indices are not ecologically meaningful for this data set. 
+
+Now, we perform the principal coordinate analysis (PCoA) using the association matrix as input. The PCoA will take your triangular matrix and extract the most important trends in this dataset and represent them in few vectors (or ordination axes). You can't plot an association matrix, but you can plot one or two ordination axes to view how similar (or dissimilar) two sites are with respect to the species they have. 
+
+```{r}
+pcoa <- cmdscale(bray, eig=TRUE)
+```
+
+We will now explore community composition graphically, which is most convenient in one or two dimensions. We have to extract the ordination axes before being able to plot them. 
+
+```{r}
+pco1 <- pcoa$points[,1]
+pco2 <- pcoa$points[,2]
+```
+
+Note that the ordination axes from a PCoA are unrelated, i.e. they have a correlation of near zero.
+
+```{r}
+cor(pco1, pco2)
+```
+
+Now let's take some information from the sites data to make sense of the patterns. Here we are going to use the percentage of forest cover at the landscape level (10,30,50 and 90%). Which patterns can you see from the plot below? Along which axis do you see the trends varying the most, along PCoA1 or PCoA2?  
+
+Note that only the first number is printed, so 1 refers to the sites in the landscape with 10% forest cover, 3 refers to sites with 30% of forest cover and so on.
+
+```{r}
+plot(pco1,pco2, pch=as.character(sites$Percent))
+
+```
+
+#### Exercise
+Now plot PCoA axis 1 against the percentage of forest cover at the landscape level. Which trends do you get? And what about axis 2? 
+
+
+
+Have a look at the eigenvalues. The eigenvalues represent the variance, hence the information content of each ordination axis. Note that the eigenvalues are in descending order, and that some of the eigenvalues are negative. Ordination axes computed from negative eigenvalues cannot be interpreted biologically, but luckily this is never a problem for the first few axes which are the most meaningful anyway.
+
+```{r}
+round(pcoa$eig, 4)
+# round: set number of decimal places to 4
+```
+
+Another way to decide on how many ordination axes we will keep for analyses is to look at the proportion of the total variance in the data set that they explained. The cumulative sum of eigenvalues describes how much of the variation is explained by the first *n* ordination axes.
+
+```{r}
+total.var=sum(pcoa$eig)
+rel.eigen=pcoa$eig/total.var
+barplot(rel.eigen)
+round(cumsum(rel.eigen), 4)
+```
+
+For this particular data set, the bar plot doesn't really give a good indication about the number of principal coordinates to retain: instead of showing a clear bend, the bars gradually decrease in size. Confirm that the first principal coordinate contains almost twice as much information as the second one (23% versus 13 %). However we shouldn't blindly look at percentages. For instance, if one species in the matrix varies from 0 to 1,000 individuals while all the other species vary from 0 to 10, the percentage of information captured by the first axis will be considerably larger, but the axis will be only representing the variation in that particularly abundant species. If a *scale* function is applied to this hypothetical dataset, the percentage of information captured by the first axis will dramatically reduce, but this axis will provide more biologically meaningful results. Furthermore, the proportion of variation explained by the first axis reduces as the number of species increases.
+
+  
+
+
+#### Exercise 
+
+Now, perform the above steps once again this time try scaling the matrix. Using the function *scale()*, will automatically transform the matrix by columns. Thus, each column will have a mean of near 0, and standard deviation of 1. You can also try changing species abundances by presence-absence by changing the argument `binary =TRUE`, or excluding the rare species (e.g. all species with 5 or less individuals). Then, use at least another association measure, run the PCoA and check the trends you obtain using *plot(pco1,pco2, pch=as.character(sites$Percent))*.
+
+Tip: to remove the rare species you can use the code below.
+
+```{r eval=FALSE}
+abund <- apply(abundance, 2, sum)
+
+# choose columns (species) from dataframe abundance where abund is greater than 5
+common <- abundance[,which(abund >5)]
+
+# data only has 71 columns now
+glimpse(common)
+```
+
+Which combination of data treatment, association coefficient and number of axes most clearly separate the community composition of the different landscapes (ignore the variation within landscape for now)? 
+
+PS: No right or wrong answer.
+
+The results of an ordination performed on an abundance matrix most often are very different to those performed on a presence-absence dataset. This is because of the way the dissimilarities are calculated between sites. When an abundance dataset is analysed, the largest variance is usually drawn from the most abundant species, thus abundant species will be driving the ecological trends perceived. When the dataset is transformed into presence and absence, abundant species are usually present in all sites, so they will not contribute to the difference between sites. It will then be the less common species who will be driving the ecological patterns.
+
+How does community composition vary between fragmented landscapes and continuous landscapes? The advantage of using a PCoA is that axes are independent, so  we can use each separately in a LM, GLM, mixed-model, GAMM, etc, etc. Note, the same is not true for a NMDS (if you decide to really look into ordinations).
+
+```{r}
+model <- lm(pco1~sites$Percent)
+summary(model)
+
+
+```
+
+Forest cover at the landscape scale explains 77% of the variation in community composition. Hence, we see that the first principal coordinate can reveal interesting biological trends, even if it only contained 23% of the information in the original data set (see above).
+
+#### Exercise 
+
+Run the same model above with pco2 to see which trends can be revealed.
+
+
+
+### Functional diversity
+
+There are many measures of functional diversity, evenness and composition. Here we will only use one metric, which is available on the **vegan** package. This measure is based on the approach developed by Petchey and Gaston where functional diversity is measured as the total branch length of a trait dendrogram (same as tree). The higher the number the more variation we have in traits within a community, which in theory equals to higher functions provided.
+
+
+```{r eval=FALSE}
+taxdis <- taxa2dist(traits, varstep=TRUE)
+tr <- hclust(taxdis, "aver")
+mod <- treedive(abundance, tr)
+```
+
+#### Exercise 
+
+How does functional diversity varies with percentage of forest cover at the landscape scale?
+
+
+
+
+###Group exercise
+
+Each group already have their landscape metrics measured, now you will need to focus on choosing one response variable that best represents variation in your data. Choose it carefully because you will need to defend your choice when you present your results.
+
+
+#### Groups SP01, SP04, SP07, SP13 - Species richness and abundance
+
+We have explored different ways to measure abundance, richness, diversity, evenness. Select one of these  as your response variable. 
+#### Groups SP02, SP05, SP08, SP14 - Community composition
+
+We have explored different ways to do an ordination. You can scale or not, use binary data or not, your choice. Select one of these as your response variable.
+
+#### Groups SP03, SP06, SP09 - Functional diversity
+
+We only explored one way of measuring functional diversity. But there are other more traditional ways of looking into traits of species that we have, for instance, species richness of insectivores, or abundance of specialists (those that only use one habitat). You have freedom to choose the response variable of preference. 
+
+
+## Presenting your results on Friday 20th November.
+
+Please have one slide ready to present with the graph of your response ~ exploratory variable. Please ensure that the labels can be read on small screens. Also, please include on this graph a fitted line, and ideally a CI interval. The slide should also contain the R2 of the relationship and p-value. Do not worry if you don't find significant results! That's to be expected. Each group will have a maximum of 5 minutes to present their results.
+
+
+Final note on analyses. Because of the structure of the data, it's not anticipated that you will need to run a mixed-effect model. But depending on the response variable you choose, you may need to run a GLM using poisson errors. It is anticipated that in each group, the exploratory variables **will** be correlated, so don't run a multiple regression (or GLM) with them all together. Instead run single regressions (or GLM) for each exploratory variable at a time. 
+
+
+
