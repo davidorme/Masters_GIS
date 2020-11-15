@@ -1,7 +1,9 @@
 # Book settings
 title: GIS and Spatial Methods in R
 author: David Orme
+page_authors: true
 
 # Some cells take a while to run
 execute:
   timeout: 10000
+

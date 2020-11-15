@@ -12,7 +12,7 @@ kernelspec:
   name: ir
 ---
 
-# Practical 3: Spatial modelling in R
+# Practical Three: Spatial modelling in R
 
 This practical looks at some of the problems of fitting statistical models to spatial data, using the statistical software R. We are going to be covering a lot of ground but:
 
