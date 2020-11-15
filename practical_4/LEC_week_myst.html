@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Landscape metric analysis &#8212; GIS and Spatial Methods in R</title>
+    <title>Landscape Ecology and Conservation &#8212; GIS and Spatial Methods in R</title>
     
   <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
 
@@ -284,6 +284,13 @@
     <a class="reference internal nav-link" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness">
      Measuring site abundance, species richness, species diversity and evenness
     </a>
+    <ul class="nav section-nav flex-column">
+     <li class="toc-h4 nav-item toc-entry">
+      <a class="reference internal nav-link" href="#species-abundance-distribution">
+       Species abundance distribution
+      </a>
+     </li>
+    </ul>
    </li>
    <li class="toc-h3 nav-item toc-entry">
     <a class="reference internal nav-link" href="#measuring-community-composition">
@@ -319,6 +326,11 @@
      </li>
     </ul>
    </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#functional-diversity">
+     Functional diversity
+    </a>
+   </li>
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -337,18 +349,37 @@
         
               <div>
                 
-  <div class="section" id="landscape-metric-analysis">
-<h1>Landscape metric analysis<a class="headerlink" href="#landscape-metric-analysis" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="landscape-ecology-and-conservation">
+<h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this headline">¶</a></h1>
+<p><strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
 <p>In this practical, we are going to use R to:</p>
 <ol class="simple">
-<li><p>obtain landscape metrics from a map,</p></li>
-<li><p>obtain community metrics from a bird dataset and</p></li>
-<li><p>analyse the data to assess how Atlantic Forest birds are impacted by habitat loss and fragmentation.</p></li>
+<li><p>obtain landscape metrics from a map;</p></li>
+<li><p>obtain community metrics from a bird dataset; and</p></li>
+<li><p>analyse the data to assess how Atlantic Forest birds are impacted by habitat
+loss and fragmentation.</p></li>
 </ol>
-<p>Everyone in the class will have access to the same data but each group will be assigned a specific question that needs to be answered by Friday 20th November 2020. On Friday, one representative from each group (make sure to decide this beforehand), will present their results on slides. A discussion will follow.</p>
+<div class="danger admonition">
+<p class="admonition-title">Class group exercise</p>
+<p>Everyone in the class will have access to the same data but each group will be
+assigned a specific question that needs to be answered by Friday 20th November
+2020. Instructions for this exercise will be in boxes like this one.</p>
+<p>On Friday, one representative from each group (make sure to decide this
+beforehand), will present their results on a single slide. A discussion will
+follow.</p>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Data exploration exercises</p>
+<p>In addition to the instructions for the class exercises, there are some
+individual exercises, which ask you to explore the data and techniques used.
+These will be in boxes like this one.</p>
+</div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>This practical needs the following R packages. They have all been installed on the RStudio Cloud Project for this practical, but if you are following this practical on your own laptop, you will need to install the following:</p>
+<p>This practical needs the following R packages. They have all been installed on
+the RStudio Cloud Project for this practical, but if you are following this
+practical in R or RStudio installed on your own laptop, you will need to install
+the following:</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;landscapemetrics&#39;</span><span class="p">)</span>
@@ -377,17 +408,28 @@
 <p>The first step is to load and explore the datasets.</p>
 <div class="section" id="species-data">
 <h3>Species data<a class="headerlink" href="#species-data" title="Permalink to this headline">¶</a></h3>
-<p>This is a bird data set that was collected in the Brazilian Atlantic Forest between 2001 and 2007. The data set contains the abundance of 140 species that were captured in 65 sites, from three different landscapes with different proportions of forest cover at the 10,000 hectare scale.</p>
+<p>This is a bird data set that was collected in the Brazilian Atlantic Forest
+between 2001 and 2007. The data set contains the abundance of 140 species that
+were captured in 65 sites, from three different regions, each containing a
+control landscape and a 10,000 ha fragmented landscape. The fragmented
+landscapes varied in their  proportions of forest cover  (10, 30 and 50% cover).</p>
 <p><img alt="" src="../_images/figure_sampling_sites.jpg" /></p>
 <p>More info about the data set can be found in the following papers:</p>
 <ul class="simple">
-<li><p>Banks-Leite, C., Ewers, R. M., &amp; Metzger, J. P. (2012). Unraveling the drivers of community dissimilarity and species extinction in fragmented landscapes. Ecology 93(12), 2560-2569. <a class="reference external" href="https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1">https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1</a></p></li>
-<li><p>Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., &amp; Metzger, J. P. (2011). Comparing species and measures of landscape structure as indicators of conservation importance. Journal of Applied Ecology 48(3), 706-714. <a class="reference external" href="https://doi.org/10.1111/j.1365-2664.2011.01966.x">https://doi.org/10.1111/j.1365-2664.2011.01966.x</a></p></li>
+<li><p>Banks-Leite, C., Ewers, R. M., &amp; Metzger, J. P. (2012). Unraveling the drivers
+of community dissimilarity and species extinction in fragmented landscapes.
+Ecology 93(12), 2560-2569.
+<a class="reference external" href="https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1">https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1</a></p></li>
+<li><p>Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., &amp; Metzger, J. P.
+(2011). Comparing species and measures of landscape structure as indicators of
+conservation importance. Journal of Applied Ecology 48(3), 706-714.
+<a class="reference external" href="https://doi.org/10.1111/j.1365-2664.2011.01966.x">https://doi.org/10.1111/j.1365-2664.2011.01966.x</a></p></li>
 </ul>
 <p>There are three files to load.</p>
 <div class="section" id="sites-data">
 <h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this headline">¶</a></h4>
-<p>First, we can load the sites data and use the longitude and latitude coordinates (WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
+<p>First, we can load the sites data and use the longitude and latitude coordinates
+(WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/sites.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
@@ -398,31 +440,40 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classes ‘sf’ and &#39;data.frame&#39;:	65 obs. of  6 variables:
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classes ‘sf’ and &#39;data.frame&#39;:	65 obs. of  5 variables:
  $ Site        : Factor w/ 65 levels &quot;Alce&quot;,&quot;Alcides&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
  $ Landscape   : Factor w/ 2 levels &quot;Control&quot;,&quot;Fragmented&quot;: 2 2 2 2 1 2 2 2 2 2 ...
  $ Percent     : int  50 30 10 50 90 50 30 50 10 10 ...
- $ Frag_Cont   : Factor w/ 8 levels &quot; Frag10&quot;,&quot; Frag10 &quot;,..: 8 6 2 8 3 8 7 8 2 2 ...
  $ Landscape_ID: Factor w/ 3 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;: 2 3 1 2 1 2 3 2 1 1 ...
  $ geometry    :sfc_POINT of length 65; first list element:  &#39;XY&#39; num  -47.5 -23.9
  - attr(*, &quot;sf_column&quot;)= chr &quot;geometry&quot;
- - attr(*, &quot;agr&quot;)= Factor w/ 3 levels &quot;constant&quot;,&quot;aggregate&quot;,..: NA NA NA NA NA
-  ..- attr(*, &quot;names&quot;)= chr  &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Frag_Cont&quot; ...
+ - attr(*, &quot;agr&quot;)= Factor w/ 3 levels &quot;constant&quot;,&quot;aggregate&quot;,..: NA NA NA NA
+  ..- attr(*, &quot;names&quot;)= chr  &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Landscape_ID&quot;
 </pre></div>
 </div>
 <img alt="../_images/LEC_week_myst_3_1.png" src="../_images/LEC_week_myst_3_1.png" />
 </div>
 </div>
-<p>The three landscapes (A B and C) are spatially separated in areas with different overall levels of deforestation, but each has four control sites in local continuous forest. The <code class="docutils literal notranslate"><span class="pre">sites</span></code> data set also describes the characteristics of the sites:</p>
+<p>Region A corresponds to the fragmented landscape with 10% forest cover (and
+adjcent control), region B corresponds to fragmented landscape with 50% of cover
+(and control) and region C corresponds to  fragmented landscape with 30% of
+cover (and control). The <code class="docutils literal notranslate"><span class="pre">sites</span></code> data set describes the characteristics of the
+sampling sites:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">Landscape</span></code>: whether the site belong to a fragmented or a continuously-forested control landscape,</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Percent</span></code>: the proportion of forest cover at the 10,000 ha landscape scale, and</p></li>
-<li><p><code class="docutils literal notranslate"><span class="pre">Frag_Cont</span></code>: as we just saw, fragmented landscapes were paired with a control landscape, so this variable gives you the information of which sites were closer together.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Landscape</span></code>: whether the site belong to a fragmented or a
+continuously-forested control landscape,</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Percent</span></code>: the proportion of forest cover at the 10,000 ha landscape scale,
+and</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">Landscape_ID</span></code>: as we just saw, fragmented landscapes were paired with a
+control landscape, so this variable gives you the information of which sites
+belonged to the same region.</p></li>
 </ul>
 </div>
 <div class="section" id="abundance-data">
 <h4>Abundance data<a class="headerlink" href="#abundance-data" title="Permalink to this headline">¶</a></h4>
-<p>Next, read in the  data set showing the sites x species abundance matrix. As you’ll see, a lot of the species were only caught once or twice and there are lots of 0s in the matrix. Most species are globally common or rare in the dataset: few species have variable levels of abundance.</p>
+<p>Next, read in the data set showing the sites x species abundance matrix. As
+you’ll see, a lot of the species were only caught once or twice and there are
+lots of 0s in the matrix. Few species are globally common.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the abundance data and use the first column (site names) as row names</span>
@@ -440,18 +491,24 @@
 <ol class=list-inline><li>65</li><li>140</li></ol>
 </div></div>
 </div>
-<p>The abundance data has 65 rows - one for each site - and there are 140 species that were seen in at least one site.</p>
+<p>The abundance data has 65 rows - one for each site - and there are 140 species
+that were seen in at least one site.</p>
 </div>
 <div class="section" id="species-trait-data">
 <h4>Species trait data<a class="headerlink" href="#species-trait-data" title="Permalink to this headline">¶</a></h4>
 <p>Last, the bird trait data set includes information about:</p>
 <ul class="simple">
-<li><p>The main diet of all species, split into five categories (<code class="docutils literal notranslate"><span class="pre">Invertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Vertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Fruits</span></code>, <code class="docutils literal notranslate"><span class="pre">Nectar</span></code>, <code class="docutils literal notranslate"><span class="pre">Seeds</span></code>).</p></li>
-<li><p>The preferred foraging strata, split into four categories (<code class="docutils literal notranslate"><span class="pre">Ground</span></code>, <code class="docutils literal notranslate"><span class="pre">Understory</span></code>, <code class="docutils literal notranslate"><span class="pre">Midstory</span></code>, <code class="docutils literal notranslate"><span class="pre">Canopy</span></code>)</p></li>
+<li><p>The main diet of all species, split into five categories (<code class="docutils literal notranslate"><span class="pre">Invertebrates</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Vertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Fruits</span></code>, <code class="docutils literal notranslate"><span class="pre">Nectar</span></code>, <code class="docutils literal notranslate"><span class="pre">Seeds</span></code>).</p></li>
+<li><p>The preferred foraging strata, split into four categories (<code class="docutils literal notranslate"><span class="pre">Ground</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Understory</span></code>, <code class="docutils literal notranslate"><span class="pre">Midstory</span></code>, <code class="docutils literal notranslate"><span class="pre">Canopy</span></code>)</p></li>
 <li><p>The species’ mean body size (<code class="docutils literal notranslate"><span class="pre">BMass</span></code>).</p></li>
-<li><p>The number of habitats the species uses (<code class="docutils literal notranslate"><span class="pre">Nhabitats</span></code>), representing specialisation.</p></li>
+<li><p>The number of habitats the species uses (<code class="docutils literal notranslate"><span class="pre">Nhabitats</span></code>), representing
+specialisation.</p></li>
 </ul>
-<p>The values used for the diet and foraging strata are a semi-quantititiave measure of use frequency: always (3), frequently (2), rarely (1), never (0). This matrix thus contains semi-quantitative variables and continuous variables.</p>
+<p>The values used for the diet and foraging strata are a semi-quantitative
+measure of use frequency: always (3), frequently (2), rarely (1), never (0).
+This matrix thus contains semi-quantitative variables and continuous variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
@@ -480,7 +537,9 @@
 </div>
 <div class="section" id="data-checking">
 <h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this headline">¶</a></h4>
-<p>It is always worth looking at the data frames in detail, to understand their contents. We have used <code class="docutils literal notranslate"><span class="pre">str</span></code> to look at the structure but you can also use <code class="docutils literal notranslate"><span class="pre">View</span></code> to look at the dataset as a table.</p>
+<p>It is always worth looking at the data frames in detail, to understand their
+contents. We have used <code class="docutils literal notranslate"><span class="pre">str</span></code> to look at the structure but you can also use
+<code class="docutils literal notranslate"><span class="pre">View</span></code> to look at the dataset as a table.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">View</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
 <span class="nf">View</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
 <span class="nf">View</span><span class="p">(</span><span class="n">Traits</span><span class="p">)</span>
@@ -495,8 +554,15 @@
 </div>
 <div class="section" id="landcover-data">
 <h3>Landcover data<a class="headerlink" href="#landcover-data" title="Permalink to this headline">¶</a></h3>
-<p>We will take data to calculate the landscape metrics from a landcover map for the study region. If you want to know more about the origin of the map, check <a class="reference external" href="https://mapbiomas.org">https://mapbiomas.org</a>. It is in Portugese but Google should translate it for you! This is a database of land cover through time for the entire country of Brazil - we are using data contemporary with the bird sampling.</p>
-<p>The map is a GEOTIFF file of landcover classes, therefore we are going to use the function <code class="docutils literal notranslate"><span class="pre">raster</span></code> from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to load the map.  First, load the map and check its coordinate system:</p>
+<p>We will calculate the landscape metrics from a landcover map for the study
+region. If you want to know more about the origin of the map, check
+<a class="reference external" href="https://mapbiomas.org">https://mapbiomas.org</a>. It is in Portuguese but Google
+should translate it for you! This is a database of land cover through time for
+the entire country of Brazil - we are using data contemporary with the bird
+sampling.</p>
+<p>The map is a GEOTIFF file of landcover classes, therefore we are going to use
+the function <code class="docutils literal notranslate"><span class="pre">raster</span></code> from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to load the map.  First, load
+the map and check its coordinate system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># load map</span>
@@ -518,8 +584,15 @@ values     : 0, 33  (min, max)
 </div>
 </div>
 </div>
-<p>The map has 33 values for the <strong>33 different landcover classes</strong> including: forest, plantation, mangroves, etc. We will only be looking at forests (landcover class 3).</p>
-<p>Another important thing is that the map is quite large and  has a <strong>very fine resolution</strong> (0.000269° is about 1 arcsecond or ~30 metres). There are over 82 million pixels in the image and so the data is slow to handle. In fact, although the file loaded quickly, it <strong>did not load the actual data</strong>. The <code class="docutils literal notranslate"><span class="pre">raster</span></code> package often does this to keep the memory load low - it only loads data when requested and has tricks for only loading the data it needs. You can see this:</p>
+<p>The map has 33 values for the <strong>33 different landcover classes</strong> including:
+forest, plantation, mangroves, etc. We will only be looking at forests
+(landcover class 3).</p>
+<p>Another important thing is that the map is quite large and  has a <strong>very fine
+resolution</strong> (0.000269° is about 1 arcsecond or ~30 metres). There are over 82
+million pixels in the image and so the data is slow to handle. In fact, although
+the file loaded quickly, it <strong>did not load the actual data</strong>. The <code class="docutils literal notranslate"><span class="pre">raster</span></code>
+package often does this to keep the memory load low - it only loads data when
+requested and has tricks for only loading the data it needs. You can see this:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">inMemory</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
@@ -529,14 +602,20 @@ values     : 0, 33  (min, max)
 <div class="cell_output docutils container">
 <div class="output text_html">FALSE</div></div>
 </div>
-<p>We’re not even going to try and plot this map! This is something that would be much easier to view in QGIS, which handles visualising big data well. We will extract some data from it in the next section.</p>
+<p>We’re not even going to try and plot this map! This is something that would be
+much easier to view in QGIS, which handles visualising big data well. We will
+extract some data from it in the next section.</p>
 </div>
 </div>
 <div class="section" id="calculating-landscape-metrics">
 <h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="landscape-data-processing">
 <h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Permalink to this headline">¶</a></h3>
-<p>Before we calculate landscape metrics, we first need to process the land cover data to make it easier to work with. In particular, using the whole landscape map is very computationally demanding so we need to reduce the data down to the scale of the focal landscapes in order to extract landscape metrics for each site. In order to do that we need to:</p>
+<p>Before we calculate landscape metrics, we first need to process the land cover
+data to make it easier to work with. In particular, using the whole map is very
+computationally demanding so we need to reduce the data down to the scale of the
+focal regions to extract landscape metrics for each site. In order to do that we
+need to:</p>
 <ol class="simple">
 <li><p>Identify a smaller region of interest for the sites</p></li>
 <li><p>Crop the landcover raster down to this region, to use a small dataset.</p></li>
@@ -548,7 +627,9 @@ values     : 0, 33  (min, max)
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the bounding box and convert to a polygon</span>
 <span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_as_sfc</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites</span><span class="p">))</span>
 
-<span class="c1"># Buffer the region by 0.1 degrees to get coverage around the sites</span>
+<span class="c1"># Buffer the region by 0.1 degrees to get coverage around the landscape.</span>
+<span class="c1"># This is roughly 10 kilometres which is a wide enough border to allow</span>
+<span class="c1"># us to test the scale of effects.</span>
 <span class="c1"># - this throws out a warning, but this is only a rough border.</span>
 <span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_buffer</span><span class="p">(</span><span class="n">sites_region</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span>
 
@@ -568,7 +649,7 @@ dimensions : 2843, 6120, 17399160  (nrow, ncol, ncell)
 resolution : 0.0002694946, 0.0002694946  (x, y)
 extent     : -48.49447, -46.84517, -24.34156, -23.57539  (xmin, xmax, ymin, ymax)
 crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : /private/var/folders/62/cz0ctby96lq7ggnytfbtd__40000gn/T/Rtmp9BmoWG/raster/r_tmp_2020-11-13_200240_69320_70453.grd 
+source     : memory
 names      : layer 
 values     : 0, 1  (min, max)
 </pre></div>
@@ -576,7 +657,10 @@ values     : 0, 1  (min, max)
 </div>
 </div>
 <p>If you check that final output, you will see that the values changed to <code class="docutils literal notranslate"><span class="pre">values:</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">(min,</span> <span class="pre">max)</span></code>.</p>
-<p>Now that we have the regional forest for the sites, we can reproject the data. We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code> when projecting the data.</p>
+<p>Now that we have the regional forest for the sites, we can reproject the data.
+We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that
+the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code> when
+projecting the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="m">32723</span><span class="p">)</span>
@@ -602,7 +686,10 @@ values     : 0, 1  (min, max)
 </div>
 <div class="section" id="extracting-landscape-metrics">
 <h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Permalink to this headline">¶</a></h3>
-<p>You can now explore the functions in the package <a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a> to measure different landscape metrics. You can also look at the complete set of <strong>132</strong> landscape metrics that the package will calculate:</p>
+<p>You can now explore the functions in the package
+<a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a>
+to measure different landscape metrics. You can also look at the complete set of
+<strong>132</strong> landscape metrics that the package will calculate:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">lsm_abbreviations_names</span>
@@ -684,13 +771,23 @@ values     : 0, 1  (min, max)
 </div>
 <div class="section" id="landscape-levels">
 <h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Permalink to this headline">¶</a></h4>
-<p>There are three core levels of calculation and it is important to understand how these are applied within a local landscape:</p>
+<p>There are three core levels of calculation and it is important to understand how
+these are applied within a local landscape:</p>
 <ul class="simple">
-<li><p>The <strong>patch</strong> level metrics are things that are calculated for every single patch in the local landscape. So in the output, there is one row for each patch and it is identified with a patch <code class="docutils literal notranslate"><span class="pre">id</span></code> and a <code class="docutils literal notranslate"><span class="pre">class</span></code> id.</p></li>
-<li><p>The <strong>class</strong> level metrics are aggregated across all patches of a specific class, so there is a row for each class that appears in the local landscape, labelled with a <code class="docutils literal notranslate"><span class="pre">class</span></code> id (but no patch).</p></li>
-<li><p>The <strong>landscape</strong> metrics aggregate <em>all</em> patches, so there is just one row per landscape.</p></li>
+<li><p>The <strong>patch</strong> level metrics are things that are calculated for every single
+patch in the local landscape. So in the output, there is one row for each
+patch and it is identified with a patch <code class="docutils literal notranslate"><span class="pre">id</span></code> and a <code class="docutils literal notranslate"><span class="pre">class</span></code> id.</p></li>
+<li><p>The <strong>class</strong> level metrics are aggregated across all patches of a specific
+class, so there is a row for each class that appears in the local landscape,
+labelled with a <code class="docutils literal notranslate"><span class="pre">class</span></code> id (but no patch).</p></li>
+<li><p>The <strong>landscape</strong> metrics aggregate <em>all</em> patches, so there is just one row
+per landscape.</p></li>
 </ul>
-<p>To show how these values are reported - and how we can use them - the following code uses the <code class="docutils literal notranslate"><span class="pre">sample_lsm</span></code> function to calculate a set of metrics for patch counts and areas at all three levels, along with the proportion landcover of each class. The local landscape is defined as a circle with a radius of 600 meters. We will use the Alce site as an example:</p>
+<p>To show how these values are reported - and how we can use them - the following
+code uses the <code class="docutils literal notranslate"><span class="pre">sample_lsm</span></code> function to calculate a set of metrics for patch
+counts and areas at all three levels, along with the proportion landcover of
+each class. The local landscape is defined as a circle with a radius of 600
+meters. We will use the Alce site as an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate patch areas at patch, class and landscape scale.</span>
@@ -747,7 +844,13 @@ values     : 0, 1  (min, max)
 <div class="cell_output docutils container">
 <div class="output text_html">113.631362000035</div></div>
 </div>
-<p>From that table, you can see that there are 13 patches in the Alce local landscape that sum to 113.63 hectares. That is not quite the precise area of the circular landscape (<span class="math notranslate nohighlight">\(\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha\)</span>) because the landscape is used to select a set of whole pixels. The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics summarise the areas of the patches by class (10 forest patches, 3 matrix patches) and the <code class="docutils literal notranslate"><span class="pre">landscape</span></code> metrics aggregate everything. We can use the table to calculate the <code class="docutils literal notranslate"><span class="pre">lsm_l_area_mn</span></code> value by hand:</p>
+<p>From that table, you can see that there are 13 patches in the Alce local
+landscape that sum to 113.63 hectares. That is not quite the precise area of the
+circular landscape (<span class="math notranslate nohighlight">\(\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha\)</span>) because
+the landscape is used to select a set of whole pixels. The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics
+summarise the areas of the patches by class (10 forest patches, 3 matrix
+patches) and the <code class="docutils literal notranslate"><span class="pre">landscape</span></code> metrics aggregate everything. We can use the table
+to calculate the <code class="docutils literal notranslate"><span class="pre">lsm_l_area_mn</span></code> value by hand:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Weighted average of class patch sizes (with some rounding error)</span>
@@ -763,14 +866,21 @@ values     : 0, 1  (min, max)
 <h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Permalink to this headline">¶</a></h4>
 <p>The contents of <code class="docutils literal notranslate"><span class="pre">lsm</span></code> is rather unhelpful in two ways:</p>
 <ol class="simple">
-<li><p>The variables are not in separate columns, but stacked in the <code class="docutils literal notranslate"><span class="pre">value</span></code> and <code class="docutils literal notranslate"><span class="pre">metric</span></code> fields.</p></li>
-<li><p>Class variables include rows for both the matrix and forest, and we are primarily interested in the forest class metrics.</p></li>
+<li><p>The variables are not in separate columns, but stacked in the <code class="docutils literal notranslate"><span class="pre">value</span></code> and
+<code class="docutils literal notranslate"><span class="pre">metric</span></code> fields.</p></li>
+<li><p>Class variables include rows for both the matrix and forest, and we are
+primarily interested in the forest class metrics.</p></li>
 </ol>
-<p>So, we need a couple of tools to help convert this output into something easier to use:</p>
+<p>So, we need a couple of tools to help convert this output into something easier
+to use:</p>
 <ol class="simple">
-<li><p>We can use <code class="docutils literal notranslate"><span class="pre">subset</span></code> to keep just the columns and rows we actually want: forest class metrics and values.</p></li>
-<li><p>We need to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the data frame to have a column for each measure. (The help and syntax of the <code class="docutils literal notranslate"><span class="pre">reshape</span></code> function is <em>notoriously</em> unhelpful - there are other, better tools but this simple recipe works here).</p></li>
-<li><p>Along the way, we should make sure that our variable names are clear - we want the method of calculation of each value to be obvious.</p></li>
+<li><p>We can use <code class="docutils literal notranslate"><span class="pre">subset</span></code> to keep just the columns and rows we actually want:
+forest class metrics and values.</p></li>
+<li><p>We need to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the data frame to have a column for each measure. (The
+help and syntax of the <code class="docutils literal notranslate"><span class="pre">reshape</span></code> function is <em>notoriously</em> unhelpful - there
+are other, better tools but this simple recipe works here).</p></li>
+<li><p>Along the way, we should make sure that our variable names are clear - we
+want the method of calculation of each value to be obvious.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -786,22 +896,31 @@ values     : 0, 1  (min, max)
 <span class="c1"># Reshape that dataset so that each metric has its own column</span>
 <span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">reshape</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">),</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;wide&#39;</span><span class="p">,</span> 
                       <span class="n">timevar</span><span class="o">=</span><span class="s">&#39;metric&#39;</span><span class="p">,</span> <span class="n">idvar</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="n">Error</span> <span class="ow">in</span> <span class="nb">print</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">quote</span> <span class="o">=</span> <span class="n">quote</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">):</span> <span class="n">invalid</span> <span class="s1">&#39;na.print&#39;</span> <span class="n">specification</span>
-<span class="ne">Traceback</span>:
-
-<span class="mi">1</span><span class="o">.</span> <span class="nb">print</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-<span class="mi">2</span><span class="o">.</span> <span class="nb">print</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-<span class="mi">3</span><span class="o">.</span> <span class="nb">print</span><span class="o">.</span><span class="n">data</span><span class="o">.</span><span class="n">frame</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span> <span class="o">=</span> <span class="mi">10</span><span class="p">)</span>
-<span class="mi">4</span><span class="o">.</span> <span class="nb">print</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">quote</span> <span class="o">=</span> <span class="n">quote</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">)</span>
-<span class="mi">5</span><span class="o">.</span> <span class="nb">print</span><span class="o">.</span><span class="n">default</span><span class="p">(</span><span class="n">m</span><span class="p">,</span> <span class="o">...</span><span class="p">,</span> <span class="n">quote</span> <span class="o">=</span> <span class="n">quote</span><span class="p">,</span> <span class="n">right</span> <span class="o">=</span> <span class="n">right</span><span class="p">,</span> <span class="nb">max</span> <span class="o">=</span> <span class="nb">max</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
+<div class="output text_html"><table>
+<caption>A data.frame: 10 × 4</caption>
+<thead>
+	<tr><th></th><th scope=col>plot_id</th><th scope=col>C600.area_mn</th><th scope=col>C600.np</th><th scope=col>C600.pland</th></tr>
+	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>1</th><td>Alce     </td><td>  3.703055</td><td>10</td><td> 32.58832</td></tr>
+	<tr><th scope=row>4</th><td>Alcides  </td><td>  5.509523</td><td> 8</td><td> 38.98551</td></tr>
+	<tr><th scope=row>7</th><td>Alteres  </td><td> 28.182544</td><td> 1</td><td> 24.89146</td></tr>
+	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.853420</td><td> 1</td><td> 84.78261</td></tr>
+	<tr><th scope=row>13</th><td>Areial   </td><td>113.303658</td><td> 1</td><td>100.00000</td></tr>
+	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.075563</td><td> 7</td><td> 50.14535</td></tr>
+	<tr><th scope=row>19</th><td>BetoJamil</td><td>  5.366153</td><td> 8</td><td> 38.05374</td></tr>
+	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.121455</td><td> 4</td><td> 39.54843</td></tr>
+	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.505930</td><td> 4</td><td> 15.94203</td></tr>
+	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.402088</td><td> 3</td><td> 40.83997</td></tr>
+</tbody>
+</table>
+</div></div>
 </div>
 <p>Now it is easy to match those landscape metrics to the <code class="docutils literal notranslate"><span class="pre">sites</span></code> data.</p>
 <div class="cell docutils container">
@@ -811,11 +930,19 @@ values     : 0, 1  (min, max)
 </div>
 </div>
 </div>
-<div class="admonition-group-exercise admonition">
+<div class="danger admonition">
 <p class="admonition-title">Group exercise</p>
-<p>This exercise will consist of obtaining a number of landscape metrics for each of our 65 sites, so we can later use them as explanatory variables in a model to understand how birds are affected by habitat loss and fragmentation.</p>
-<p>Each group will focus on a set of metrics that capture different aspects of landscape structure.  Look up and read the information for your metrics, so you can have a better understanding of what they mean, and collate them all to the <em>sites.csv</em> spreadsheet (or you can create another spreadsheet).</p>
-<p>In all cases, we are interested in the <strong>forest specific values of the <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics</strong>, so you will need to subset and reshape the data as above. There is a help page for each metric: for example, <code class="docutils literal notranslate"><span class="pre">?lsm_c_area_cv</span></code>.</p>
+<p>This exercise will consist of obtaining a number of landscape metrics for each
+of our 65 sites, so we can later use them as explanatory variables in a model to
+understand how birds are affected by habitat loss and fragmentation.</p>
+<p>Each group will focus on a set of metrics that capture different aspects of
+landscape structure.  Look up and read the information for your metrics, so you
+can have a better understanding of what they mean, and collate them all to the
+<code class="docutils literal notranslate"><span class="pre">sites.csv</span></code> spreadsheet (or you can create another spreadsheet). You may need to
+defend your choice of landscape metric on the presentation!</p>
+<p>In all cases, we are interested in the <strong>forest specific values of the <code class="docutils literal notranslate"><span class="pre">class</span></code>
+metrics</strong>, so you will need to subset and reshape the data as above. There is a
+help page for each metric: for example, <code class="docutils literal notranslate"><span class="pre">?lsm_c_area_cv</span></code>.</p>
 <ul class="simple">
 <li><p><strong>Groups SP01, SP02, SP03</strong>: Patch size &amp; number of patches</p>
 <ul>
@@ -840,7 +967,12 @@ values     : 0, 1  (min, max)
 </li>
 <li><p><strong>Groups SP13, SP14</strong>: Forest cover</p>
 <ul>
-<li><p>There is only one way to measure habitat cover: <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code>. These groups will also focus on exploring the <em>scale of effect</em>: the spatial scale at which responses are strongest. You’ll need to calculate forest cover using radii of 300, 500, 800, 1100 and 1400 m. Note that <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code> is a proportion of the area, so does not need to be adjusted for the changing landscape area.</p></li>
+<li><p>There is only one way to measure habitat cover: <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code>. These groups
+will also focus on exploring the <em>scale of effect</em>: the spatial scale at
+which responses are strongest. You’ll need to calculate forest cover using
+radii of 300, 500, 800, 1100 and 1400 m. Note that <code class="docutils literal notranslate"><span class="pre">lsm_c_pland</span></code> is a
+proportion of the area, so does not need to be adjusted for the changing
+landscape area.</p></li>
 </ul>
 </li>
 </ul>
@@ -852,13 +984,27 @@ values     : 0, 1  (min, max)
 <h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Permalink to this headline">¶</a></h2>
 <p>The over-riding research question we are looking at is:</p>
 <blockquote>
-<div><p>Is the structure of the bird community influenced by the spatial characteristics of the sites?</p>
+<div><p>Is the structure of the bird community influenced by the spatial
+characteristics of the sites?</p>
 </div></blockquote>
-<p>However there are lots of different ways of measuring community structure. We will look at measures of overall diversity, community composition and functional diversity.</p>
+<p>However there are lots of different ways of measuring community structure. We
+will look at measures of overall diversity, community composition and functional
+diversity.</p>
 <div class="section" id="measuring-site-abundance-species-richness-species-diversity-and-evenness">
 <h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Permalink to this headline">¶</a></h3>
-<p>Abundance can be measured at the species level, but here we are interested in total community abundance, so the total number of individuals capture at each site. We can only measure bird abundance because this study used mist nets, where each individual was uniquely tagged.</p>
-<p>To measure species richness you can use the function <code class="docutils literal notranslate"><span class="pre">specnumber</span></code> from the <code class="docutils literal notranslate"><span class="pre">vegan</span></code> package. As we saw in the lecture, <strong>Measuring Biodiversity</strong>, sometimes you may need to control for sampling effort or number of individuals to compare species richness across sites. You can use rarefaction (with function <code class="docutils literal notranslate"><span class="pre">rarefy</span></code>) to estimate how many species would you have seen if you had lower sampling effort or fewer individuals.  If you’re interested in understanding how species diversity as measured by the Shannon index (<span class="math notranslate nohighlight">\(H\)</span>) you can then use function <code class="docutils literal notranslate"><span class="pre">diversity</span></code>. The <strong>vegan</strong> package doesn’t have any functions for measuring evenness, but Pielou’s Evenness (<span class="math notranslate nohighlight">\(J\)</span>) is easily measured with the formula below:</p>
+<p>Abundance can be measured at the species level, but here we are interested in
+total community abundance, so the total number of individuals captured at each
+site. We can only measure bird abundance because this study used mist nets,
+where each individual was uniquely tagged.</p>
+<p>To measure species richness you can use the function <code class="docutils literal notranslate"><span class="pre">specnumber</span></code> from the
+<code class="docutils literal notranslate"><span class="pre">vegan</span></code> package. As we saw in the lecture, <strong>Measuring Biodiversity</strong>, sometimes
+you may need to control for sampling effort or number of individuals to compare
+species richness across sites. You can use rarefaction (with function <code class="docutils literal notranslate"><span class="pre">rarefy</span></code>)
+to estimate how many species you would have seen if you had lower sampling
+effort or fewer individuals.  If you’re interested in understanding how species
+diversity changes, you can measure the Shannon index (<span class="math notranslate nohighlight">\(H\)</span>) by using the function
+<code class="docutils literal notranslate"><span class="pre">diversity</span></code>. The <strong>vegan</strong> package doesn’t have any functions for measuring
+evenness, but Pielou’s Evenness (<span class="math notranslate nohighlight">\(J\)</span>) is easily measured with the formula below:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, we sort the rows of abundance to make sure that they are in the</span>
@@ -871,14 +1017,28 @@ values     : 0, 1  (min, max)
 <span class="n">sites</span><span class="o">$</span><span class="n">richness</span> <span class="o">&lt;-</span> <span class="nf">specnumber</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
 <span class="n">sites</span><span class="o">$</span><span class="n">Srar</span> <span class="o">&lt;-</span> <span class="nf">rarefy</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="nf">min</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">))</span>
 <span class="n">sites</span><span class="o">$</span><span class="n">H</span> <span class="o">&lt;-</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s">&#39;shannon&#39;</span><span class="p">)</span>
+<span class="c1"># Pielou&#39;s evenness</span>
 <span class="n">sites</span><span class="o">$</span><span class="n">J</span> <span class="o">&lt;-</span> <span class="n">sites</span><span class="o">$</span><span class="n">H</span> <span class="o">/</span> <span class="nf">log</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<div class="admonition-exploring-the-data admonition">
+<div class="hint admonition">
 <p class="admonition-title">Exploring the data</p>
-<p>What is the correlation between richness, diversity, evenness and abundance across sites? You can use the function <code class="docutils literal notranslate"><span class="pre">cor()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> the results to better understand the results. Which biodiversity metrics would you choose to report your results and why?</p>
+<p>What is the correlation between richness, diversity, evenness and abundance
+across sites? You can use the function <code class="docutils literal notranslate"><span class="pre">cor()</span></code> and <code class="docutils literal notranslate"><span class="pre">plot()</span></code> the results to
+better understand the patterns. Which biodiversity metrics would you choose to
+report your results and why?</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some example code to modify:</span>
+<span class="nf">cor</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">,</span> <span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html">0.645164054185018</div></div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -886,45 +1046,100 @@ values     : 0, 1  (min, max)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_33_0.png" src="../_images/LEC_week_myst_33_0.png" />
 </div>
-<p>Hint: There is no right or wrong answer here. You can choose any metric as long as you understand its drawbacks.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-#### Species rank abundance
-
-We could also look quickly at the rank abundance of species. What is the prevalence of rare species? Rare species are those that were caught a few times only. This is *very* arbitrary and likely to be biased by how easily species are disturbed and trapped. 
-
-```{code-cell} R
-# Get the total abundance of each _species_
-species_abund &lt;- colSums(abundance)
-table(species_abund)
-hist(species_abund, main=&#39;Species abundance&#39;)
+</div>
+<p>Hint: There is no right or wrong answer here. You can choose any metric as long
+as you understand its advantages and disadvantages.</p>
+<div class="section" id="species-abundance-distribution">
+<h4>Species abundance distribution<a class="headerlink" href="#species-abundance-distribution" title="Permalink to this headline">¶</a></h4>
+<p>We could also look at the rank abundance of species to understand if our
+community is dominated by a few species or to assess the prevalence of rare
+species. Rare species are those that were caught a few times only. This is
+<em>very</em> arbitrary and likely to be biased by how easily species are disturbed and
+trapped.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the total abundance of each _species_</span>
+<span class="n">species_abund</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="c1"># Transform into relative percent abundance</span>
+<span class="n">species_abund_perc</span> <span class="o">&lt;-</span> <span class="n">species_abund</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">species_abund</span><span class="p">)</span> <span class="o">*</span> <span class="m">100</span>
+<span class="c1"># Plot from most to least abundant</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">sort</span><span class="p">(</span><span class="n">species_abund_perc</span><span class="p">,</span> <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
 </pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_35_0.png" src="../_images/LEC_week_myst_35_0.png" />
+</div>
+</div>
+<p>How does this compare to slide 11 of <strong>Measuring Biodiversity</strong> lecture which
+shows the patterns of Amazonian trees and bats? Try doing this for each
+fragmented landscape to see if trends are affected by habitat cover.</p>
 </div>
 </div>
 <div class="section" id="measuring-community-composition">
 <h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Permalink to this headline">¶</a></h3>
-<p>Community composition is a class of biodiversity measure that incorporates information on species richness, abundance and species identity. That inclusivity makes them very informative biodiversity metric but they are also complex to compute and interpret.</p>
+<p>Community composition is a class of biodiversity measure that incorporates
+information on species richness, abundance and species identity. That
+inclusivity makes them a very informative biodiversity metric but they are also
+complex to compute and interpret.</p>
 <p>There are three stages to assessing community composition:</p>
 <ol class="simple">
-<li><p>The raw data for community composition is a site by species matrix showing the abundance (or presence) of each species in the overall species pool at each site. It is common to <strong>transform the site by species</strong> data in one or more ways to adjust the emphasis given to the different species before assessing composition.</p></li>
-<li><p>The site by species matrix is then transformed to a <strong>dissimilarity matrix</strong> - a site by site matrix that quantifies the differences between the communities at each pair of sites.</p></li>
-<li><p>The dissimilarity matrix represents a complex pattern of community differences and an <strong>ordination</strong> can then be used to identify independent axes of community variation across sites.</p></li>
+<li><p>The raw data for community composition is a site by species matrix showing
+the abundance (or presence) of each species at each site. It is common to
+<strong>transform the site by species</strong> data in one or more ways to adjust the
+emphasis given to the different species before assessing composition.</p></li>
+<li><p>The site by species matrix is then transformed into a <strong>dissimilarity
+matrix</strong> - a site by site matrix that quantifies the differences between the
+communities at each pair of sites.</p></li>
+<li><p>The dissimilarity matrix represents a complex pattern of community
+differences and an <strong>ordination</strong> can then be used to identify independent
+axes of community variation across sites.</p></li>
 </ol>
 <p>All of these steps have multiple options!</p>
 <div class="section" id="transforming-site-by-species-data">
 <h4>Transforming site by species data.<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this headline">¶</a></h4>
-<p>There are several common approaches used for transforming site by species matrices <em>before</em> calculating dissimilarities. All of these approaches alter the weighting given to the prevalence or abundance of the different species.</p>
+<p>There are several common approaches used for transforming site by species
+matrices <em>before</em> calculating dissimilarities. All of these approaches alter the
+weighting given to the different species.</p>
 <ol class="simple">
-<li><p>Reducing abundance data to a <strong>binary presence-absence data</strong>. This obviously emphasizes differences in species identity between sites, often giving measures of <span class="math notranslate nohighlight">\(\beta\)</span> diversity, and is also often used when sampling is not thought to give reliable abundance data. The <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function (see below) has the option (<code class="docutils literal notranslate"><span class="pre">binary=TRUE</span></code>) to do this automatically.</p></li>
-<li><p><strong>Scaling abundance data</strong>.  At the moment, a lot of the variation in the abundance data is driven by the common species. There were 443 individuals of Species 19 caught: dissimilarity will be heavily affected by the local abundance of this species. If scaling is applied to a dataset, then the balance of the analysis is altered to equally weight each species when calculating dissimilarity which <em>can</em> provide more biologically meaningful results.</p></li>
-<li><p>Although this seems counterintuitive, the detectability and distribution of rare species can confound community patterns among the common species. <strong>Removing rare species</strong> can therefore help make major compositional shifts more obvious.</p></li>
+<li><p>Reducing abundance data to a <strong>binary presence-absence data</strong>. This
+transformation emphasizes differences in species identity and differences in
+rare species between sites, often giving measures of <span class="math notranslate nohighlight">\(\beta\)</span> diversity, and
+is also often used when sampling is not thought to give reliable abundance
+data. The <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function (see below) has the option (<code class="docutils literal notranslate"><span class="pre">binary=TRUE</span></code>) to do
+this automatically.</p></li>
+<li><p><strong>Scaling abundance data</strong>.  Variation in the abundance data can be driven by
+a few common species, particularly when the variation in abundance of some
+species is much larger than others (e.g. one species varies in abundance from
+0 to 1000, and all other species vary from 0 to 10). In our case, the most
+abundant species only varied from 0 to 24 individuals, so scaling this
+dataset should  not particularly affect the results. Scaling a dataset alters
+the balance of the analysis to equally weight each species when calculating
+dissimilarity which <em>can</em> provide more biologically meaningful results.</p></li>
+<li><p>Although this seems counterintuitive, the detectability and distribution of
+rare species can confound community patterns among the common species.
+<strong>Removing rare species</strong> can therefore help make major compositional shifts
+more obvious. This is particularly important in microbiome studies with
+thousands of OTUs (e.g. it is common in these studies to exclude the 5% least
+common OTUs).</p></li>
 </ol>
-<p>We will revisit this but for the moment we will stick with the raw abundance data.</p>
+<p>We will revisit this but for the moment we will stick with the raw abundance
+data.</p>
 </div>
 <div class="section" id="calculating-dissimilarity-indices">
 <h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Permalink to this headline">¶</a></h4>
-<p>Dissimilarity indices are used to compare two sites using the total number (or abundances) of species in each site (A + B), along with the number (or abundances) of species shared between the site (J). These can be calculated using the <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>. A huge number have been proposed and can be calculated in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>: look at the help for both <code class="docutils literal notranslate"><span class="pre">?vegdist</span></code> and <code class="docutils literal notranslate"><span class="pre">?designdist</span></code> for the details!</p>
-<p>We have very many options but we have to start somewhere: we will use the <a class="reference external" href="https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity">Bray-Curtis</a> dissimilarity index computed from raw abundances.</p>
+<p>Dissimilarity indices are used to compare two sites using the total number (or
+abundances) of species in each site (A + B), along with the number (or
+abundances) of species shared between the site (J). These can be calculated
+using the <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> function in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>. A large number of indices have been
+proposed and can be calculated in <code class="docutils literal notranslate"><span class="pre">vegan</span></code>: look at the help for both <code class="docutils literal notranslate"><span class="pre">?vegdist</span></code>
+and <code class="docutils literal notranslate"><span class="pre">?designdist</span></code> for the details!</p>
+<p>We have many options but we have to start somewhere: we will use the
+<a class="reference external" href="https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity">Bray-Curtis</a>
+dissimilarity index computed from raw abundances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray</span>  <span class="o">&lt;-</span> <span class="nf">vegdist</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;bray&quot;</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
@@ -932,7 +1147,11 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </div>
 </div>
 </div>
-<p>Have a look at the association matrix (<code class="docutils literal notranslate"><span class="pre">print(bray)</span></code>), and notice it is triangular. Why do you think that is? We can visualise this data to help understand what is going on. We’re actually going to cheat a bit here - we have a big matrix and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package is really good at plotting those quickly…</p>
+<p>Have a look at the association matrix (<code class="docutils literal notranslate"><span class="pre">print(bray)</span></code>), and notice it is
+triangular. Why do you think that is? We can visualise this data to help
+understand what is going on. We’re actually going to cheat a bit here - we have
+a big matrix and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package is really good at plotting those
+quickly…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
@@ -940,14 +1159,33 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_39_0.png" src="../_images/LEC_week_myst_39_0.png" />
 </div>
-<p>The first thing that jumps out is the diagonal - this is just that comparing a site to itself gives zero dissimilarity. All of the other pairwise combinations show a range of values.</p>
-<p>If we want to compute the dissimilarity matrix based on another index, we can simply change <code class="docutils literal notranslate"><span class="pre">method=&quot;bray&quot;</span></code> to any of the other indices provided in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>. Each dissimilarity metric has advantages and disadvantages but Bray-Curtis and Jaccard are commonly used for species abundance data.</p>
-<p>Note that some of these indices in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> are not appropriate for abundance data. For example, Euclidean distance is widely used for environmental data (landscape metrics, geographic distance, temperature, altitude, etc) but is <strong>not</strong> ecologically meaningful for biodiversity data!</p>
+</div>
+<p>The first thing that jumps out is the diagonal - this is just that comparing a
+site to itself gives zero dissimilarity. All of the other pairwise combinations
+show a range of values.</p>
+<p>If we want to compute the dissimilarity matrix based on another index, we can
+simply change <code class="docutils literal notranslate"><span class="pre">method=&quot;bray&quot;</span></code> to any of the other indices provided in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>.
+Each dissimilarity metric has advantages and disadvantages but Bray-Curtis and
+Jaccard are commonly used for species abundance data.</p>
+<p>Note that some of these indices in <code class="docutils literal notranslate"><span class="pre">vegdist</span></code> are not appropriate for abundance
+data. For example, Euclidean distance is widely used for environmental data
+(landscape metrics, geographic distance, temperature, altitude, etc) but is
+<strong>not</strong> ecologically meaningful for biodiversity data!</p>
 </div>
 <div class="section" id="principal-coordinate-analysis">
 <h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Permalink to this headline">¶</a></h4>
-<p>We can now perform a principal coordinate analysis (PCoA) using the <code class="docutils literal notranslate"><span class="pre">bray</span></code> matrix as input. This is sometimes called <em>classical multidimensional scaling</em>, hence the function name: <code class="docutils literal notranslate"><span class="pre">cmdscale</span></code>. The PCoA will take your dissimilarity matrix and represent the structure in this dataset in a set of independent vectors (or ordination axes). You can then use ordination axes to represent how similar (or dissimilar) two sites are with respect to the species they have.</p>
+<p>We can now perform a principal coordinate analysis (PCoA) using the <code class="docutils literal notranslate"><span class="pre">bray</span></code>
+matrix as input. This is sometimes called <em>classical multidimensional scaling</em>,
+hence the function name: <code class="docutils literal notranslate"><span class="pre">cmdscale</span></code>. The PCoA will take your dissimilarity
+matrix and represent the structure in this dataset in a set of independent
+vectors (or ordination axes) to highlight main ecological trends and reduce
+noise. You can then use ordination axes to represent how similar (or dissimilar)
+two sites are with respect to the species they have.</p>
+<p>Do not confuse <em>classical multidimensional scaling</em> with <em>non-metric
+multidimensional scaling</em> (NMDS), which is also very popular!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">pcoa</span> <span class="o">&lt;-</span> <span class="nf">cmdscale</span><span class="p">(</span><span class="n">bray</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">eig</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
@@ -955,10 +1193,18 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </div>
 </div>
 </div>
-<p>A PCoA calculates multiple independent axes of variation in the community dissimilarity. In fact, it calculates as many axes are there are sites. However, these <strong>different axes differ in how much variation they describe</strong> - we rarely want to consider more than a few. Here, we have only kept the data for the first eight (<code class="docutils literal notranslate"><span class="pre">k=8</span></code>). We are also hanging on the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eig=TRUE</span></code>), which are measures of the amount variation associated with each axis.</p>
+<p>A PCoA calculates multiple independent axes of variation in the community
+dissimilarity. In fact, it calculates as many axes are there are sites. However,
+these <strong>different axes differ in how much variation they describe</strong> - we rarely
+want to consider more than a few. Here, we have only kept the data for the first
+eight (<code class="docutils literal notranslate"><span class="pre">k=8</span></code>). We are also hanging on the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eig=TRUE</span></code>), which are
+measures of the amount variation associated with each axis.</p>
 <div class="section" id="community-separation-in-space">
 <h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Permalink to this headline">¶</a></h5>
-<p>We will now explore community composition graphically, which is most convenient in two dimensions. We have to extract the new coordinates of the data before being able to plot them. Once again, it is wise to give clear names to each variable, otherwise we end up with variable names like <code class="docutils literal notranslate"><span class="pre">X1</span></code>.</p>
+<p>We will now explore community composition graphically, which is most convenient
+in two dimensions. We have to extract the new coordinates of the data before
+being able to plot them. Once again, it is wise to give clear names to each
+variable, otherwise we end up with variable names like <code class="docutils literal notranslate"><span class="pre">X1</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the scores </span>
@@ -968,15 +1214,36 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </div>
 </div>
 </div>
-<p>We can look at the correlations between all of those axes. We are using <code class="docutils literal notranslate"><span class="pre">zapsmall</span></code> to hide all correlations smaller than <span class="math notranslate nohighlight">\(10^{-10}\)</span> - as expected, none of these axes are correlated.</p>
+<p>We can look at the correlations between all of those axes. We are using
+<code class="docutils literal notranslate"><span class="pre">zapsmall</span></code> to hide all correlations smaller than <span class="math notranslate nohighlight">\(10^{-10}\)</span> - as expected, none
+of these axes are correlated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">zapsmall</span><span class="p">(</span><span class="nf">cor</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output text_html"><table>
+<caption>A matrix: 8 × 8 of type dbl</caption>
+<thead>
+	<tr><th></th><th scope=col>bray_raw_pcoa_1</th><th scope=col>bray_raw_pcoa_2</th><th scope=col>bray_raw_pcoa_3</th><th scope=col>bray_raw_pcoa_4</th><th scope=col>bray_raw_pcoa_5</th><th scope=col>bray_raw_pcoa_6</th><th scope=col>bray_raw_pcoa_7</th><th scope=col>bray_raw_pcoa_8</th></tr>
+</thead>
+<tbody>
+	<tr><th scope=row>bray_raw_pcoa_1</th><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_2</th><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_3</th><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_4</th><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_5</th><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_6</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_7</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td><td>0</td></tr>
+	<tr><th scope=row>bray_raw_pcoa_8</th><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>0</td><td>1</td></tr>
+</tbody>
+</table>
+</div></div>
 </div>
-<p>Now we can merge them onto the site data to make sure that the landscape and community metrics are matched by site.</p>
+<p>Now we can merge them onto the site data to make sure that the landscape and
+community metrics are matched by site.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the pcoa axis values to a data frame and label by site</span>
@@ -988,7 +1255,8 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </div>
 </div>
 </div>
-<p>Now we can look to see how the community metrics reflect the landscape structure.</p>
+<p>Now we can look to see how the community metrics reflect the landscape
+structure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="p">,</span> <span class="n">bray_raw_pcoa_2</span><span class="p">))</span> <span class="o">+</span>
@@ -998,17 +1266,33 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_49_0.png" src="../_images/LEC_week_myst_49_0.png" />
 </div>
-<p>Which patterns can you see from that plot? Along which axis do you see the trends varying the most, PCoA1 or PCoA2? Try looking at some of the other PCoA axes.</p>
-<div class="admonition-exploring-the-data admonition">
+</div>
+<p>Which patterns can you see from that plot? Along which axis do you see the
+trends varying the most, PCoA1 or PCoA2? Try looking at some of the other PCoA
+axes.</p>
+<div class="hint admonition">
 <p class="admonition-title">Exploring the data</p>
-<p>Now plot PCoA axis 1 against the percentage of forest cover. Which trends do you get? And what about axis 2?</p>
+<p>Now plot PCoA axis 1 against the percentage of forest cover. Which trends do you get?
+And what about axis 2?</p>
 </div>
 </div>
 <div class="section" id="how-many-axes-to-consider">
 <h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Permalink to this headline">¶</a></h5>
-<p>The eigenvalues show the variance - hence the information content - associated with each principal coordinate axis. Note that the eigenvalues are in descending order, so that the axes are numbered in order of their importance. Also note that some of the eigenvalues are negative - these axes cannot be interpreted biologically, but luckily this is never a problem for the first few axes which are the most meaningful anyway.</p>
-<p>To make it easier to decide on how many dimensions we will keep, we look at the proportion of the total variance in the data set that is explained by each of the principal coordinates. The cumulative sum of eigenvalues describes how much of the variation is explained by the first <em>n</em> principal coordinates. We will drop the negative eigenvalues - they just confuse the cumulative calculation!</p>
+<p>The eigenvalues show the variance - hence the information content - associated
+with each principal coordinate axis. Note that the eigenvalues are in descending
+order, so that the axes are numbered in order of their importance. Also note
+that some of the eigenvalues are negative - these axes cannot be interpreted
+biologically, but luckily this is never a problem for the first few axes which
+are the most meaningful anyway.</p>
+<p>To make it easier to decide on how many dimensions we will keep, we look at the
+proportion of the total variance in the data set that is explained by each of
+the principal coordinates. The cumulative sum of eigenvalues describes how much
+of the variation in the original data is explained by the first <em>n</em> principal
+coordinates. We will drop the negative eigenvalues - they just confuse the
+cumulative calculation!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
@@ -1018,83 +1302,176 @@ hist(species_abund, main=&#39;Species abundance&#39;)
 </pre></div>
 </div>
 </div>
-</div>
-<p>For this particular PCoA, the bar plot doesn’t really give a good indication about the number of principal coordinates to retain: the bars gradually decrease in size rather than showing a clear cutoff.  From those plots, we can see that the first principal coordinate contains almost twice as much information as the second one (23% versus 13 %). However, together they still only explain 36% of the variation - it is common to consider axes up to a cumulative proportion of 80%.</p>
-<div class="admonition-sidebar-shepard-diagrams admonition">
-<p class="admonition-title">Sidebar: Shepard diagrams</p>
-<p>Shepard diagram’s compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal</p>
-<p>We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:</p>
-</div>
-<p>Now let’s plot this against the Bray-Curtis distances.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">shepard_8</span><span class="p">,</span> <span class="n">bray</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;First 8 axes&#39;</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">shepard_2</span><span class="p">,</span> <span class="n">bray</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;First 2 axes&#39;</span><span class="p">)</span>
-</pre></div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_51_0.png" src="../_images/LEC_week_myst_51_0.png" />
 </div>
 </div>
-</div>
-<p>The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-```{admonition} Explore the data - community metric variations.
+<p>For this particular PCoA, the bar plot doesn’t really give a good indication
+about the number of principal coordinates axes to retain: the bars gradually
+decrease in size rather than showing a clear cutoff.  From those plots, we can
+see that the first principal coordinate axis contains almost twice as much
+information as the second one (23% versus 13 %). However, together they still
+only explain 36% of the variation.</p>
+<p>However we shouldn’t blindly look at percentages. For instance, if one species
+in the matrix varies from 0 to 1,000 individuals - while all the other species
+vary from 0 to 10 - the percentage of information captured by the first axis will
+be considerably larger, but the axis will be only representing the variation in
+that particularly abundant species. If a <em>scale</em> function is applied to this
+hypothetical dataset, the percentage of information captured by the first axis
+will dramatically reduce, but this axis will provide more biologically
+meaningful results (i.e., it will better represent variation in the other
+species). Furthermore, the proportion of variation explained by the first axis
+reduces as -in this case- the number of species increases, so the amount of
+variation explained by the first axis is reasonable given that we have 140
+species!</p>
+<!--
+````{admonition}  Sidebar: Shepard diagrams
+:class: hint
 
-All of the information from that PCoA depends entirely on our choices for the original dissimilarity  matrix. If we change that metric then the *positions of sites in the ordination space will change* and so will *the relative importances of the PCoA axes*.
+Shepard diagram's compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal
 
-So, now explore varying the steps in this analysis. Change your inputs, change the dissimilarity metric and recalculate your ordination.
-
-1. Use the command `scaled_abundance &lt;- scale(abundance)` and use this as an input to `vegdist`. This will automatically scale the matrix by columns, so each column will have a mean of near 0, and standard deviation of 1. 
-
-2. Use presence-absence data by using the argument `binary =TRUE` with `vegdist`. 
-
-3. Try excluding the rare species (e.g. all species with 5 or less individuals):
-
-    ```{code-cell} R
-    # choose columns (species) from abundance where total abundance is greater than 5
-    total_abundance &lt;- colSums(abundance)
-    common &lt;- abundance[,which(total_abundance &gt; 5)]
-    # data only has 71 columns now
-    str(common)
-    ```
-
-4. Try using at least another dissimilarity metric.
-
-Do any of these options seem to give a clearer relationship between the community composition and forest cover? There is no right or wrong answer here - different choices reflect different hypotheses.
-
-</pre></div>
-</div>
-<div class="admonition-explore-the-data-regression-of-landscape-and-community-metrics admonition">
-<p class="admonition-title">Explore the data - regression of landscape and community metrics</p>
-<p>In addition to looking at correlations, we can fit linear models to predict how community composition varies between fragmented landscapes and continuous landscapes?</p>
-</div>
-<p>From this model, forest cover at the 600m landscape scale explains 56.5% of the variation in community composition. Hence, we see that the first principal coordinate can reveal interesting biological trends, even if it only contained 23% of the information in the original data set (see above).</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>
-### Functional diversity
-
-There are many measures of functional diversity, evenness and composition. Here we will only use one approach `treedive`, which is available in the `vegan` package. This calculates functional diversity as the total branch length of a trait dendrogram. The higher the number the more variation we have in traits within a community, which in theory equals to higher functions provided.
-
-&gt; Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and looking forward. Ecology Letters 9, 741–758.
+We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:
 
 ```{code-cell} R
-# Get a data frame holding only trait values, with rownames 
-traits_only &lt;- subset(traits, select=-Species)
-rownames(traits_only) &lt;- traits$Species
-# Calculate the trait distance matrix
-trait_dist &lt;- taxa2dist(traits_only, varstep=TRUE)
-# And get a trait dendrogram
-trait_tree &lt;- hclust(trait_dist, &quot;aver&quot;)
-plot(trait_tree, hang=-1, cex=0.3)
+# Use first 8 axes
+shepard_8  <- vegdist(pcoa_axes, method="euc", binary=FALSE)
+# Use just the first 2
+shepard_2  <- vegdist(pcoa_axes[, c(1,2)], method="euc", binary=FALSE)
+```
+
+Now let's plot this against the Bray-Curtis distances.
+
+```{code-cell} R
+par(mfrow=c(1,2)) plot(shepard_8, bray, main='First 8 axes') plot(shepard_2,
+bray, main='First 2 axes')
+```
+
+The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?
+
+````
+-->
+<div class="hint admonition">
+<p class="admonition-title">Explore the data - community metric variations.</p>
+<p>All of the information from that PCoA depends entirely on our choices for the
+original dissimilarity  matrix. If we change that metric then the <em>positions of
+sites in the ordination space will change</em> and so will <em>the relative importances
+of the PCoA axes</em>.</p>
+<p>So, now explore varying the steps in this analysis. Change your inputs, change
+the dissimilarity metric and recalculate your ordination.</p>
+<ol>
+<li><p>Use the command <code class="docutils literal notranslate"><span class="pre">scaled_abundance</span> <span class="pre">&lt;-</span> <span class="pre">scale(abundance)</span></code> and use this as an
+input to <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>. This will automatically scale the matrix by columns, so
+each column will have a mean of near 0, and standard deviation of 1.</p></li>
+<li><p>Use presence-absence data by using the argument <code class="docutils literal notranslate"><span class="pre">binary</span> <span class="pre">=TRUE</span></code> with
+<code class="docutils literal notranslate"><span class="pre">vegdist</span></code>.</p></li>
+<li><p>Try excluding the rare species (e.g. all species with 5 or less individuals):</p>
+<div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose columns (species) from abundance where total abundance is greater than 5</span>
+<span class="n">total_abundance</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">common</span> <span class="o">&lt;-</span> <span class="n">abundance</span><span class="p">[,</span><span class="nf">which</span><span class="p">(</span><span class="n">total_abundance</span> <span class="o">&gt;</span> <span class="m">5</span><span class="p">)]</span>
+<span class="c1"># data only has 71 columns now</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">common</span><span class="p">)</span>
 </pre></div>
 </div>
-<p>That dendrogram shows how species are clustered according to their trait similarity and the branch lengths measure an amount of functional diversity. The next step is is to find the set of species in each site, reduce the dendrogram to just those species and find out the total branch length of that subtree.</p>
+</li>
+<li><p>Try using at least another dissimilarity metric.</p></li>
+</ol>
+<p>Do any of these options seem to give a clearer relationship between the
+community composition and forest cover? There is no right or wrong answer here -
+different choices reflect different hypotheses.</p>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Regression of landscape and community metrics</p>
+<p>In addition to looking at correlations, we can fit linear models to predict how
+community composition varies between fragmented landscapes and continuous
+landscapes?</p>
+<p>From the model below, forest cover at the 600m landscape scale explains 56.5% of the
+variation in community composition. Hence, we see that the first principal
+coordinate can reveal interesting biological trends, even if it only contained
+23% of the information in the original data set (see above).</p>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model community composition as a function of forest cover</span>
+<span class="n">mod_fc</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+<span class="nf">summary</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">)</span>
+<span class="c1"># Plot the model</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Call:
+lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites)
+
+Residuals:
+     Min       1Q   Median       3Q      Max 
+-0.23636 -0.08187 -0.00709  0.09484  0.22351 
+
+Coefficients:
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept)  0.2865165  0.0348962   8.211 1.53e-11 ***
+C600.pland  -0.0053584  0.0005845  -9.168 3.32e-13 ***
+---
+Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+
+Residual standard error: 0.1252 on 63 degrees of freedom
+Multiple R-squared:  0.5716,	Adjusted R-squared:  0.5648 
+F-statistic: 84.06 on 1 and 63 DF,  p-value: 3.315e-13
+</pre></div>
+</div>
+<img alt="../_images/LEC_week_myst_53_1.png" src="../_images/LEC_week_myst_53_1.png" />
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="functional-diversity">
+<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Permalink to this headline">¶</a></h3>
+<p>There are many measures of functional diversity, evenness and composition. Here
+we will only use one approach <code class="docutils literal notranslate"><span class="pre">treedive</span></code>, which is available in the <code class="docutils literal notranslate"><span class="pre">vegan</span></code>
+package. This calculates functional diversity as the total branch length of a
+trait dendrogram. The higher the number the more variation we have in traits
+within a community, which in theory equals to more functions provided.</p>
+<blockquote>
+<div><p>Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and
+looking forward. Ecology Letters 9, 741–758.</p>
+</div></blockquote>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a data frame holding only trait values, with rownames </span>
+<span class="n">traits_only</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">traits</span><span class="p">,</span> <span class="n">select</span><span class="o">=-</span><span class="n">Species</span><span class="p">)</span>
+<span class="nf">rownames</span><span class="p">(</span><span class="n">traits_only</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">traits</span><span class="o">$</span><span class="n">Species</span>
+<span class="c1"># Calculate the trait distance matrix</span>
+<span class="n">trait_dist</span> <span class="o">&lt;-</span> <span class="nf">taxa2dist</span><span class="p">(</span><span class="n">traits_only</span><span class="p">,</span> <span class="n">varstep</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="c1"># And get a trait dendrogram</span>
+<span class="n">trait_tree</span> <span class="o">&lt;-</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">trait_dist</span><span class="p">,</span> <span class="s">&quot;aver&quot;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">trait_tree</span><span class="p">,</span> <span class="n">hang</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.3</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/LEC_week_myst_55_0.png" src="../_images/LEC_week_myst_55_0.png" />
+</div>
+</div>
+<p>That dendrogram shows how species are clustered according to their trait
+similarity and the branch lengths measure an amount of functional diversity. The
+next step is to find the set of species in each site, reduce the dendrogram to
+just those species and find out the total branch length of that subtree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">treedive</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">trait_tree</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>forced matching of &#39;tree&#39; labels and &#39;comm&#39; names
+</pre></div>
 </div>
-<p>Now we just need to bring that data into our <code class="docutils literal notranslate"><span class="pre">sites</span></code> dataset to be able to use it.</p>
+</div>
+</div>
+<p>Now we just need to bring that data into our <code class="docutils literal notranslate"><span class="pre">sites</span></code> dataset to be able to use
+it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">Site</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">trait_diversity</span><span class="p">),</span>
@@ -1104,35 +1481,54 @@ plot(trait_tree, hang=-1, cex=0.3)
 </div>
 </div>
 </div>
-<div class="admonition-explore-the-data admonition">
+<div class="hint admonition">
 <p class="admonition-title">Explore the data</p>
-<p>How does functional diversity varies with percentage of forest cover across sites?</p>
+<p>How does functional diversity vary with percentage of forest cover across sites?</p>
 </div>
-<div class="admonition-group-exercise admonition">
+<div class="danger admonition">
 <p class="admonition-title">Group exercise</p>
-<p>Each group already have their landscape metrics measured, now you will need to focus on choosing one response variable that best represents variation in your data. Choose it carefully because you will need to defend your choice when you present your results.</p>
+<p>Each group already have their landscape metrics measured, now you will need to
+focus on choosing one response variable that best represents variation in your
+data. Choose it carefully because you will need to defend your choice when you
+present your results.</p>
 <ul class="simple">
 <li><p><strong>Groups SP01, SP04, SP07, SP13</strong>: Species richness and abundance</p></li>
 </ul>
-<p>We have explored different ways to measure abundance, richness, diversity, evenness. Select one of these  as your response variable.</p>
+<p>We have explored different ways to measure abundance, richness, diversity,
+evenness. Select one of these  as your response variable.</p>
 <ul class="simple">
 <li><p><strong>Groups SP02, SP05, SP08, SP14</strong>: Community composition</p></li>
 </ul>
-<p>We have explored different ways to do an ordination. You can scale or not, use binary data or not, your choice. Select one of these as your response variable.</p>
+<p>We have explored different ways to do an ordination. You can scale or not, use
+binary data or not, your choice. Select one of these as your response variable.</p>
 <ul class="simple">
 <li><p><strong>Groups SP03, SP06, SP09</strong>: Functional diversity</p></li>
 </ul>
-<p>We only explored one way of measuring functional diversity. But there are other more traditional ways of looking into traits of species that we have, for instance, species richness of insectivores, or abundance of specialists (those that only use one habitat). You have freedom to choose the response variable of preference.</p>
-</div>
-</div>
+<p>We only explored one way of measuring functional diversity. But there are other
+more traditional ways of looking into traits of species that we have, for
+instance, species richness of insectivores, or abundance of specialists (those
+that only use one habitat). You have freedom to choose the response variable of
+preference.</p>
 </div>
 </div>
 </div>
 <div class="section" id="presenting-your-results-on-friday-20th-november">
 <h2>Presenting your results on Friday 20th November.<a class="headerlink" href="#presenting-your-results-on-friday-20th-november" title="Permalink to this headline">¶</a></h2>
-<p>Please have one slide ready to present with the graph of your response ~ exploratory variable. Please ensure that the labels can be read on small screens. Also, please include on this graph a fitted line, and ideally a confidence interval. The slide should also contain the <span class="math notranslate nohighlight">\(r^2\)</span> of the relationship and p-value. Do not worry if you don’t find significant results! That’s to be expected. Each group will have a maximum of 5 minutes to present their results.</p>
-<p>A final note on analyses: some of the variables we have used are better modelled using a GLM. That has not yet been covered in depth in the Masters modules. You are not expected to use a GLM here - although it would be good to say if a GLM might be appropriate might. If your group is happy to use them, please do, but it is not expected.</p>
-<p>It is anticipated that in each group, the exploratory variables <strong>will</strong> be correlated, so fitting more complex models (e.g. a multiple regression) may not be appropriate. This is the same problem of <strong>multicollinearity</strong> that was mentioned in the GIS week. For the moment, use single regressions for each exploratory variable at a time.</p>
+<p>Please have one slide ready to present with the graph of your response ~
+exploratory variable. Please ensure that the labels can be read on small
+screens. Also, please include on this graph a fitted line, and ideally a
+confidence interval. The slide should also contain the <span class="math notranslate nohighlight">\(r^2\)</span> of the relationship
+and p-value. Do not worry if you don’t find significant results! That’s to be
+expected. Each group will have a maximum of 5 minutes to present their results.</p>
+<p>A final note on analyses: some of the variables we have used are better modelled
+using a GLM. That has not yet been covered in depth in the Masters modules. You
+are not expected to use a GLM here - although you can if you know how to use it
+and a GLM would be appropriate for your data.</p>
+<p>It is anticipated that the exploratory variables <strong>will</strong> be correlated, so
+fitting more complex models (e.g. a multiple regression) may not be appropriate.
+This is the same problem of <strong>multicollinearity</strong> that was mentioned in the GIS
+week. For the moment, use single regressions for each exploratory variable at a
+time.</p>
 </div>
 </div>
 
