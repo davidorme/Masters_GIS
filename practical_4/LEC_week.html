@@ -666,13 +666,16 @@ values     : 0, 1  (min, max)
 <p>Now that we have the regional forest for the sites, we can reproject the data.
 We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that
 the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code> when
-projecting the data.</p>
+projecting the data. We’ve also set a resolution of 30 metres. The original
+WGS84 pixels are not square in UTM23S because 1 arc second NS is not equal to
+1 arc second EW, and so setting the resolution tells <code class="docutils literal notranslate"><span class="pre">projectRaster</span></code> to use that
+fixed size rather letting it create rectangular pixels.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="m">32723</span><span class="p">)</span>
 <span class="c1"># This takes a little while to run!</span>
 <span class="n">sites_forest_utm23S</span> <span class="o">&lt;-</span> <span class="nf">projectRaster</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&quot;+init=epsg:32723&quot;</span><span class="p">,</span> 
-                                     <span class="n">method</span><span class="o">=</span><span class="s">&#39;ngb&#39;</span><span class="p">)</span>
+                                     <span class="n">res</span><span class="o">=</span><span class="m">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;ngb&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -812,30 +815,31 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C246"># A tibble: 21 x 8</span>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C246"># A tibble: 22 x 8</span>
    layer level     class    id metric   value plot_id percentage_inside
    <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;chr&gt;</span>     <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;chr&gt;</span>    <span class=" -Color -Color-C246">&lt;dbl&gt;</span> <span class=" -Color -Color-C246">&lt;fct&gt;</span>               <span class=" -Color -Color-C246">&lt;dbl&gt;</span>
-<span class=" -Color -Color-C250"> 1</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 25.5   Alce                 101.
-<span class=" -Color -Color-C250"> 2</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.70  Alce                 101.
-<span class=" -Color -Color-C250"> 3</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> np       3     Alce                 101.
-<span class=" -Color -Color-C250"> 4</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> np      10     Alce                 101.
-<span class=" -Color -Color-C250"> 5</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.4   Alce                 101.
-<span class=" -Color -Color-C250"> 6</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.6   Alce                 101.
-<span class=" -Color -Color-C250"> 7</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  8.74  Alce                 101.
-<span class=" -Color -Color-C250"> 8</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      13     Alce                 101.
-<span class=" -Color -Color-C250"> 9</span>     1 patch         0     1 area    75.5   Alce                 101.
-<span class=" -Color -Color-C250">10</span>     1 patch         0     2 area     0.246 Alce                 101.
-<span class=" -Color -Color-C250">11</span>     1 patch         0     3 area     0.901 Alce                 101.
-<span class=" -Color -Color-C250">12</span>     1 patch         1     4 area     1.07  Alce                 101.
-<span class=" -Color -Color-C250">13</span>     1 patch         1     5 area    28.3   Alce                 101.
-<span class=" -Color -Color-C250">14</span>     1 patch         1     6 area     0.655 Alce                 101.
-<span class=" -Color -Color-C250">15</span>     1 patch         1     7 area     0.246 Alce                 101.
-<span class=" -Color -Color-C250">16</span>     1 patch         1     8 area     2.05  Alce                 101.
-<span class=" -Color -Color-C250">17</span>     1 patch         1     9 area     2.05  Alce                 101.
-<span class=" -Color -Color-C250">18</span>     1 patch         1    10 area     0.410 Alce                 101.
-<span class=" -Color -Color-C250">19</span>     1 patch         1    11 area     1.31  Alce                 101.
-<span class=" -Color -Color-C250">20</span>     1 patch         1    12 area     0.492 Alce                 101.
-<span class=" -Color -Color-C250">21</span>     1 patch         1    13 area     0.410 Alce                 101.
+<span class=" -Color -Color-C250"> 1</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.1   Alce                 100.
+<span class=" -Color -Color-C250"> 2</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.65  Alce                 100.
+<span class=" -Color -Color-C250"> 3</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4     Alce                 100.
+<span class=" -Color -Color-C250"> 4</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> np      10     Alce                 100.
+<span class=" -Color -Color-C250"> 5</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.7   Alce                 100.
+<span class=" -Color -Color-C250"> 6</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.3   Alce                 100.
+<span class=" -Color -Color-C250"> 7</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  8.08  Alce                 100.
+<span class=" -Color -Color-C250"> 8</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      14     Alce                 100.
+<span class=" -Color -Color-C250"> 9</span>     1 patch         0     1 area    76.0   Alce                 100.
+<span class=" -Color -Color-C250">10</span>     1 patch         0     2 area     0.09  Alce                 100.
+<span class=" -Color -Color-C250">11</span>     1 patch         0     3 area     0.09  Alce                 100.
+<span class=" -Color -Color-C250">12</span>     1 patch         0     4 area     0.450 Alce                 100.
+<span class=" -Color -Color-C250">13</span>     1 patch         1     5 area     1.08  Alce                 100.
+<span class=" -Color -Color-C250">14</span>     1 patch         1     6 area    27.5   Alce                 100.
+<span class=" -Color -Color-C250">15</span>     1 patch         1     7 area     0.63  Alce                 100.
+<span class=" -Color -Color-C250">16</span>     1 patch         1     8 area     0.27  Alce                 100.
+<span class=" -Color -Color-C250">17</span>     1 patch         1     9 area     2.52  Alce                 100.
+<span class=" -Color -Color-C250">18</span>     1 patch         1    10 area     2.07  Alce                 100.
+<span class=" -Color -Color-C250">19</span>     1 patch         1    11 area     0.36  Alce                 100.
+<span class=" -Color -Color-C250">20</span>     1 patch         1    12 area     1.35  Alce                 100.
+<span class=" -Color -Color-C250">21</span>     1 patch         1    13 area     0.27  Alce                 100.
+<span class=" -Color -Color-C246"># … with 1 more row</span>
 </pre></div>
 </div>
 </div>
@@ -848,7 +852,7 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">113.631362000035</div></div>
+<div class="output text_html">113.13</div></div>
 </div>
 <p>From that table, you can see that there are 13 patches in the Alce local
 landscape that sum to 113.63 hectares. That is not quite the precise area of the
@@ -914,16 +918,16 @@ want the method of calculation of each value to be obvious.</p></li>
 	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>Alce     </td><td>  3.703055</td><td>10</td><td> 32.58832</td></tr>
-	<tr><th scope=row>4</th><td>Alcides  </td><td>  5.509523</td><td> 8</td><td> 38.98551</td></tr>
-	<tr><th scope=row>7</th><td>Alteres  </td><td> 28.182544</td><td> 1</td><td> 24.89146</td></tr>
-	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.853420</td><td> 1</td><td> 84.78261</td></tr>
-	<tr><th scope=row>13</th><td>Areial   </td><td>113.303658</td><td> 1</td><td>100.00000</td></tr>
-	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.075563</td><td> 7</td><td> 50.14535</td></tr>
-	<tr><th scope=row>19</th><td>BetoJamil</td><td>  5.366153</td><td> 8</td><td> 38.05374</td></tr>
-	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.121455</td><td> 4</td><td> 39.54843</td></tr>
-	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.505930</td><td> 4</td><td> 15.94203</td></tr>
-	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.402088</td><td> 3</td><td> 40.83997</td></tr>
+	<tr><th scope=row>1</th><td>Alce     </td><td>  3.6540</td><td>10</td><td> 32.29912</td></tr>
+	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.9100</td><td> 9</td><td> 39.28000</td></tr>
+	<tr><th scope=row>7</th><td>Alteres  </td><td> 27.6300</td><td> 1</td><td> 24.52077</td></tr>
+	<tr><th scope=row>10</th><td>Antenor  </td><td> 47.9250</td><td> 2</td><td> 84.79299</td></tr>
+	<tr><th scope=row>13</th><td>Areial   </td><td>113.1300</td><td> 1</td><td>100.00000</td></tr>
+	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.0100</td><td> 7</td><td> 49.68102</td></tr>
+	<tr><th scope=row>19</th><td>BetoJamil</td><td>  5.3550</td><td> 8</td><td> 37.83784</td></tr>
+	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.3175</td><td> 4</td><td> 40.17572</td></tr>
+	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.3650</td><td> 4</td><td> 15.49521</td></tr>
+	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.1800</td><td> 3</td><td> 40.31873</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1411,19 +1415,19 @@ coordinate can reveal interesting biological trends, even if it only contained
 lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites)
 
 Residuals:
-     Min       1Q   Median       3Q      Max 
--0.23636 -0.08187 -0.00709  0.09484  0.22351 
+      Min        1Q    Median        3Q       Max 
+-0.240228 -0.082540 -0.006719  0.092336  0.227456 
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.2865165  0.0348962   8.211 1.53e-11 ***
-C600.pland  -0.0053584  0.0005845  -9.168 3.32e-13 ***
+(Intercept)  0.2855890  0.0349188   8.179 1.74e-11 ***
+C600.pland  -0.0053425  0.0005848  -9.136 3.77e-13 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1252 on 63 degrees of freedom
-Multiple R-squared:  0.5716,	Adjusted R-squared:  0.5648 
-F-statistic: 84.06 on 1 and 63 DF,  p-value: 3.315e-13
+Residual standard error: 0.1254 on 63 degrees of freedom
+Multiple R-squared:  0.5699,	Adjusted R-squared:  0.563 
+F-statistic: 83.46 on 1 and 63 DF,  p-value: 3.772e-13
 </pre></div>
 </div>
 <img alt="../_images/LEC_week_53_1.png" src="../_images/LEC_week_53_1.png" />
