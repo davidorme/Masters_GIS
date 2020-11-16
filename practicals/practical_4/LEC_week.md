@@ -262,13 +262,16 @@ If you check that final output, you will see that the values changed to `values:
 Now that we have the regional forest for the sites, we can reproject the data.
 We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that
 the landcover class data is categorical - we *have* to use `method='ngb'` when
-projecting the data.
+projecting the data. We've also set a resolution of 30 metres. The original 
+WGS84 pixels are not square in UTM23S because 1 arc second NS is not equal to
+1 arc second EW, and so setting the resolution tells `projectRaster` to use that
+fixed size rather letting it create rectangular pixels.
 
 ```{code-cell} R
 sites_utm23S <- st_transform(sites, 32723)
 # This takes a little while to run!
 sites_forest_utm23S <- projectRaster(sites_forest, crs="+init=epsg:32723", 
-                                     method='ngb')
+                                     res=30, method='ngb')
 ```
 
 Just to check, we should now be able to plot the sites and forest. 
