@@ -655,7 +655,7 @@ dimensions : 2843, 6120, 17399160  (nrow, ncol, ncell)
 resolution : 0.0002694946, 0.0002694946  (x, y)
 extent     : -48.49447, -46.84517, -24.34156, -23.57539  (xmin, xmax, ymin, ymax)
 crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : memory
+source     : /private/var/folders/62/cz0ctby96lq7ggnytfbtd__40000gn/T/RtmpqZnkrQ/raster/r_tmp_2020-11-17_160005_16642_95233.grd 
 names      : layer 
 values     : 0, 1  (min, max)
 </pre></div>
@@ -810,7 +810,7 @@ meters. We will use the Alce site as an example:</p>
 
 <span class="c1"># Use Alce as an example</span>
 <span class="n">alce</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">plot_id</span><span class="o">==</span><span class="s">&#39;Alce&#39;</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">21</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">22</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -839,7 +839,7 @@ meters. We will use the Alce site as an example:</p>
 <span class=" -Color -Color-C250">19</span>     1 patch         1    11 area     0.36  Alce                 100.
 <span class=" -Color -Color-C250">20</span>     1 patch         1    12 area     1.35  Alce                 100.
 <span class=" -Color -Color-C250">21</span>     1 patch         1    13 area     0.27  Alce                 100.
-<span class=" -Color -Color-C246"># … with 1 more row</span>
+<span class=" -Color -Color-C250">22</span>     1 patch         1    14 area     0.450 Alce                 100.
 </pre></div>
 </div>
 </div>
@@ -854,22 +854,22 @@ meters. We will use the Alce site as an example:</p>
 <div class="cell_output docutils container">
 <div class="output text_html">113.13</div></div>
 </div>
-<p>From that table, you can see that there are 13 patches in the Alce local
-landscape that sum to 113.63 hectares. That is not quite the precise area of the
+<p>From that table, you can see that there are 14 patches in the Alce local
+landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape (<span class="math notranslate nohighlight">\(\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha\)</span>) because
 the landscape is used to select a set of whole pixels. The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics
-summarise the areas of the patches by class (10 forest patches, 3 matrix
+summarise the areas of the patches by class (10 forest patches, 4 matrix
 patches) and the <code class="docutils literal notranslate"><span class="pre">landscape</span></code> metrics aggregate everything. We can use the table
 to calculate the <code class="docutils literal notranslate"><span class="pre">lsm_l_area_mn</span></code> value by hand:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Weighted average of class patch sizes (with some rounding error)</span>
-<span class="p">(</span><span class="m">25.5</span> <span class="o">*</span> <span class="m">3</span> <span class="o">+</span> <span class="m">3.7</span> <span class="o">*</span> <span class="m">10</span><span class="p">)</span> <span class="o">/</span> <span class="m">13</span>
+<span class="p">(</span><span class="m">19.1</span> <span class="o">*</span> <span class="m">4</span> <span class="o">+</span> <span class="m">3.65</span> <span class="o">*</span> <span class="m">10</span><span class="p">)</span> <span class="o">/</span> <span class="m">14</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">8.73076923076923</div></div>
+<div class="output text_html">8.06428571428571</div></div>
 </div>
 </div>
 <div class="section" id="merging-landscape-metrics-onto-sites">
@@ -1309,19 +1309,27 @@ cumulative calculation!</p>
 <span class="n">eig</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="p">[</span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span> <span class="o">&gt;</span><span class="m">0</span><span class="p">]</span> 
 <span class="nf">barplot</span><span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Axis variation&#39;</span><span class="p">)</span>
 <span class="nf">barplot</span><span class="p">(</span><span class="nf">cumsum</span><span class="p">(</span><span class="n">eig</span><span class="p">)</span><span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Cumulative variation&#39;</span><span class="p">)</span>
+<span class="c1"># Print the percentage variation of the first 8 </span>
+<span class="nf">head</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&#39;%0.2f%%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">))</span> <span class="o">*</span> <span class="m">100</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_51_0.png" src="../_images/LEC_week_51_0.png" />
+<div class="output text_html"><style>
+.list-inline {list-style: none; margin:0; padding: 0}
+.list-inline>li {display: inline-block}
+.list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
+</style>
+<ol class=list-inline><li>'21.16%'</li><li>'12.04%'</li><li>'8.85%'</li><li>'5.86%'</li><li>'4.92%'</li><li>'3.94%'</li><li>'3.68%'</li><li>'3.42%'</li></ol>
+</div><img alt="../_images/LEC_week_51_1.png" src="../_images/LEC_week_51_1.png" />
 </div>
 </div>
 <p>For this particular PCoA, the bar plot doesn’t really give a good indication
 about the number of principal coordinates axes to retain: the bars gradually
 decrease in size rather than showing a clear cutoff.  From those plots, we can
 see that the first principal coordinate axis contains almost twice as much
-information as the second one (23% versus 13 %). However, together they still
-only explain 36% of the variation.</p>
+information as the second one (21.2% versus 12.0%). However, together they still
+only explain 33.2% of the variation.</p>
 <p>However we shouldn’t blindly look at percentages. For instance, if one species
 in the matrix varies from 0 to 1,000 individuals - while all the other species
 vary from 0 to 10 - the percentage of information captured by the first axis will
@@ -1334,13 +1342,24 @@ species). Furthermore, the proportion of variation explained by the first axis
 reduces as -in this case- the number of species increases, so the amount of
 variation explained by the first axis is reasonable given that we have 140
 species!</p>
-<!--
+<!-- Hidden to reduce handout complexity
+
 ````{admonition}  Sidebar: Shepard diagrams
 :class: hint
+Shepard diagram's compares the distances between sites using our PCoA axes to
+the original distances calculated using all the community data. If the PCoA
+captures the data well, these two distances will be strongly correlated and so
+these are a useful tool to see if a community analysis is capturing the
+community structure well. However, remember that one of the *points* of using an
+ordination is to remove complexity and noise, so the point of a Shepard diagram
+is to make sure the ordination is working as expected and *not* to try and get a
+perfect correlation with the raw data.
 
-Shepard diagram's compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal
-
-We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:
+We will use Euclidean distances between sites in the PCoA ordination space. This
+will provide us with a matrix of distances between objects that can be directly
+compared to the original distance between objects computed from a Bray-Curtis
+dissimilarity index. We can compare the Shepard diagram when using all 8 of the
+axes we kept, to simply using the first two axes:
 
 ```{code-cell} R
 # Use first 8 axes
@@ -1352,11 +1371,13 @@ shepard_2  <- vegdist(pcoa_axes[, c(1,2)], method="euc", binary=FALSE)
 Now let's plot this against the Bray-Curtis distances.
 
 ```{code-cell} R
-par(mfrow=c(1,2)) plot(shepard_8, bray, main='First 8 axes') plot(shepard_2,
-bray, main='First 2 axes')
+par(mfrow=c(1,2))
+plot(shepard_8, bray, main='First 8 axes')
+plot(shepard_2, bray, main='First 2 axes')
 ```
 
-The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?
+The correlation is clearly stronger with all eight axes but both look pretty
+good. But can we improve it? And can we make do with just one axis?
 
 ````
 -->
@@ -1394,10 +1415,10 @@ different choices reflect different hypotheses.</p>
 <p>In addition to looking at correlations, we can fit linear models to predict how
 community composition varies between fragmented landscapes and continuous
 landscapes?</p>
-<p>From the model below, forest cover at the 600m landscape scale explains 56.5% of the
+<p>From the model below, forest cover at the 600m landscape scale explains 56.3% of the
 variation in community composition. Hence, we see that the first principal
 coordinate can reveal interesting biological trends, even if it only contained
-23% of the information in the original data set (see above).</p>
+21.2% of the information in the original data set (see above).</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">

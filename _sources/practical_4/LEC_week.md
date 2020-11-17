@@ -324,7 +324,7 @@ lsm <- sample_lsm(sites_forest_utm23S, sites_utm23S,
 
 # Use Alce as an example
 alce <- subset(lsm, plot_id=='Alce')
-print(alce, n=21)
+print(alce, n=22)
 ```
 
 
@@ -333,17 +333,17 @@ print(alce, n=21)
 sum(alce$value[alce$metric == 'area'])
 ```
 
-From that table, you can see that there are 13 patches in the Alce local
-landscape that sum to 113.63 hectares. That is not quite the precise area of the
+From that table, you can see that there are 14 patches in the Alce local
+landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape ($\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha$) because
 the landscape is used to select a set of whole pixels. The `class` metrics
-summarise the areas of the patches by class (10 forest patches, 3 matrix
+summarise the areas of the patches by class (10 forest patches, 4 matrix
 patches) and the `landscape` metrics aggregate everything. We can use the table
 to calculate the `lsm_l_area_mn` value by hand:
 
 ```{code-cell} R
 # Weighted average of class patch sizes (with some rounding error)
-(25.5 * 3 + 3.7 * 10) / 13
+(19.1 * 4 + 3.65 * 10) / 14
 ```
 
 #### Merging landscape metrics onto sites
@@ -708,14 +708,16 @@ par(mfrow=c(1,2))
 eig <- pcoa$eig[pcoa$eig >0] 
 barplot(eig / sum(eig), main='Axis variation')
 barplot(cumsum(eig)/ sum(eig), main='Cumulative variation')
+# Print the percentage variation of the first 8 
+head(sprintf('%0.2f%%', (eig / sum(eig)) * 100), n=8)
 ```
 
 For this particular PCoA, the bar plot doesn't really give a good indication
 about the number of principal coordinates axes to retain: the bars gradually
 decrease in size rather than showing a clear cutoff.  From those plots, we can
 see that the first principal coordinate axis contains almost twice as much
-information as the second one (23% versus 13 %). However, together they still
-only explain 36% of the variation. 
+information as the second one (21.2% versus 12.0%). However, together they still
+only explain 33.2% of the variation. 
 
 However we shouldn't blindly look at percentages. For instance, if one species
 in the matrix varies from 0 to 1,000 individuals - while all the other species
@@ -731,13 +733,24 @@ variation explained by the first axis is reasonable given that we have 140
 species!
 
 
-<!--
+<!-- Hidden to reduce handout complexity
+
 ````{admonition}  Sidebar: Shepard diagrams
 :class: hint
+Shepard diagram's compares the distances between sites using our PCoA axes to
+the original distances calculated using all the community data. If the PCoA
+captures the data well, these two distances will be strongly correlated and so
+these are a useful tool to see if a community analysis is capturing the
+community structure well. However, remember that one of the *points* of using an
+ordination is to remove complexity and noise, so the point of a Shepard diagram
+is to make sure the ordination is working as expected and *not* to try and get a
+perfect correlation with the raw data.
 
-Shepard diagram's compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal
-
-We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:
+We will use Euclidean distances between sites in the PCoA ordination space. This
+will provide us with a matrix of distances between objects that can be directly
+compared to the original distance between objects computed from a Bray-Curtis
+dissimilarity index. We can compare the Shepard diagram when using all 8 of the
+axes we kept, to simply using the first two axes:
 
 ```{code-cell} R
 # Use first 8 axes
@@ -749,11 +762,13 @@ shepard_2  <- vegdist(pcoa_axes[, c(1,2)], method="euc", binary=FALSE)
 Now let's plot this against the Bray-Curtis distances.
 
 ```{code-cell} R
-par(mfrow=c(1,2)) plot(shepard_8, bray, main='First 8 axes') plot(shepard_2,
-bray, main='First 2 axes')
+par(mfrow=c(1,2))
+plot(shepard_8, bray, main='First 8 axes')
+plot(shepard_2, bray, main='First 2 axes')
 ```
 
-The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?
+The correlation is clearly stronger with all eight axes but both look pretty
+good. But can we improve it? And can we make do with just one axis?
 
 ````
 -->
@@ -800,10 +815,10 @@ In addition to looking at correlations, we can fit linear models to predict how
 community composition varies between fragmented landscapes and continuous
 landscapes? 
 
-From the model below, forest cover at the 600m landscape scale explains 56.5% of the
+From the model below, forest cover at the 600m landscape scale explains 56.3% of the
 variation in community composition. Hence, we see that the first principal
 coordinate can reveal interesting biological trends, even if it only contained
-23% of the information in the original data set (see above).
+21.2% of the information in the original data set (see above).
 ```
 
 ```{code-cell} R

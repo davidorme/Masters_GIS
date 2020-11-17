@@ -779,6 +779,12 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
 </div>
 </div>
 <p>We can plot those two points side by side for comparison.</p>
@@ -901,9 +907,9 @@ max values :   314,   211,    95, 22673,   489,   258,   725,   375,   364,   38
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9871816 
-cor            : 0.752007 
-max TPR+TNR at : 0.03584771 
+AUC            : 0.9886153 
+cor            : 0.7565272 
+max TPR+TNR at : 0.01623987 
 </pre></div>
 </div>
 </div>
@@ -1007,12 +1013,12 @@ max TPR+TNR at : 0.03584771
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>3</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>3</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>2</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>5</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>4</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>2</td><td>1</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>1</td><td>1</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>2</td><td>1</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>4</td><td>1</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>1</td><td>1</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1034,12 +1040,12 @@ max TPR+TNR at : 0.03584771
 	<tr><th></th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>⋯</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;int&gt;</th><th scope=col>&lt;POINT [°]&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>3</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
-	<tr><th scope=row>3</th><td>3</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
-	<tr><th scope=row>7</th><td>3</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
-	<tr><th scope=row>8</th><td>2</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
-	<tr><th scope=row>9</th><td>5</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
-	<tr><th scope=row>10</th><td>4</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
+	<tr><th scope=row>1</th><td>2</td><td>1</td><td> 61</td><td>84</td><td>83</td><td>550</td><td>117</td><td> 16</td><td>101</td><td> 55</td><td>POINT (-78.14574 -0.573515)</td><td>⋯</td><td> 52</td><td>1286</td><td>130</td><td> 78</td><td>15</td><td>387</td><td>262</td><td>294</td><td>358</td><td>POINT (-78.14574 -0.573515)</td></tr>
+	<tr><th scope=row>3</th><td>1</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.08383 -0.316876)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.08383 -0.316876)</td></tr>
+	<tr><th scope=row>7</th><td>2</td><td>1</td><td> 51</td><td>84</td><td>84</td><td>457</td><td>105</td><td>  6</td><td> 99</td><td> 53</td><td>POINT (-78.28517 -0.467604)</td><td>⋯</td><td> 44</td><td>1223</td><td>132</td><td> 67</td><td>17</td><td>367</td><td>244</td><td>321</td><td>255</td><td>POINT (-78.28517 -0.467604)</td></tr>
+	<tr><th scope=row>8</th><td>4</td><td>1</td><td>155</td><td>91</td><td>88</td><td>298</td><td>207</td><td>104</td><td>103</td><td>150</td><td>POINT (-75.63315 4.763309)</td><td>⋯</td><td>150</td><td>2453</td><td>329</td><td>115</td><td>31</td><td>825</td><td>415</td><td>719</td><td>825</td><td>POINT (-75.63315 4.763309)</td></tr>
+	<tr><th scope=row>9</th><td>1</td><td>1</td><td>157</td><td>93</td><td>91</td><td>322</td><td>209</td><td>107</td><td>102</td><td>152</td><td>POINT (-75.57059 4.66022)</td><td>⋯</td><td>152</td><td>2227</td><td>299</td><td> 98</td><td>34</td><td>777</td><td>350</td><td>659</td><td>777</td><td>POINT (-75.57059 4.66022)</td></tr>
+	<tr><th scope=row>10</th><td>1</td><td>1</td><td> 64</td><td>84</td><td>84</td><td>475</td><td>118</td><td> 19</td><td> 99</td><td> 59</td><td>POINT (-78.02654 -0.215449)</td><td>⋯</td><td> 57</td><td>1387</td><td>146</td><td> 83</td><td>18</td><td>434</td><td>276</td><td>303</td><td>394</td><td>POINT (-78.02654 -0.215449)</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1079,24 +1085,24 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--2.3860  -0.1090   0.0213   0.3194   3.2729  
+-2.8409  -0.0927   0.0271   0.3638   3.2605  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -1.115e+01  8.049e+00  -1.385   0.1660    
-bio2         6.241e-02  2.609e-02   2.392   0.0168 *  
-bio4        -1.258e-03  2.010e-03  -0.626   0.5314    
-bio3         1.501e-01  8.105e-02   1.852   0.0641 .  
-bio1        -8.753e-02  8.736e-03 -10.020  &lt; 2e-16 ***
-bio12        2.068e-03  3.057e-04   6.765 1.33e-11 ***
+(Intercept) -1.682e+01  8.296e+00  -2.027 0.042635 *  
+bio2         9.514e-02  2.709e-02   3.512 0.000446 ***
+bio4        -4.791e-04  2.204e-03  -0.217 0.827910    
+bio3         1.733e-01  8.469e-02   2.046 0.040742 *  
+bio1        -8.811e-02  8.728e-03 -10.095  &lt; 2e-16 ***
+bio12        2.250e-03  3.296e-04   6.826 8.72e-12 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 243.12  on 606  degrees of freedom
-AIC: 255.12
+Residual deviance: 241.52  on 606  degrees of freedom
+AIC: 253.52
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1147,9 +1153,9 @@ Number of Fisher Scoring iterations: 7
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9492326 
-cor            : 0.7720232 
-max TPR+TNR at : 1.408945 
+AUC            : 0.9814471 
+cor            : 0.7963189 
+max TPR+TNR at : 1.317964 
 </pre></div>
 </div>
 </div>
@@ -1165,7 +1171,7 @@ max TPR+TNR at : 1.408945
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.8035995
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.7888428
 </pre></div>
 </div>
 </div>
@@ -1222,8 +1228,8 @@ max TPR+TNR at : 1.408945
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
 hist    FALSE TRUE
-  FALSE  5450    0
-  TRUE     51   71
+  FALSE  5430    0
+  TRUE     68   74
 </pre></div>
 </div>
 </div>
@@ -1410,10 +1416,10 @@ hist    FALSE TRUE
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9492326 0.9774931 0.9814471 0.9752424 0.9800978
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9814471 0.9906510 0.9821218 0.9568906 0.9536178
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9727026
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9729457
 </pre></div>
 </div>
 <img alt="../_images/practical_2_68_2.png" src="../_images/practical_2_68_2.png" />
