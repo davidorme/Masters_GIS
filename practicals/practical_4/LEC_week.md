@@ -731,13 +731,24 @@ variation explained by the first axis is reasonable given that we have 140
 species!
 
 
-<!--
+<!-- Hidden to reduce handout complexity
+
 ````{admonition}  Sidebar: Shepard diagrams
 :class: hint
+Shepard diagram's compares the distances between sites using our PCoA axes to
+the original distances calculated using all the community data. If the PCoA
+captures the data well, these two distances will be strongly correlated and so
+these are a useful tool to see if a community analysis is capturing the
+community structure well. However, remember that one of the *points* of using an
+ordination is to remove complexity and noise, so the point of a Shepard diagram
+is to make sure the ordination is working as expected and *not* to try and get a
+perfect correlation with the raw data.
 
-Shepard diagram's compares the distances between sites using our PCoA axes to the original distances calculated using all the community data. If the PCoA captures the data well, these two distances will be strongly correlated and so these are a useful tool to see if a community anal
-
-We will use Euclidean distances between sites in the PCoA ordination space. This will provide us with a matrix of distances between objects that can be directly compared to the original distance between objects computed from a Bray-Curtis dissimilarity index. We can compare the Shepard diagram when using all 8 of the axes we kept, to simply using the first two axes:
+We will use Euclidean distances between sites in the PCoA ordination space. This
+will provide us with a matrix of distances between objects that can be directly
+compared to the original distance between objects computed from a Bray-Curtis
+dissimilarity index. We can compare the Shepard diagram when using all 8 of the
+axes we kept, to simply using the first two axes:
 
 ```{code-cell} R
 # Use first 8 axes
@@ -749,11 +760,13 @@ shepard_2  <- vegdist(pcoa_axes[, c(1,2)], method="euc", binary=FALSE)
 Now let's plot this against the Bray-Curtis distances.
 
 ```{code-cell} R
-par(mfrow=c(1,2)) plot(shepard_8, bray, main='First 8 axes') plot(shepard_2,
-bray, main='First 2 axes')
+par(mfrow=c(1,2))
+plot(shepard_8, bray, main='First 8 axes')
+plot(shepard_2, bray, main='First 2 axes')
 ```
 
-The correlation is clearly stronger with all eight axes but both look pretty good. But can we improve it? And can we make do with just one axis?
+The correlation is clearly stronger with all eight axes but both look pretty
+good. But can we improve it? And can we make do with just one axis?
 
 ````
 -->
