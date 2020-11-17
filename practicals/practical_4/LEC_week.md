@@ -708,14 +708,16 @@ par(mfrow=c(1,2))
 eig <- pcoa$eig[pcoa$eig >0] 
 barplot(eig / sum(eig), main='Axis variation')
 barplot(cumsum(eig)/ sum(eig), main='Cumulative variation')
+# Print the percentage variation of the first 8 
+head(eig / sum(eig), n=8, digits=4)
 ```
 
 For this particular PCoA, the bar plot doesn't really give a good indication
 about the number of principal coordinates axes to retain: the bars gradually
 decrease in size rather than showing a clear cutoff.  From those plots, we can
 see that the first principal coordinate axis contains almost twice as much
-information as the second one (23% versus 13 %). However, together they still
-only explain 36% of the variation. 
+information as the second one (21.2% versus 12.0%). However, together they still
+only explain 33.2% of the variation. 
 
 However we shouldn't blindly look at percentages. For instance, if one species
 in the matrix varies from 0 to 1,000 individuals - while all the other species
@@ -813,7 +815,7 @@ In addition to looking at correlations, we can fit linear models to predict how
 community composition varies between fragmented landscapes and continuous
 landscapes? 
 
-From the model below, forest cover at the 600m landscape scale explains 56.5% of the
+From the model below, forest cover at the 600m landscape scale explains 56.3% of the
 variation in community composition. Hence, we see that the first principal
 coordinate can reveal interesting biological trends, even if it only contained
 23% of the information in the original data set (see above).
