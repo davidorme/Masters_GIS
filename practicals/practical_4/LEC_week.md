@@ -324,7 +324,7 @@ lsm <- sample_lsm(sites_forest_utm23S, sites_utm23S,
 
 # Use Alce as an example
 alce <- subset(lsm, plot_id=='Alce')
-print(alce, n=21)
+print(alce, n=22)
 ```
 
 
@@ -333,17 +333,17 @@ print(alce, n=21)
 sum(alce$value[alce$metric == 'area'])
 ```
 
-From that table, you can see that there are 13 patches in the Alce local
-landscape that sum to 113.63 hectares. That is not quite the precise area of the
+From that table, you can see that there are 14 patches in the Alce local
+landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape ($\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha$) because
 the landscape is used to select a set of whole pixels. The `class` metrics
-summarise the areas of the patches by class (10 forest patches, 3 matrix
+summarise the areas of the patches by class (10 forest patches, 4 matrix
 patches) and the `landscape` metrics aggregate everything. We can use the table
 to calculate the `lsm_l_area_mn` value by hand:
 
 ```{code-cell} R
 # Weighted average of class patch sizes (with some rounding error)
-(25.5 * 3 + 3.7 * 10) / 13
+(19.1 * 4 + 3.65 * 10) / 14
 ```
 
 #### Merging landscape metrics onto sites
