@@ -17,31 +17,26 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Response plots
-response(glm_model, at='median',
-         fun=function(x, y, ...) predict(x, y, type='response', ...))
+# Create buffers around the observed points
+nearby <- st_buffer(tapir_GBIF, dist=1)
+too_close <- st_buffer(tapir_GBIF, dist=0.2)
+# merge those buffers
+nearby <- st_union(nearby)
+too_close <- st_union(too_close)
+# Find the area that is nearby but _not_ too close
+nearby <- st_difference(nearby, too_close)
+# Get some points within that feature in an sf dataframe
+pseudo_nearby <- st_as_sf(st_sample(nearby, n_pseudo))
 ------------------
 
-Error in eval(predvars, data, env): object 'bio4' not found
+Error: vector memory exhausted (limit reached?)
 Traceback:
 
-1. response(glm_model, at = "median", fun = function(x, y, ...) predict(x, 
- .     y, type = "response", ...))
-2. response(glm_model, at = "median", fun = function(x, y, ...) predict(x, 
- .     y, type = "response", ...))
-3. .local(x, ...)
-4. .doResponse(x, var, at, data, cn, expand, rug, ylim, col, lwd, 
- .     add, fun, ...)
-5. fun(x, mm)
-6. predict(x, y, type = "response", ...)   # at line 3 of file <text>
-7. predict(x, y, type = "response", ...)
-8. predict.glm(x, y, type = "response", ...)
-9. predict.lm(object, newdata, se.fit, scale = 1, type = if (type == 
- .     "link") "response" else type, terms = terms, na.action = na.action)
-10. model.frame(Terms, newdata, na.action = na.action, xlev = object$xlevels)
-11. model.frame.default(Terms, newdata, na.action = na.action, xlev = object$xlevels)
-12. eval(predvars, data, env)
-13. eval(predvars, data, env)
-ERROR: Error in eval(predvars, data, env): object 'bio4' not found
+1. st_as_sf(st_sample(nearby, n_pseudo))
+2. st_sample(nearby, n_pseudo)
+3. st_sample.sfc(nearby, n_pseudo)
+4. st_poly_sample(x, size = size, ..., type = type, by_polygon = by_polygon)
+5. runif(size, bb[1], bb[3])
+ERROR: Error: vector memory exhausted (limit reached?)
 
 

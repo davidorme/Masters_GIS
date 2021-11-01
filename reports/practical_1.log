@@ -1,0 +1,67 @@
+Traceback (most recent call last):
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/jupyter_cache/executors/utils.py", line 56, in single_nb_execution
+    record_timing=False,
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/client.py", line 1087, in execute
+    return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/util.py", line 74, in wrapped
+    return just_run(coro(*args, **kwargs))
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/util.py", line 53, in just_run
+    return loop.run_until_complete(coro)
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/asyncio/base_events.py", line 587, in run_until_complete
+    return future.result()
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/client.py", line 541, in async_execute
+    cell, index, execution_count=self.code_cells_executed + 1
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/dorme/.pyenv/versions/3.7.7/lib/python3.7/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+# Load the data and convert to a sf object
+alien_xy <- read.csv('data/aliens.csv')
+alien_xy <- st_as_sf(alien_xy, coords=c('long','lat'), crs=4326)
+
+# Add country information and find the total number of aliens per country
+alien_xy <- st_join(alien_xy, ne_110['ADMIN'])
+aliens_by_country <- aggregate(n_aliens ~ ADMIN, data=alien_xy, FUN=sum)
+
+# Add the alien counts into the country data 
+ne_110 <- merge(ne_110, aliens_by_country, all.x=TRUE)
+ne_110$aliens_per_capita <- with(ne_110,  n_aliens / POP_EST)
+
+# create the scale colours
+bks <- seq(-8, 2, length=101)
+pal <- colorRampPalette(c('darkblue','lightblue', 'salmon','darkred'))
+
+plot(ne_110['aliens_per_capita'], logz=TRUE, breaks=bks, pal=pal, key.pos=4)
+------------------
+
+Error in s2_geography_from_wkb(x, oriented = oriented, check = check): Evaluation error: Found 2 features with invalid spherical geometry.
+[138] Loop 0 edge 1 crosses loop 12 edge 5
+[141] Loop 0 is not valid: Edge 0 crosses edge 78.
+Traceback:
+
+1. st_join(alien_xy, ne_110["ADMIN"])
+2. st_join.sf(alien_xy, ne_110["ADMIN"])
+3. join(x, y, ...)
+4. st_intersects.sf(x, y, ...)
+5. st_geos_binop("intersects", x, y, sparse = sparse, prepared = prepared, 
+ .     ...)
+6. fn(x, y, s2::s2_options(model = s2_model, ...))
+7. cpp_s2_intersects_matrix(as_s2_geography(x), as_s2_geography(y), 
+ .     options)
+8. as_s2_geography(y)
+9. as_s2_geography.sf(y)
+10. st_as_s2.sf(x, ..., oriented = oriented)
+11. st_as_s2(st_geometry(x), ...)
+12. st_as_s2.sfc(st_geometry(x), ...)
+13. s2::as_s2_geography(st_as_binary(x), ..., oriented = oriented)
+14. as_s2_geography.WKB(st_as_binary(x), ..., oriented = oriented)
+15. new_s2_xptr(s2_geography_from_wkb(x, oriented = oriented, check = check), 
+  .     "s2_geography")
+16. s2_geography_from_wkb(x, oriented = oriented, check = check)
+ERROR: Error in s2_geography_from_wkb(x, oriented = oriented, check = check): Evaluation error: Found 2 features with invalid spherical geometry.
+[138] Loop 0 edge 1 crosses loop 12 edge 5
+[141] Loop 0 is not valid: Edge 0 crosses edge 78.
+
+

@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Landscape Ecology and Conservation &#8212; GIS and Spatial Methods in R</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,14 +20,10 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -34,22 +31,21 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -58,14 +54,14 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Practical Three: Spatial modelling in R" href="../practical_3/practical_3.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -74,28 +70,26 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
-  
-  
-  <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
    Introduction to the practicals
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_1/practical_1.html">
    Practical One: GIS data and plotting
@@ -118,9 +112,8 @@
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -135,25 +128,25 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
@@ -168,18 +161,18 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
 
+            <!-- Source interaction buttons -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Launch buttons -->
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -198,16 +191,16 @@
     </div>
 </div>
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#requirements">
    Requirements
@@ -346,8 +339,8 @@
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -355,7 +348,7 @@
         
               <div>
                 
-  <div class="section" id="landscape-ecology-and-conservation">
+  <div class="tex2jax_ignore mathjax_ignore section" id="landscape-ecology-and-conservation">
 <h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this headline">¶</a></h1>
 <p><strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
 <p>In this practical, we are going to use R to:</p>
@@ -583,7 +576,7 @@ dimensions : 7421, 11132, 82610572  (nrow, ncol, ncell)
 resolution : 0.0002694946, 0.0002694946  (x, y)
 extent     : -49.00004, -46.00003, -24.99993, -23.00002  (xmin, xmax, ymin, ymax)
 crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : /Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_4/data/map.tif 
+source     : map.tif 
 names      : map 
 values     : 0, 33  (min, max)
 </pre></div>
@@ -651,11 +644,11 @@ need to:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterLayer 
-dimensions : 2843, 6120, 17399160  (nrow, ncol, ncell)
+dimensions : 2188, 5407, 11830516  (nrow, ncol, ncell)
 resolution : 0.0002694946, 0.0002694946  (x, y)
-extent     : -48.49447, -46.84517, -24.34156, -23.57539  (xmin, xmax, ymin, ymax)
+extent     : -48.3988, -46.94164, -24.25424, -23.66459  (xmin, xmax, ymin, ymax)
 crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : /private/var/folders/62/cz0ctby96lq7ggnytfbtd__40000gn/T/RtmpqZnkrQ/raster/r_tmp_2020-11-17_160005_16642_95233.grd 
+source     : memory
 names      : layer 
 values     : 0, 1  (min, max)
 </pre></div>
@@ -815,31 +808,36 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span><span class=" -Color -Color-C246"># A tibble: 22 x 8</span>
-   layer level     class    id metric   value plot_id percentage_inside
-   <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;chr&gt;</span>     <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;int&gt;</span> <span class=" -Color -Color-C246">&lt;chr&gt;</span>    <span class=" -Color -Color-C246">&lt;dbl&gt;</span> <span class=" -Color -Color-C246">&lt;fct&gt;</span>               <span class=" -Color -Color-C246">&lt;dbl&gt;</span>
-<span class=" -Color -Color-C250"> 1</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.1   Alce                 100.
-<span class=" -Color -Color-C250"> 2</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.65  Alce                 100.
-<span class=" -Color -Color-C250"> 3</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4     Alce                 100.
-<span class=" -Color -Color-C250"> 4</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> np      10     Alce                 100.
-<span class=" -Color -Color-C250"> 5</span>     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.7   Alce                 100.
-<span class=" -Color -Color-C250"> 6</span>     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.3   Alce                 100.
-<span class=" -Color -Color-C250"> 7</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  8.08  Alce                 100.
-<span class=" -Color -Color-C250"> 8</span>     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      14     Alce                 100.
-<span class=" -Color -Color-C250"> 9</span>     1 patch         0     1 area    76.0   Alce                 100.
-<span class=" -Color -Color-C250">10</span>     1 patch         0     2 area     0.09  Alce                 100.
-<span class=" -Color -Color-C250">11</span>     1 patch         0     3 area     0.09  Alce                 100.
-<span class=" -Color -Color-C250">12</span>     1 patch         0     4 area     0.450 Alce                 100.
-<span class=" -Color -Color-C250">13</span>     1 patch         1     5 area     1.08  Alce                 100.
-<span class=" -Color -Color-C250">14</span>     1 patch         1     6 area    27.5   Alce                 100.
-<span class=" -Color -Color-C250">15</span>     1 patch         1     7 area     0.63  Alce                 100.
-<span class=" -Color -Color-C250">16</span>     1 patch         1     8 area     0.27  Alce                 100.
-<span class=" -Color -Color-C250">17</span>     1 patch         1     9 area     2.52  Alce                 100.
-<span class=" -Color -Color-C250">18</span>     1 patch         1    10 area     2.07  Alce                 100.
-<span class=" -Color -Color-C250">19</span>     1 patch         1    11 area     0.36  Alce                 100.
-<span class=" -Color -Color-C250">20</span>     1 patch         1    12 area     1.35  Alce                 100.
-<span class=" -Color -Color-C250">21</span>     1 patch         1    13 area     0.27  Alce                 100.
-<span class=" -Color -Color-C250">22</span>     1 patch         1    14 area     0.450 Alce                 100.
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“The &#39;perecentage_inside&#39; is below 90% for at least one buffer.”
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># A tibble: 23 × 8
+   layer level     class    id metric  value plot_id percentage_inside
+   &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;               &lt;dbl&gt;
+ 1     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.0  Alce                 99.9
+ 2     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.35 Alce                 99.9
+ 3     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4    Alce                 99.9
+ 4     1 class         1    <span class=" -Color -Color-Red">NA</span> np      11    Alce                 99.9
+ 5     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.3  Alce                 99.9
+ 6     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.7  Alce                 99.9
+ 7     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  7.52 Alce                 99.9
+ 8     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      15    Alce                 99.9
+ 9     1 patch         0     1 area    74.9  Alce                 99.9
+10     1 patch         0     2 area     0.09 Alce                 99.9
+11     1 patch         0     3 area     0.09 Alce                 99.9
+12     1 patch         0     4 area     0.9  Alce                 99.9
+13     1 patch         1     5 area     0.99 Alce                 99.9
+14     1 patch         1     6 area    28.1  Alce                 99.9
+15     1 patch         1     7 area     0.63 Alce                 99.9
+16     1 patch         1     8 area     0.27 Alce                 99.9
+17     1 patch         1     9 area     1.98 Alce                 99.9
+18     1 patch         1    10 area     2.07 Alce                 99.9
+19     1 patch         1    11 area     0.45 Alce                 99.9
+20     1 patch         1    12 area     1.35 Alce                 99.9
+21     1 patch         1    13 area     0.63 Alce                 99.9
+22     1 patch         1    14 area     0.09 Alce                 99.9
+# … with 1 more row
 </pre></div>
 </div>
 </div>
@@ -852,7 +850,7 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">113.13</div></div>
+<div class="output text_html">112.86</div></div>
 </div>
 <p>From that table, you can see that there are 14 patches in the Alce local
 landscape that sum to 113.13 hectares. That is not quite the precise area of the
@@ -918,16 +916,16 @@ want the method of calculation of each value to be obvious.</p></li>
 	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>Alce     </td><td>  3.6540</td><td>10</td><td> 32.29912</td></tr>
-	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.9100</td><td> 9</td><td> 39.28000</td></tr>
-	<tr><th scope=row>7</th><td>Alteres  </td><td> 27.6300</td><td> 1</td><td> 24.52077</td></tr>
-	<tr><th scope=row>10</th><td>Antenor  </td><td> 47.9250</td><td> 2</td><td> 84.79299</td></tr>
-	<tr><th scope=row>13</th><td>Areial   </td><td>113.1300</td><td> 1</td><td>100.00000</td></tr>
-	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.0100</td><td> 7</td><td> 49.68102</td></tr>
-	<tr><th scope=row>19</th><td>BetoJamil</td><td>  5.3550</td><td> 8</td><td> 37.83784</td></tr>
-	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.3175</td><td> 4</td><td> 40.17572</td></tr>
-	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.3650</td><td> 4</td><td> 15.49521</td></tr>
-	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.1800</td><td> 3</td><td> 40.31873</td></tr>
+	<tr><th scope=row>1</th><td>Alce     </td><td>  3.354545</td><td>11</td><td> 32.69537</td></tr>
+	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.910000</td><td> 9</td><td> 38.93735</td></tr>
+	<tr><th scope=row>7</th><td>Alteres  </td><td> 28.620000</td><td> 1</td><td> 25.27822</td></tr>
+	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.670000</td><td> 1</td><td> 84.76874</td></tr>
+	<tr><th scope=row>13</th><td>Areial   </td><td>112.770000</td><td> 1</td><td>100.00000</td></tr>
+	<tr><th scope=row>16</th><td>Baleia   </td><td>  7.087500</td><td> 8</td><td> 50.19920</td></tr>
+	<tr><th scope=row>19</th><td>BetoJamil</td><td>  4.880000</td><td> 9</td><td> 38.60759</td></tr>
+	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.250000</td><td> 4</td><td> 39.74563</td></tr>
+	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.590000</td><td> 4</td><td> 16.25498</td></tr>
+	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.330000</td><td> 3</td><td> 40.65235</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1437,18 +1435,18 @@ lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.240228 -0.082540 -0.006719  0.092336  0.227456 
+-0.242281 -0.081431 -0.006381  0.093915  0.222799 
 
 Coefficients:
               Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.2855890  0.0349188   8.179 1.74e-11 ***
-C600.pland  -0.0053425  0.0005848  -9.136 3.77e-13 ***
+(Intercept)  0.2866914  0.0347933   8.240 1.36e-11 ***
+C600.pland  -0.0053646  0.0005829  -9.203 2.89e-13 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1254 on 63 degrees of freedom
-Multiple R-squared:  0.5699,	Adjusted R-squared:  0.563 
-F-statistic: 83.46 on 1 and 63 DF,  p-value: 3.772e-13
+Residual standard error: 0.1249 on 63 degrees of freedom
+Multiple R-squared:  0.5734,	Adjusted R-squared:  0.5667 
+F-statistic: 84.69 on 1 and 63 DF,  p-value: 2.89e-13
 </pre></div>
 </div>
 <img alt="../_images/LEC_week_53_1.png" src="../_images/LEC_week_53_1.png" />
@@ -1585,22 +1583,34 @@ time.</p>
 
               </div>
               
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../practical_3/practical_3.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Practical Three: Spatial modelling in R</p>
+            </div>
+        </a>
+    </div>
+
+</div>
+        
         </div>
     </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="../practical_3/practical_3.html" title="previous page">Practical Three: Spatial modelling in R</a>
-
-    </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
           By David Orme<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright 2021.<br/>
       </p>
     </div>
   </footer>
@@ -1609,11 +1619,9 @@ time.</p>
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
-
-
-    
+  
   </body>
 </html>

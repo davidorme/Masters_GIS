@@ -4,8 +4,8 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.5
 kernelspec:
   display_name: R
   language: R
@@ -313,9 +313,11 @@ Two other simple ones are the **length** of a feature and its **area**. Note tha
 
 ```{code-cell} r
 uk_eire$area <- st_area(uk_eire)
-# The length of a polygon is the perimeter length 
-# - note that this includes the length of internal holes.
-uk_eire$length <- st_length(uk_eire)
+# To calculate a 'length' of a polygon, you have to 
+# convert it to a LINESTRING or a MULTILINESTRING
+# Using MULTILINESTRING will automatically 
+# include all perimeter of a polygon (including holes).
+uk_eire$length <- st_length(st_cast(uk_eire, 'MULTILINESTRING'))
 # Look at the result
 print(uk_eire)
 ```
@@ -331,6 +333,7 @@ print(uk_eire)
 
 ```{code-cell} r
 :tags: [raises-exception]
+
 # And it won't let you make silly error like turning a length into weight
 uk_eire$area <- set_units(uk_eire$area, 'kg')
 ```
@@ -662,9 +665,10 @@ uk_eire_BNG_line <- st_cast(uk_eire_BNG, 'LINESTRING')
 One excellent feature of the `sf` package is the sheer quantity of warnings it will issue to avoid making errors. When you alter geometries, it isn't always clear that the attributes of the original geometry apply to the altered geometries.  Here, we are being warned that the country attributes might not apply to the lines. We can use the `st_agr` function to tell `sf` that attributes *are* constant and it will stop warning us.
 
 ```{code-cell} r
+uk_eire_BNG$name <- as.factor(uk_eire_BNG$name)
 st_agr(uk_eire_BNG) <- 'constant'
 
-# Rasterizing lines
+# Rasterizing lines.
 uk_eire_BNG_line <- st_cast(uk_eire_BNG, 'LINESTRING')
 uk_eire_line_20km <- rasterize(as(uk_eire_BNG_line, 'Spatial'), uk_20km, field='name')
 
@@ -728,6 +732,7 @@ There are a huge range of different formats for spatial data. Fortunately, the `
 
 ```{code-cell} r
 :tags: [remove-cell]
+
 # This chunk removes existing demo outputs so they can be recreated in the following chunks
 files <- dir('data', 'uk_eire*|uk_raster_*', full.names=TRUE)
 print(files)
@@ -888,10 +893,10 @@ tmax_jul <- tmax[[7]]
 tmax_max <- max(tmax)
 # Plot those maps
 par(mfrow=c(3,1), mar=c(2,2,1,1))
-bks <- seq(-500, 500, length=101)
+bks <- seq(-50, 50, length=101)
 pal <- colorRampPalette(c('lightblue','grey', 'firebrick'))
 cols <- pal(100)
-ax.args <- list(at= seq(-500, 500, by=100))
+ax.args <- list(at= seq(-50, 50, by=100))
 plot(tmax_jan, col=cols, breaks=bks, axis.args=ax.args, main='January maximum temperature')
 plot(tmax_jul, col=cols, breaks=bks, axis.args=ax.args, main='July maximum temperature')
 plot(tmax_max, col=cols, breaks=bks, , axis.args=ax.args, main='Annual maximum temperature')
@@ -995,12 +1000,15 @@ Can you produce our plan?
 ```{code-cell} r
 :tags: [hide-cell]
 
+# This is a hack! (2021-11-01) It results in the two warnings about planar data.
+sf_use_s2(FALSE)
+
 # Load the data and convert to a sf object
 alien_xy <- read.csv('data/aliens.csv')
 alien_xy <- st_as_sf(alien_xy, coords=c('long','lat'), crs=4326)
 
 # Add country information and find the total number of aliens per country
-alien_xy <- st_join(alien_xy, ne_110['ADMIN'])
+alien_xy <- st_join(alien_xy, ne_110)
 aliens_by_country <- aggregate(n_aliens ~ ADMIN, data=alien_xy, FUN=sum)
 
 # Add the alien counts into the country data 

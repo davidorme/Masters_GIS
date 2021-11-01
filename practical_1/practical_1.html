@@ -7,7 +7,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Practical One: GIS data and plotting &#8212; GIS and Spatial Methods in R</title>
     
-  <link rel="stylesheet" href="../_static/css/index.73d71520a4ca3b99cfee5594769eaaae.css">
+  <link href="../_static/css/theme.css" rel="stylesheet" />
+  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
 
     
   <link rel="stylesheet"
@@ -19,14 +20,10 @@
 
     
       
-  <link rel="stylesheet"
-    href="../_static/vendor/open-sans_all/1.44.1/index.css">
-  <link rel="stylesheet"
-    href="../_static/vendor/lato_latin-ext/1.44.1/index.css">
 
     
-    <link rel="stylesheet" href="../_static/sphinx-book-theme.2d2078699c18a0efb88233928e1cf6ed.css" type="text/css" />
-    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
@@ -34,22 +31,19 @@
     <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
     <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
     
-  <link rel="preload" as="script" href="../_static/js/index.3da636dd464baa7582d2.js">
+  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
 
-    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/language_data.js"></script>
     <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.be0a4a0c39cd630af62a2fcf693f3f06.js"></script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
-    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
-    <script >
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
         const thebe_selector = ".thebe"
         const thebe_selector_input = "pre"
         const thebe_selector_output = ".output"
@@ -59,14 +53,14 @@
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Practical Two: Species Distribution Modelling" href="../practical_2/practical_2.html" />
     <link rel="prev" title="Introduction to the practicals" href="../intro.html" />
-
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
-
-
-
+    
   </head>
   <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
     
 
     <div class="container-xl">
@@ -75,28 +69,26 @@
 <div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
     
         <div class="navbar-brand-box">
-<a class="navbar-brand text-wrap" href="../index.html">
-  
-  
-  <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
-  
-</a>
-</div>
-
-<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
   <i class="icon fas fa-search"></i>
   <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form>
-
-<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
-  <ul class="nav sidenav_l1">
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
    Introduction to the practicals
   </a>
  </li>
 </ul>
-<ul class="current nav sidenav_l1">
+<ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Practical One: GIS data and plotting
@@ -119,9 +111,8 @@
  </li>
 </ul>
 
-</nav>
-
- <!-- To handle the deprecated key -->
+    </div>
+</nav> <!-- To handle the deprecated key -->
 
 <div class="navbar_extra_footer">
   Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
@@ -136,25 +127,25 @@
           
 <main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
     
-    <div class="row topbar fixed-top container-xl">
-    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
-    </div>
-    <div class="col pl-2 topbar-main">
-        
-        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-            <i class="fas fa-bars"></i>
-            <i class="fas fa-arrow-left"></i>
-            <i class="fas fa-arrow-up"></i>
-        </button>
-        
-        <div class="dropdown-buttons-trigger">
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
             class="fas fa-download"></i></button>
 
-    
     <div class="dropdown-buttons">
         <!-- ipynb file if we had a myst markdown file -->
         <a class="dropdown-buttons"
@@ -169,18 +160,18 @@
         <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
             onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
     </div>
-    
 </div>
-        <!-- Source interaction buttons -->
 
+            <!-- Source interaction buttons -->
 
-        <!-- Full screen (wrap in <a> to have style consistency -->
-        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-                data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-                title="Fullscreen mode"><i
-                    class="fas fa-expand"></i></button></a>
+            <!-- Full screen (wrap in <a> to have style consistency -->
 
-        <!-- Launch buttons -->
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
 
 <div class="dropdown-buttons-trigger">
     <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
@@ -199,16 +190,16 @@
     </div>
 </div>
 
-    </div>
-
-    <!-- Table of contents -->
-    <div class="d-none d-md-block col-md-2 bd-toc show">
-        
-        <div class="tocsection onthispage pt-5 pb-3">
-            <i class="fas fa-list"></i> Contents
         </div>
-        <nav id="bd-toc-nav">
-            <ul class="nav section-nav flex-column">
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#required-packages">
    Required packages
@@ -477,8 +468,8 @@
  </li>
 </ul>
 
-        </nav>
-        
+            </nav>
+        </div>
     </div>
 </div>
     <div id="main-content" class="row">
@@ -488,7 +479,7 @@
                 
   <div class="cell tag_remove-input docutils container">
 </div>
-<div class="section" id="practical-one-gis-data-and-plotting">
+<div class="tex2jax_ignore mathjax_ignore section" id="practical-one-gis-data-and-plotting">
 <h1>Practical One: GIS data and plotting<a class="headerlink" href="#practical-one-gis-data-and-plotting" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="required-packages">
 <h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
@@ -550,7 +541,11 @@
 <p>The map below looks a bit peculiar - squashed vertically - because it is plotting latitude and longitude degrees as if they are constant units and they are not. We’ll come back to this in the section on reprojection below.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_7_0.png" src="../_images/practical_1_7_0.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_cast.GEOMETRYCOLLECTION(X[[i]], ...):
+“only first part of geometrycollection is retained”
+</pre></div>
+</div>
+<img alt="../_images/practical_1_7_1.png" src="../_images/practical_1_7_1.png" />
 </div>
 </div>
 <p>In order to create vector data, we need to provide a set of coordinates for the points. For different kinds of vector geometries (POINT, LINESTRING, POLYGON), the coordinates are provided in different ways. Here, we are just using very simple polygons to show the countries.</p>
@@ -612,10 +607,10 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 5 features and 1 field
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
-CRS:            EPSG:4326
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
+CRS:           EPSG:4326
        name           geometry
 1    London  POINT (-0.1 51.5)
 2   Cardiff  POINT (-3.2 51.5)
@@ -721,10 +716,10 @@ CRS:            EPSG:4326
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 6 features 
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
 First 5 geometries:
 </pre></div>
 </div>
@@ -755,13 +750,13 @@ First 5 geometries:
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 1 feature 
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -8.1 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -8.1 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPOLYGON (((-6.91875 55.3, -5.9 55.3, -5.9 ...
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>MULTIPOLYGON (((-6 56, -5 55, -3 55, -3 53.4, -...
 </pre></div>
 </div>
 </div>
@@ -826,10 +821,10 @@ Zooming in and exploring GIS data is one of the things that R is currently poor 
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 2 fields
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name                       geometry   capital
 1            Wales POLYGON ((-2.942105 51.3789...   Cardiff
 2          England POLYGON ((-2 55.8, 0.5 52.8...    London
@@ -856,10 +851,10 @@ CRS:            EPSG:4326
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 3 fields
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
 2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
@@ -883,22 +878,18 @@ CRS:            EPSG:4326
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message in st_centroid.sfc(st_geometry(x), of_largest_polygon = of_largest_polygon):
-“st_centroid does not give correct centroids for longitude/latitude data”
-</pre></div>
-</div>
 <div class="output text_html"><table>
 <caption>A matrix: 6 × 2 of type dbl</caption>
 <thead>
 	<tr><th></th><th scope=col>X</th><th scope=col>Y</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>-8.102211</td><td>53.20399</td></tr>
-	<tr><th scope=row>2</th><td>-1.479850</td><td>52.43729</td></tr>
-	<tr><th scope=row>3</th><td>-0.098056</td><td>51.51361</td></tr>
-	<tr><th scope=row>4</th><td>-6.717310</td><td>54.66788</td></tr>
-	<tr><th scope=row>5</th><td>-3.867713</td><td>56.65262</td></tr>
-	<tr><th scope=row>6</th><td>-3.854234</td><td>52.39819</td></tr>
+	<tr><th scope=row>1</th><td>-8.106654</td><td>53.20298</td></tr>
+	<tr><th scope=row>2</th><td>-1.475674</td><td>52.43422</td></tr>
+	<tr><th scope=row>3</th><td>-0.098056</td><td>51.51333</td></tr>
+	<tr><th scope=row>4</th><td>-6.718765</td><td>54.66912</td></tr>
+	<tr><th scope=row>5</th><td>-3.871562</td><td>56.63953</td></tr>
+	<tr><th scope=row>6</th><td>-3.854211</td><td>52.39694</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -908,9 +899,11 @@ CRS:            EPSG:4326
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire</span><span class="o">$</span><span class="n">area</span> <span class="o">&lt;-</span> <span class="nf">st_area</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
-<span class="c1"># The length of a polygon is the perimeter length </span>
-<span class="c1"># - note that this includes the length of internal holes.</span>
-<span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span> <span class="o">&lt;-</span> <span class="nf">st_length</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
+<span class="c1"># To calculate a &#39;length&#39; of a polygon, you have to </span>
+<span class="c1"># convert it to a LINESTRING or a MULTILINESTRING</span>
+<span class="c1"># Using MULTILINESTRING will automatically </span>
+<span class="c1"># include all perimeter of a polygon (including holes).</span>
+<span class="n">uk_eire</span><span class="o">$</span><span class="n">length</span> <span class="o">&lt;-</span> <span class="nf">st_length</span><span class="p">(</span><span class="nf">st_cast</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">,</span> <span class="s">&#39;MULTILINESTRING&#39;</span><span class="p">))</span>
 <span class="c1"># Look at the result</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">uk_eire</span><span class="p">)</span>
 </pre></div>
@@ -919,10 +912,10 @@ CRS:            EPSG:4326
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
 Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
 2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
@@ -931,12 +924,12 @@ CRS:            EPSG:4326
 5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
 6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
                 area        length
-1  80555367364 [m^2] 1326763.9 [m]
-2 125982254516 [m^2] 2062484.3 [m]
-3   1515812620 [m^2]  143796.2 [m]
-4  13656055128 [m^2]  480968.2 [m]
-5  76276260910 [m^2] 1255577.2 [m]
-6  28948401464 [m^2]  689831.5 [m]
+1  80224782361 [m^2] 1324119.2 [m]
+2 125488900310 [m^2] 2058789.3 [m]
+3   1510155053 [m^2]  143591.5 [m]
+4  13595479622 [m^2]  479891.1 [m]
+5  75904870952 [m^2] 1252736.0 [m]
+6  28834611074 [m^2]  688614.9 [m]
 </pre></div>
 </div>
 </div>
@@ -954,10 +947,10 @@ CRS:            EPSG:4326
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
 Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
 2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
@@ -966,12 +959,12 @@ CRS:            EPSG:4326
 5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
 6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
                area         length
-1  80555.367 [km^2] 1326.7639 [km]
-2 125982.255 [km^2] 2062.4843 [km]
-3   1515.813 [km^2]  143.7962 [km]
-4  13656.055 [km^2]  480.9682 [km]
-5  76276.261 [km^2] 1255.5772 [km]
-6  28948.401 [km^2]  689.8315 [km]
+1  80224.782 [km^2] 1324.1192 [km]
+2 125488.900 [km^2] 2058.7893 [km]
+3   1510.155 [km^2]  143.5915 [km]
+4  13595.480 [km^2]  479.8911 [km]
+5  75904.871 [km^2] 1252.7360 [km]
+6  28834.611 [km^2]  688.6149 [km]
 </pre></div>
 </div>
 </div>
@@ -1013,13 +1006,13 @@ Traceback:
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
-          [,1]     [,2]     [,3]      [,4]      [,5]      [,6]
-[1,]      0.00 189660.5 388874.5      0.00  89305.75  52085.08
-[2,] 189660.51      0.0      0.0 185529.79      0.00      0.00
-[3,] 388874.46      0.0      0.0 463253.57 407423.19 163295.88
-[4,]      0.00 185529.8 463253.6      0.00  33455.33 119471.08
-[5,]  89305.75      0.0 407423.2  33455.33      0.00 178084.13
-[6,]  52085.08      0.0 163295.9 119471.08 178084.13      0.00
+          [,1]     [,2]     [,3]      [,4]      [,5]     [,6]
+[1,]      0.00 189032.0 387664.3      0.00  89051.48  51928.7
+[2,] 189032.04      0.0      0.0 184905.78      0.00      0.0
+[3,] 387664.31      0.0      0.0 462098.10 406857.16 162778.6
+[4,]      0.00 184905.8 462098.1      0.00  33359.85 119165.8
+[5,]  89051.48      0.0 406857.2  33359.85      0.00 177902.3
+[6,]  51928.70      0.0 162778.6 119165.80 177902.34      0.0
 </pre></div>
 </div>
 </div>
@@ -1033,12 +1026,12 @@ Traceback:
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]     [,2]     [,3]     [,4]     [,5]     [,6]
-[1,]      0.0 454351.6 576456.5 186596.2 469999.3 300157.7
-[2,] 454351.6      0.0 139917.3 426582.5 493943.0 161597.1
-[3,] 576456.5 139917.3      0.0 565182.7 622706.0 276301.1
-[4,] 186596.2 426582.5 565182.7      0.0 284546.5 315936.9
-[5,] 469999.3 493943.0 622706.0 284546.5      0.0 473581.0
-[6,] 300157.7 161597.1 276301.1 315936.9 473581.0      0.0
+[1,]      0.0 453549.8 575022.5 186624.2 468069.2 299552.0
+[2,] 453549.8      0.0 139242.9 426112.3 492415.7 161361.2
+[3,] 575022.5 139242.9      0.0 564047.9 620666.1 275472.6
+[4,] 186624.2 426112.3 564047.9      0.0 282632.2 315659.1
+[5,] 468069.2 492415.7 620666.1 282632.2      0.0 471755.6
+[6,] 299552.0 161361.2 275472.6 315659.1 471755.6      0.0
 </pre></div>
 </div>
 </div>
@@ -1160,7 +1153,7 @@ Traceback:
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]
-[1,] 69419.29
+[1,] 69199.37
 </pre></div>
 </div>
 </div>
@@ -1174,7 +1167,7 @@ Traceback:
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]
-[1,] 111267.6
+[1,] 111195.1
 </pre></div>
 </div>
 </div>
@@ -1494,9 +1487,10 @@ values     : 1, 494  (min, max)
 <p>One excellent feature of the <code class="docutils literal notranslate"><span class="pre">sf</span></code> package is the sheer quantity of warnings it will issue to avoid making errors. When you alter geometries, it isn’t always clear that the attributes of the original geometry apply to the altered geometries.  Here, we are being warned that the country attributes might not apply to the lines. We can use the <code class="docutils literal notranslate"><span class="pre">st_agr</span></code> function to tell <code class="docutils literal notranslate"><span class="pre">sf</span></code> that attributes <em>are</em> constant and it will stop warning us.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">st_agr</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="s">&#39;constant&#39;</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">uk_eire_BNG</span><span class="o">$</span><span class="n">name</span> <span class="o">&lt;-</span> <span class="nf">as.factor</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="o">$</span><span class="n">name</span><span class="p">)</span>
+<span class="nf">st_agr</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="s">&#39;constant&#39;</span>
 
-<span class="c1"># Rasterizing lines</span>
+<span class="c1"># Rasterizing lines.</span>
 <span class="n">uk_eire_BNG_line</span> <span class="o">&lt;-</span> <span class="nf">st_cast</span><span class="p">(</span><span class="n">uk_eire_BNG</span><span class="p">,</span> <span class="s">&#39;LINESTRING&#39;</span><span class="p">)</span>
 <span class="n">uk_eire_line_20km</span> <span class="o">&lt;-</span> <span class="nf">rasterize</span><span class="p">(</span><span class="nf">as</span><span class="p">(</span><span class="n">uk_eire_BNG_line</span><span class="p">,</span> <span class="s">&#39;Spatial&#39;</span><span class="p">),</span> <span class="n">uk_20km</span><span class="p">,</span> <span class="n">field</span><span class="o">=</span><span class="s">&#39;name&#39;</span><span class="p">)</span>
 
@@ -1577,11 +1571,13 @@ values     : 1, 494  (min, max)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source `data/uk_eire_WGS84.shp&#39; using driver `ESRI Shapefile&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source 
+  `data/uk_eire_WGS84.shp&#39; using driver `ESRI Shapefile&#39;
 Writing 6 features with 6 fields and geometry type Polygon.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_BNG&#39; to data source `data/uk_eire_BNG.shp&#39; using driver `ESRI Shapefile&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_BNG&#39; to data source 
+  `data/uk_eire_BNG.shp&#39; using driver `ESRI Shapefile&#39;
 Writing 6 features with 6 fields and geometry type Polygon.
 </pre></div>
 </div>
@@ -1601,11 +1597,13 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source `data/uk_eire_WGS84.geojson&#39; using driver `GeoJSON&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source 
+  `data/uk_eire_WGS84.geojson&#39; using driver `GeoJSON&#39;
 Writing 6 features with 6 fields and geometry type Polygon.
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source `data/uk_eire_WGS84.gpkg&#39; using driver `GPKG&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source 
+  `data/uk_eire_WGS84.gpkg&#39; using driver `GPKG&#39;
 Writing 6 features with 6 fields and geometry type Polygon.
 </pre></div>
 </div>
@@ -1619,7 +1617,8 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source `data/uk_eire_WGS84.json&#39; using driver `GeoJSON&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Writing layer `uk_eire_WGS84&#39; to data source 
+  `data/uk_eire_WGS84.json&#39; using driver `GeoJSON&#39;
 Writing 6 features with 6 fields and geometry type Polygon.
 </pre></div>
 </div>
@@ -1657,12 +1656,14 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `ne_110m_admin_0_countries&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp&#39; using driver `ESRI Shapefile&#39;
-Simple feature collection with 177 features and 94 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
-CRS:            4326
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `ne_110m_admin_0_countries&#39; from data source 
+  `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp&#39; 
+  using driver `ESRI Shapefile&#39;
+Simple feature collection with 177 features and 161 fields
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -180 ymin: -90 xmax: 180 ymax: 83.64513
+CRS:           4326
 </pre></div>
 </div>
 </div>
@@ -1763,7 +1764,7 @@ dimensions : 720, 1440, 1036800  (nrow, ncol, ncell)
 resolution : 0.25, 0.25  (x, y)
 extent     : -180, 180, -90, 90  (xmin, xmax, ymin, ymax)
 crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : /Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/etopo_25.tif 
+source     : etopo_25.tif 
 names      : etopo_25 
 values     : -9295.364, 5930.763  (min, max)
 </pre></div>
@@ -1835,10 +1836,10 @@ max values :   418,   414,   420,   429,   441,   467,   489,   474,   441,    4
 <span class="n">tmax_max</span> <span class="o">&lt;-</span> <span class="nf">max</span><span class="p">(</span><span class="n">tmax</span><span class="p">)</span>
 <span class="c1"># Plot those maps</span>
 <span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-<span class="n">bks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-500</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="m">101</span><span class="p">)</span>
+<span class="n">bks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-50</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="n">length</span><span class="o">=</span><span class="m">101</span><span class="p">)</span>
 <span class="n">pal</span> <span class="o">&lt;-</span> <span class="nf">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;lightblue&#39;</span><span class="p">,</span><span class="s">&#39;grey&#39;</span><span class="p">,</span> <span class="s">&#39;firebrick&#39;</span><span class="p">))</span>
 <span class="n">cols</span> <span class="o">&lt;-</span> <span class="nf">pal</span><span class="p">(</span><span class="m">100</span><span class="p">)</span>
-<span class="n">ax.args</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span><span class="n">at</span><span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-500</span><span class="p">,</span> <span class="m">500</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">100</span><span class="p">))</span>
+<span class="n">ax.args</span> <span class="o">&lt;-</span> <span class="nf">list</span><span class="p">(</span><span class="n">at</span><span class="o">=</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-50</span><span class="p">,</span> <span class="m">50</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">100</span><span class="p">))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">tmax_jan</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">axis.args</span><span class="o">=</span><span class="n">ax.args</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;January maximum temperature&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">tmax_jul</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="n">axis.args</span><span class="o">=</span><span class="n">ax.args</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;July maximum temperature&#39;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">tmax_max</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="n">cols</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> <span class="p">,</span> <span class="n">axis.args</span><span class="o">=</span><span class="n">ax.args</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Annual maximum temperature&#39;</span><span class="p">)</span>
@@ -1870,15 +1871,14 @@ max values :   418,   414,   420,   429,   441,   467,   489,   474,   441,    4
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `ne_10m_admin_0_countries&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp&#39; using driver `ESRI Shapefile&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `ne_10m_admin_0_countries&#39; from data source 
+  `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/ne_10m_admin_0_countries/ne_10m_admin_0_countries.shp&#39; 
+  using driver `ESRI Shapefile&#39;
 Simple feature collection with 255 features and 94 fields
-geometry type:  MULTIPOLYGON
-dimension:      XY
-bbox:           xmin: -180 ymin: -90 xmax: 180 ymax: 83.6341
-CRS:            4326
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+Geometry type: MULTIPOLYGON
+Dimension:     XY
+Bounding box:  xmin: -180 ymin: -90 xmax: 180 ymax: 83.6341
+CRS:           4326
 </pre></div>
 </div>
 </div>
@@ -1991,11 +1991,11 @@ CRS:            4326
 </thead>
 <tbody>
 	<tr><th scope=row>2</th><td>Somaliland  </td><td> 3500000</td><td>Somaliland  </td><td> 5</td><td>MULTIPOLYGON (((4597353 122...</td><td>1.388201e+11</td></tr>
-	<tr><th scope=row>6</th><td>Angola      </td><td>29310273</td><td>Angola      </td><td>41</td><td>MULTIPOLYGON (((1226185 -51...</td><td>1.039192e+12</td></tr>
-	<tr><th scope=row>16</th><td>Burundi     </td><td>11466756</td><td>Burundi     </td><td> 1</td><td>MULTIPOLYGON (((2877605 -25...</td><td>2.156439e+10</td></tr>
-	<tr><th scope=row>18</th><td>Benin       </td><td>11038805</td><td>Benin       </td><td> 1</td><td>MULTIPOLYGON (((253782.4 66...</td><td>9.698961e+10</td></tr>
-	<tr><th scope=row>19</th><td>Burkina Faso</td><td>20107509</td><td>Burkina Faso</td><td> 7</td><td>MULTIPOLYGON (((-508076 110...</td><td>2.265447e+11</td></tr>
-	<tr><th scope=row>30</th><td>Botswana    </td><td> 2214858</td><td>Botswana    </td><td>12</td><td>MULTIPOLYGON (((2721227 -23...</td><td>5.125633e+11</td></tr>
+	<tr><th scope=row>5</th><td>Angola      </td><td>29310273</td><td>Angola      </td><td>41</td><td>MULTIPOLYGON (((1226185 -51...</td><td>1.039192e+12</td></tr>
+	<tr><th scope=row>15</th><td>Burundi     </td><td>11466756</td><td>Burundi     </td><td> 1</td><td>MULTIPOLYGON (((2877605 -25...</td><td>2.156439e+10</td></tr>
+	<tr><th scope=row>17</th><td>Benin       </td><td>11038805</td><td>Benin       </td><td> 1</td><td>MULTIPOLYGON (((253782.4 66...</td><td>9.698961e+10</td></tr>
+	<tr><th scope=row>18</th><td>Burkina Faso</td><td>20107509</td><td>Burkina Faso</td><td> 7</td><td>MULTIPOLYGON (((-508076 110...</td><td>2.265447e+11</td></tr>
+	<tr><th scope=row>29</th><td>Botswana    </td><td> 2214858</td><td>Botswana    </td><td>12</td><td>MULTIPOLYGON (((2721227 -23...</td><td>5.125633e+11</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -2021,12 +2021,15 @@ CRS:            4326
 </div>
 <div class="cell tag_hide-cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data and convert to a sf object</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># This is a hack! (2021-11-01)</span>
+<span class="nf">sf_use_s2</span><span class="p">(</span><span class="kc">FALSE</span><span class="p">)</span>
+
+<span class="c1"># Load the data and convert to a sf object</span>
 <span class="n">alien_xy</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;data/aliens.csv&#39;</span><span class="p">)</span>
 <span class="n">alien_xy</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">alien_xy</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;long&#39;</span><span class="p">,</span><span class="s">&#39;lat&#39;</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
 
 <span class="c1"># Add country information and find the total number of aliens per country</span>
-<span class="n">alien_xy</span> <span class="o">&lt;-</span> <span class="nf">st_join</span><span class="p">(</span><span class="n">alien_xy</span><span class="p">,</span> <span class="n">ne_110</span><span class="p">[</span><span class="s">&#39;ADMIN&#39;</span><span class="p">])</span>
+<span class="n">alien_xy</span> <span class="o">&lt;-</span> <span class="nf">st_join</span><span class="p">(</span><span class="n">alien_xy</span><span class="p">,</span> <span class="n">ne_110</span><span class="p">)</span>
 <span class="n">aliens_by_country</span> <span class="o">&lt;-</span> <span class="nf">aggregate</span><span class="p">(</span><span class="n">n_aliens</span> <span class="o">~</span> <span class="n">ADMIN</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">alien_xy</span><span class="p">,</span> <span class="n">FUN</span><span class="o">=</span><span class="n">sum</span><span class="p">)</span>
 
 <span class="c1"># Add the alien counts into the country data </span>
@@ -2042,13 +2045,16 @@ CRS:            4326
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Spherical geometry (s2) switched off
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
 </pre></div>
 </div>
-<img alt="../_images/practical_1_129_2.png" src="../_images/practical_1_129_2.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+</pre></div>
+</div>
+<img alt="../_images/practical_1_129_3.png" src="../_images/practical_1_129_3.png" />
 </div>
 </div>
 </div>
@@ -2168,10 +2174,10 @@ exact altitude or surface temperature of sampling sites or average values within
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 5 features and 2 fields
-geometry type:  POINT
-dimension:      XY
-bbox:           xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
-CRS:            EPSG:4326
+Geometry type: POINT
+Dimension:     XY
+Bounding box:  xmin: -6.25 ymin: 51.5 xmax: -0.1 ymax: 55.8
+CRS:           EPSG:4326
        name           geometry elev
 1    London  POINT (-0.1 51.5)    8
 2   Cardiff  POINT (-3.2 51.5)   21
@@ -2205,10 +2211,10 @@ values     : -64, 1195  (min, max)
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 6 fields
 Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 3 NA&#39;s
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
 2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
@@ -2217,20 +2223,20 @@ CRS:            EPSG:4326
 5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
 6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
                area    length log_n_km2
-1  80555.367 [km^2] 1326.7639        NA
-2 125982.255 [km^2] 2062.4843  2.414973
-3   1515.813 [km^2]  143.7962  3.653213
-4  13656.055 [km^2]  480.9682  2.123852
-5  76276.261 [km^2] 1255.5772  1.826075
-6  28948.401 [km^2]  689.8315  2.178977
+1  80224.782 [km^2] 1324.1192        NA
+2 125488.900 [km^2] 2058.7893  2.414973
+3   1510.155 [km^2]  143.5915  3.653213
+4  13595.480 [km^2]  479.8911  2.123852
+5  75904.871 [km^2] 1252.7360  1.826075
+6  28834.611 [km^2]  688.6149  2.178977
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 7 fields
 Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 4 NA&#39;s
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
-CRS:            EPSG:4326
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
+CRS:           EPSG:4326
               name   capital n_km2                       geometry
 1             Eire    Dublin    NA POLYGON ((-10 51.5, -10 54....
 2          England    London   260 POLYGON ((-2 55.8, 0.5 52.8...
@@ -2239,12 +2245,12 @@ CRS:            EPSG:4326
 5         Scotland Edinburgh    67 POLYGON ((-5 58.6, -3 58.6,...
 6            Wales   Cardiff   151 POLYGON ((-2.942105 51.3789...
                area    length log_n_km2 mean_height
-1  80555.367 [km^2] 1326.7639        NA   108.64256
-2 125982.255 [km^2] 2062.4843  2.414973   110.57183
-3   1515.813 [km^2]  143.7962  3.653213    57.20426
-4  13656.055 [km^2]  480.9682  2.123852   125.03498
-5  76276.261 [km^2] 1255.5772  1.826075   270.21158
-6  28948.401 [km^2]  689.8315  2.178977   218.65102
+1  80224.782 [km^2] 1324.1192        NA   108.64256
+2 125488.900 [km^2] 2058.7893  2.414973   110.57183
+3   1510.155 [km^2]  143.5915  3.653213    57.20426
+4  13595.480 [km^2]  479.8911  2.123852   125.03498
+5  75904.871 [km^2] 1252.7360  1.826075   270.21158
+6  28834.611 [km^2]  688.6149  2.178977   218.65102
 </pre></div>
 </div>
 </div>
@@ -2276,12 +2282,14 @@ Available layers:
 5 track_points             Point        0     26
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `routes&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/National_Trails_Pennine_Way.gpx&#39; using driver `GPX&#39;
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading layer `routes&#39; from data source 
+  `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_1/data/National_Trails_Pennine_Way.gpx&#39; 
+  using driver `GPX&#39;
 Simple feature collection with 1 feature and 12 fields
-geometry type:  LINESTRING
-dimension:      XY
-bbox:           xmin: -2.562267 ymin: 53.36435 xmax: -1.816825 ymax: 55.54717
-CRS:            4326
+Geometry type: LINESTRING
+Dimension:     XY
+Bounding box:  xmin: -2.562267 ymin: 53.36435 xmax: -1.816825 ymax: 55.54717
+CRS:           4326
 </pre></div>
 </div>
 </div>
@@ -2470,10 +2478,10 @@ CRS:            4326
 </pre></div>
 </div>
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 1 feature 
-geometry type:  POLYGON
-dimension:      XY
-bbox:           xmin: -731666 ymin: 8874187 xmax: 1505647 ymax: 1e+07
-CRS:            EPSG:32754
+Geometry type: POLYGON
+Dimension:     XY
+Bounding box:  xmin: -731666 ymin: 8874187 xmax: 1505647 ymax: 1e+07
+CRS:           EPSG:32754
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
@@ -2888,23 +2896,43 @@ Make a GIF which mapping the time series of the global life expectancy for all c
 
               </div>
               
+        
+            
+
+
+
+<div class='prev-next-bottom'>
+    
+    <div id="prev">
+        <a class="left-prev" href="../intro.html" title="previous page">
+            <i class="prevnext-label fas fa-angle-left"></i>
+            <div class="prevnext-info">
+                <p class="prevnext-label">previous</p>
+                <p class="prevnext-title">Introduction to the practicals</p>
+            </div>
+        </a>
+    </div>
+     <div id="next">
+        <a class="right-next" href="../practical_2/practical_2.html" title="next page">
+            <div class="prevnext-info">
+                <p class="prevnext-label">next</p>
+                <p class="prevnext-title">Practical Two: Species Distribution Modelling</p>
+            </div>
+            <i class="prevnext-label fas fa-angle-right"></i>
+        </a>
+     </div>
+
+</div>
+        
         </div>
     </div>
-    
-    
-    <div class='prev-next-bottom'>
-        
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Introduction to the practicals</a>
-    <a class='right-next' id="next-link" href="../practical_2/practical_2.html" title="next page">Practical Two: Species Distribution Modelling</a>
-
-    </div>
-    <footer class="footer mt-5 mt-md-0">
+    <footer class="footer">
     <div class="container">
       <p>
         
           By David Orme<br/>
         
-            &copy; Copyright 2020.<br/>
+            &copy; Copyright 2021.<br/>
       </p>
     </div>
   </footer>
@@ -2913,11 +2941,9 @@ Make a GIF which mapping the time series of the global life expectancy for all c
 
       </div>
     </div>
+  
+  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
 
-    
-  <script src="../_static/js/index.3da636dd464baa7582d2.js"></script>
-
-
-    
+  
   </body>
 </html>
