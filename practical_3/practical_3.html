@@ -320,18 +320,25 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="practical-three-spatial-modelling-in-r">
 <h1>Practical Three: Spatial modelling in R<a class="headerlink" href="#practical-three-spatial-modelling-in-r" title="Permalink to this headline">¶</a></h1>
-<p>This practical looks at some of the problems of fitting statistical models to spatial data, using the statistical software R. We are going to be covering a lot of ground but:</p>
+<p>This practical looks at some of the problems of fitting statistical models to
+spatial data, using the statistical software R. We are going to be covering a
+lot of ground but:</p>
 <blockquote>
 <div><p>Do <strong>not</strong> panic.</p>
 </div></blockquote>
-<p>The intention in this practical is to show some options that are available for spatial models in R. The main thing is to think about what the options are available, not in learning how to do it all in one afternoon!</p>
+<p>The intention in this practical is to show some options that are available for
+spatial models in R. The main thing is to think about what the options are
+available, not in learning how to do it all in one afternoon!</p>
 <p>There are a lot of other resources out there to provide more detail and I <em>highly</em> recommend this:</p>
 <p><a class="reference external" href="https://rspatial.org/raster/analysis/index.html">https://rspatial.org/raster/analysis/index.html</a></p>
 <div class="section" id="required-packages">
 <h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
-<p>As with species distribution mdelling, there are many packages used in spatial modelling. There is an intimidating complete list of topics and packages here:</p>
+<p>As with species distribution mdelling, there are many packages used in spatial
+modelling. There is an intimidating complete list of topics and packages here:</p>
 <p><a class="reference external" href="https://CRAN.R-project.org/view=Spatial">https://CRAN.R-project.org/view=Spatial</a></p>
-<p>This practical requires the following packages, which should all be installed in the RStudio Cloud project, but which you will need to install if you are using your own computer.</p>
+<p>This practical requires the following packages, which should all be installed in
+the RStudio Cloud project, but which you will need to install if you are using
+your own computer.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ncf&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span>
 <span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
@@ -364,12 +371,29 @@
 </div>
 <div class="section" id="the-dataset">
 <h2>The dataset<a class="headerlink" href="#the-dataset" title="Permalink to this headline">¶</a></h2>
-<p>We will use some data taken from a paper that looked at trying to predict what limits species ranges:</p>
+<p>We will use some data taken from a paper that looked at trying to predict what
+limits species ranges:</p>
 <blockquote>
-<div><p>McInnes, L., Purvis, A., &amp; Orme, C. D. L. (2009). Where do species’ geographic ranges stop and why? Landscape impermeability and the Afrotropical avifauna. Proceedings of the Royal Society Series B - Biological Sciences, 276(1670), 3063-3070. <a class="reference external" href="http://doi.org/10.1098/rspb.2009.0656">http://doi.org/10.1098/rspb.2009.0656</a></p>
+<div><p>McInnes, L., Purvis, A., &amp; Orme, C. D. L. (2009). Where do species’ geographic
+ranges stop and why? Landscape impermeability and the Afrotropical avifauna.
+Proceedings of the Royal Society Series B - Biological Sciences, 276(1670),
+3063-3070.
+<a class="reference external" href="http://doi.org/10.1098/rspb.2009.0656">http://doi.org/10.1098/rspb.2009.0656</a></p>
 </div></blockquote>
-<p>We won’t actually be looking at range edges but we’re going to use four variables taken from the data used in this paper. The data is all saved as GeoTIFF files, so we’re starting with raster data. The files cover the Afrotropics and are all projected in the Behrmann equal area projection. This is a cylindrical equal area projection with a <em>latitude of true scale</em> of 30°. What that <em>means</em> is that distances on the projected map correspond to distances over the surface of the Earth at ±30° of latitude.</p>
-<p>That is the reason for the odd resolution of this data: 96.48627 km. The circumference of the Earth at ±30° - the length of the parallels at ±30° - is ~ 34735.06 km and this resolution splits the map into 360 cells giving a resolution comparable to a degree longitude at 30° N. Unlike a one degree resolution grid, however, these grid cells all cover an <strong>equal area</strong> on the ground (<span class="math notranslate nohighlight">\(96.48627 \times 96.48627 = 9309.6 \text{km}^2\)</span>, roughly the land area of Cyprus).</p>
+<p>We won’t actually be looking at range edges but we’re going to use four
+variables taken from the data used in this paper. The data is all saved as
+GeoTIFF files, so we’re starting with raster data. The files cover the
+Afrotropics and are all projected in the Behrmann equal area projection. This is
+a cylindrical equal area projection with a <em>latitude of true scale</em> of 30°. What
+that <em>means</em> is that distances on the projected map correspond to distances over
+the surface of the Earth at ±30° of latitude.</p>
+<p>That is the reason for the odd resolution of this data: 96.48627 km. The
+circumference of the Earth at ±30° - the length of the parallels at ±30° - is ~
+34735.06 km and this resolution splits the map into 360 cells giving a
+resolution comparable to a degree longitude at 30° N. Unlike a one degree
+resolution grid, however, these grid cells all cover an <strong>equal area</strong> on the
+ground (<span class="math notranslate nohighlight">\(96.48627 \times 96.48627 = 9309.6 \text{km}^2\)</span>, roughly the land area
+of Cyprus).</p>
 <p>The variables for each grid cell are:</p>
 <ul class="simple">
 <li><p>the avian species richness across the Afrotropics,</p></li>
@@ -390,13 +414,17 @@
 </div>
 </div>
 </div>
-<p>It is always a good idea to look at the details of the data. One key skills in being a good scientist and statistician is in looking at data and models and saying:</p>
+<p>It is always a good idea to look at the details of the data. One key skill in
+being a good scientist and statistician is in looking at data and models and
+saying:</p>
 <blockquote>
 <div><p>Uh, that doesn’t make any sense, something has gone wrong.</p>
 </div></blockquote>
 <p>So we will quickly use some techniques to explore the data we have just loaded.</p>
 <ol class="simple">
-<li><p>We will look at the summary of the richness data. That shows us the dimensions of the data, resolution, extent and coordinate reference system and the range of the data: between 10 and 667 species per cell.</p></li>
+<li><p>We will look at the summary of the richness data. That shows us the
+dimensions of the data, resolution, extent and coordinate reference system
+and the range of the data: between 10 and 667 species per cell.</p></li>
 </ol>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -433,7 +461,9 @@ values     : 10, 667  (min, max)
 <img alt="../_images/practical_3_7_0.png" src="../_images/practical_3_7_0.png" />
 </div>
 </div>
-<p>We can use R to explore this data a bit further. We can use the <code class="docutils literal notranslate"><span class="pre">hist()</span></code> function to plot the distribution of the values in each variable, not just look at the minimum and maximum.</p>
+<p>We can use R to explore this data a bit further. We can use the <code class="docutils literal notranslate"><span class="pre">hist()</span></code>
+function to plot the distribution of the values in each variable, not just look
+at the minimum and maximum.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># split the figure area into a two by two layout</span>
@@ -453,8 +483,12 @@ values     : 10, 667  (min, max)
 </div>
 <div class="section" id="formatting-the-data-as-a-data-frame">
 <h3>Formatting the data as a data frame<a class="headerlink" href="#formatting-the-data-as-a-data-frame" title="Permalink to this headline">¶</a></h3>
-<p>We now have the data as rasters but some of the methods require the values in a data frame. We’ll need to use two commands:</p>
-<p>First, <code class="docutils literal notranslate"><span class="pre">stack()</span></code> allows us to superimpose the four rasters into a single object. Note that this only works because all of these rasters have the same projection, extent and resolution. In your own use, you would need to use GIS to set up your data so it can be stacked like this.</p>
+<p>We now have the data as rasters but some of the methods require the values in a
+data frame. We’ll need to use two commands:</p>
+<p>First, <code class="docutils literal notranslate"><span class="pre">stack()</span></code> allows us to superimpose the four rasters into a single object.
+Note that this only works because all of these rasters have the same projection,
+extent and resolution. In your own use, you would need to use GIS to set up your
+data so it can be stacked like this.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Stack the data</span>
@@ -476,7 +510,11 @@ max values :       667.0000, 1552.6500, 2750.2800,   30.3667
 </div>
 </div>
 </div>
-<p>Second, <code class="docutils literal notranslate"><span class="pre">as()</span></code> allows us to convert an R object from one format to another. Here we convert to the <code class="docutils literal notranslate"><span class="pre">SpatialPixelDataFrame</span></code> format from the <code class="docutils literal notranslate"><span class="pre">sp</span></code> package. This is a useful format because it works very like a data frame, but identifies the geometry as pixels. Note that the names of the <em>variables in the data frame have been set from the original TIFF filenames</em>, not our variable names in R.</p>
+<p>Second, <code class="docutils literal notranslate"><span class="pre">as()</span></code> allows us to convert an R object from one format to another. Here
+we convert to the <code class="docutils literal notranslate"><span class="pre">SpatialPixelDataFrame</span></code> format from the <code class="docutils literal notranslate"><span class="pre">sp</span></code> package. This is
+a useful format because it works very like a data frame, but identifies the
+geometry as pixels. Note that the names of the <em>variables in the data frame have
+been set from the original TIFF filenames</em>, not our variable names in R.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_spdf</span> <span class="o">&lt;-</span> <span class="nf">as</span><span class="p">(</span><span class="n">data_stack</span><span class="p">,</span> <span class="s">&#39;SpatialPixelsDataFrame&#39;</span><span class="p">)</span>
@@ -511,9 +549,11 @@ Data attributes:
 </div>
 </div>
 </div>
-<p>We can also that into a <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, which we have been using in previous practicals. These differ in how they represent the geometry:</p>
+<p>We can also that into a <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, which we have been using in previous
+practicals. These differ in how they represent the geometry:</p>
 <ul class="simple">
-<li><p><code class="docutils literal notranslate"><span class="pre">SpatialPixelDataFrame</span></code>: this holds the data as values in <em>pixels</em>, so ‘knows’ that the values represents an area.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">SpatialPixelDataFrame</span></code>: this holds the data as values in <em>pixels</em>, so ‘knows’
+that the values represents an area.</p></li>
 <li><p><code class="docutils literal notranslate"><span class="pre">sf</span></code>: the default conversion here holds the data as values at a point.</p></li>
 </ul>
 <div class="cell docutils container">
@@ -547,8 +587,14 @@ First 10 features:
 </div>
 <div class="admonition-affine-transformation-sidebar admonition">
 <p class="admonition-title">Affine transformation sidebar</p>
-<p>Just to show off <code class="docutils literal notranslate"><span class="pre">sf</span></code> a bit - and do something a bit more complex with <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects - we can turn that point data into polygon data. Each cell is the centre of a cell with sides of ~96 km: we can use those points to define <a class="reference external" href="https://r-spatial.github.io/sf/articles/sf3.html">affine transformations</a>. This means we can create a template polygon that is the right size for the grid cells, centred on zero and then use the points to move them all into the right place.</p>
-<p>This code is a little bit trickier! Also, if I’m being honest, a polygon grid isn’t a great way to store raster data!</p>
+<p>Just to show off <code class="docutils literal notranslate"><span class="pre">sf</span></code> a bit - and do something a bit more complex with <code class="docutils literal notranslate"><span class="pre">sf</span></code>
+objects - we can turn that point data into polygon data. Each cell is the centre
+of a cell with sides of ~96 km: we can use those points to define <a class="reference external" href="https://r-spatial.github.io/sf/articles/sf3.html">affine
+transformations</a>. This means
+we can create a template polygon that is the right size for the grid cells,
+centred on zero and then use the points to move them all into the right place.</p>
+<p>This code is a little bit trickier! Also, if I’m being honest, a polygon grid
+isn’t a great way to store raster data!</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -571,8 +617,13 @@ First 10 features:
 </div>
 <div class="section" id="more-data-exploration">
 <h3>More data exploration<a class="headerlink" href="#more-data-exploration" title="Permalink to this headline">¶</a></h3>
-<p>We now have new data structures that have spatial information and matches up the different variables across locations.</p>
-<p>We can still plot the data as a map and the images below show the difference between the <code class="docutils literal notranslate"><span class="pre">SpatialPixelsDataFrame</span></code> and the <code class="docutils literal notranslate"><span class="pre">sf</span></code> version of the data. The code has lots of odd options: this combination of settings avoids each plot command insisting on the layout it wants to use and lets us <a class="reference external" href="https://www.r-spatial.org/r/2016/03/08/plotting-spatial-grids.html">control the layout of the plots</a>.</p>
+<p>We now have new data structures that have spatial information and matches up the
+different variables across locations.</p>
+<p>We can still plot the data as a map and the images below show the difference
+between the <code class="docutils literal notranslate"><span class="pre">SpatialPixelsDataFrame</span></code> and the <code class="docutils literal notranslate"><span class="pre">sf</span></code> version of the data. The code
+has lots of odd options: this combination of settings avoids each plot command
+insisting on the layout it wants to use and lets us <a class="reference external" href="https://www.r-spatial.org/r/2016/03/08/plotting-spatial-grids.html">control the layout of the
+plots</a>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Plot the richness data as point data</span>
@@ -608,9 +659,24 @@ First 10 features:
 </div>
 <div class="section" id="correlations-and-spatial-data">
 <h2>Correlations and spatial data<a class="headerlink" href="#correlations-and-spatial-data" title="Permalink to this headline">¶</a></h2>
-<p>A <strong>correlation coefficient</strong> is a standardised measure between -1 and 1 showing how much observations of two variables tend to co-vary. For a positive correlation, both variables tend to have high values in the same locations and low values in the same locations. Negative correlations show the opposite. Once you’ve calculated a correlation, you need to assess how strong that correlation is <em>given the amount of data you have</em>: it is easy to get large <span class="math notranslate nohighlight">\(r\)</span> values in small datasets by chance.</p>
-<p>However, correlation coefficients assume that the data points are independent and this is not true for spatial data. Nearby data points tend to be similar: if you are in a warm location, surrounding areas will also tend to be warm. One relatively simple way of removing this non-independence is to calculate the significance of tests as if you had fewer data points.</p>
-<p>We will use this approach to  compare standard measures of correlation to spatially corrected ones. We need to load a new set of functions that implement a modification to the correlation test that accounts for spatial similarity, described in <a class="reference external" href="https://jstor.org/stable/2532039">this paper</a>. The modified test does not change the correlation statistic itself but calculates a new effective sample size and uses this in calculating the <span class="math notranslate nohighlight">\(F\)</span> statistic.</p>
+<p>A <strong>correlation coefficient</strong> is a standardised measure between -1 and 1 showing
+how much observations of two variables tend to co-vary. For a positive
+correlation, both variables tend to have high values in the same locations and
+low values in the same locations. Negative correlations show the opposite. Once
+you’ve calculated a correlation, you need to assess how strong that correlation
+is <em>given the amount of data you have</em>: it is easy to get large <span class="math notranslate nohighlight">\(r\)</span> values in
+small datasets by chance.</p>
+<p>However, correlation coefficients assume that the data points are independent
+and this is not true for spatial data. Nearby data points tend to be similar: if
+you are in a warm location, surrounding areas will also tend to be warm. One
+relatively simple way of removing this non-independence is to calculate the
+significance of tests as if you had fewer data points.</p>
+<p>We will use this approach to  compare standard measures of correlation to
+spatially corrected ones. We need to load a new set of functions that implement
+a modification to the correlation test that accounts for spatial similarity,
+described in <a class="reference external" href="https://jstor.org/stable/2532039">this paper</a>. The modified test
+does not change the correlation statistic itself but calculates a new effective
+sample size and uses this in calculating the <span class="math notranslate nohighlight">\(F\)</span> statistic.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Use the modified.ttest function from SpatialPack</span>
@@ -633,15 +699,27 @@ sample correlation: -0.3722
 </div>
 <div class="admonition-other-variables admonition">
 <p class="admonition-title">Other variables</p>
-<p>Use this code to look at how the other explanatory variables  with bird richness. It is also worth looking at correlations between the explanatory variables!</p>
+<p>Use this code to look at how the other explanatory variables  with bird richness.
+It is also worth looking at correlations between the explanatory variables!</p>
 </div>
 </div>
 <div class="section" id="neighbourhoods">
 <h2>Neighbourhoods<a class="headerlink" href="#neighbourhoods" title="Permalink to this headline">¶</a></h2>
-<p>One of the core concepts in many spatial statistical methods is the <strong>neighbourhood</strong> of cells. The neighbourhood of a cell defines a set of other cells that are connected to the focal cell, often with a given weight. The neighbourhood is one way of providing spatial structure to the statistical methods and there are many options for doing this. The <code class="docutils literal notranslate"><span class="pre">spdep</span></code> package provides a good guide (<code class="docutils literal notranslate"><span class="pre">vignette('nb')</span></code>) on the details, but we will look at two functions: <code class="docutils literal notranslate"><span class="pre">dnearneigh</span></code> and <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code>.</p>
+<p>One of the core concepts in many spatial statistical methods is the
+<strong>neighbourhood</strong> of cells. The neighbourhood of a cell defines a set of other
+cells that are connected to the focal cell, often with a given weight. The
+neighbourhood is one way of providing spatial structure to the statistical
+methods and there are many options for doing this. The <code class="docutils literal notranslate"><span class="pre">spdep</span></code> package provides
+a good guide (<code class="docutils literal notranslate"><span class="pre">vignette('nb')</span></code>) on the details, but we will look at two
+functions: <code class="docutils literal notranslate"><span class="pre">dnearneigh</span></code> and <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code>.</p>
 <div class="section" id="dnearneigh">
 <h3>dnearneigh<a class="headerlink" href="#dnearneigh" title="Permalink to this headline">¶</a></h3>
-<p>We can use this function to find which cells are within a given distance of a focal point. We can also put a minimum distance to exclude nearby, but we will keep that at zero here. Working with raster data,where points are on an even grid, we can use this function to generate the <strong>Rook</strong> and <strong>Queen</strong> move neighbours. To do that we need to get the resolution of the raster and use that to set appropriate distances.</p>
+<p>We can use this function to find which cells are within a given distance of a
+focal point. We can also put a minimum distance to exclude nearby, but we will
+keep that at zero here. Working with raster data,where points are on an even
+grid, we can use this function to generate the <strong>Rook</strong> and <strong>Queen</strong> move
+neighbours. To do that we need to get the resolution of the raster and use that
+to set appropriate distances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Give dnearneigh the coordinates of the points and the distances to use</span>
@@ -651,7 +729,12 @@ sample correlation: -0.3722
 </div>
 </div>
 </div>
-<p>If we look at those in a bit more details we can see that they are very similar but  - surprise! - there are more cells linked as neighbours in <code class="docutils literal notranslate"><span class="pre">queen</span></code>. Using <code class="docutils literal notranslate"><span class="pre">head</span></code> allows us to see the row numbers in our data frame that are neighbours. We can also look at the number of neighbours in each set (the <em>cardinality</em>, hence the function name <code class="docutils literal notranslate"><span class="pre">card</span></code>). If we store that in our <code class="docutils literal notranslate"><span class="pre">data_sf</span></code> data frame, we can then visualise the number of neighbours.</p>
+<p>If we look at those in a bit more details we can see that they are very similar
+but  - surprise! - there are more cells linked as neighbours in <code class="docutils literal notranslate"><span class="pre">queen</span></code>. Using
+<code class="docutils literal notranslate"><span class="pre">head</span></code> allows us to see the row numbers in our data frame that are neighbours.
+We can also look at the number of neighbours in each set (the <em>cardinality</em>,
+hence the function name <code class="docutils literal notranslate"><span class="pre">card</span></code>). If we store that in our <code class="docutils literal notranslate"><span class="pre">data_sf</span></code> data frame,
+we can then visualise the number of neighbours.</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="nf">print</span><span class="p">(</span><span class="n">rook</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -678,10 +761,16 @@ sample correlation: -0.3722
 <img alt="../_images/practical_3_27_0.png" src="../_images/practical_3_27_0.png" />
 </div>
 </div>
-<p>That does <strong>not</strong> look correct - we should not be seeing those stripes in central Africa with only two or three rook neighbours. The reason for this is using <em>exactly</em> the resolution as our distance: minor rounding differences can lead to distance based measures going wrong, so it is once again <strong>always a good idea to plot your data and check</strong>!</p>
+<p>That does <strong>not</strong> look correct - we should not be seeing those stripes in
+central Africa with only two or three rook neighbours. The reason for this is
+using <em>exactly</em> the resolution as our distance: minor rounding differences can
+lead to distance based measures going wrong, so it is once again <strong>always a good
+idea to plot your data and check</strong>!</p>
 <div class="admonition-fix-the-neighbours admonition">
 <p class="admonition-title">Fix the neighbours</p>
-<p>A simple solution here is just to make the distance very slightly larger. Do this and recreate the <code class="docutils literal notranslate"><span class="pre">rook</span></code> and <code class="docutils literal notranslate"><span class="pre">queen</span></code> neighbours. The new version should look like the figure below.</p>
+<p>A simple solution here is just to make the distance very slightly larger. Do
+this and recreate the <code class="docutils literal notranslate"><span class="pre">rook</span></code> and <code class="docutils literal notranslate"><span class="pre">queen</span></code> neighbours. The new version should look
+like the figure below.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -706,7 +795,11 @@ sample correlation: -0.3722
 <span class="mi">1311</span> <span class="mi">1817</span> <span class="mi">2204</span> 
 </pre></div>
 </div>
-<p>These are points that have no other point within the provided distance. These are islands: São Tomé and Principe, Comoros, and Réunion - it just happens that Mauritius falls into two cells and so has itself as a neighbour. The <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code> function ensures that all points have the same number of neighbours by looking for the <span class="math notranslate nohighlight">\(k\)</span> closest locations. You end up with a matrix</p>
+<p>These are points that have no other point within the provided distance. These
+are islands: São Tomé and Principe, Comoros, and Réunion - it just happens that
+Mauritius falls into two cells and so has itself as a neighbour. The
+<code class="docutils literal notranslate"><span class="pre">knearneigh</span></code> function ensures that all points have the same number of neighbours
+by looking for the <span class="math notranslate nohighlight">\(k\)</span> closest locations. You end up with a matrix</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">knn</span> <span class="o">&lt;-</span> <span class="nf">knearneigh</span><span class="p">(</span><span class="n">data_sf</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
@@ -729,7 +822,10 @@ sample correlation: -0.3722
 </div>
 <div class="section" id="spatial-weights">
 <h3>Spatial weights<a class="headerlink" href="#spatial-weights" title="Permalink to this headline">¶</a></h3>
-<p>The neighbourhood functions just give us sets of neighbours, and most spatial modelling functions require <strong>weights</strong> to be assigned to neighbours. In <code class="docutils literal notranslate"><span class="pre">spdep</span></code>, we need to use <code class="docutils literal notranslate"><span class="pre">nb2listw</span></code> to take our plain sets of neighbours and make them into weighted neighbour lists.</p>
+<p>The neighbourhood functions just give us sets of neighbours, and most spatial
+modelling functions require <strong>weights</strong> to be assigned to neighbours. In
+<code class="docutils literal notranslate"><span class="pre">spdep</span></code>, we need to use <code class="docutils literal notranslate"><span class="pre">nb2listw</span></code> to take our plain sets of neighbours and make
+them into weighted neighbour lists.</p>
 <div class="cell tag_raises-exception docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">queen</span> <span class="o">&lt;-</span> <span class="nf">nb2listw</span><span class="p">(</span><span class="n">queen</span><span class="p">)</span>
@@ -746,14 +842,23 @@ sample correlation: -0.3722
 </div>
 </div>
 </div>
-<p>That didn’t work! The error message is fairly clear (for R) - we <strong>cannot</strong> create weighted lists for locations with no neighbours. We have two choices here:</p>
+<p>That didn’t work! The error message is fairly clear (for R) - we <strong>cannot</strong>
+create weighted lists for locations with no neighbours. We have two choices
+here:</p>
 <ol class="simple">
-<li><p>Remove the points with no neighbours - given these are isolated offshore islands, this seems reasonable.</p></li>
-<li><p>Use a neighbourhood system in which they are not isolated. We already have this using <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code>, but you do have to ask yourself if a model that arbitrarily links offshore islands is realistic.</p></li>
+<li><p>Remove the points with no neighbours - given these are isolated offshore
+islands, this seems reasonable.</p></li>
+<li><p>Use a neighbourhood system in which they are not isolated. We already have
+this using <code class="docutils literal notranslate"><span class="pre">knearneigh</span></code>, but you do have to ask yourself if a model that
+arbitrarily links offshore islands is realistic.</p></li>
 </ol>
 <div class="section" id="more-data-cleaning">
 <h4>More data cleaning<a class="headerlink" href="#more-data-cleaning" title="Permalink to this headline">¶</a></h4>
-<p>It would be easy to use <code class="docutils literal notranslate"><span class="pre">subset</span></code> on <code class="docutils literal notranslate"><span class="pre">data_sf</span></code> to remove cells with zero neighbours, but we really should remove Mauritius as well (two cells with cardinality of 1). Unfortunately there is a coastal cell with a rook cardinality of 1 in the north of Madagascar, and that probably is reasonable to include! So, we will use a GIS operation.</p>
+<p>It would be easy to use <code class="docutils literal notranslate"><span class="pre">subset</span></code> on <code class="docutils literal notranslate"><span class="pre">data_sf</span></code> to remove cells with zero
+neighbours, but we really should remove Mauritius as well (two cells with
+cardinality of 1). Unfortunately there is a coastal cell with a rook cardinality
+of 1 in the north of Madagascar, and that probably is reasonable to include! So,
+we will use a GIS operation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Polygon covering Mauritius</span>
@@ -790,8 +895,14 @@ sample correlation: -0.3722
 </div>
 <div class="section" id="calculating-weights">
 <h4>Calculating weights<a class="headerlink" href="#calculating-weights" title="Permalink to this headline">¶</a></h4>
-<p>There are several weighting styles and choosing different strategies obviously affects the resulting statistics. One option is <strong>binary</strong> weights (cells are either connected or not) but there are other options. Here we will use the default <em>row standardised</em> (<code class="docutils literal notranslate"><span class="pre">style='W'</span></code>), which just means that the neighbours of location all get the same weight but the sum of neighbour weights for location is always one.</p>
-<p>Note that <code class="docutils literal notranslate"><span class="pre">knn</span></code> needs to be converted to the same format (<code class="docutils literal notranslate"><span class="pre">nb</span></code>) as the rook and queen neighbourhoods first.</p>
+<p>There are several weighting styles and choosing different strategies obviously
+affects the resulting statistics. One option is <strong>binary</strong> weights (cells are
+either connected or not) but there are other options. Here we will use the
+default <em>row standardised</em> (<code class="docutils literal notranslate"><span class="pre">style='W'</span></code>), which just means that the neighbours
+of location all get the same weight but the sum of neighbour weights for
+location is always one.</p>
+<p>Note that <code class="docutils literal notranslate"><span class="pre">knn</span></code> needs to be converted to the same format (<code class="docutils literal notranslate"><span class="pre">nb</span></code>) as the rook and
+queen neighbourhoods first.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">rook</span> <span class="o">&lt;-</span> <span class="nf">nb2listw</span><span class="p">(</span><span class="n">rook</span><span class="p">,</span> <span class="n">style</span><span class="o">=</span><span class="s">&#39;W&#39;</span><span class="p">)</span>
@@ -806,14 +917,24 @@ sample correlation: -0.3722
 </div>
 <div class="section" id="spatial-autocorrelation-metrics">
 <h2>Spatial autocorrelation metrics<a class="headerlink" href="#spatial-autocorrelation-metrics" title="Permalink to this headline">¶</a></h2>
-<p>Spatial autocorrelation describes the extent to which points that are close together in space show similar values. It can be measured globally and locally - note that <strong>global</strong> here means <em>the whole of the dataset</em> and not the whole of the Earth.</p>
+<p>Spatial autocorrelation describes the extent to which points that are close
+together in space show similar values. It can be measured globally and locally -
+note that <strong>global</strong> here means <em>the whole of the dataset</em> and not the whole of
+the Earth.</p>
 <div class="section" id="global-spatial-autocorrelation">
 <h3>Global spatial autocorrelation<a class="headerlink" href="#global-spatial-autocorrelation" title="Permalink to this headline">¶</a></h3>
-<p>There are a number of statistics that quantify the level of global spatial autocorrelation in a dataset. These statistics test if the dataset as a whole shows spatial autocorrelation.</p>
+<p>There are a number of statistics that quantify the level of global spatial
+autocorrelation in a dataset. These statistics test if the dataset as a whole
+shows spatial autocorrelation.</p>
 <p>We will be looking at the commonly used Moran’s <span class="math notranslate nohighlight">\(I\)</span> and Geary’s <span class="math notranslate nohighlight">\(C\)</span> statistics</p>
 <ul class="simple">
-<li><p>Moran’s <span class="math notranslate nohighlight">\(I\)</span> takes values between -1 and 1, with the central value of 0 showing that there is no spatial autocorrelation. Values close to -1 show strong negative autocorrelation, which is the unusual case that nearby cells have unexpectedly <strong>different</strong> values and values close to 1 show that nearby cells have unexpectedly <strong>similar</strong> values.</p></li>
-<li><p>Geary’s <span class="math notranslate nohighlight">\(C\)</span> scales the other way around. It is not perfectly correlated with Moran’s <span class="math notranslate nohighlight">\(I\)</span> but closely related.</p></li>
+<li><p>Moran’s <span class="math notranslate nohighlight">\(I\)</span> takes values between -1 and 1, with the central value of 0 showing
+that there is no spatial autocorrelation. Values close to -1 show strong
+negative autocorrelation, which is the unusual case that nearby cells have
+unexpectedly <strong>different</strong> values and values close to 1 show that nearby cells
+have unexpectedly <strong>similar</strong> values.</p></li>
+<li><p>Geary’s <span class="math notranslate nohighlight">\(C\)</span> scales the other way around. It is not perfectly correlated with
+Moran’s <span class="math notranslate nohighlight">\(I\)</span> but closely related.</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -861,13 +982,20 @@ Geary C statistic       Expectation          Variance
 </div>
 <div class="admonition-variables-and-neighbours admonition">
 <p class="admonition-title">Variables and neighbours</p>
-<p>Look to see if the different neighbourhood schemes increase or decrease spatial autocorrelation. Do all of the other three variables show significant spatial autocorrelation?</p>
+<p>Look to see if the different neighbourhood schemes increase or decrease spatial
+autocorrelation. Do all of the other three variables show significant spatial autocorrelation?</p>
 </div>
 </div>
 <div class="section" id="local-spatial-autocorrelation">
 <h3>Local spatial autocorrelation<a class="headerlink" href="#local-spatial-autocorrelation" title="Permalink to this headline">¶</a></h3>
-<p>We can also look at local indicators of spatial autocorrelation (LISA) to show areas of stronger or weaker similarity. These calculate a similar statistic but only within the neighbourhood around each cell and report back the calculated value for each cell, which we can then map.</p>
-<p>The <code class="docutils literal notranslate"><span class="pre">localmoran</span></code> function outputs a matrix of values. The columns contain observed <span class="math notranslate nohighlight">\(I\)</span>, the expected value, variance, <span class="math notranslate nohighlight">\(z\)</span> statistics and <span class="math notranslate nohighlight">\(p\)</span> value and the rows contain the location specific measures of each variable, so we can load them into <code class="docutils literal notranslate"><span class="pre">data_sf</span></code>.</p>
+<p>We can also look at local indicators of spatial autocorrelation (LISA) to show
+areas of stronger or weaker similarity. These calculate a similar statistic but
+only within the neighbourhood around each cell and report back the calculated
+value for each cell, which we can then map.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">localmoran</span></code> function outputs a matrix of values. The columns contain
+observed <span class="math notranslate nohighlight">\(I\)</span>, the expected value, variance, <span class="math notranslate nohighlight">\(z\)</span> statistics and <span class="math notranslate nohighlight">\(p\)</span> value and the
+rows contain the location specific measures of each variable, so we can load
+them into <code class="docutils literal notranslate"><span class="pre">data_sf</span></code>.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">local_moran_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">localmoran</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
@@ -880,7 +1008,8 @@ Geary C statistic       Expectation          Variance
 <img alt="../_images/practical_3_44_0.png" src="../_images/practical_3_44_0.png" />
 </div>
 </div>
-<p>The similar function <code class="docutils literal notranslate"><span class="pre">localG</span></code> just calculates a <span class="math notranslate nohighlight">\(z\)</span> statistic showing strength of local autocorrelation.</p>
+<p>The similar function <code class="docutils literal notranslate"><span class="pre">localG</span></code> just calculates a <span class="math notranslate nohighlight">\(z\)</span> statistic showing strength
+of local autocorrelation.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">local_g_avian_richness</span> <span class="o">&lt;-</span> <span class="nf">localG</span><span class="p">(</span><span class="n">data_sf</span><span class="o">$</span><span class="n">avian_richness</span><span class="p">,</span> <span class="n">rook</span><span class="p">)</span>
@@ -894,16 +1023,26 @@ Geary C statistic       Expectation          Variance
 </div>
 <div class="admonition-exploring-local-spatial-autocorrelation admonition">
 <p class="admonition-title">Exploring local spatial autocorrelation</p>
-<p>As we might predict, avian richness shows strong positive spatial autocorrelation, which seems to be particularly strong in the mountains around Lake Victoria. Try these measures out on the other variables and neighbourhoods.</p>
+<p>As we might predict, avian richness shows strong positive spatial
+autocorrelation, which seems to be particularly strong in the mountains around
+Lake Victoria. Try these measures out on the other variables and neighbourhoods.</p>
 </div>
 </div>
 </div>
 <div class="section" id="autoregressive-models">
 <h2>Autoregressive models<a class="headerlink" href="#autoregressive-models" title="Permalink to this headline">¶</a></h2>
-<p>Our definition of a set of neighbours allows us to fit a spatial autoregressive (SAR) model. This is a statistical model that predicts the value of a response variable in a cell using the predictor variables and values of the response variable in neighbouring cells. This is why they are called autoregressive models: they fit the response variable partly as a response to itself.</p>
-<p>They come in many different possible forms. This is a great paper explaining some of the different forms with some great appendices including example R code:</p>
+<p>Our definition of a set of neighbours allows us to fit a spatial autoregressive
+(SAR) model. This is a statistical model that predicts the value of a response
+variable in a cell using the predictor variables and values of the response
+variable in neighbouring cells. This is why they are called autoregressive
+models: they fit the response variable partly as a response to itself.</p>
+<p>They come in many different possible forms. This is a great paper explaining
+some of the different forms with some great appendices including example R code:</p>
 <blockquote>
-<div><p>Kissling, W.D. and Carl, G. (2008), Spatial autocorrelation and the selection of simultaneous autoregressive models. Global Ecology and Biogeography, 17: 59-71. <a class="reference external" href="https://doi.org/10.1111/j.1466-8238.2007.00334.x">doi:10.1111/j.1466-8238.2007.00334.x</a></p>
+<div><p>Kissling, W.D. and Carl, G. (2008), Spatial autocorrelation and the selection
+of simultaneous autoregressive models. Global Ecology and Biogeography, 17:
+59-71.
+<a class="reference external" href="https://doi.org/10.1111/j.1466-8238.2007.00334.x">doi:10.1111/j.1466-8238.2007.00334.x</a></p>
 </div></blockquote>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -976,7 +1115,9 @@ AIC: 22398, (AIC for lm: 28844)
 </div>
 </div>
 </div>
-<p>We can then look at the <strong>predictions</strong> of those models. We can extract the predicted values for each point and put them into our spatial data frame and then map them.</p>
+<p>We can then look at the <strong>predictions</strong> of those models. We can extract the
+predicted values for each point and put them into our spatial data frame and
+then map them.</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the predictions from the model into the spatial data frame</span>
@@ -992,7 +1133,10 @@ AIC: 22398, (AIC for lm: 28844)
 <img alt="../_images/practical_3_51_1.png" src="../_images/practical_3_51_1.png" />
 </div>
 </div>
-<p>We can also look at the <strong>residuals</strong> of those models -  the differences between the prediction and the actual values - to highlight where the models aren’t working well. We’ll manipulate the colours so negative residuals are blue and positive residuals are red.</p>
+<p>We can also look at the <strong>residuals</strong> of those models -  the differences between
+the prediction and the actual values - to highlight where the models aren’t
+working well. We’ll manipulate the colours so negative residuals are blue and
+positive residuals are red.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># extract the residuals from the model into the spatial data frame</span>
@@ -1009,7 +1153,10 @@ AIC: 22398, (AIC for lm: 28844)
 </div>
 <div class="section" id="correlograms">
 <h3>Correlograms<a class="headerlink" href="#correlograms" title="Permalink to this headline">¶</a></h3>
-<p>Correlograms are another way of visualising spatial autocorrelation. They show how the correlation within a variable changes as the distance between pairs of points being compared increases. To show this, we need the coordinates of the spatial data and the values of a variable at each point.</p>
+<p>Correlograms are another way of visualising spatial autocorrelation. They show
+how the correlation within a variable changes as the distance between pairs of
+points being compared increases. To show this, we need the coordinates of the
+spatial data and the values of a variable at each point.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># add the X and Y coordinates to the data frame</span>
@@ -1027,9 +1174,19 @@ AIC: 22398, (AIC for lm: 28844)
 <img alt="../_images/practical_3_55_0.png" src="../_images/practical_3_55_0.png" />
 </div>
 </div>
-<p>To explain that a bit further: we take a focal point and then make pairs of the value of that point and all other points. These pairs are assigned to bins based on how far apart the points are: the <code class="docutils literal notranslate"><span class="pre">increment</span></code> is the width of those bins in map units. Once we’ve done this for all points - yes, that is a lot of pairs! - we calculate the correlations between the sets of pairs in each bin. Each bin has a mean distance among the points in that class.</p>
-<p>We can get the significance of the correlations at each distance by resampling the data, but it is a very slow process, which is why the correlograms here have been set not to do any resampling (<code class="docutils literal notranslate"><span class="pre">resamp=0</span></code>).</p>
-<p>We can get more control on that plot by turning the object into a data frame. First, we can see that the number of pairs in a class drops off dramatically at large distances: that upswing on the right is based on few pairs, so we can generally ignore it and look at just shorter distances.</p>
+<p>To explain that a bit further: we take a focal point and then make pairs of the
+value of that point and all other points. These pairs are assigned to bins based
+on how far apart the points are: the <code class="docutils literal notranslate"><span class="pre">increment</span></code> is the width of those bins in
+map units. Once we’ve done this for all points - yes, that is a lot of pairs! -
+we calculate the correlations between the sets of pairs in each bin. Each bin
+has a mean distance among the points in that class.</p>
+<p>We can get the significance of the correlations at each distance by resampling
+the data, but it is a very slow process, which is why the correlograms here have
+been set not to do any resampling (<code class="docutils literal notranslate"><span class="pre">resamp=0</span></code>).</p>
+<p>We can get more control on that plot by turning the object into a data frame.
+First, we can see that the number of pairs in a class drops off dramatically at
+large distances: that upswing on the right is based on few pairs, so we can
+generally ignore it and look at just shorter distances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
@@ -1048,7 +1205,10 @@ AIC: 22398, (AIC for lm: 28844)
 <img alt="../_images/practical_3_57_0.png" src="../_images/practical_3_57_0.png" />
 </div>
 </div>
-<p>One key use of correlograms is to assess how well models have controlled for spatial autocorrelation by looking at the correlation in the residuals. We can compare our two models like this and see how much better the SAR is at controlling for the autocorrelation in the data.</p>
+<p>One key use of correlograms is to assess how well models have controlled for
+spatial autocorrelation by looking at the correlation in the residuals. We can
+compare our two models like this and see how much better the SAR is at
+controlling for the autocorrelation in the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate correlograms for the residuals in the two models</span>
@@ -1077,7 +1237,12 @@ AIC: 22398, (AIC for lm: 28844)
 </div>
 <div class="section" id="generalised-least-squares">
 <h2>Generalised least squares<a class="headerlink" href="#generalised-least-squares" title="Permalink to this headline">¶</a></h2>
-<p>Generalised least squares (GLS) is an another extension of the linear model framework that allows us to include the expected correlation between our data points in the model fitting. The immediate way it differs from spatial autoregressive models is that it does not use a list of cell neighbourhoods, instead it uses a mathematical function to describe a model of how correlation changes with distance.</p>
+<p>Generalised least squares (GLS) is an another extension of the linear model
+framework that allows us to include the expected correlation between our data
+points in the model fitting. The immediate way it differs from spatial
+autoregressive models is that it does not use a list of cell neighbourhoods,
+instead it uses a mathematical function to describe a model of how correlation
+changes with distance.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">gls</span></code> function works in the same way as <code class="docutils literal notranslate"><span class="pre">lm</span></code> but permits extra arguments, so we can fit the simple model:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1116,8 +1281,21 @@ Degrees of freedom: 2479 total; 2475 residual
 </div>
 </div>
 </div>
-<p>That looks very like the normal <code class="docutils literal notranslate"><span class="pre">lm</span></code> output - and indeed the coefficients are identical to the same model fitted using <code class="docutils literal notranslate"><span class="pre">lm</span></code> above. One difference is <code class="docutils literal notranslate"><span class="pre">gls</span></code> output includes a matrix showing the correlations between the explanatory variables. If I was being critical, I would say that elevation and temperature are a rather highly correlated and that multicollearity might be a problem (see <span class="xref myst">Practical 2</span>).</p>
-<p>To add spatial autocorrelation into the model we have to create a spatial correlation structure. The example below uses the Gaussian model. You can look at <code class="docutils literal notranslate"><span class="pre">?corGaus</span></code> for the equation but essentially this model describes how the expected correlation decreases from an initial value with increasing distance until a range threshold is met - after that the data is expected to be uncorrelated. The constructor needs to know the spatial coordinates of the data (using <code class="docutils literal notranslate"><span class="pre">form</span></code>) and then the other arguments set the shape of the curve. You can set <code class="docutils literal notranslate"><span class="pre">fixed=FALSE</span></code> and the model will then try and optimise the range and nugget parameters, but this can take hours.</p>
+<p>That looks very like the normal <code class="docutils literal notranslate"><span class="pre">lm</span></code> output - and indeed the coefficients are
+identical to the same model fitted using <code class="docutils literal notranslate"><span class="pre">lm</span></code> above. One difference is <code class="docutils literal notranslate"><span class="pre">gls</span></code>
+output includes a matrix showing the correlations between the explanatory
+variables. If I was being critical, I would say that elevation and temperature
+are a rather highly correlated and that multicollearity might be a problem (see
+<span class="xref myst">Practical 2</span>).</p>
+<p>To add spatial autocorrelation into the model we have to create a spatial
+correlation structure. The example below uses the Gaussian model. You can look
+at <code class="docutils literal notranslate"><span class="pre">?corGaus</span></code> for the equation but essentially this model describes how the
+expected correlation decreases from an initial value with increasing distance
+until a range threshold is met - after that the data is expected to be
+uncorrelated. The constructor needs to know the spatial coordinates of the data
+(using <code class="docutils literal notranslate"><span class="pre">form</span></code>) and then the other arguments set the shape of the curve. You can
+set <code class="docutils literal notranslate"><span class="pre">fixed=FALSE</span></code> and the model will then try and optimise the range and nugget
+parameters, but this can take hours.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define the correlation structure</span>
@@ -1164,7 +1342,10 @@ Degrees of freedom: 2479 total; 2475 residual
 </div>
 </div>
 </div>
-<p>That output looks very similar but now includes a description of the correlation structure. Note that all of the <strong>model coefficients have changed</strong> and the <strong>significance of the variables</strong> has changed. Elevation is no longer significant when we account for autocorrelation.</p>
+<p>That output looks very similar but now includes a description of the correlation
+structure. Note that all of the <strong>model coefficients have changed</strong> and the
+<strong>significance of the variables</strong> has changed. Elevation is no longer
+significant when we account for autocorrelation.</p>
 <p>We can map the two model predictions</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1180,7 +1361,8 @@ Degrees of freedom: 2479 total; 2475 residual
 </div>
 <div class="admonition-compare-the-residual-autocorrelation admonition">
 <p class="admonition-title">Compare the residual autocorrelation</p>
-<p>Using the example at the end of the section on <span class="xref myst">autoregressive models</span>, create this plot comparing the autocorrelation in the residuals from the two GLS models.</p>
+<p>Using the example at the end of the section on <span class="xref myst">autoregressive models</span>,
+create this plot comparing the autocorrelation in the residuals from the two GLS models.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -1210,7 +1392,11 @@ Degrees of freedom: 2479 total; 2475 residual
 <img alt="../_images/practical_3_67_0.png" src="../_images/practical_3_67_0.png" />
 </div>
 </div>
-<p>Oh dear - that is <strong>not the improvement we were looking for</strong>. We can also look at the relationship between observed and predicted richness. It is clear that - although it may be dealing with spatial autocorrelation - this spatial GLS is not a good description of the data! Do not forget that <strong>all models require careful model criticism</strong>!</p>
+<p>Oh dear - that is <strong>not the improvement we were looking for</strong>. We can also look
+at the relationship between observed and predicted richness. It is clear that -
+although it may be dealing with spatial autocorrelation - this spatial GLS is
+not a good description of the data! Do not forget that <strong>all models require
+careful model criticism</strong>!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">3</span><span class="p">,</span><span class="m">3</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mgp</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">0</span><span class="p">))</span>
@@ -1230,20 +1416,35 @@ Degrees of freedom: 2479 total; 2475 residual
 </div>
 <div class="section" id="eigenvector-filtering">
 <h2>Eigenvector filtering<a class="headerlink" href="#eigenvector-filtering" title="Permalink to this headline">¶</a></h2>
-<p>This is yet another approach to incorporating spatial structure. In the example below, we take a set of neighbourhood weights and convert them into eigenvector filters using the <code class="docutils literal notranslate"><span class="pre">meigen</span></code> function from <code class="docutils literal notranslate"><span class="pre">spmoran</span></code>. Again, the package vignette is a great place for further data (although the vignette name is a bit unhelpfully generic!)</p>
+<p>This is yet another approach to incorporating spatial structure. In the example
+below, we take a set of neighbourhood weights and convert them into eigenvector
+filters using the <code class="docutils literal notranslate"><span class="pre">meigen</span></code> function from <code class="docutils literal notranslate"><span class="pre">spmoran</span></code>. Again, the package vignette
+is a great place for further data (although the vignette name is a bit
+unhelpfully generic!)</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">vignette</span><span class="p">(</span><span class="s">&#39;vignettes&#39;</span><span class="p">,</span> <span class="n">package</span><span class="o">=</span><span class="s">&#39;spmoran&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 <div class="admonition-sidebar-about-package-quality admonition">
 <p class="admonition-title">Sidebar about package quality</p>
-<p>If you look at the details of <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> you will see that it is (currently!) version <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>. A version number less than 1.0.0 means that the package is in development. It is often a good idea to be wary of in development and infrequently used packages: packages on CRAN have to be formatted correctly so that they build and install cleanly but there is no systematic check that the code they contain works correctly.</p>
-<p>In this case, Daisuke Murakami is a co-author of many papers with Daniel Griffith on eigenvector filtering and the quality and detail in the vignette is an <em>excellent</em> indication of the care and attention put into the package.</p>
+<p>If you look at the details of <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> you will see that it is (currently!)
+version <code class="docutils literal notranslate"><span class="pre">0.2.0</span></code>. A version number less than 1.0.0 means that the package is in
+development. It is often a good idea to be wary of in development and
+infrequently used packages: packages on CRAN have to be formatted correctly so
+that they build and install cleanly but there is no systematic check that the
+code they contain works correctly.</p>
+<p>In this case, Daisuke Murakami is a co-author of many papers with Daniel
+Griffith on eigenvector filtering and the quality and detail in the vignette is
+an <em>excellent</em> indication of the care and attention put into the package.</p>
 <blockquote>
-<div><p>Murakami, D. and Griffith, D.A. (2015) Random effects specifications in eigenvector spatial
-filtering: a simulation study. Journal of Geographical Systems, 17 (4), 311-331.</p>
+<div><p>Murakami, D. and Griffith, D.A. (2015) Random effects specifications in
+eigenvector spatial filtering: a simulation study. Journal of Geographical
+Systems, 17 (4), 311-331.</p>
 </div></blockquote>
 </div>
-<p>In order to use this, we first need to extract the eigenvectors from our neighbourhood list. We need a different format, so we need to recreate the initial neighbours and then convert those to a weights <em>matrix</em> rather than sets of neighbour weights.</p>
+<p>In order to use this, we first need to extract the eigenvectors from our
+neighbourhood list. We need a different format, so we need to recreate the
+initial neighbours and then convert those to a weights <em>matrix</em> rather than sets
+of neighbour weights.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the neighbours</span>
@@ -1265,7 +1466,11 @@ filtering: a simulation study. Journal of Geographical Systems, 17 (4), 311-331.
 </div>
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">queen_eigen</span></code> object contains a matrix <code class="docutils literal notranslate"><span class="pre">sf</span></code> of spatial filters (not the same as the <code class="docutils literal notranslate"><span class="pre">sf</span></code> data frame class!) and a vector <code class="docutils literal notranslate"><span class="pre">ev</span></code> of eigenvalues. Each column in <code class="docutils literal notranslate"><span class="pre">queen_eigen$sf</span></code> shows a different pattern in the spatial structure and has a value for each data point; the corresponding eigenvalue is a measure of the strength of that pattern.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">queen_eigen</span></code> object contains a matrix <code class="docutils literal notranslate"><span class="pre">sf</span></code> of spatial filters (not the same
+as the <code class="docutils literal notranslate"><span class="pre">sf</span></code> data frame class!) and a vector <code class="docutils literal notranslate"><span class="pre">ev</span></code> of eigenvalues. Each column in
+<code class="docutils literal notranslate"><span class="pre">queen_eigen$sf</span></code> shows a different pattern in the spatial structure and has a
+value for each data point; the corresponding eigenvalue is a measure of the
+strength of that pattern.</p>
 <p>We’ll look at some examples:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1288,7 +1493,9 @@ filtering: a simulation study. Journal of Geographical Systems, 17 (4), 311-331.
 <img alt="../_images/practical_3_73_0.png" src="../_images/practical_3_73_0.png" />
 </div>
 </div>
-<p>The <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package provides a set of more sophisticated (and time-consuming) approaches but here we are simply going to add some eigenvector filters to a standard linear model. We will use the first 9 eigenvectors.</p>
+<p>The <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package provides a set of more sophisticated (and time-consuming)
+approaches but here we are simply going to add some eigenvector filters to a
+standard linear model. We will use the first 9 eigenvectors.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">eigen_mod</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">avian_richness</span> <span class="o">~</span> <span class="n">mean_aet</span> <span class="o">+</span> <span class="n">elev</span> <span class="o">+</span> <span class="n">mean_temp</span> <span class="o">+</span> <span class="n">ev_1</span> <span class="o">+</span> <span class="n">ev_2</span> <span class="o">+</span>
@@ -1331,8 +1538,11 @@ F-statistic: 342.6 on 12 and 2466 DF,  p-value: &lt; 2.2e-16
 </div>
 </div>
 </div>
-<p>In that output, we do not really care about the coefficients for each filter: those elements are just in the model to control for spatial autocorrelation. We might want to remove filters that are not significant.</p>
-<p>Using the tools above, we can look at the residual spatial autocorrelation and predictions from this model.</p>
+<p>In that output, we do not really care about the coefficients for each filter:
+those elements are just in the model to control for spatial autocorrelation. We
+might want to remove filters that are not significant.</p>
+<p>Using the tools above, we can look at the residual spatial autocorrelation and
+predictions from this model.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">data_sf</span><span class="o">$</span><span class="n">eigen_fit</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">eigen_mod</span><span class="p">)</span>
@@ -1354,7 +1564,12 @@ F-statistic: 342.6 on 12 and 2466 DF,  p-value: &lt; 2.2e-16
 <img alt="../_images/practical_3_77_0.png" src="../_images/practical_3_77_0.png" />
 </div>
 </div>
-<p>That is not much of an improvement either. To be fair to the <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package, the approach is intended to consider a much larger set of filters and go through a selection process. The modelling functions in <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> do not use the formula interface - which is a bit hardcore - but the code would be as follows. I <strong>do not recommend running</strong> this now - I have no idea of how long it would take to finish but it is at least quarter of an hour and might be days.</p>
+<p>That is not much of an improvement either. To be fair to the <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> package,
+the approach is intended to consider a much larger set of filters and go through
+a selection process. The modelling functions in <code class="docutils literal notranslate"><span class="pre">spmoran</span></code> do not use the formula
+interface - which is a bit hardcore - but the code would be as follows. I <strong>do
+not recommend running</strong> this now - I have no idea of how long it would take to
+finish but it is at least quarter of an hour and might be days.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a dataframe of the explanatory variables</span>
 <span class="n">expl</span> <span class="o">&lt;-</span> <span class="n">data_sf</span><span class="p">[,</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;elev&#39;</span><span class="p">,</span><span class="s">&#39;mean_temp&#39;</span><span class="p">,</span><span class="s">&#39;mean_aet&#39;</span><span class="p">)]</span>
 <span class="c1"># This retains the geometry, so we need to convert back to a simple dataframe</span>
