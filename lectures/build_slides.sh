@@ -25,5 +25,9 @@ for src in $lectures; do
 	# reveal-md only looks for the JSON configs in the calling directory.
 	echo " - Printing MD"; 
 	reveal-md $src/$src.md --css lectures.css --print slides/$src.pdf --port 1947
-
+	
 done
+
+# Also update the static view
+reveal-md --css lectures.css --static --port 1947
+

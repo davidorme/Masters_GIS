@@ -160,7 +160,7 @@ Many different terms:
 * Abiotic<!-- .element style="color:forestgreen" -->
 * Biotic<!-- .element style="color:firebrick" -->
 * Accessible area<!-- .element style="color:dodgerblue" -->
-* **Realised niche:**  both biotic and abiotic suitability<!-- .element style="color:orange" -->
+* **Potential niche:**  both biotic and abiotic suitability<!-- .element style="color:orange" -->
 
 
 </div>
@@ -185,7 +185,7 @@ Many different terms:
 * Abiotic<!-- .element style="color:forestgreen" -->
 * Biotic<!-- .element style="color:firebrick" -->
 * Accessible area<!-- .element style="color:dodgerblue" -->
-* **Range core:** accessible and in realised niche<!-- .element style="color:orange" -->
+* **Realised niche:** accessible and in realised niche<!-- .element style="color:orange" -->
 
 </div>
 </div>

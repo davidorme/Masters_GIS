@@ -709,7 +709,7 @@ eig <- pcoa$eig[pcoa$eig >0]
 barplot(eig / sum(eig), main='Axis variation')
 barplot(cumsum(eig)/ sum(eig), main='Cumulative variation')
 # Print the percentage variation of the first 8 
-head(eig / sum(eig), n=8, digits=4)
+head(sprintf('%0.2f%%', (eig / sum(eig)) * 100), n=8)
 ```
 
 For this particular PCoA, the bar plot doesn't really give a good indication
@@ -818,7 +818,7 @@ landscapes?
 From the model below, forest cover at the 600m landscape scale explains 56.3% of the
 variation in community composition. Hence, we see that the first principal
 coordinate can reveal interesting biological trends, even if it only contained
-23% of the information in the original data set (see above).
+21.2% of the information in the original data set (see above).
 ```
 
 ```{code-cell} R

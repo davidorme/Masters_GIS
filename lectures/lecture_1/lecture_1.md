@@ -404,7 +404,7 @@ Doesn’t preserve anything much,
 
 Classification according to mapping to planar surface:
 
-![Planar     Cylindrical     Conical](images/Projection%20types-193.png)
+![Planar     Cylindrical     Conical](images/Projection_types-193.png)
 
 ----
 

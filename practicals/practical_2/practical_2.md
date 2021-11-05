@@ -176,6 +176,37 @@ bioclim_hist_local <- crop(bioclim_hist, model_extent)
 bioclim_2050_local <- crop(bioclim_2050, model_extent)
 ```
 
+### Reproject the data
+
+All of our data so far has been in the WGS84 geographic coordinate system. We now need to reproject the data into an appropriate projected coordinate system: the [Universal Transverse Mercator Zone 18S](https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system) is a good choice for this region. 
+
+For the raster data, if we just specify the projection, then the `raster` package picks a resolution and extent that best approximates the original data.
+
+```{code-cell}r
+test <-  projectRaster(bioclim_hist_local, crs='EPSG:32718')
+extent(test)
+res(test)
+```
+
+There isn't anything really wrong with that, but using a square resolution and aligning the data more neatly onto a grid might be easier to describe.
+
+```{code-cell}r
+# Define a new projected grid
+ utm18s_grid <- raster(extent(-720000, 1180000, 9340000, 11460000), 
+                       res=20000, crs='EPSG:32718')
+# Reproject the model data
+bioclim_hist_local <- projectRaster(bioclim_hist_local, utm18s_grid)
+bioclim_2050_local <- projectRaster(bioclim_2050_local, utm18s_grid)
+```
+
+Now we can also reproject the species distribution vector data:
+
+```{code-cell}r
+tapir_IUCN <- st_transform(tapir_IUCN, crs='EPSG:32718')
+tapir_GBIF <- st_transform(tapir_GBIF, crs='EPSG:32718')
+```
+
+
 ### Pseudo-absence data
 
 Many of the methods below require **absence data**, either for fitting a model or for evaluating the model performance. Rarely, we might actually have real absence data from exhaustive surveys, but usually we only have presence data. So, modelling commonly uses *pseudo-absence* or *background* locations. The difference between those two terms is subtle: I haven't seen a clean definition but *background* data might be sampled completely at random, where *pseudo-absence* makes some attempt to pick locations that are somehow separated from presence observations.
@@ -191,15 +222,15 @@ n_pseudo <- nrow(tapir_GBIF)
 pseudo_dismo <- randomPoints(mask=land, n=n_pseudo, p=st_coordinates(tapir_GBIF))
 # Convert this data into an sf object, for consistency with the
 # next example.
-pseudo_dismo <- st_as_sf(data.frame(pseudo_dismo), coords=c('x','y'), crs=4326)
+pseudo_dismo <- st_as_sf(data.frame(pseudo_dismo), coords=c('x','y'), crs=32718)
 ```
 
-We can also use GIS to do something a little more sophisticated. This isn't necessarily the best choice here, but is an example of how to do something more structured. The aim here is to pick points that are within about 100 km of observed points, but not closer than 20km. We are going to cheat and use degrees (1° is very roughly 100 km at the equator), but in practice it would be better to reproject the data and work with real distance units.
+We can also use GIS to do something a little more sophisticated. This isn't necessarily the best choice here, but is an example of how to do something more structured. The aim here is to pick points that are within  100 km of observed points, but not closer than 20km. The units of the projection is metres, so we multiply by 1000.
 
 ```{code-cell} r
 # Create buffers around the observed points
-nearby <- st_buffer(tapir_GBIF, dist=1)
-too_close <- st_buffer(tapir_GBIF, dist=0.2)
+nearby <- st_buffer(tapir_GBIF, dist=100000)
+too_close <- st_buffer(tapir_GBIF, dist=20000)
 # merge those buffers
 nearby <- st_union(nearby)
 too_close <- st_union(too_close)

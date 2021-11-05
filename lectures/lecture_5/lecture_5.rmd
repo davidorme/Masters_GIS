@@ -206,10 +206,10 @@ OK - so what is the problem?
         plot(box_cells, type='n')
     
         # Draw lines connecting points 1 and 2 to neighbours
-        nb1 <-  box_cells[nb1_idx,]
-        nb2 <-  box_cells[nb2_idx,]
-        pt1 <- box_cells[pts[1],]
-        pt2 <- box_cells[pts[2],]
+        nb1 <-  box_cells[nb1_idx]
+        nb2 <-  box_cells[nb2_idx]
+        pt1 <- box_cells[pts[1]]
+        pt2 <- box_cells[pts[2]]
         
         for(row in nb1){
             lines(rbind(st_coordinates(pt1), st_coordinates(row)))
@@ -220,7 +220,7 @@ OK - so what is the problem?
         }
         
         plot(box_cells, add=TRUE, cex=cex, lwd=3)
-        plot(box_cells[pts,], add=TRUE, col='red', pch=20, cex=cex)
+        plot(box_cells[pts], add=TRUE, col='red', pch=20, cex=cex)
         plot(nb1, add=TRUE, col='darkgreen', pch=20, cex=cex)
         plot(nb2, add=TRUE, col='darkgreen', pch=20, cex=cex)
     }

@@ -240,15 +240,15 @@ Point close together are similar
 
 Global Moran’s I
 
-* I = 0.015
-* p =  0.059
+* I = 0.008
+* p =  0.211
 
 <div class='vs'></div>
 
 Global Geary’s C 
 
-* C = 0.984
-* p =  0.059
+* C = 0.994
+* p =  0.262
 
 </div>
 </div>
