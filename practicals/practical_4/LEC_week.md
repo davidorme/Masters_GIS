@@ -343,7 +343,7 @@ to calculate the `lsm_l_area_mn` value by hand:
 
 ```{code-cell} R
 # Weighted average of class patch sizes (with some rounding error)
-(19.1 * 4 + 3.65 * 10) / 14
+(19.1 * 4 + 3.65 * 11) / 15
 ```
 
 #### Merging landscape metrics onto sites
@@ -885,17 +885,17 @@ data. Choose it carefully because you will need to defend your choice when you
 present your results.
 
 
-* **Groups SP01, SP04, SP07, SP13**: Species richness and abundance
+* **Groups SP01, SP04, SP07, SP10, SP13**: Species richness and abundance
 
 We have explored different ways to measure abundance, richness, diversity,
 evenness. Select one of these  as your response variable.
 
-* **Groups SP02, SP05, SP08, SP14**: Community composition
+* **Groups SP02, SP05, SP08, SP11, SP14**: Community composition
 
 We have explored different ways to do an ordination. You can scale or not, use
 binary data or not, your choice. Select one of these as your response variable.
 
-* **Groups SP03, SP06, SP09**: Functional diversity
+* **Groups SP03, SP06, SP09, SP12, SP15**: Functional diversity
 
 We only explored one way of measuring functional diversity. But there are other
 more traditional ways of looking into traits of species that we have, for
