@@ -4,12 +4,12 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.5
 kernelspec:
-  display_name: R
+  display_name: R 4.2.0
   language: R
-  name: ir
+  name: ir420
 ---
 
 # Practical Three: Spatial modelling in R
@@ -53,8 +53,9 @@ install.packages('spmoran')
 
 As usual, you then need to load the packages:
 
-```{code-cell} R
+```{code-cell} r
 :tags: [remove-stderr]
+
 library(ncf)
 library(raster)
 library(sf)
@@ -102,7 +103,7 @@ The variables for each grid cell are:
 
 ### Loading the data
 
-```{code-cell} R
+```{code-cell} r
 # load the four variables from their TIFF files
 rich <- raster('data/avian_richness.tif')
 aet <- raster('data/mean_aet.tif')
@@ -122,14 +123,20 @@ So we will quickly use some techniques to explore the data we have just loaded.
    dimensions of the data, resolution, extent and coordinate reference system
    and the range of the data: between 10 and 667 species per cell.
 
-```{code-cell} R
+```{code-cell} r
 # Look at the details of the richness data
 print(rich)
 ```
 
-We can also plot maps the variables and think about the spatial patterns in each. 
+We can also plot maps the variables and think about the spatial patterns in each.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height=12) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 par(mfrow=c(2,2))
 plot(rich, main='Avian species richness')
 plot(aet, main='Mean AET')
@@ -139,9 +146,15 @@ plot(elev, main='Elevation')
 
 We can use R to explore this data a bit further. We can use the `hist()`
 function to plot the distribution of the values in each variable, not just look
-at the minimum and maximum. 
+at the minimum and maximum.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=8, repr.plot.height= 8) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # split the figure area into a two by two layout
 par(mfrow=c(2,2))
 # plot a histogram of the values in each raster, setting nice 'main' titles
@@ -156,12 +169,12 @@ hist(elev, main='Elevation')
 We now have the data as rasters but some of the methods require the values in a
 data frame. We'll need to use two commands: 
 
-First, `stack()` allows us to superimpose the four rasters into a single object.
+First, `stack()` allows us to concatenate the four rasters into a single object.
 Note that this only works because all of these rasters have the same projection,
 extent and resolution. In your own use, you would need to use GIS to set up your
 data so it can be stacked like this.
 
-```{code-cell} R
+```{code-cell} r
 # Stack the data
 data_stack <- stack(rich, aet, elev, temp)
 print(data_stack)
@@ -173,7 +186,7 @@ a useful format because it works very like a data frame, but identifies the
 geometry as pixels. Note that the names of the *variables in the data frame have
 been set from the original TIFF filenames*, not our variable names in R.
 
-```{code-cell} R
+```{code-cell} r
 data_spdf <- as(data_stack, 'SpatialPixelsDataFrame')
 summary(data_spdf)
 ```
@@ -185,8 +198,7 @@ practicals. These differ in how they represent the geometry:
   that the values represents an area.
 * `sf`: the default conversion here holds the data as values at a point.
 
-
-```{code-cell} R
+```{code-cell} r
 data_sf <- st_as_sf(data_spdf)
 print(data_sf)
 ```
@@ -204,7 +216,7 @@ This code is a little bit trickier! Also, if I'm being honest, a polygon grid
 isn't a great way to store raster data!
 ```
 
-```{code-cell} R
+```{code-cell} r
 # Get the cell resolution
 cellsize <- res(rich)[[1]]
 # Make the template polygon
@@ -227,7 +239,7 @@ has lots of odd options: this combination of settings avoids each plot command
 insisting on the layout it wants to use and lets us [control the layout of the
 plots](https://www.r-spatial.org/r/2016/03/08/plotting-spatial-grids.html).
 
-```{code-cell} R
+```{code-cell} r
 # Plot the richness data as point data
 layout(matrix(1:3, ncol=3), widths=c(5,5,1))
 plot(data_spdf['avian_richness'], col=hcl.colors(20), what='image')
@@ -238,7 +250,13 @@ plot(data_spdf['avian_richness'], col=hcl.colors(20), what='scale')
 
 We can also plot the variables against each other, by treating the new object as a data frame:
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=12, repr.plot.height= 5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # Create three figures in a single panel
 par(mfrow=c(1,3))
 # Now plot richness as a function of each environmental variable
@@ -268,9 +286,9 @@ spatially corrected ones. We need to load a new set of functions that implement
 a modification to the correlation test that accounts for spatial similarity,
 described in [this paper](https://jstor.org/stable/2532039). The modified test
 does not change the correlation statistic itself but calculates a new effective
-sample size and uses this in calculating the $F$ statistic. 
+sample size and uses this in calculating the $F$ statistic.
 
-```{code-cell} R
+```{code-cell} r
 # Use the modified.ttest function from SpatialPack
 temp_corr <- modified.ttest(x=data_sf$avian_richness, y=data_sf$mean_temp, 
                             coords=st_coordinates(data_sf))
@@ -301,7 +319,7 @@ grid, we can use this function to generate the **Rook** and **Queen** move
 neighbours. To do that we need to get the resolution of the raster and use that
 to set appropriate distances.
 
-```{code-cell} R
+```{code-cell} r
 # Give dnearneigh the coordinates of the points and the distances to use
 rook <- dnearneigh(data_sf, d1=0, d2=cellsize)
 queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize)
@@ -314,23 +332,23 @@ We can also look at the number of neighbours in each set (the *cardinality*,
 hence the function name `card`). If we store that in our `data_sf` data frame,
 we can then visualise the number of neighbours.
 
-```{code-block} R
+```{code-cell} r
 print(rook)
-```
-
-```{code-block} R
 head(rook, n=3)
 ```
 
-```{code-block} R
+```{code-cell} r
 print(queen)
-```
-
-```{code-block} R
 head(queen, n=3)
 ```
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=8, repr.plot.height= 8) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # Store the neighbourhood cardinalities in data_sf
 data_sf$card_rook <- card(rook)
 data_sf$card_queen <- card(queen)
@@ -350,8 +368,9 @@ this and recreate the `rook` and `queen` neighbours. The new version should look
 like the figure below.
 ```
 
-```{code-cell} R
+```{code-cell} r
 :tags: [hide-input]
+
 # Recreate the neighbour adding 1km to the distance
 rook <- dnearneigh(data_sf, d1=0, d2=cellsize + 1)
 queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize + 1)
@@ -375,7 +394,7 @@ Mauritius falls into two cells and so has itself as a neighbour. The
 `knearneigh` function ensures that all points have the same number of neighbours
 by looking for the $k$ closest locations. You end up with a matrix
 
-```{code-cell} R
+```{code-cell} r
 knn <- knearneigh(data_sf, k=8)
 # We have to look at the `nn` values in `knn` to see the matrix of neighbours
 head(knn$nn, n=3)
@@ -388,8 +407,9 @@ modelling functions require **weights** to be assigned to neighbours. In
 `spdep`, we need to use `nb2listw` to take our plain sets of neighbours and make
 them into weighted neighbour lists.
 
-```{code-cell} R
+```{code-cell} r
 :tags: [raises-exception]
+
 queen <- nb2listw(queen)
 ```
 
@@ -411,12 +431,12 @@ cardinality of 1). Unfortunately there is a coastal cell with a rook cardinality
 of 1 in the north of Madagascar, and that probably is reasonable to include! So,
 we will use a GIS operation.
 
-```{code-cell} R
+```{code-cell} r
 # Polygon covering Mauritius
 mauritius <- st_polygon(list(matrix(c(5000, 6000, 6000, 5000, 5000,
                                     0, 0, -4000, -4000, 0), 
                                     ncol=2)))
-mauritius <- st_sfc(mauritius, crs=crs(data_sf, asText=TRUE))
+mauritius <- st_sfc(mauritius, crs=crs(data_sf))
 # Remove the island cells with zero neighbours
 data_sf <- subset(data_sf, card_rook > 0)
 # Remove Mauritius
@@ -425,7 +445,7 @@ data_sf <- st_difference(data_sf, mauritius)
 
 We do now need to recalculate our neighbourhood objects to use that reduced set of locations.
 
-```{code-cell} R
+```{code-cell} r
 rook <- dnearneigh(data_sf, d1=0, d2=cellsize + 1)
 queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize + 1)
 data_sf$card_rook <- card(rook)
@@ -445,12 +465,11 @@ location is always one.
 Note that `knn` needs to be converted to the same format (`nb`) as the rook and
 queen neighbourhoods first.
 
-```{code-cell} R
+```{code-cell} r
 rook <- nb2listw(rook, style='W')
 queen <- nb2listw(queen, style='W')
 knn <- nb2listw(knn2nb(knn), style='W')
 ```
-
 
 ## Spatial autocorrelation metrics
 
@@ -476,12 +495,12 @@ We will be looking at the commonly used Moran's $I$ and Geary's $C$ statistics
 * Geary's $C$ scales the other way around. It is not perfectly correlated with
   Moran's $I$ but closely related.
 
-```{code-cell} R
+```{code-cell} r
 moran_avian_richness <- moran.test(data_sf$avian_richness, rook)
 print(moran_avian_richness)
 ```
 
-```{code-cell} R
+```{code-cell} r
 geary_avian_richness <- geary.test(data_sf$avian_richness, rook)
 print(geary_avian_richness)
 ```
@@ -503,7 +522,13 @@ observed $I$, the expected value, variance, $z$ statistics and $p$ value and the
 rows contain the location specific measures of each variable, so we can load
 them into `data_sf`.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=5, repr.plot.height= 5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 local_moran_avian_richness <- localmoran(data_sf$avian_richness, rook)
 data_sf$local_moran_avian_richness <- local_moran_avian_richness[, 'Ii'] # Observed Moran's I
 plot(data_sf['local_moran_avian_richness'], cex=0.6, pch=20)
@@ -512,7 +537,7 @@ plot(data_sf['local_moran_avian_richness'], cex=0.6, pch=20)
 The similar function `localG` just calculates a $z$ statistic showing strength
 of local autocorrelation.
 
-```{code-cell} R
+```{code-cell} r
 data_sf$local_g_avian_richness <- localG(data_sf$avian_richness, rook)
 plot(data_sf['local_g_avian_richness'], cex=0.6, pch=20)
 ```
@@ -541,14 +566,13 @@ some of the different forms with some great appendices including example R code:
 > 59-71.
 > [doi:10.1111/j.1466-8238.2007.00334.x](https://doi.org/10.1111/j.1466-8238.2007.00334.x)
 
-
-```{code-cell} R
+```{code-cell} r
 # Fit a simple linear model
 simple_model <- lm(avian_richness ~ mean_aet + elev + mean_temp, data=data_sf)
 summary(simple_model)
 ```
 
-```{code-cell} R
+```{code-cell} r
 # Fit a spatial autoregressive model: this is much slower and can take minutes to calculate
 sar_model <- errorsarlm(avian_richness ~ mean_aet + elev + mean_temp, 
                         data=data_sf, listw=queen)
@@ -557,29 +581,36 @@ summary(sar_model)
 
 We can then look at the **predictions** of those models. We can extract the
 predicted values for each point and put them into our spatial data frame and
-then map them. 
+then map them.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height=10) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 :tags: [remove-stderr]
+
 # extract the predictions from the model into the spatial data frame
 data_sf$simple_fit <- predict(simple_model)
 data_sf$sar_fit <- predict(sar_model)
+
 # Compare those two predictions with the data
 plot(data_sf[c('avian_richness','simple_fit','sar_fit')], 
-     pal=function(n) hcl.colors(n, pal='Blue-Red'))
+     pal=function(n) hcl.colors(n, pal='Blue-Red'), key.pos=4, pch=19)
 ```
 
 We can also look at the **residuals** of those models -  the differences between
 the prediction and the actual values - to highlight where the models aren't
-working well. We'll manipulate the colours so negative residuals are blue and
-positive residuals are red.
+working well. The residuals from the SAR are _far_ better behaved.
 
-```{code-cell} R
+```{code-cell} r
 # extract the residuals from the model into the spatial data frame
 data_sf$simple_resid <- residuals(simple_model)
 data_sf$sar_resid <- residuals(sar_model)
- plot(data_sf[c('avian_richness','simple_resid', 'sar_resid')], 
-      pal=function(n) hcl.colors(n, pal='Blue-Red'), key.pos=4)
+ plot(data_sf[c('simple_resid', 'sar_resid')], 
+      pal=function(n) hcl.colors(n, pal='Blue-Red'), key.pos=4, pch=19)
 ```
 
 ### Correlograms
@@ -589,7 +620,13 @@ how the correlation within a variable changes as the distance between pairs of
 points being compared increases. To show this, we need the coordinates of the
 spatial data and the values of a variable at each point.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # add the X and Y coordinates to the data frame
 data_xy <- data.frame(st_coordinates(data_sf))
 data_sf$x <- data_xy$X
@@ -616,10 +653,18 @@ First, we can see that the number of pairs in a class drops off dramatically at
 large distances: that upswing on the right is based on few pairs, so we can
 generally ignore it and look at just shorter distances.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height= 5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 par(mfrow=c(1,2))
+
 # convert three key variables into a data frame
 rich.correlog <- data.frame(rich.correlog[1:3])
+
 # plot the size of the distance bins
 plot(n ~ mean.of.class, data=rich.correlog, type='o')
 # plot a correlogram for shorter distances
@@ -633,7 +678,13 @@ spatial autocorrelation by looking at the correlation in the residuals. We can
 compare our two models like this and see how much better the SAR is at
 controlling for the autocorrelation in the data.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # Calculate correlograms for the residuals in the two models
 simple.correlog <- with(data_sf, correlog(x, y, simple_resid, increment=cellsize, resamp=0))
 sar.correlog <- with(data_sf, correlog(x, y, sar_resid, increment=cellsize, resamp=0))
@@ -662,7 +713,7 @@ changes with distance.
 
 The `gls` function works in the same way as `lm` but permits extra arguments, so we can fit the simple model:
 
-```{code-cell} R
+```{code-cell} r
 gls_simple <- gls(avian_richness ~ mean_aet + mean_temp + elev, data=data_sf)
 summary(gls_simple)
 ```
@@ -684,7 +735,7 @@ uncorrelated. The constructor needs to know the spatial coordinates of the data
 set `fixed=FALSE` and the model will then try and optimise the range and nugget
 parameters, but this can take hours.
 
-```{code-cell} R
+```{code-cell} r
 # Define the correlation structure
 cor_struct_gauss <- corGaus(value=c(range=650, nugget=0.1), form=~ x + y, fixed=TRUE, nugget=TRUE)
 # Add that to the simple model - this might take a few minutes to run!
@@ -699,7 +750,13 @@ significant when we account for autocorrelation.
 
 We can map the two model predictions
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=4, repr.plot.height=8) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 data_sf$gls_simple_pred <- predict(gls_simple)
 data_sf$gls_gauss_pred <- predict(gls_gauss)
 plot(data_sf[c('gls_simple_pred','gls_gauss_pred')], key.pos=4, cex=0.6, pch=20)
@@ -710,8 +767,15 @@ Using the example at the end of the section on [autoregressive models](autoregre
 create this plot comparing the autocorrelation in the residuals from the two GLS models.
 ```
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 :tags: [hide-input]
+
 #Extract the residuals
 data_sf$gls_simple_resid <- resid(gls_simple)
 data_sf$gls_gauss_resid <- resid(gls_gauss)
@@ -739,7 +803,13 @@ although it may be dealing with spatial autocorrelation - this spatial GLS is
 not a good description of the data! Do not forget that **all models require
 careful model criticism**!
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 par(mfrow=c(1,2), mar=c(3,3,1,1), mgp=c(2,1,0))
 # set the plot limits to show the scaling clearly
 lims <- c(0, max(data_sf$avian_richness))
@@ -761,10 +831,16 @@ unhelpfully generic!)
 vignette('vignettes', package='spmoran')
 ```
 
-```{admonition} Sidebar about package quality
+```{code-cell} r
+packageVersion('spmoran')
+```
 
-If you look at the details of `spmoran` you will see that it is (currently!)
-version `0.2.0`. A version number less than 1.0.0 means that the package is in
+````{admonition} Sidebar about package quality
+
+If you look at the package version of `spmoran` above, you will see that it
+is less than version 1.0.0.
+
+A version number less than 1.0.0 usually means that the package is in
 development. It is often a good idea to be wary of in development and
 infrequently used packages: packages on CRAN have to be formatted correctly so
 that they build and install cleanly but there is no systematic check that the
@@ -778,14 +854,14 @@ an *excellent* indication of the care and attention put into the package.
 > eigenvector spatial filtering: a simulation study. Journal of Geographical
 > Systems, 17 (4), 311-331.
 
-```
+````
 
 In order to use this, we first need to extract the eigenvectors from our
 neighbourhood list. We need a different format, so we need to recreate the
 initial neighbours and then convert those to a weights *matrix* rather than sets
 of neighbour weights.
 
-```{code-cell} R
+```{code-cell} r
 # Get the neighbours
 queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize + 1)
 # Convert to eigenvector filters - this is a bit slow
@@ -800,7 +876,13 @@ strength of that pattern.
 
 We'll look at some examples:
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 # Convert the `sf` matrix of eigenvectors into a data frame
 queen_eigen_filters <- data.frame(queen_eigen$sf)
 names(queen_eigen_filters) <- paste0('ev_', 1:ncol(queen_eigen_filters))
@@ -819,7 +901,7 @@ The `spmoran` package provides a set of more sophisticated (and time-consuming)
 approaches but here we are simply going to add some eigenvector filters to a
 standard linear model. We will use the first 9 eigenvectors.
 
-```{code-cell} R
+```{code-cell} r
 eigen_mod <- lm(avian_richness ~ mean_aet + elev + mean_temp + ev_1 + ev_2 +
                 ev_3 + ev_4 + ev_5 + ev_6 + ev_7 + ev_8 + ev_9, data=data_sf)
 summary(eigen_mod)
@@ -832,7 +914,7 @@ might want to remove filters that are not significant.
 Using the tools above, we can look at the residual spatial autocorrelation and
 predictions from this model.
 
-```{code-cell} R
+```{code-cell} r
 data_sf$eigen_fit <- predict(eigen_mod)
 data_sf$eigen_resid <- resid(eigen_mod)
 
