@@ -10,4 +10,4 @@ bulk_data
 
 # Ignore the jupyter-book build directory
 practicals/_build
-practicals/.ipynb_checkpoints
+.ipynb_checkpoints

@@ -1,0 +1,16 @@
+# Files generated during the practical, which shouldn't be added
+# to the repository.
+
+uk/uk_eire_BNG.*
+uk/uk_eire_WGS84.*
+uk/uk_raster_BNG_interp.tif
+uk/uk_raster_BNG_ngb.*
+uk/etopo_uk.tif
+
+# Data files that can be downloaded automatically
+etopo_25.tif
+fiji/gadm*
+ne_10m_admin_0_countries/
+ne_110m_admin_0_countries/
+wc2.1_10m/
+wc2.1_tiles/
