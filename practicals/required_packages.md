@@ -24,7 +24,7 @@ packages.
 
 ## Core GIS function and data packages
 
-``` {code-cell} r
+```r
 install.packages('terra')    # Core raster GIS data package
 install.packages('sf')       # Core vector GIS data package
 install.packages('raster')   # Older raster GIS package required by some packages
@@ -38,7 +38,7 @@ install.packages('lwgeom')    # Lightweight geometry engine
 
 ### Practical 1
 
-``` {code-cell} r
+```r
 install.packages('openxlsx')   # Read data from Excel 
 install.packages('ggplot2')    # Plotting package
 install.packages('gridExtra')  # Extensions to ggplot
@@ -46,13 +46,13 @@ install.packages('gridExtra')  # Extensions to ggplot
 
 ### Practical 2
 
-``` {code-cell} r
+```r
 install.packages('dismo')      # Species distribution models
 ```
 
 ### Practical 3
 
-``` {code-cell} r
+```r
 install.packages('ncf')          
 install.packages('SpatialPack')  # Spatial clifford test
 install.packages('spdep')        # Spatial dependence models
@@ -64,7 +64,7 @@ install.packages('spmoran')      # Moran's I and Geary C
 
 ### Landscape Ecology Week
 
-``` {code-cell} r
+``` r
 install.packages('landscapemetrics')
 install.packages('vegan')
 ```
@@ -73,7 +73,7 @@ install.packages('vegan')
 
 Download and extract the `data.zip` file into your R project working directory. This is
 a single large (~190 MB) file that contains all of the data required for all the
-practicals.
+practicals. The file will be available from the module Blackboard and/or Teams site.
 
 Make sure that:
 

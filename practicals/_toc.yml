@@ -1,6 +1,8 @@
 format: jb-article
 root: intro
 sections:
+- file: required_packages
+  title: Practical setup for local computers
 - file: practical_1/practical_1
   title: GIS Practical 1
 - file: practical_2/practical_2
