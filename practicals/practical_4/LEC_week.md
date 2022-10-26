@@ -10,7 +10,10 @@ kernelspec:
   display_name: R 4.2.0
   language: R
   name: ir420
-author: David Orme
+authors: 
+  - David Orme
+  - Cristina Banks-Leite
+  - Flavia Bellotto-Trigo
 ---
 
 # Landscape Ecology and Conservation
