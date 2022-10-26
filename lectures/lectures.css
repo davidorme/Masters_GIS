@@ -11,6 +11,20 @@
     margin: 10px 0px;
 }
 
+/* Remove horizontal space allocated to output prompts */
+
+div.prompt {
+	
+	min-width: 0ex;
+}
+
+/* Remove vertical space allocated to prompt and cell divs inside inputs */
+
+.input div {
+	
+	height: 0px;
+}
+
 
 /* Column layouts using flex boxes within a flex container */
 

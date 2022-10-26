@@ -13,9 +13,8 @@ kernelspec:
 ---
 
 ```{code-cell} r
----
-tags: [remove-input]
----
+:tags: [remove-input]
+
 # Libraries just used for producing graphics in the page, not used 
 # by any of the exercises.
 # install.packages('rnaturalearth')
@@ -29,35 +28,36 @@ library(rnaturalearthdata)
 
 ## Required packages
 
-There are loads of R packages that can load, manipulate and plot GIS data and we will be
-using several in this practical. In the last few years, the R spatial data community has
-been working on bringing together most of the core GIS functionality into a few core
-packages. We will focus on using these up-to-date central packages, but there will be
-some occasions where we need to use older packages.
-
-This quite a long list of packages - we've shown what each one does. If you are working
-on your own machine, you will need to install these packages using the code below, but
-they are pre-installed in the RStudio Cloud Projects.
-
-```r <!-- This is nicely styled but not executed. Show don't run.-->
-install.packages('terra') # Core raster GIS data package
-install.packages('sf') # Core vector GIS data package
-install.packages('sp') # Another core vector GIS package
-install.packages('rgeos') # Extends vector data functionality
-install.packages('lwgeom') # Extends vector data functionality
-
-```
-
-To load the packages:
+We will need to load the following packages. Remember to read [this guide on setting up
+packages on your computer](../required_packages.md) if you are running these practicals
+on your own machine, not RStudio Cloud.
 
 ```{code-cell} r
----
-tags: [remove-stderr]
----
-library(terra)
-library(sf)
-library(sp)
-library(units)
+:tags: [remove-stderr]
+
+library(terra)     # core raster GIS package
+library(sf)        # core vector GIS package
+library(units)     # used for precise unit conversion
+
+library(geodata)   # Download and load functions for core datasets
+library(openxlsx)  # Reading data from Excel files
+```
+
+We are also going to turn off an advanced feature used by the sf package. The `s2`
+package is designed to do spherical GIS correctly: it handles latitudes and longitudes
+on the surface of a sphere rather than  than pretending that the coordinates are on a
+flat plane. That is **definitely** the right way to do this, but some of the datasets we
+will use in this practical have some issues with using `s2`, so we will turn it off.
+
+As a result, you will see a few warnings like this:
+
+> although coordinates are longitude/latitude, st_intersects assumes that they are
+> planar
+
+```{code-cell} r
+:tags: [remove-stderr]
+
+sf_use_s2(FALSE)
 ```
 
 You will see a whole load of package loading messages about GDAL, GEOS, PROJ which are
@@ -102,16 +102,14 @@ latitude and longitude degrees as if they are constant units and they are not. W
 come back to this in the section on reprojection below.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=6, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [remove-input]
----
+:tags: [remove-input]
+
 # Create a UK plot - code not seen by students
 uk <- st_as_sf(ne_countries(
      country = c('united kingdom', 'ireland'), 
@@ -178,9 +176,11 @@ We can easily turn a data frame with coordinates in columns into a point vector 
 source. The example here creates point locations for capital cities.
 
 ```{code-cell} r
-uk_eire_capitals <- data.frame(long= c(-0.1, -3.2, -3.2, -6.0, -6.25),
-                               lat=c(51.5, 51.5, 55.8, 54.6, 53.30),
-                               name=c('London', 'Cardiff', 'Edinburgh', 'Belfast', 'Dublin'))
+uk_eire_capitals <- data.frame(
+     long= c(-0.1, -3.2, -3.2, -6.0, -6.25),
+     lat=c(51.5, 51.5, 55.8, 54.6, 53.30),
+     name=c('London', 'Cardiff', 'Edinburgh', 'Belfast', 'Dublin')
+)
 
 # Indicate which fields in the data frame contain the coordinates
 uk_eire_capitals <- st_as_sf(uk_eire_capitals, coords=c('long','lat'), crs=4326)
@@ -258,9 +258,8 @@ uk_eire_sfc <- st_sfc(wales, england_no_london, scotland, london, northern_irela
 ```
 
 ```{code-cell} r
----
-tags: [remove-input]
----
+:tags: [remove-input]
+
 par( mar=c(1,1,1,1))
 plot(northern_ireland, asp=1, ylim=c(51.5,56), 
      xlim=c(-10, -5),  col='lightblue', border=NA
@@ -291,9 +290,8 @@ print(uk_country)
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 3) # Change plot sizes (in cm)
 ```
 
@@ -391,9 +389,8 @@ are a range of commands to find these things out. One thing we might want are th
 **centroids** of features.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 st_agr(uk_eire_sf) <- 'constant'
 ```
 
@@ -433,9 +430,8 @@ print(uk_eire_sf)
 ```
 
 ```{code-cell} r
----
-tags: [raises-exception]
----
+:tags: [raises-exception]
+
 # And it won't let you make silly error like turning a length into weight
 uk_eire_sf$area <- set_units(uk_eire_sf$area, 'kg')
 ```
@@ -481,16 +477,13 @@ log scale on the right.
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-cell]
----
+:tags: [hide-cell]
 
 
 # You could simply log the data:
@@ -549,9 +542,8 @@ function to *only* plot the geometry data and not a particular attribute. The UT
 projection is **not** a suitable choice for the UK!
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
@@ -620,16 +612,14 @@ recreate it.
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=6, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # transform St Pauls to BNG and buffer using 25 km
 london_bng <- st_buffer(st_transform(st_pauls, 27700), 25000)
 # In one line, transform england to BNG and cut out London
@@ -696,9 +686,8 @@ To show this, we will just use a simple matrix of values (raster data is just a 
 because it is easier to show the calculations.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=4, repr.plot.height= 4) # Change plot sizes (in cm)
 ```
 
@@ -815,9 +804,8 @@ can overplot them. You can see how transferring cell values between those two ra
 grids gets complicated!
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=8, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
@@ -863,9 +851,8 @@ When we plot those data:
 - You can see the more abrupt changes when using nearest neighbour reprojection.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 8) # Change plot sizes (in cm)
 ```
 
@@ -904,9 +891,8 @@ set rules to decide which value 'wins'.
 We'll rasterize the `uk_eire_BNG` vector data onto a 20km resolution grid.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 7) # Change plot sizes (in cm)
 ```
 
@@ -935,9 +921,8 @@ geometries. We can use the `st_agr` function to tell `sf` that attributes *are* 
 and it will stop warning us.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 4) # Change plot sizes (in cm)
 ```
 
@@ -962,14 +947,22 @@ color_palette <- hcl.colors(6, palette='viridis', alpha=0.5)
 # - Plot each raster
 par(mfrow=c(1,3), mar=c(1,1,1,1))
 plot(uk_eire_poly_20km, col=color_palette, legend=FALSE, axes=FALSE)
-plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
+plot(st_geometry(uk_eire_BNG), add=TRUE, border='red')
 
 plot(uk_eire_line_20km, col=color_palette, legend=FALSE, axes=FALSE)
-plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
+plot(st_geometry(uk_eire_BNG), add=TRUE, border='red')
 
 plot(uk_eire_point_20km, col=color_palette, legend=FALSE, axes=FALSE)
-plot(st_geometry(uk_eire_BNG), add=TRUE, border='grey')
+plot(st_geometry(uk_eire_BNG), add=TRUE, border='red')
 ```
+
+Note the differences between the polygon and line outputs above. To recap:
+
+- for polygons, cells are only included **if the cell centre falls in the polygon**, and
+- for lines, cells are included **if the line touches the cell at all**.
+
+This is why coastal cells under the border are often missing in the polygon
+rasterisation but are always included in the line rasterisation.
 
 The `fasterize` package can hugely speed up *polygon* rasterization and is built to work
 with `sf`:
@@ -1039,12 +1032,11 @@ also provide functions to save data to a file.
 ### Saving vector data
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 # This chunk removes existing demo outputs so they can be recreated in the 
 # following chunks
-files <- dir('data', 'uk_eire*|uk_raster_*', full.names=TRUE)
+files <- dir('data/uk', 'uk_eire*|uk_raster_*', full.names=TRUE)
 print(files)
 file.remove(files)
 ```
@@ -1054,8 +1046,8 @@ use in ArcGIS but has become a common standard. We can save our `uk_eire_sf` dat
 shapfile using the `st_write` function from the `sf` package.
 
 ```{code-cell} r
-st_write(uk_eire_sf, 'data/uk_eire_WGS84.shp')
-st_write(uk_eire_BNG, 'data/uk_eire_BNG.shp')
+st_write(uk_eire_sf, 'data/uk/uk_eire_WGS84.shp')
+st_write(uk_eire_BNG, 'data/uk/uk_eire_BNG.shp')
 ```
 
 If you look in the `data` directory, you see an irritating feature of the shapefile
@@ -1074,8 +1066,8 @@ moved towards the personal geodatabase but more portable options are:
   portable and in a single file.
 
 ```{code-cell} r
-st_write(uk_eire_sf, 'data/uk_eire_WGS84.geojson')
-st_write(uk_eire_sf, 'data/uk_eire_WGS84.gpkg')
+st_write(uk_eire_sf, 'data/uk/uk_eire_WGS84.geojson')
+st_write(uk_eire_sf, 'data/uk/uk_eire_WGS84.gpkg')
 ```
 
 The `sf` package will try and choose the output format based on the file suffix (so
@@ -1085,7 +1077,7 @@ reads or writes a particular format and you can see the list of available format
 `st_drivers()`.
 
 ```{code-cell} r
-st_write(uk_eire_sf, 'data/uk_eire_WGS84.json', driver='GeoJSON')
+st_write(uk_eire_sf, 'data/uk/uk_eire_WGS84.json', driver='GeoJSON')
 ```
 
 ### Saving raster data
@@ -1103,10 +1095,10 @@ also use `filetype` to set the driver used to write the data: see
 
 ```{code-cell} r
 # Save a GeoTiff
-writeRaster(uk_raster_BNG_interp, 'data/uk_raster_BNG_interp.tif')
+writeRaster(uk_raster_BNG_interp, 'data/uk/uk_raster_BNG_interp.tif')
 # Save an ASCII format file: human readable text. 
 # Note that this format also creates an aux.xml and .prj file!
-writeRaster(uk_raster_BNG_near, 'data/uk_raster_BNG_ngb.asc', filetype='AAIGrid')
+writeRaster(uk_raster_BNG_near, 'data/uk/uk_raster_BNG_ngb.asc', filetype='AAIGrid')
 ```
 
 ### Loading Vector data
@@ -1148,14 +1140,13 @@ and `pal` arguments to get this effect.
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Generate two stacked plots with narrow margins
 par(mfrow=c(2,1), mar=c(1,1,1,1))
 
 # The first plot is easy
-plot(ne_110['GDP_MD_EST'],  asp=1, main='Global GDP', logz=TRUE, key.pos=4)
+plot(ne_110['GDP_MD'],  asp=1, main='Global GDP', logz=TRUE, key.pos=4)
 
 # Then for the second we need to merge the data
 ne_110 <- merge(ne_110, life_exp, by.x='ISO_A3_EH', by.y='COUNTRY', all.x=TRUE)
@@ -1190,9 +1181,8 @@ minute (1/60°) and this file has been resampled to 15 arc minutes (0.25°) to m
 bit more manageable (466.7Mb to 2.7 Mb).
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
@@ -1222,9 +1212,8 @@ Some hints:
 ```
 
 ```{code-cell} r
----
-tags: [hide-cell]
----
+:tags: [hide-cell]
+
 bks <- seq(-10000, 6000, by=250)
 land_cols  <- terrain.colors(24)
 sea_pal <- colorRampPalette(c('darkslateblue', 'steelblue', 'paleturquoise'))
@@ -1256,8 +1245,6 @@ downloaded to the `data` directory using the `global_worldclim` function: using 
 correct path will load it directly from the local copies in the `data` folder.
 
 ```{code-cell} r
-library(geodata)
-
 # Download bioclim data: global maximum temperature at 10 arc minute resolution
 tmax <- worldclim_global(var='tmax', res=10, path='data')
 # The data has 12 layers, one for each month
@@ -1280,9 +1267,8 @@ We can access different layers using `[[`. We can also use aggregate functions (
 `sum`, `mean`, `max` and `min`) to extract information across layers
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
@@ -1339,9 +1325,8 @@ help make the data a bit clearer or replace a legend and are easy to add using t
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 sea_pal <- colorRampPalette(c('grey30', 'grey50', 'grey70'))
 
 # Plot the underlying sea bathymetry
@@ -1368,9 +1353,8 @@ function. We would like to find out whether any countries are more severely impa
 terms of both the area of the country and their population size.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 7) # Change plot sizes (in cm)
 ```
 
@@ -1424,9 +1408,8 @@ print(africa)
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
@@ -1457,11 +1440,7 @@ Can you produce the map countries at risk shown below?
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
-# This is a hack! (2021-11-01) It results in the two warnings about planar data.
-sf_use_s2(FALSE)
+:tags: [hide-input]
 
 # Load the data and convert to a sf object
 alien_xy <- read.csv('data/aliens.csv')
@@ -1491,7 +1470,7 @@ within a polygon. We are going to use a chunk of the full resolution ETOPO1 elev
 data to explore this.
 
 ```{code-cell} r
-uk_eire_etopo <- rast('data/etopo_uk.tif')
+uk_eire_etopo <- rast('data/uk/etopo_uk.tif')
 ```
 
 ```{admonition} Masking elevation data
@@ -1502,9 +1481,8 @@ You should end up converting the raw data on the left to the map on the right
 ```
 
 ```{code-cell} r
----
-tags: [hide-inputs]
----
+:tags: [hide-inputs]
+
 uk_eire_detail <- subset(ne_10, ADMIN %in% c('United Kingdom', "Ireland"))
 uk_eire_detail_raster <- rasterize(uk_eire_detail, uk_eire_etopo)
 uk_eire_elev <- mask(uk_eire_etopo, uk_eire_detail_raster)
@@ -1549,16 +1527,14 @@ questions about the result:
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 7) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-cell]
----
+:tags: [hide-cell]
+
 max_cell <- where.max(uk_eire_elev)
 max_xy <- xyFromCell(uk_eire_elev, max_cell[2])
 max_sfc<- st_sfc(st_point(max_xy), crs=4326)
@@ -1591,11 +1567,11 @@ print(uk_eire_capitals)
 
 Polygons are also easy but there is a little more detail about the output. The `extract`
 function for polygons returns a data frame of **individual raster cell values** within
-each polygon:
+each polygon, along with an ID code showing the polygon ID:
 
 ```{code-cell} r
 etopo_by_country <- extract(uk_eire_elev, uk_eire_sf['name'])
-nrow(etopo_by_country)
+head(etopo_by_country)
 ```
 
 You can always do summary statistics across those values:
@@ -1622,7 +1598,7 @@ values to locations on the line then you need to work a bit harder:
 
 - By default, the function just gives the sample of values under the line, in no
   particular order. The `along=TRUE` argument preserves the order along the line.
-- It is also useful to able to know _which_ cell gives each value. The
+- It is also useful to able to know *which* cell gives each value. The
   `cellnumbers=TRUE` argument allow us to retrieve this information.
 
 We are going to get a elevation transect for the
@@ -1635,12 +1611,12 @@ GIS datasets within a single source. The `st_layers` function allows us to see t
 of those layers so we can load the one we want.
 
 ```{code-cell} r
-st_layers('data/National_Trails_Pennine_Way.gpx')
+st_layers('data/uk/National_Trails_Pennine_Way.gpx')
 ```
 
 ```{code-cell} r
 # load the data, showing off the ability to use SQL queries to load subsets of the data
-pennine_way <- st_read('data/National_Trails_Pennine_Way.gpx',
+pennine_way <- st_read('data/uk/National_Trails_Pennine_Way.gpx',
                       query="select * from routes where name='Pennine Way'")
 ```
 
@@ -1654,9 +1630,8 @@ and route vector into the British National Grid. Use a 2km resolution grid.
 ```
 
 ```{code-cell} r
----
-tags: [hide-cell]
----
+:tags: [hide-cell]
+
 # reproject the vector data
 pennine_way_BNG <- st_transform(pennine_way, crs=27700)
 # create the target raster and project the elevation data into it.
@@ -1673,9 +1648,8 @@ and this is worth remembering: **do you really need to use the highest resolutio
 available**?
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 8) # Change plot sizes (in cm)
 ```
 
@@ -1754,11 +1728,11 @@ complete.
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Get the precipitation data
 ng_prec <- worldclim_tile(var='prec', res=0.5, lon=140, lat=-10, path='data')
+
 # Reduce to the extent of New Guinea - crop early to avoid unnecessary processing!
 ng_extent <- ext(130, 150, -10, 0)
 ng_prec <- crop(ng_prec, ng_extent)
@@ -1839,9 +1813,7 @@ exporting CSVs to load, but there is a better way: read the data directly from E
 This means that you don't have to maintain multiple versions of the same data in
 different formats.
 
-```{code-cell} r
-library(openxlsx)
-```
++++
 
 #### Loading the data
 
@@ -1854,18 +1826,17 @@ library(openxlsx)
   appropriate to Fiji (UTM 60S: EPSG:32760).
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Download the GADM data for Fiji, convert to sf and then extract Kadavu
-fiji <- gadm(country='FJI', level=2, path='data')
+fiji <- gadm(country='FJI', level=2, path='data/fiji')
 fiji <- st_as_sf(fiji)
 kadavu <- subset(fiji, NAME_2 == 'Kadavu')
 
 # Load the villages and sites and convert to sf
-villages <- readWorkbook('data/FishingPressure.xlsx', 'Villages')
+villages <- readWorkbook('data/fiji/FishingPressure.xlsx', 'Villages')
 villages <- st_as_sf(villages, coords=c('long','lat'), crs=4326)
-sites <- readWorkbook('data/FishingPressure.xlsx', 'Field sites', startRow=3)
+sites <- readWorkbook('data/fiji/FishingPressure.xlsx', 'Field sites', startRow=3)
 sites <- st_as_sf(sites, coords=c('Long','Lat'), crs=4326)
 
 # Reproject the data UTM60S
@@ -1896,16 +1867,14 @@ Remember from above the difference between rasterizing a polygon and a linestrin
 containing coastline contain sea so should be available for movement.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Create a template raster covering the whole study area, at a given resolution
 res <- 100
 r <- rast(xmin=590000, xmax=670000, ymin=7870000, ymax=7940000, crs='EPSG:32760', res=res)
@@ -1950,16 +1919,14 @@ point on the coast. The second points on each of these lines are our nearest lau
 points and we can use `st_line_sample` with `sample=1` to extract them.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=3, repr.plot.height= 3) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Find the nearest points on the coast to each village
 village_coast <- st_nearest_points(villages, coast)
 
@@ -1999,9 +1966,8 @@ The code below shows a simple example of how the calculation works - note the ad
 costs of moving around the blocking cell into the bottom right corner.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=4, repr.plot.height= 4) # Change plot sizes (in cm)
 ```
 
@@ -2022,16 +1988,14 @@ text(d, digits=1)
 Scaling that up to give an example for a single site:
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 5.5) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Make a copy of the sea map
 dist <- sea_r
 
@@ -2063,9 +2027,8 @@ We now need to wrap that process in a loop to find the nearest site for each vil
 this can take a little time to run!
 
 ```{code-cell} r
----
-tags: [hide-cell]
----
+:tags: [hide-cell]
+
 # Create fields to hold the nearest fishing site data
 villages$nearest_site_index <- NA
 villages$nearest_site_name <- NA
@@ -2098,9 +2061,8 @@ And now we can work out the fishing load for each site and map which villages pr
 which site:
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Find the total number of buildings  per site and merge that data
 # into the sites object
 site_load <- aggregate(building_count ~ nearest_site_name, data=villages, FUN=sum)
@@ -2132,7 +2094,6 @@ look, and there is an online book to use as a guide:
 
 [https://r-tmap.github.io/tmap-book/](https://r-tmap.github.io/tmap-book/)
 
-
 Essentially GIS maps are mostly about deciding what information you want to show
 and the plot order, so the simple plotting we use here can be pretty good without
 needing extra tools.
@@ -2140,9 +2101,8 @@ needing extra tools.
 Having said that, here is a `ggplot` map of the world.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -2157,16 +2117,15 @@ There are several `ggplot` extensions for `sf` that make it easier to colour and
 your `ggplot` maps. Here is a *bad* example:
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=7, repr.plot.height= 7) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
 europe <- st_crop(ne_110, ext(-10,40,35,75))
 ggplot(europe) +
-       geom_sf(aes(fill=GDP_MD_EST)) +
+       geom_sf(aes(fill=GDP_MD)) +
        scale_fill_viridis_c() +
        theme_bw() + 
        geom_sf_text(aes(label = ADMIN), colour = "white")
@@ -2190,16 +2149,14 @@ the reprojected axes
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 6) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Calculate the extent in the LAEA projection of the cropped data
 europe_crop_laea <- st_transform(europe, 3035)
 
@@ -2209,14 +2166,14 @@ europe_laea <- st_crop(europe_laea, europe_crop_laea)
 
 # Plot the two maps
 p1 <- ggplot(europe_crop_laea) +
-       geom_sf(aes(fill=log(GDP_MD_EST))) +
+       geom_sf(aes(fill=log(GDP_MD))) +
        scale_fill_viridis_c() +
        theme_bw() + 
        theme(legend.position="bottom") +
        geom_sf_text(aes(label = ADM0_A3), colour = "grey20")
 
 p2 <- ggplot(europe_laea) +
-       geom_sf(aes(fill=log(GDP_MD_EST))) +
+       geom_sf(aes(fill=log(GDP_MD))) +
        coord_sf(expand=FALSE) +
        scale_fill_viridis_c() +
        theme_bw() + 

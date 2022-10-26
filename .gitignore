@@ -11,3 +11,7 @@ bulk_data
 # Ignore the jupyter-book build directory
 practicals/_build
 .ipynb_checkpoints
+
+# Ignore the practical data zipfile
+practicals/practical_data.zip
+

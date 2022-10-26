@@ -35,28 +35,13 @@ modelling. There is an intimidating complete list of topics and packages here:
 
 [https://CRAN.R-project.org/view=Spatial](https://CRAN.R-project.org/view=Spatial)
 
-This practical requires the following packages, which should all be installed in the
-RStudio Cloud project, but which you will need to install if you are using your own
-computer.
-
-```r
-install.packages('ncf')
-install.packages('raster')
-install.packages('sf')
-install.packages('SpatialPack') # For clifford test
-install.packages('spdep') # Spatial dependence
-install.packages('spatialreg')
-install.packages('nlme') # GLS
-install.packages('spgwr')
-install.packages('spmoran')
-```
-
-As usual, you then need to load the packages:
+We will need to load the following packages. Remember to read [this guide on setting up
+packages on your computer](../required_packages.md) if you are running these practicals
+on your own machine, not RStudio Cloud.
 
 ```{code-cell} r
----
-tags: [remove-stderr]
----
+:tags: [remove-stderr]
+
 library(ncf)
 library(raster)
 library(sf)
@@ -103,10 +88,10 @@ The variables for each grid cell are:
 
 ```{code-cell} r
 # load the four variables from their TIFF files
-rich <- raster('data/avian_richness.tif')
-aet <- raster('data/mean_aet.tif')
-temp <- raster('data/mean_temp.tif')
-elev <- raster('data/elev.tif')
+rich <- raster('data/spatial_models/avian_richness.tif')
+aet <- raster('data/spatial_models/mean_aet.tif')
+temp <- raster('data/spatial_models/mean_temp.tif')
+elev <- raster('data/spatial_models/elev.tif')
 ```
 
 It is always a good idea to look at the details of the data. One key skill in being a
@@ -128,9 +113,8 @@ print(rich)
 We can also plot maps the variables and think about the spatial patterns in each.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=12) # Change plot sizes (in cm)
 ```
 
@@ -147,9 +131,8 @@ plot the distribution of the values in each variable, not just look at the minim
 maximum.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=8, repr.plot.height= 8) # Change plot sizes (in cm)
 ```
 
@@ -251,9 +234,8 @@ We can also plot the variables against each other, by treating the new object as
 frame:
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=12, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
@@ -341,9 +323,8 @@ head(queen, n=3)
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=8, repr.plot.height= 8) # Change plot sizes (in cm)
 ```
 
@@ -355,7 +336,7 @@ data_sf$card_queen <- card(queen)
 plot(data_sf[c('card_rook', 'card_queen')], key.pos=4)
 ```
 
-That does **not** look correct - we should not be seeing those stripes in central Africa
+That **does not look correct** - we should not be seeing those stripes in central Africa
 with only two or three rook neighbours. The reason for this is using *exactly* the
 resolution as our distance: minor rounding differences can lead to distance based
 measures going wrong, so it is once again **always a good idea to plot your data and
@@ -369,9 +350,8 @@ below.
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 # Recreate the neighbour adding 1km to the distance
 rook <- dnearneigh(data_sf, d1=0, d2=cellsize + 1)
 queen <- dnearneigh(data_sf, d1=0, d2=sqrt(2) * cellsize + 1)
@@ -409,9 +389,8 @@ functions require **weights** to be assigned to neighbours. In `spdep`, we need 
 lists.
 
 ```{code-cell} r
----
-tags: [raises-exception]
----
+:tags: [raises-exception]
+
 queen <- nb2listw(queen)
 ```
 
@@ -521,9 +500,8 @@ the expected value, variance, $z$ statistics and $p$ value and the rows contain 
 location specific measures of each variable, so we can load them into `data_sf`.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=5, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
@@ -580,16 +558,14 @@ We can then look at the **predictions** of those models. We can extract the pred
 values for each point and put them into our spatial data frame and then map them.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=10) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [remove-stderr]
----
+:tags: [remove-stderr]
+
 # extract the predictions from the model into the spatial data frame
 data_sf$simple_fit <- predict(simple_model)
 data_sf$sar_fit <- predict(sar_model)
@@ -619,9 +595,8 @@ compared increases. To show this, we need the coordinates of the spatial data an
 values of a variable at each point.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -653,9 +628,8 @@ that upswing on the right is based on few pairs, so we can generally ignore it a
 at just shorter distances.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height= 5) # Change plot sizes (in cm)
 ```
 
@@ -679,9 +653,8 @@ models like this and see how much better the SAR is at controlling for the
 autocorrelation in the data.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -753,9 +726,8 @@ we account for autocorrelation.
 We can map the two model predictions
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=4, repr.plot.height=8) # Change plot sizes (in cm)
 ```
 
@@ -772,16 +744,14 @@ residuals from the two GLS models.
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
 ```{code-cell} r
----
-tags: [hide-input]
----
+:tags: [hide-input]
+
 #Extract the residuals
 data_sf$gls_simple_resid <- resid(gls_simple)
 data_sf$gls_gauss_resid <- resid(gls_gauss)
@@ -815,9 +785,8 @@ be dealing with spatial autocorrelation - this spatial GLS is not a good descrip
 the data! Do not forget that **all models require careful model criticism**!
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -887,9 +856,8 @@ pattern.
 We'll look at some examples:
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 

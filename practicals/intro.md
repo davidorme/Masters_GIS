@@ -4,10 +4,12 @@ jupytext:
   text_representation:
     extension: .md
     format_name: myst
+    format_version: 0.13
+    jupytext_version: 1.11.5
 kernelspec:
-  display_name: R
-  language: r
-  name: ir
+  display_name: R 4.2.0
+  language: R
+  name: ir420
 ---
 
 # Introduction to the practicals
@@ -38,38 +40,27 @@ If none of those work then ask us!
 
 ## Getting started
 
-- Each practical has its own RStudio Cloud Project. This will contain all of the data
+* Each practical has its own RStudio Cloud Project. This will contain all of the data
   needed for the practical and will have the required packages pre-installed.
-- If you are working on your own computer, you will need to install those packages.
-  There are quite a lot of them - this could take a little while to set up.
 
-```r
-install.packages('terra')   # Core raster GIS data package
-install.packages('sf')      # Core vector GIS data package
-install.packages('geodata') # GIS data downloader
+* If you are working on your own computer, you will need to install those packages and
+  the data required in the practical. There are quite a lot of required packages - they
+  could take a little while to set up. See [here](required_packages.md) for details of
+  the packages and data you will need.
 
-install.packages('sp')      # Another core vector GIS package
-install.packages('rgeos')   # Extends vector data functionality
-install.packages('rgdal')   # Interface to the Geospatial Data Abstraction Library
-install.packages('lwgeom')  #
+* Once you have your project launched or a local working directory set up and are
+  running in R then **create a new script file to record and run your code**.
 
-install.packages('rnaturalearth')     # Plotting data for practicals
-install.packages('rnaturalearthdata') # Plotting data for practicals
+* Work through the handouts at your own pace.
 
-install.packages('openxlsx')   # Reading data from Excel files
-install.packages('ggplot2')    # Plotting library
-install.packages('gridExtra')  # Extensions for plotting
+## GIS packages
 
-install.packages('dismo')      # Species distribution modelling package
-install.packages('raster')     # Raster data package required for dismo
-
-```
-
-- You will also need to download the data files and set up a working directory with
-  a `data` folder.
-- Once you have your working directory set up and are running in R then do create a new
-  script file to put your code in.
-- Work through the handouts at your own pace.
+There are loads of R packages that can load, manipulate and plot GIS data and we will be
+using several in these practical. In the last few years, the R spatial data community
+has been working on updating most of the core GIS functionality into a few core
+packages, notably `sf` and `terra`. We will focus on using these up-to-date central
+packages, but there will be some occasions where we need to use older packages, such as
+`sp` and `raster`.
 
 ## Tasks
 

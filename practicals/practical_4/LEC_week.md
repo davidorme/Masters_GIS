@@ -10,10 +10,6 @@ kernelspec:
   display_name: R 4.2.0
   language: R
   name: ir420
-authors: 
-  - David Orme
-  - Cristina Banks-Leite
-  - Flavia Bellotto-Trigo
 ---
 
 # Landscape Ecology and Conservation
@@ -51,26 +47,13 @@ These will be in boxes like this one.
 
 ## Requirements
 
-This practical needs the following R packages. They have all been installed on
-the RStudio Cloud Project for this practical, but if you are following this
-practical in R or RStudio installed on your own laptop, you will need to install
-the following:
-
-```r
-install.packages('raster')
-install.packages('sf')
-install.packages('landscapemetrics')
-install.packages('ggplot2')
-install.packages('rgdal')
-install.packages('vegan')
-```
-
-You can now load the required packages:
+We will need to load the following packages. Remember to read [this guide on setting up
+packages on your computer](../required_packages.md) if you are running these practicals
+on your own machine, not RStudio Cloud.
 
 ```{code-cell} r
----
-tags: [remove-stderr]
----
+:tags: [remove-stderr]
+
 library(terra)
 library(sf)
 library(landscapemetrics)
@@ -112,7 +95,7 @@ First, we can load the sites data and use the longitude and latitude coordinates
 (WGS84, EPSG code 4326)  to turn the data into an `sf` object.
 
 ```{code-cell} r
-sites <- read.csv("data/sites.csv", header = TRUE)
+sites <- read.csv("data/brazil/sites.csv", header = TRUE)
 sites <- st_as_sf(sites, coords=c('Lon','Lat'), crs=4326)
 plot(sites[c('Landscape_ID')], key.pos=4, axes=TRUE)
 str(sites)
@@ -140,7 +123,7 @@ lots of 0s in the matrix. Few species are globally common.
 
 ```{code-cell} r
 # Load the abundance data and use the first column (site names) as row names
-abundance <- read.csv("data/abundance.csv", row.names=1, stringsAsFactors = FALSE)
+abundance <- read.csv("data/brazil/abundance.csv", row.names=1, stringsAsFactors = FALSE)
 dim(abundance)
 ```
 
@@ -164,7 +147,7 @@ measure of use frequency: always (3), frequently (2), rarely (1), never (0).
 This matrix thus contains semi-quantitative variables and continuous variables.
 
 ```{code-cell} r
-traits <- read.csv("data/bird_traits.csv", stringsAsFactors = FALSE)
+traits <- read.csv("data/brazil/bird_traits.csv", stringsAsFactors = FALSE)
 str(traits)
 ```
 
@@ -202,7 +185,7 @@ the map and check its coordinate system:
 
 ```{code-cell} r
 # load map
-landcover <- rast("data/map.tif")
+landcover <- rast("data/brazil/map.tif")
 print(landcover)
 ```
 
@@ -213,7 +196,7 @@ forest, plantation, mangroves, etc. We will only be looking at forests
 Another important thing is that the map is quite large and  has a **very fine
 resolution** (0.000269° is about 1 arcsecond or ~30 metres). There are over 82
 million pixels in the image and so the data is slow to handle. In fact, although
-the file loaded quickly, it **did not load the actual data**. The `raster`
+the file loaded quickly, it **did not load the actual data**. The `terra`
 package often does this to keep the memory load low - it only loads data when
 requested and has tricks for only loading the data it needs. You can see this:
 
@@ -241,9 +224,8 @@ need to:
 1. Reproject the data into a suitable projected coordinate system.
 
 ```{code-cell} r
----
-tags: [remove-stderr]
----
+:tags: [remove-stderr]
+
 # Get the bounding box and convert to a polygon
 sites_region <- st_as_sfc(st_bbox(sites))
 
@@ -275,9 +257,8 @@ sites_forest_utm23S <- project(sites_forest, "epsg:32723", res=30, method='near'
 Just to check, we should now be able to plot the sites and forest.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -340,8 +321,8 @@ sum(alce$value[alce$metric == 'area'])
 From that table, you can see that there are 15 patches in the Alce local
 landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape ($\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha$) because
-the landscape is used to select a set of whole pixels. The `class` metrics
-summarise the areas of the patches by class (11 forest patches, 4 matrix
+the landscape is used to select a set of whole pixels rather than a precise circle.
+The `class` metrics summarise the areas of the patches by class (11 forest patches, 4 matrix
 patches) and the `landscape` metrics aggregate everything. We can use the table
 to calculate the `lsm_l_area_mn` value by hand:
 
@@ -491,9 +472,8 @@ cor(sites$richness, sites$total_abundance)
 ```
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 
@@ -683,9 +663,8 @@ Now we can look to see how the community metrics reflect the landscape
 structure.
 
 ```{code-cell} r
----
-tags: [remove-cell]
----
+:tags: [remove-cell]
+
 options(repr.plot.width=8, repr.plot.height=5) # Change plot sizes (in cm)
 ```
 

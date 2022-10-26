@@ -35,16 +35,9 @@ below to convert a `terra::SpatRaster` object to `raster::Raster` object:
 raster_obj <- as(spat_raster_obj, 'Raster')
 ```
 
-The following packages are required: these will be pre-installed in the RStudio Cloud
-project, but you will need to load them if you are working on your own machine
-
-```r <!-- This is nicely styled but not executed by Jupyter. Basically, show don't run.-->
-install.packages('raster') # Core raster GIS data package
-install.packages('sf') # Core vector GIS data package
-install.packages('sp') # Another core vector GIS package
-install.packages('dismo') # Species Distribution Modelling
-install.packages('rgdal') # Interface to the Geospatial Data Abstraction Library
-```
+We will need to load the following packages. Remember to read [this guide on setting up
+packages on your computer](../required_packages.md) if you are running these practicals
+on your own machine, not RStudio Cloud.
 
 To load the packages:
 
@@ -63,7 +56,11 @@ library(dismo)
 
 <!-- ### Installing MaxEnt
 
-We are going to be using the MAXENT species distribution modelling program. Using MaxEnt in R is a bit of a pain, because it requires the MAXENT program to be separately installed and also requires the `rJava` package. The RStudio Cloud project for this practical is all ready to go, but if you want to follow this on your own machine then you will need to:
+We are going to be using the MAXENT species distribution modelling program. Using MaxEnt
+in R is a bit of a pain, because it requires the MAXENT program to be separately
+installed and also requires the `rJava` package. The RStudio Cloud project for this
+practical is all ready to go, but if you want to follow this on your own machine then
+you will need to:
 
 1. Download the MAXENT program - this is a compiled Java program file `maxent.jar`:
 
@@ -71,11 +68,19 @@ We are going to be using the MAXENT species distribution modelling program. Usin
 
 2. Save that into the `dismo/java` folder in your R library.
 
-MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species models. We are *not* going to be getting into the details of the way the algorithm works, but you can read up on that here:
+MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species
+models. We are *not* going to be getting into the details of the way the algorithm
+works, but you can read up on that here:
 
-> Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17: 43-57. [doi:10.1111/j.1472-4642.2010.00725.x](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
+> Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A
+> statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17:
+> 43-57.
+> [doi:10.1111/j.1472-4642.2010.00725.x](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
 
-It [has been pointed out](https://methodsblog.com/2013/02/20/some-big-news-about-maxent/) that MaxEnt is actually equivalent to a Generalised Linear Model (GLM), but we will use a few approaches here and MaxEnt is a framework that has been widely used and discussed.
+It [has been pointed
+out](https://methodsblog.com/2013/02/20/some-big-news-about-maxent/) that MaxEnt is
+actually equivalent to a Generalised Linear Model (GLM), but we will use a few
+approaches here and MaxEnt is a framework that has been widely used and discussed.
 
 -->
 
@@ -135,7 +140,7 @@ We can view both kinds of data for this species.
   [this pdf](https://nc.iucnredlist.org/redlist/resources/files/1539098236-Mapping_Standards_Version_1.16_2018.pdf).
 
 ```{code-cell} r
-tapir_IUCN <- st_read('data/iucn_mountain_tapir/data_0.shp')
+tapir_IUCN <- st_read('data/sdm/iucn_mountain_tapir/data_0.shp')
 print(tapir_IUCN)
 ```
 
@@ -152,7 +157,7 @@ There are some tricks to loading the GBIF data:
 
 ```{code-cell} r
 # Load the data frame
-tapir_GBIF <- read.delim('data/gbif_mountain_tapir.csv')
+tapir_GBIF <- read.delim('data/sdm/gbif_mountain_tapir.csv')
 
 # Drop rows with missing coordinates
 tapir_GBIF <- subset(tapir_GBIF, ! is.na(decimalLatitude) | ! is.na(decimalLongitude))
@@ -771,7 +776,7 @@ of model predictions:
 table(values(glm_map), values(glm_map_future), dnn=c('hist', '2050'))
 ```
 
-This GLM predicts a $35 / (35 + 16) = 67\%$ loss of existing range for this species by
+This GLM predicts a significant loss of existing range for this species by
 2041 - 2060 and no expansion into new areas.
 
 ## Sandbox - things to try with SDMs
@@ -936,7 +941,8 @@ eval <- evaluate(p=test_present, a=test_absent, model=glm_model,
                   x=bioclim_hist_local, tr=thresholds)
 ```
 
-The ouputs below show the AUC and ROC curve for each of the $k$-fold partitions and the average across partitions. See if you can calculate these!
+The ouputs below show the AUC and ROC curve for each of the $k$-fold partitions and the
+average across partitions. See if you can calculate these!
 
 ```{code-cell} r
 :tags: [remove-cell]
@@ -1020,8 +1026,4 @@ plot(clust_output)
 
 # And then pick one from each of five blocks - haphazardly.
 rect.hclust(clust_output, k=5)
-```
-
-```{code-cell} r
-
 ```
