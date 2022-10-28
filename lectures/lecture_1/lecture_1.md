@@ -3,20 +3,22 @@ title: GIS concepts
 author: David Orme
 ---
 
+<!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
+
 <!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
 # GIS concepts
 
-### David Orme
+## David Orme
 
 ---
 
 # What is a GIS?
 
-![](images/droppedImage-107.png)<!-- .element height="250px"  --> 
-![](images/droppedImage-118.png)<!-- .element height="250px" --> 
-![](images/droppedImage-110.png)<!-- .element height="250px" --> 
-![ 113](images/droppedImage-113.png)<!-- .element height="200px"--> 
-![](images/crime.png)<!-- .element height="200px" --> 
+![layer stack](images/droppedImage-107.png)<!-- .element height="250px"  -->
+![remote image](images/droppedImage-118.png)<!-- .element height="250px" -->
+![watershed](images/droppedImage-110.png)<!-- .element height="250px" -->
+![mars](images/droppedImage-113.png)<!-- .element height="200px"-->
+![crime db](images/crime.png)<!-- .element height="200px" -->
 
 ----
 
@@ -24,33 +26,32 @@ author: David Orme
 
 Many things to many people but at core is any system used for:
 
-  - creating,
-  - storing,
-  - manipulating,
-  - analysing and
-  - presenting geographic information
+- creating,
+- storing,
+- manipulating,
+- analysing and
+- presenting geographic information
 
 ----
 
-# What is <ins>geographic information</ins>?
+# What is geographic information?
 
 <div class='container'>
 <div class='col1'>
 
-![](images/Treasure-Island-map-129.jpg)
+![treasure island map](images/Treasure-Island-map-129.jpg)
 
 </div>
 <div class='col2 leftpad'>
 
 Any piece of data that can be located in space, using:
- 
- <div class='vs'></div>
- 
-  - A set of coordinates
-  - A known coordinate system
+
+<div class='vs'></div>
+
+- A set of coordinates
+- A known coordinate system
 
  <div class='vs'></div>
-
 
 Without **both** of these bits of information, we do not have geographic information!
 
@@ -59,31 +60,31 @@ Without **both** of these bits of information, we do not have geographic informa
 
 ---
 
-
 # Spherical coordinates
 
 <div class='container'>
 <div class='col2 rightpad'>
 
-**Latitude** 
+**Latitude**
 
-  - an angle above or below the equator
-  - points of equal latitude form a parallel
-  - distance between parallels is constant*
+- an angle **above or below** the equator
+- points of equal latitude form a **parallel**
+- distance between parallels is constant*
 
 </div>
 <div class='col1'>
 
-![](images/World3D_Lat-133.png)
+![world lat lines](images/World3D_Lat-133.png)
 
 </div>
 </div>
 
 Notes:
+
 Not quite constant because of flattening. 1 degree of latitude is:
 
-* 110574m at Equator
-* 111694m at Poles
+- 110574m at Equator
+- 111694m at Poles
 
 ----
 
@@ -94,14 +95,14 @@ Not quite constant because of flattening. 1 degree of latitude is:
 
 **Longitude**:
 
-  - an angle around the equator
-  - points of equal longitude form a meridian
-  - distance between meridians varies
+- an angle **around** the equator
+- points of equal longitude form a **meridian**
+- distance between meridians **varies**
 
 </div>
 <div class='col1'>
 
-![](images/World3D_Long-137.png)
+![world long lines](images/World3D_Long-137.png)
 
 </div>
 </div>
@@ -115,57 +116,61 @@ Not quite constant because of flattening. 1 degree of latitude is:
 
 **Latitude and longitude**:
 
-  - 90°0’0” E, 30°0’0” N
-  - 90.00 E, 30.00 N
-  - Can include height:
-  - Near Lhasa, Tibet   (c. 5,500 m)
+- 90° 0’ 0” E and 30° 0’ 0” N
+- 90.00 E, 30.00 N
+
+**3D coordinates**
+
+- Can include height
+- In Tibet: 5,500 m
+- Height above **what?**
 
 </div>
 <div class='col1'>
 
-![](images/World3D_LL-141.png)
+![world lat and long](images/World3D_LL-141.png)
 
 </div>
 </div>
 
 Notes:
-* What is 5,500m a measurement from? 
-* What do we need to make our coordinate system.
+
+- What is 5,500m a measurement from?
+- What do we need to make our coordinate system.
 
 ---
 
 # Geographic coordinate system
 
-* The Earth is not a sphere (~ 1 in 298 flattening)
-* There are **many** reference ellipsoids or datums.
+- The Earth is not a sphere (~ 1 in 298 flattening)
+- There are **many** reference ellipsoids or datums.
 
 <div class='vs'></div>
 
-| Name 	| r<sub>equator</sub> (m) 	| r<sub>poles</sub> (m) 	|
-|---	|---:	|---:	|
-| Airy 1830	| 6,377,563.4	| 6,356,256.91	|
-| Clarke 1866	| 6,378,206.4	| 6,356,583.8	|
-| International 1924	| 6,378,388	| 6,356,911.9	|
-| WGS 1984	| 6,378,137	| 6,356,752.31	|
+| Name | r<sub>equator</sub> (m)  | r<sub>poles</sub> (m)  |
+|--- |---: |---: |
+| Airy 1830 | 6,377,563.4 | 6,356,256.91 |
+| Clarke 1866 | 6,378,206.4 | 6,356,583.8 |
+| International 1924 | 6,378,388 | 6,356,911.9 |
+| WGS 1984 | 6,378,137 | 6,356,752.31 |
 
 ----
 
 # Geographic coordinate system
 
-
-  - Unfortunately, the Earth isn’t a ellipsoid either.
-  - Distribution of mass is uneven and dynamic
+- Unfortunately, the Earth isn’t a ellipsoid either.
+- Distribution of mass is uneven and dynamic
 
 <div class='vs'></div>
 <div class='container'>
 <div class='col1'>
 
-![](images/droppedImage-149.png)
+![earth layers](images/droppedImage-149.png)
 
 </div>
 <div class='col1'>
 
-![](images/droppedImage-146.png)
+![earth dynamics](images/droppedImage-146.png)
 
 </div>
 </div>
@@ -179,31 +184,34 @@ Notes:
 
 **Geoid**
 
-  - Surface of equal gravitational force
-  - Up and down are **perpendicular** to the local geoid
-  - A level surface is **tangent** to the local geoid
+- Surface of equal gravitational force
+- Up and down are **perpendicular** to the local geoid
+- A level surface is **tangent** to the local geoid
 
 </div>
 <div class='col1'>
 
  <div class='vs'></div>
 
-![Grace Gravity Model 3](images/ggm01-200.gif) <!-- .element width="100%"  --> 
+![Grace Gravity Model 3](images/ggm01-200.gif) <!-- .element width="100%"  -->
 
 </div>
 </div>
 
 Notes:
-* Down does not necessarily go through the centre of the earth
+
+- Down does not necessarily go through the centre of the earth
 
 ----
 
 # Geographic coordinate system
 
-![](images/cross_section-156.png)
+![geoid surface waterlevel ellisoid](images/cross_section-156.png)
 
 Notes:
+
 GPS uses height above ellipsoid
+
 - can lead to problems relative to sea level.
 - receivers contain a low resolution look up table for the separation.
 
@@ -214,23 +222,24 @@ GPS uses height above ellipsoid
 <div class='container'>
 <div class='col2 rightpad'>
 
-  - Combined datum and geoid giving a standard global coordinate system
-  - Uses modern satellite data to provide ellipsoid measurements and gravity model
-  - Used by GPS
-  - Prime meridian: 0°0’5.31”E !
+- Combined datum and geoid giving a standard global coordinate system
+- Uses modern satellite data to provide ellipsoid measurements and gravity model
+- Used by GPS
+- Prime meridian: 0°0’5.31”E !
 
 </div>
 <div class='col1'>
 
-![D8910 1](images/d8910_1.jpg)
+![greenwich not zero](images/d8910_1.jpg)
 
 </div>
 </div>
 
 Notes:
-* International Reference Meridian
-* Currently 100m East of Greenwich Meridian and moving!
-* Local vs geocentric vertical
+
+- International Reference Meridian
+- Currently 100m East of Greenwich Meridian and moving!
+- Local vs geocentric vertical
 
 ---
 
@@ -239,14 +248,14 @@ Notes:
 <div class='container'>
 <div class='col1 rightpad'>
 
-  - The fit between a geoid and a datum varies in space
-  - Global models, like WGS 84, work well on average
-  - Countries adopt local datum models that fit better locally
+- The fit between a geoid and a datum varies in space
+- Global models, like WGS 84, work well on average
+- Countries adopt local datum models that fit better locally
 
 </div>
 <div class='col1'>
 
-![](images/regional-163.png)
+![geoid v spheroid](images/regional-163.png)
 
 </div>
 </div>
@@ -258,15 +267,18 @@ Notes:
 <div class='container'>
 <div class='col2 rightpad'>
 
-  - British National Grid uses the **OSGB 36 datum**
-  - Same latitude & longitude + different datum = datum shift
-  - In Cornwall, a WGS 84 point is ~70 m east and ~ 70 m south of OSGB 36.
-  - The shift varies nationally
+- WGS84
+  - -0.639875°W
+  - 51.4090°N
+- UK uses the **OSGB 36 datum**
+  - -0.638331°W
+  - 51.4085°N
+- The shift varies nationally
 
 </div>
 <div class='col1'>
 
-![](images/Silwood_1_25000-166.png)
+![Silwood](images/Silwood_1_25000-166.png)
 
 </div>
 </div>
@@ -275,7 +287,7 @@ Notes:
 
 # Datum shift
 
-![](images/datum_shift.png)<!-- .element width="75%"  --> 
+![datum shifts](images/datum_shift.png)<!-- .element width="75%"  -->
 
 ---
 
@@ -284,26 +296,30 @@ Notes:
 <div class='container'>
 <div class='col3 rightpad'>
 
-  - Great circles
-  - Spherical ‘triangle’
-  - **Spherical** geometry:
-     - exact and fast
-  - **Ellipsoidal** geometry:
-     - iterative and slow
+- Great circles
+- Spherical ‘triangle’
+- **Spherical** geometry:
+  - exact and fast
+- **Ellipsoidal** geometry:
+  - iterative and slow
 
 </div>
 <div class='col2'>
 
-![](images/SphericalGeometry.svg)<!-- .element width="100%"  --> 
+![spherical geometry](images/SphericalGeometry.svg)<!-- .element width="100%"  -->
 
 </div>
 </div>
 
 Notes:
+
 Great circle
+
 - where a plane through the centre hits the surface
- - shortest distance by haversine formula
+- shortest distance by haversine formula
+
 Triangle
+
 - angles sum to more than 180
 
 ----
@@ -313,16 +329,15 @@ Triangle
 <div class='container'>
 <div class='col3 rightpad'>
 
-  - Globes not convenient or easily scalable
-  - Precise calculations slow
-  - Not easily useable on flat
-screen or on paper
-  - Need a flat representation of space
+- Globes not convenient or easily scalable
+- Precise calculations slow
+- Not easily useable on flat screen or on paper
+- Need a flat representation of space
 
 </div>
 <div class='col2'>
 
-![](images/SphericalGeometry.svg)<!-- .element width="100%"  --> 
+![spherical geometry](images/SphericalGeometry.svg)<!-- .element width="100%"  -->
 
 </div>
 </div>
@@ -331,22 +346,24 @@ screen or on paper
 
 # Projected coordinate systems
 
-
 <div class='container'>
 <div class='col2 rightpad'>
 
-> It is impossible to project an spherical surface onto a plane without distortion (Gauss, 1827).
+> It is impossible to project an spherical surface onto a plane without distortion
+> (Gauss, 1827).
 
 </div>
 <div class='col3'>
 
-![](images/terrys_chocolate_orange.png)<!-- .element width="90%"  --> 
+![chocolate orange](images/terrys_chocolate_orange.png)<!-- .element width="90%"  -->
 
 </div>
 </div>
 
 Notes:
-  - The ellipsoid surface of the Earth for small distances (~ 10 km) is flat enough for simple purposes but for anything else...
+
+- The ellipsoid surface of the Earth for small distances (~ 10 km) is flat enough for
+  simple purposes but for anything else...
 
 ----
 
@@ -356,10 +373,10 @@ Notes:
 
 Map projections can preserve:
 
-  - **Shape**: conformal maps
-  - **Area**: equal-area maps
-  - **Distance**: equi-distant maps   
-  - **Direction**: azimuthal maps
+- **Shape**: conformal maps
+- **Area**: equal-area maps
+- **Distance**: equi-distant maps
+- **Direction**: azimuthal maps
 
 But most projected coordinate systems can only preserve **one** of these things.
 
@@ -374,14 +391,14 @@ But most projected coordinate systems can only preserve **one** of these things.
 
 **Tissot indicatrix**:
 
-  - An circle on the surface of the Earth.
-  - All points on the edge are equidistant from the center.
-  - Show distortion of ellipsoid surface on planar projections
+- An circle on the surface of the Earth.
+- All points on the edge are equidistant from the center.
+- Show distortion of ellipsoid surface on planar projections
 
 </div>
 <div class='col2'>
 
-![Orthographic](images/Orthographic.png)<!-- .element width="100%"  --> 
+![Orthographic](images/Orthographic.png)<!-- .element width="100%"  -->
 
 </div>
 </div>
@@ -395,7 +412,9 @@ But most projected coordinate systems can only preserve **one** of these things.
 ![Equirectangular](images/Equirectangular.png)
 
 Notes:
+
 Doesn’t preserve anything much,
+
 - distance/scale along vertical lines (great circles)
 
 ----
@@ -404,7 +423,7 @@ Doesn’t preserve anything much,
 
 Classification according to mapping to planar surface:
 
-![Planar     Cylindrical     Conical](images/Projection_types-193.png)
+![Planar Cylindrical Conical](images/Projection_types-193.png)
 
 ----
 
@@ -415,12 +434,12 @@ Classification according to mapping to planar surface:
 <div class='container'>
 <div class='col2'>
 
-![](images/gnomon.svg)
+![gnomonic](images/gnomon.svg)
 
 </div>
 <div class='col3'>
 
-![](images/SilwoodGnomonic-197.png)<!-- .element width="65%"  --> 
+![gnomomic silwood centre](images/SilwoodGnomonic-197.png)<!-- .element width="65%"  -->
 
 </div>
 </div>
@@ -437,30 +456,34 @@ Great circles in all directions from centre of map
 <div class='container'>
 <div class='col1'>
 
-![](images/cylindrical.svg)
+![cylindrical](images/cylindrical.svg)
 
 </div>
 <div class='col3'>
 
-![](images/Behrmann-205.png)
+![behrmann](images/Behrmann-205.png)
 
 </div>
 </div>
 
 Notes:
+
 Imagine running an old fluorescent tube down the middle and turning it on.
+
 Behrmann projection
-* Notice compression of higher latitudes
+
+- Notice compression of higher latitudes
 
 ----
 
 # Projected coordinate systems
- 
- **Mercator**: preserves shape, not scale
 
-![](images/Mercator-209.png)
+**Mercator**: preserves shape, not scale
+
+![mercator](images/Mercator-209.png)
 
 Notes:
+
 Inflate spherical balloon inside a cylinder coated with glue
 
 ----
@@ -469,11 +492,12 @@ Inflate spherical balloon inside a cylinder coated with glue
 
 **Fuller Dymaxion**: compromise projection
 
-![](images/Fuller-213.png)
+![fuller dymaxion](images/Fuller-213.png)
 
 Notes:
-Local projections onto triangular planes Borders go through sea
-No up or down
+
+- Local projections onto triangular planes Borders go through sea
+- No up or down
 
 ---
 
@@ -481,11 +505,12 @@ No up or down
 
 <div class='leftpad'>
 
-  - A **Coordinate system** and:
-    - **Vector** data: coordinates of points, lines, polygons
-    - **Raster** data
-        - grid data
-        - satellite and aerial images
+- A **Coordinate system** and:
+  - **Vector** data
+    - coordinates of points, lines, polygons
+  - **Raster** data
+    - grid data
+    - satellite and aerial images
 
 </div>
 
@@ -497,11 +522,11 @@ No up or down
 
 An **image** covering a continuous surface
 
-  - Made up of individual **pixels**, each with a **value**
-    - Categorical: land cover, species presence
-    - Continuous: temperature, precipitation
-  - Has a **resolution** (pixel size)
-  - Needs **origin** and coordinate system
+- Individual **pixels**, each with a **value**
+  - Categorical: land cover, species presence
+  - Continuous: temperature, precipitation
+- Has a **resolution** (pixel size)
+- Needs **origin** and coordinate system
 
 </div>
 
@@ -512,13 +537,13 @@ An **image** covering a continuous surface
 <div class='container'>
 <div class='col1'>
 
-![](images/UK_GTOPO-223.png)
+![uk gtopo](images/UK_GTOPO-223.png)
 
 </div>
 <div class='col1'>
 
-![](images/MammalThreat-226.png)
-![](images/Silwood_1_25000-166.png)<!-- .element width="70%"  -->
+![mammal threat](images/MammalThreat-226.png)
+![silwood map](images/Silwood_1_25000-166.png)<!-- .element width="70%"  -->
 
 </div>
 </div>
@@ -531,10 +556,10 @@ An **image** covering a continuous surface
 
 A set of *features*, containing one of:
 
-  - Individual **points**, or sets of connected points forming **lines** or **polygons**
-  - Needs a coordinate system
-  - Coordinates are  a precise location, but may have precision or accuracy information
-  - Features may have an attribute table.
+- Individual **points**, or sets of connected points forming **lines** or **polygons**
+- Needs a coordinate system
+- Coordinates are  a precise location, but may have precision or accuracy information
+- Features may have an attribute table.
 
 </div>
 
@@ -545,13 +570,13 @@ A set of *features*, containing one of:
 <div class='container'>
 <div class='col1'>
 
-![](images/UK_Ecoregions-233.png)
+![ecoregions](images/UK_Ecoregions-233.png)
 
 </div>
 <div class='col1'>
 
-![](images/RedDeer-236.png)
-![](images/SilwoodPointLine-239.png)<!-- .element width="70%"  -->
+![species distribution](images/RedDeer-236.png)
+![silwood vector](images/SilwoodPointLine-239.png)<!-- .element width="70%"  -->
 
 </div>
 </div>
@@ -565,18 +590,18 @@ A set of *features*, containing one of:
 
 **Raster**
 
-* Fixed grid
-* One value per pixel per bands
-* Often multiple stacked bands
-* Attribute tables for _values_ (VAT)
+- Fixed grid
+- One value per pixel per bands
+- Often multiple stacked bands
+- Attribute tables for *values* (VAT)
 
 </div>
 <div class='col1 leftpad'>
 
 **Vector**
 
-* Features with arbitrary shapes
-* Attribute tables for _features_
+- Features with arbitrary shapes
+- Attribute tables for *features*
 
 </div>
 </div>
