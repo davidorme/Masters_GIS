@@ -1,6 +1,7 @@
 ---
 title: GIS concepts
 author: David Orme
+theme: simple
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
