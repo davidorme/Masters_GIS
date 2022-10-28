@@ -17,26 +17,18 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-# Create buffers around the observed points
-nearby <- st_buffer(tapir_GBIF, dist=1)
-too_close <- st_buffer(tapir_GBIF, dist=0.2)
-# merge those buffers
-nearby <- st_union(nearby)
-too_close <- st_union(too_close)
-# Find the area that is nearby but _not_ too close
-nearby <- st_difference(nearby, too_close)
-# Get some points within that feature in an sf dataframe
-pseudo_nearby <- st_as_sf(st_sample(nearby, n_pseudo))
+test <-  projectRaster(bioclim_hist_local, crs='EPSG:32718')
+extent(test)
+res(test)
 ------------------
 
-Error: vector memory exhausted (limit reached?)
+Error in CRS(SRS_string = x): no arguments in initialization list
 Traceback:
 
-1. st_as_sf(st_sample(nearby, n_pseudo))
-2. st_sample(nearby, n_pseudo)
-3. st_sample.sfc(nearby, n_pseudo)
-4. st_poly_sample(x, size = size, ..., type = type, by_polygon = by_polygon)
-5. runif(size, bb[1], bb[3])
-ERROR: Error: vector memory exhausted (limit reached?)
+1. projectRaster(bioclim_hist_local, crs = "EPSG:32718")
+2. .getCRS(crs)
+3. CRS(SRS_string = x)
+4. stop(res[[2]])
+ERROR: Error in CRS(SRS_string = x): no arguments in initialization list
 
 

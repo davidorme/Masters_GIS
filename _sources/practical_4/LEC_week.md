@@ -1,33 +1,32 @@
 ---
-author: "Cristina Banks-Leite, David Orme & Flavia Bellotto-Trigo" 
-date: "November 2020" 
 jupytext:
   formats: md:myst
   text_representation:
     extension: .md
     format_name: myst
-    format_version: 0.12
-    jupytext_version: 1.6.0
+    format_version: 0.13
+    jupytext_version: 1.11.5
 kernelspec:
-  display_name: R
+  display_name: R 4.2.0
   language: R
-  name: ir
+  name: ir420
 ---
 
 # Landscape Ecology and Conservation
 
-**Cristina Banks-Leite, David Orme & Flavia Bellotto-Trigo**
+Authors: **Cristina Banks-Leite, David Orme & Flavia Bellotto-Trigo**
 
 In this practical, we are going to use R to:
 
-1. obtain landscape metrics from a map; 
-2. obtain community metrics from a bird dataset; and 
-3. analyse the data to assess how Atlantic Forest birds are impacted by habitat
+1. obtain landscape metrics from a map;
+1. obtain community metrics from a bird dataset; and
+1. analyse the data to assess how Atlantic Forest birds are impacted by habitat
    loss and fragmentation.
 
-
 ```{admonition} Class group exercise
-:class: danger
+---
+class: danger
+---
 Everyone in the class will have access to the same data but each group will be
 assigned a specific question that needs to be answered by Friday 20th November
 2020. Instructions for this exercise will be in boxes like this one.
@@ -38,34 +37,24 @@ follow.
 ```
 
 ```{admonition} Data exploration exercises
-:class: hint
+---
+class: hint
+---
 In addition to the instructions for the class exercises, there are some
 individual exercises, which ask you to explore the data and techniques used. 
 These will be in boxes like this one.
 ```
 
-
 ## Requirements
 
-This practical needs the following R packages. They have all been installed on
-the RStudio Cloud Project for this practical, but if you are following this
-practical in R or RStudio installed on your own laptop, you will need to install
-the following:
+We will need to load the following packages. Remember to read [this guide on setting up
+packages on your computer](../required_packages.md) if you are running these practicals
+on your own machine, not RStudio Cloud.
 
-```r
-install.packages('raster')
-install.packages('sf')
-install.packages('landscapemetrics')
-install.packages('ggplot2')
-install.packages('rgdal')
-install.packages('vegan')
-```
-
-You can now load the required packages:
-
-```{code-cell} R
+```{code-cell} r
 :tags: [remove-stderr]
-library(raster)
+
+library(terra)
 library(sf)
 library(landscapemetrics)
 library(vegan)
@@ -84,16 +73,16 @@ were captured in 65 sites, from three different regions, each containing a
 control landscape and a 10,000 ha fragmented landscape. The fragmented
 landscapes varied in their  proportions of forest cover  (10, 30 and 50% cover).
 
-![](images/figure_sampling_sites.jpg)
+![sampling_site_layout](images/figure_sampling_sites.jpg)
 
 More info about the data set can be found in the following papers:
 
-* Banks-Leite, C., Ewers, R. M., & Metzger, J. P. (2012). Unraveling the drivers
+- Banks-Leite, C., Ewers, R. M., & Metzger, J. P. (2012). Unraveling the drivers
   of community dissimilarity and species extinction in fragmented landscapes.
   Ecology 93(12), 2560-2569.
   [https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1](https://esajournals.onlinelibrary.wiley.com/doi/10.1890/11-2054.1)
 
-* Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., & Metzger, J. P.
+- Banks-Leite, C., Ewers, R. M., Kapos, V., Martensen, A. C., & Metzger, J. P.
   (2011). Comparing species and measures of landscape structure as indicators of
   conservation importance. Journal of Applied Ecology 48(3), 706-714.
   [https://doi.org/10.1111/j.1365-2664.2011.01966.x](https://doi.org/10.1111/j.1365-2664.2011.01966.x)
@@ -105,10 +94,10 @@ There are three files to load.
 First, we can load the sites data and use the longitude and latitude coordinates
 (WGS84, EPSG code 4326)  to turn the data into an `sf` object.
 
-```{code-cell} R
-sites <- read.csv("data/sites.csv", header = TRUE)
+```{code-cell} r
+sites <- read.csv("data/brazil/sites.csv", header = TRUE)
 sites <- st_as_sf(sites, coords=c('Lon','Lat'), crs=4326)
-plot(sites[c('Landscape_ID')], key.pos=4)
+plot(sites[c('Landscape_ID')], key.pos=4, axes=TRUE)
 str(sites)
 ```
 
@@ -116,13 +105,13 @@ Region A corresponds to the fragmented landscape with 10% forest cover (and
 adjcent control), region B corresponds to fragmented landscape with 50% of cover
 (and control) and region C corresponds to  fragmented landscape with 30% of
 cover (and control). The `sites` data set describes the characteristics of the
-sampling sites: 
+sampling sites:
 
-* `Landscape`: whether the site belong to a fragmented or a
+- `Landscape`: whether the site belong to a fragmented or a
   continuously-forested control landscape,
-* `Percent`: the proportion of forest cover at the 10,000 ha landscape scale,
+- `Percent`: the proportion of forest cover at the 10,000 ha landscape scale,
   and
-* `Landscape_ID`: as we just saw, fragmented landscapes were paired with a
+- `Landscape_ID`: as we just saw, fragmented landscapes were paired with a
   control landscape, so this variable gives you the information of which sites
   belonged to the same region.
 
@@ -132,9 +121,9 @@ Next, read in the data set showing the sites x species abundance matrix. As
 you'll see, a lot of the species were only caught once or twice and there are
 lots of 0s in the matrix. Few species are globally common.
 
-```{code-cell} R
+```{code-cell} r
 # Load the abundance data and use the first column (site names) as row names
-abundance <- read.csv("data/abundance.csv", row.names=1, stringsAsFactors = FALSE)
+abundance <- read.csv("data/brazil/abundance.csv", row.names=1, stringsAsFactors = FALSE)
 dim(abundance)
 ```
 
@@ -145,20 +134,20 @@ that were seen in at least one site.
 
 Last, the bird trait data set includes information about:
 
-*  The main diet of all species, split into five categories (`Invertebrates`,
-   `Vertebrates`, `Fruits`, `Nectar`, `Seeds`).
-* The preferred foraging strata, split into four categories (`Ground`,
+- The main diet of all species, split into five categories (`Invertebrates`,
+  `Vertebrates`, `Fruits`, `Nectar`, `Seeds`).
+- The preferred foraging strata, split into four categories (`Ground`,
   `Understory`, `Midstory`, `Canopy`)
-* The species' mean body size (`BMass`).
-* The number of habitats the species uses (`Nhabitats`), representing
-  specialisation. 
+- The species' mean body size (`BMass`).
+- The number of habitats the species uses (`Nhabitats`), representing
+  specialisation.
 
- The values used for the diet and foraging strata are a semi-quantitative
- measure of use frequency: always (3), frequently (2), rarely (1), never (0).
- This matrix thus contains semi-quantitative variables and continuous variables.
+The values used for the diet and foraging strata are a semi-quantitative
+measure of use frequency: always (3), frequently (2), rarely (1), never (0).
+This matrix thus contains semi-quantitative variables and continuous variables.
 
-```{code-cell} R
-traits <- read.csv("data/bird_traits.csv", stringsAsFactors = FALSE)
+```{code-cell} r
+traits <- read.csv("data/brazil/bird_traits.csv", stringsAsFactors = FALSE)
 str(traits)
 ```
 
@@ -191,27 +180,27 @@ the entire country of Brazil - we are using data contemporary with the bird
 sampling.
 
 The map is a GEOTIFF file of landcover classes, therefore we are going to use
-the function `raster` from the `raster` package to load the map.  First, load
+the function `terra::rast` function to load the map.  First, load
 the map and check its coordinate system:
 
-```{code-cell} R
+```{code-cell} r
 # load map
-landcover <- raster("data/map.tif")
+landcover <- rast("data/brazil/map.tif")
 print(landcover)
 ```
 
 The map has 33 values for the **33 different landcover classes** including:
 forest, plantation, mangroves, etc. We will only be looking at forests
-(landcover class 3). 
+(landcover class 3).
 
 Another important thing is that the map is quite large and  has a **very fine
 resolution** (0.000269° is about 1 arcsecond or ~30 metres). There are over 82
 million pixels in the image and so the data is slow to handle. In fact, although
-the file loaded quickly, it **did not load the actual data**. The `raster`
+the file loaded quickly, it **did not load the actual data**. The `terra`
 package often does this to keep the memory load low - it only loads data when
 requested and has tricks for only loading the data it needs. You can see this:
 
-```{code-cell} R
+```{code-cell} r
 inMemory(landcover)
 ```
 
@@ -230,12 +219,11 @@ focal regions to extract landscape metrics for each site. In order to do that we
 need to:
 
 1. Identify a smaller region of interest for the sites
-2. Crop the landcover raster down to this region, to use a small dataset.
-3. Convert the landcover to a binary forest - matrix map.
-4. Reproject the data into a suitable projected coordinate system.
+1. Crop the landcover raster down to this region, to use a small dataset.
+1. Convert the landcover to a binary forest - matrix map.
+1. Reproject the data into a suitable projected coordinate system.
 
-
-```{code-cell} R
+```{code-cell} r
 :tags: [remove-stderr]
 
 # Get the bounding box and convert to a polygon
@@ -244,39 +232,37 @@ sites_region <- st_as_sfc(st_bbox(sites))
 # Buffer the region by 0.1 degrees to get coverage around the landscape.
 # This is roughly 10 kilometres which is a wide enough border to allow
 # us to test the scale of effects.
-# - this throws out a warning, but this is only a rough border.
 sites_region <- st_buffer(sites_region, 0.1)
 
-# Convert to a `sp` extent object for use in `crop`
-sites_extent <- extent(matrix(st_bbox(sites_region), ncol=2))
-
 # Crop the landcover data and convert to a binary forest map
-sites_landcover <- crop(landcover, sites_extent)
+sites_landcover <- crop(landcover, sites_region)
 sites_forest <- sites_landcover == 3
 print(sites_forest)
 ```
 
-If you check that final output, you will see that the values changed to `values:
-0, 1 (min, max)`.
+If you check that final output, you will see that the values changed to
+`values: 0, 1 (min, max)`.
 
 Now that we have the regional forest for the sites, we can reproject the data.
 We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that
-the landcover class data is categorical - we *have* to use `method='ngb'` when
-projecting the data. We've also set a resolution of 30 metres. The original 
-WGS84 pixels are not square in UTM23S because 1 arc second NS is not equal to
-1 arc second EW, and so setting the resolution tells `projectRaster` to use that
-fixed size rather letting it create rectangular pixels.
+the landcover class data is categorical - we *have* to use `method='near'` when
+projecting the data. We've also set a resolution of 30 metres.
 
-```{code-cell} R
+```{code-cell} r
 sites_utm23S <- st_transform(sites, 32723)
 # This takes a little while to run!
-sites_forest_utm23S <- projectRaster(sites_forest, crs="+init=epsg:32723", 
-                                     res=30, method='ngb')
+sites_forest_utm23S <- project(sites_forest, "epsg:32723", res=30, method='near')
 ```
 
-Just to check, we should now be able to plot the sites and forest. 
+Just to check, we should now be able to plot the sites and forest.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=10, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 plot(sites_forest_utm23S)
 plot(st_geometry(sites_utm23S), add=TRUE)
 ```
@@ -286,24 +272,24 @@ plot(st_geometry(sites_utm23S), add=TRUE)
 You can now explore the functions in the package
 [`landscapemetrics`](https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf)
 to measure different landscape metrics. You can also look at the complete set of
-**132** landscape metrics that the package will calculate:
+**132 landscape metrics** that the package will calculate:
 
-```{code-cell} R
+```{code-cell} r
 lsm_abbreviations_names
 ```
 
-#### Landscape levels 
+#### Landscape levels
 
 There are three core levels of calculation and it is important to understand how
 these are applied within a local landscape:
 
-* The **patch** level metrics are things that are calculated for every single
+- The **patch** level metrics are things that are calculated for every single
   patch in the local landscape. So in the output, there is one row for each
   patch and it is identified with a patch `id` and a `class` id.
-* The **class** level metrics are aggregated across all patches of a specific
+- The **class** level metrics are aggregated across all patches of a specific
   class, so there is a row for each class that appears in the local landscape,
   labelled with a `class` id (but no patch).
-* The **landscape** metrics aggregate *all* patches, so there is just one row
+- The **landscape** metrics aggregate *all* patches, so there is just one row
   per landscape.
 
 To show how these values are reported - and how we can use them - the following
@@ -312,7 +298,7 @@ counts and areas at all three levels, along with the proportion landcover of
 each class. The local landscape is defined as a circle with a radius of 600
 meters. We will use the Alce site as an example:
 
-```{code-cell} R
+```{code-cell} r
 # Calculate patch areas at patch, class and landscape scale.
 lsm <- sample_lsm(sites_forest_utm23S, sites_utm23S, 
                   shape = "circle", size = 600, 
@@ -324,26 +310,25 @@ lsm <- sample_lsm(sites_forest_utm23S, sites_utm23S,
 
 # Use Alce as an example
 alce <- subset(lsm, plot_id=='Alce')
-print(alce, n=22)
+print(alce, n=23)
 ```
 
-
-```{code-cell} R
+```{code-cell} r
 # Calculate total area
 sum(alce$value[alce$metric == 'area'])
 ```
 
-From that table, you can see that there are 14 patches in the Alce local
+From that table, you can see that there are 15 patches in the Alce local
 landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape ($\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha$) because
-the landscape is used to select a set of whole pixels. The `class` metrics
-summarise the areas of the patches by class (10 forest patches, 4 matrix
+the landscape is used to select a set of whole pixels rather than a precise circle.
+The `class` metrics summarise the areas of the patches by class (11 forest patches, 4 matrix
 patches) and the `landscape` metrics aggregate everything. We can use the table
 to calculate the `lsm_l_area_mn` value by hand:
 
-```{code-cell} R
+```{code-cell} r
 # Weighted average of class patch sizes (with some rounding error)
-(19.1 * 4 + 3.65 * 10) / 14
+(19.0 * 4 + 3.38 * 11) / 15
 ```
 
 #### Merging landscape metrics onto sites
@@ -351,22 +336,22 @@ to calculate the `lsm_l_area_mn` value by hand:
 The contents of `lsm` is rather unhelpful in two ways:
 
 1. The variables are not in separate columns, but stacked in the `value` and
-   `metric` fields. 
-2. Class variables include rows for both the matrix and forest, and we are
+   `metric` fields.
+1. Class variables include rows for both the matrix and forest, and we are
    primarily interested in the forest class metrics.
 
 So, we need a couple of tools to help convert this output into something easier
 to use:
 
 1. We can use `subset` to keep just the columns and rows we actually want:
-   forest class metrics and values. 
-2. We need to `reshape` the data frame to have a column for each measure. (The
+   forest class metrics and values.
+1. We need to `reshape` the data frame to have a column for each measure. (The
    help and syntax of the `reshape` function is *notoriously* unhelpful - there
    are other, better tools but this simple recipe works here).
-3. Along the way, we should make sure that our variable names are clear - we
+1. Along the way, we should make sure that our variable names are clear - we
    want the method of calculation of each value to be obvious.
 
-```{code-cell} R
+```{code-cell} r
 # Drop the patch data and landscape rows
 lsm_forest <- subset(lsm, level == 'class')
 # Drop down to the forest class and also reduce to the three core fields
@@ -384,12 +369,14 @@ head(lsm_forest, n=10)
 
 Now it is easy to match those landscape metrics to the `sites` data.
 
-```{code-cell} R
+```{code-cell} r
 sites <- merge(sites, lsm_forest, by.x='Site', by.y='plot_id')
 ```
 
 ```{admonition} Group exercise
-:class: danger
+---
+class: danger
+---
 This exercise will consist of obtaining a number of landscape metrics for each
 of our 65 sites, so we can later use them as explanatory variables in a model to
 understand how birds are affected by habitat loss and fragmentation. 
@@ -437,12 +424,12 @@ However there are lots of different ways of measuring community structure. We
 will look at measures of overall diversity, community composition and functional
 diversity.
 
-### Measuring site abundance, species richness, species diversity and evenness 
+### Measuring site abundance, species richness, species diversity and evenness
 
 Abundance can be measured at the species level, but here we are interested in
 total community abundance, so the total number of individuals captured at each
 site. We can only measure bird abundance because this study used mist nets,
-where each individual was uniquely tagged.  
+where each individual was uniquely tagged.
 
 To measure species richness you can use the function `specnumber` from the
 `vegan` package. As we saw in the lecture, **Measuring Biodiversity**, sometimes
@@ -454,7 +441,7 @@ diversity changes, you can measure the Shannon index ($H$) by using the function
 `diversity`. The **vegan** package doesn't have any functions for measuring
 evenness, but Pielou's Evenness ($J$) is easily measured with the formula below:
 
-```{code-cell} R
+```{code-cell} r
 # First, we sort the rows of abundance to make sure that they are in the
 # same order as the sites data frame.
 site_order <- match(rownames(abundance), sites$Site)
@@ -470,25 +457,32 @@ sites$J <- sites$H / log(sites$richness)
 ```
 
 ```{admonition} Exploring the data
-:class: hint
+---
+class: hint
+---
 What is the correlation between richness, diversity, evenness and abundance
 across sites? You can use the function `cor()` and `plot()` the results to
 better understand the patterns. Which biodiversity metrics would you choose to
 report your results and why?
 ```
 
-```{code-cell} R
+```{code-cell} r
 # Some example code to modify:
 cor(sites$richness, sites$total_abundance)
 ```
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=5, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 plot(richness ~ total_abundance, data=sites)
 ```
 
 Hint: There is no right or wrong answer here. You can choose any metric as long
 as you understand its advantages and disadvantages.
-
 
 #### Species abundance distribution
 
@@ -496,9 +490,9 @@ We could also look at the rank abundance of species to understand if our
 community is dominated by a few species or to assess the prevalence of rare
 species. Rare species are those that were caught a few times only. This is
 *very* arbitrary and likely to be biased by how easily species are disturbed and
-trapped. 
+trapped.
 
-```{code-cell} R
+```{code-cell} r
 # Get the total abundance of each _species_
 species_abund <- colSums(abundance)
 # Transform into relative percent abundance
@@ -516,7 +510,7 @@ fragmented landscape to see if trends are affected by habitat cover.
 Community composition is a class of biodiversity measure that incorporates
 information on species richness, abundance and species identity. That
 inclusivity makes them a very informative biodiversity metric but they are also
-complex to compute and interpret. 
+complex to compute and interpret.
 
 There are three stages to assessing community composition:
 
@@ -525,17 +519,17 @@ There are three stages to assessing community composition:
    **transform the site by species** data in one or more ways to adjust the
    emphasis given to the different species before assessing composition.
 
-2. The site by species matrix is then transformed into a **dissimilarity
+1. The site by species matrix is then transformed into a **dissimilarity
    matrix** - a site by site matrix that quantifies the differences between the
    communities at each pair of sites.
 
-2. The dissimilarity matrix represents a complex pattern of community
+1. The dissimilarity matrix represents a complex pattern of community
    differences and an **ordination** can then be used to identify independent
-   axes of community variation across sites. 
+   axes of community variation across sites.
 
 All of these steps have multiple options!
 
-#### Transforming site by species data.
+#### Transforming site by species data
 
 There are several common approaches used for transforming site by species
 matrices *before* calculating dissimilarities. All of these approaches alter the
@@ -548,26 +542,26 @@ weighting given to the different species.
    data. The `vegdist` function (see below) has the option (`binary=TRUE`) to do
    this automatically.
 
-2. **Scaling abundance data**.  Variation in the abundance data can be driven by
+1. **Scaling abundance data**.  Variation in the abundance data can be driven by
    a few common species, particularly when the variation in abundance of some
    species is much larger than others (e.g. one species varies in abundance from
    0 to 1000, and all other species vary from 0 to 10). In our case, the most
    abundant species only varied from 0 to 24 individuals, so scaling this
    dataset should  not particularly affect the results. Scaling a dataset alters
    the balance of the analysis to equally weight each species when calculating
-   dissimilarity which *can* provide more biologically meaningful results. 
+   dissimilarity which *can* provide more biologically meaningful results.
 
-3. Although this seems counterintuitive, the detectability and distribution of
+1. Although this seems counterintuitive, the detectability and distribution of
    rare species can confound community patterns among the common species.
    **Removing rare species** can therefore help make major compositional shifts
    more obvious. This is particularly important in microbiome studies with
    thousands of OTUs (e.g. it is common in these studies to exclude the 5% least
-   common OTUs). 
+   common OTUs).
 
 We will revisit this but for the moment we will stick with the raw abundance
 data.
 
-#### Calculating dissimilarity Indices 
+#### Calculating dissimilarity Indices
 
 Dissimilarity indices are used to compare two sites using the total number (or
 abundances) of species in each site (A + B), along with the number (or
@@ -576,23 +570,22 @@ using the `vegdist` function in `vegan`. A large number of indices have been
 proposed and can be calculated in `vegan`: look at the help for both `?vegdist`
 and `?designdist` for the details!
 
-
 We have many options but we have to start somewhere: we will use the
 [Bray-Curtis](https://en.wikipedia.org/wiki/Bray%E2%80%93Curtis_dissimilarity)
-dissimilarity index computed from raw abundances. 
+dissimilarity index computed from raw abundances.
 
-```{code-cell} R
+```{code-cell} r
 bray  <- vegdist(abundance, method="bray", binary=FALSE)
 ```
 
 Have a look at the association matrix (`print(bray)`), and notice it is
 triangular. Why do you think that is? We can visualise this data to help
 understand what is going on. We're actually going to cheat a bit here - we have
-a big matrix and the `raster` package is really good at plotting those
+a big matrix and the `terra` package is really good at plotting those
 quickly...
 
-```{code-cell} R
-bray_r <- raster(as.matrix(bray))
+```{code-cell} r
+bray_r <- rast(as.matrix(bray))
 plot(bray_r, col=hcl.colors(20))
 ```
 
@@ -603,13 +596,12 @@ show a range of values.
 If we want to compute the dissimilarity matrix based on another index, we can
 simply change `method="bray"` to any of the other indices provided in `vegdist`.
 Each dissimilarity metric has advantages and disadvantages but Bray-Curtis and
-Jaccard are commonly used for species abundance data. 
+Jaccard are commonly used for species abundance data.
 
 Note that some of these indices in `vegdist` are not appropriate for abundance
 data. For example, Euclidean distance is widely used for environmental data
 (landscape metrics, geographic distance, temperature, altitude, etc) but is
-**not** ecologically meaningful for biodiversity data!    
-
+**not** ecologically meaningful for biodiversity data!
 
 #### Principal coordinate analysis
 
@@ -619,12 +611,12 @@ hence the function name: `cmdscale`. The PCoA will take your dissimilarity
 matrix and represent the structure in this dataset in a set of independent
 vectors (or ordination axes) to highlight main ecological trends and reduce
 noise. You can then use ordination axes to represent how similar (or dissimilar)
-two sites are with respect to the species they have. 
+two sites are with respect to the species they have.
 
 Do not confuse *classical multidimensional scaling* with *non-metric
 multidimensional scaling* (NMDS), which is also very popular!
 
-```{code-cell} R
+```{code-cell} r
 pcoa <- cmdscale(bray, k=8, eig=TRUE)
 ```
 
@@ -642,7 +634,7 @@ in two dimensions. We have to extract the new coordinates of the data before
 being able to plot them. Once again, it is wise to give clear names to each
 variable, otherwise we end up with variable names like `X1`.
 
-```{code-cell} R
+```{code-cell} r
 # Extract the scores 
 pcoa_axes <- pcoa$points
 colnames(pcoa_axes) <- paste0('bray_raw_pcoa_', 1:8)
@@ -652,14 +644,14 @@ We can look at the correlations between all of those axes. We are using
 `zapsmall` to hide all correlations smaller than $10^{-10}$ - as expected, none
 of these axes are correlated.
 
-```{code-cell} R
+```{code-cell} r
 zapsmall(cor(pcoa_axes), digits=10)
 ```
 
 Now we can merge them onto the site data to make sure that the landscape and
 community metrics are matched by site.
 
-```{code-cell} R
+```{code-cell} r
 # Convert the pcoa axis values to a data frame and label by site
 pcoa_axes_df <- data.frame(pcoa_axes)
 pcoa_axes_df$Site <- rownames(pcoa_axes)
@@ -670,7 +662,13 @@ sites <- merge(sites, pcoa_axes_df, by='Site')
 Now we can look to see how the community metrics reflect the landscape
 structure.
 
-```{code-cell} R
+```{code-cell} r
+:tags: [remove-cell]
+
+options(repr.plot.width=8, repr.plot.height=5) # Change plot sizes (in cm)
+```
+
+```{code-cell} r
 ggplot(sites, aes(bray_raw_pcoa_1, bray_raw_pcoa_2)) +
   geom_point(aes(colour = C600.pland)) + 
   scale_colour_gradientn(colors=hcl.colors(20)) + 
@@ -682,7 +680,9 @@ trends varying the most, PCoA1 or PCoA2? Try looking at some of the other PCoA
 axes.
 
 ```{admonition} Exploring the data
-:class: hint
+---
+class: hint
+---
 Now plot PCoA axis 1 against the percentage of forest cover. Which trends do you get?
 And what about axis 2? 
 ```
@@ -703,11 +703,12 @@ of the variation in the original data is explained by the first *n* principal
 coordinates. We will drop the negative eigenvalues - they just confuse the
 cumulative calculation!
 
-```{code-cell} R
+```{code-cell} r
 par(mfrow=c(1,2))
 eig <- pcoa$eig[pcoa$eig >0] 
 barplot(eig / sum(eig), main='Axis variation')
 barplot(cumsum(eig)/ sum(eig), main='Cumulative variation')
+
 # Print the percentage variation of the first 8 
 head(sprintf('%0.2f%%', (eig / sum(eig)) * 100), n=8)
 ```
@@ -717,7 +718,7 @@ about the number of principal coordinates axes to retain: the bars gradually
 decrease in size rather than showing a clear cutoff.  From those plots, we can
 see that the first principal coordinate axis contains almost twice as much
 information as the second one (21.2% versus 12.0%). However, together they still
-only explain 33.2% of the variation. 
+only explain 33.2% of the variation.
 
 However we shouldn't blindly look at percentages. For instance, if one species
 in the matrix varies from 0 to 1,000 individuals - while all the other species
@@ -732,11 +733,11 @@ reduces as -in this case- the number of species increases, so the amount of
 variation explained by the first axis is reasonable given that we have 140
 species!
 
-
 <!-- Hidden to reduce handout complexity
 
 ````{admonition}  Sidebar: Shepard diagrams
 :class: hint
+
 Shepard diagram's compares the distances between sites using our PCoA axes to
 the original distances calculated using all the community data. If the PCoA
 captures the data well, these two distances will be strongly correlated and so
@@ -773,9 +774,10 @@ good. But can we improve it? And can we make do with just one axis?
 ````
 -->
 
-
-```{admonition} Explore the data - community metric variations.
-:class: hint
+````{admonition} Explore the data - community metric variations.
+---
+class: hint
+---
 All of the information from that PCoA depends entirely on our choices for the
 original dissimilarity  matrix. If we change that metric then the *positions of
 sites in the ordination space will change* and so will *the relative importances
@@ -807,10 +809,12 @@ Do any of these options seem to give a clearer relationship between the
 community composition and forest cover? There is no right or wrong answer here -
 different choices reflect different hypotheses.
 
-```
+````
 
 ```{admonition} Regression of landscape and community metrics
-:class: hint
+---
+class: hint
+---
 In addition to looking at correlations, we can fit linear models to predict how
 community composition varies between fragmented landscapes and continuous
 landscapes? 
@@ -821,7 +825,7 @@ coordinate can reveal interesting biological trends, even if it only contained
 21.2% of the information in the original data set (see above).
 ```
 
-```{code-cell} R
+```{code-cell} r
 # Model community composition as a function of forest cover
 mod_fc <- lm(bray_raw_pcoa_1 ~ C600.pland, data=sites)
 summary(mod_fc)
@@ -841,7 +845,7 @@ within a community, which in theory equals to more functions provided.
 > Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and
 > looking forward. Ecology Letters 9, 741–758.
 
-```{code-cell} R
+```{code-cell} r
 # Get a data frame holding only trait values, with rownames 
 traits_only <- subset(traits, select=-Species)
 rownames(traits_only) <- traits$Species
@@ -857,28 +861,31 @@ similarity and the branch lengths measure an amount of functional diversity. The
 next step is to find the set of species in each site, reduce the dendrogram to
 just those species and find out the total branch length of that subtree.
 
-```{code-cell} R
+```{code-cell} r
 trait_diversity <- treedive(abundance, trait_tree)
 ```
 
 Now we just need to bring that data into our `sites` dataset to be able to use
 it.
 
-```{code-cell} R
+```{code-cell} r
 trait_diversity <- data.frame(Site=names(trait_diversity),
                               trait_diversity=trait_diversity)
 sites <- merge(sites, trait_diversity)
 ```
 
 ```{admonition} Explore the data
-:class: hint
+---
+class: hint
+---
 How does functional diversity vary with percentage of forest cover across sites?
 
 ```
 
 ```{admonition} Group exercise
-:class: danger
-
+---
+class: danger
+---
 Each group already have their landscape metrics measured, now you will need to
 focus on choosing one response variable that best represents variation in your
 data. Choose it carefully because you will need to defend your choice when you
@@ -905,7 +912,7 @@ preference.
 
 ```
 
-## Presenting your results on Friday 20th November.
+## Presenting your results on Friday 18th November
 
 Please have one slide ready to present with the graph of your response ~
 exploratory variable. Please ensure that the labels can be read on small
@@ -914,17 +921,13 @@ confidence interval. The slide should also contain the $r^2$ of the relationship
 and p-value. Do not worry if you don't find significant results! That's to be
 expected. Each group will have a maximum of 5 minutes to present their results.
 
-
 A final note on analyses: some of the variables we have used are better modelled
 using a GLM. That has not yet been covered in depth in the Masters modules. You
 are not expected to use a GLM here - although you can if you know how to use it
-and a GLM would be appropriate for your data. 
+and a GLM would be appropriate for your data.
 
 It is anticipated that the exploratory variables **will** be correlated, so
 fitting more complex models (e.g. a multiple regression) may not be appropriate.
 This is the same problem of **multicollinearity** that was mentioned in the GIS
 week. For the moment, use single regressions for each exploratory variable at a
-time. 
-
-
-
+time.

@@ -51,7 +51,7 @@
     <script async="async" src="_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Practical One: GIS data and plotting" href="practical_1/practical_1.html" />
+    <link rel="next" title="Required packages and data" href="required_packages.html" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="docsearch:language" content="en" />
     
@@ -89,23 +89,28 @@
 </ul>
 <ul class="nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="required_packages.html">
+   Practical setup for local computers
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="practical_1/practical_1.html">
-   Practical One: GIS data and plotting
+   GIS Practical 1
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="practical_2/practical_2.html">
-   Practical Two: Species Distribution Modelling
+   GIS Practical 2
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="practical_3/practical_3.html">
-   Practical Three: Spatial modelling in R
+   GIS Practical 3
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="practical_4/LEC_week.html">
-   Landscape Ecology and Conservation
+   Landscape Ecology
   </a>
  </li>
 </ul>
@@ -210,6 +215,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#gis-packages">
+   GIS packages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#tasks">
    Tasks
   </a>
@@ -227,32 +237,59 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="introduction-to-the-practicals">
 <h1>Introduction to the practicals<a class="headerlink" href="#introduction-to-the-practicals" title="Permalink to this headline">¶</a></h1>
-<p>These practicals introduce a core set of GIS concepts and functions in R and then explore some more common use cases.</p>
-<p>All of these practicals are <strong>self-paced</strong>: you can work through them at your own speed and call out when you need help.</p>
+<p>These practicals introduce a core set of GIS concepts and functions in R and then
+explore some more common use cases.</p>
+<p>All of these practicals are <strong>self-paced</strong>: you can work through them at your own speed
+and call out when you need help.</p>
 <div class="section" id="three-before-me">
 <h2>Three before ‘me’<a class="headerlink" href="#three-before-me" title="Permalink to this headline">¶</a></h2>
-<p>There will be a team of demonstrators to help you when you get stuck but please do remember that helping yourself is actually a far better way to learn. We do <em>not</em> want you to struggle but before you reach out to a demonstrator:</p>
+<p>There will be a team of demonstrators to help you when you get stuck but please do
+remember that helping yourself is actually a far better way to learn. We do <em>not</em> want
+you to struggle but before you reach out to a demonstrator:</p>
 <ol class="simple">
-<li><p>Ask <em>yourself</em> what you are trying to do: often stepping back and trying to write out an explanation for your problem helps you solve it.</p></li>
-<li><p>Ask the <em>internet</em>: Sites like <a class="reference external" href="https://stackoverflow.com">stackoverflow.com</a> are an invaluable resource and you can use <em>tags</em> on <code class="docutils literal notranslate"><span class="pre">stackoverflow</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">[R]</span></code> or <code class="docutils literal notranslate"><span class="pre">[sf]</span></code>) to narrow down your search.</p></li>
-<li><p>Ask <em>each other</em>: it can be really helpful to get together in a short Team meeting and crowd source an answer.</p></li>
+<li><p>Ask <em>yourself</em> what you are trying to do: often stepping back and trying to write out
+an explanation for your problem helps you solve it.</p></li>
+<li><p>Ask the <em>internet</em>: Sites like <a class="reference external" href="https://stackoverflow.com">stackoverflow.com</a> are an
+invaluable resource and you can use <em>tags</em> on <code class="docutils literal notranslate"><span class="pre">stackoverflow</span></code> (e.g. <code class="docutils literal notranslate"><span class="pre">[R]</span></code> or <code class="docutils literal notranslate"><span class="pre">[sf]</span></code>)
+to narrow down your search.</p></li>
+<li><p>Ask <em>each other</em>: it can be really helpful to get together in a short Team meeting
+and crowd source an answer.</p></li>
 </ol>
 <p>If none of those work then ask us!</p>
 </div>
 <div class="section" id="getting-started">
 <h2>Getting started<a class="headerlink" href="#getting-started" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><p>Each practical has its own RStudio Cloud Project. This will contain all of the data needed for the practical and will have the required packages pre-installed.</p></li>
-<li><p>If you are working on your own computer, you will need to download the data files and set up a working directory with a <code class="docutils literal notranslate"><span class="pre">data</span></code> folder.</p></li>
-<li><p>Once you have your working directory set up and are running in R then do create a new script file to put your code in.</p></li>
+<li><p>Each practical has its own RStudio Cloud Project. This will contain all of the data
+needed for the practical and will have the required packages pre-installed.</p></li>
+<li><p>If you are working on your own computer, you will need to install those packages and
+the data required in the practical. There are quite a lot of required packages - they
+could take a little while to set up. See <a class="reference internal" href="required_packages.html"><span class="doc std std-doc">here</span></a> for details of
+the packages and data you will need.</p></li>
+<li><p>Once you have your project launched or a local working directory set up and are
+running in R then <strong>create a new script file to record and run your code</strong>.</p></li>
 <li><p>Work through the handouts at your own pace.</p></li>
 </ul>
+</div>
+<div class="section" id="gis-packages">
+<h2>GIS packages<a class="headerlink" href="#gis-packages" title="Permalink to this headline">¶</a></h2>
+<p>There are loads of R packages that can load, manipulate and plot GIS data and we will be
+using several in these practical. In the last few years, the R spatial data community
+has been working on updating most of the core GIS functionality into a few core
+packages, notably <code class="docutils literal notranslate"><span class="pre">sf</span></code> and <code class="docutils literal notranslate"><span class="pre">terra</span></code>. We will focus on using these up-to-date central
+packages, but there will be some occasions where we need to use older packages, such as
+<code class="docutils literal notranslate"><span class="pre">sp</span></code> and <code class="docutils literal notranslate"><span class="pre">raster</span></code>.</p>
 </div>
 <div class="section" id="tasks">
 <h2>Tasks<a class="headerlink" href="#tasks" title="Permalink to this headline">¶</a></h2>
 <div class="tip admonition">
 <p class="admonition-title">Introducing tasks</p>
-<p>A lot of these practicals will consist of following provided code to understand how it works but occasionally there will be <strong>tasks</strong> to test the skills you have been learning. These will start with a task bar like the one above and then have a description like this one. There will then always be a button marked ‘Click to show’: if you get really stuck, you can click on this to show a solution. Do try and figure it out for yourself and if you don’t understand something, ask a demonstrator to help.</p>
+<p>A lot of these practicals will consist of following provided code to understand how it
+works but occasionally there will be <strong>tasks</strong> to test the skills you have been
+learning. These will start with a task bar like the one above and then have a
+description like this one. There will then always be a button marked ‘Click to show’: if
+you get really stuck, you can click on this to show a solution. Do try and figure it out
+for yourself and if you don’t understand something, ask a demonstrator to help.</p>
 </div>
 <div class="toggle docutils container">
 <p>Hey! No peeking</p>
@@ -271,16 +308,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "r"
+            mode: "ir420"
         },
         kernelOptions: {
-            kernelName: "ir",
+            kernelName: "ir420",
             path: "./."
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'ir'</script>
+    <script>kernelName = 'ir420'</script>
 
               </div>
               
@@ -292,10 +329,10 @@
 <div class='prev-next-bottom'>
     
      <div id="next">
-        <a class="right-next" href="practical_1/practical_1.html" title="next page">
+        <a class="right-next" href="required_packages.html" title="next page">
             <div class="prevnext-info">
                 <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Practical One: GIS data and plotting</p>
+                <p class="prevnext-title">Required packages and data</p>
             </div>
             <i class="prevnext-label fas fa-angle-right"></i>
         </a>

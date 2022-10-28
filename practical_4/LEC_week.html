@@ -91,23 +91,28 @@
 </ul>
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1">
+  <a class="reference internal" href="../required_packages.html">
+   Practical setup for local computers
+  </a>
+ </li>
+ <li class="toctree-l1">
   <a class="reference internal" href="../practical_1/practical_1.html">
-   Practical One: GIS data and plotting
+   GIS Practical 1
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_2/practical_2.html">
-   Practical Two: Species Distribution Modelling
+   GIS Practical 2
   </a>
  </li>
  <li class="toctree-l1">
   <a class="reference internal" href="../practical_3/practical_3.html">
-   Practical Three: Spatial modelling in R
+   GIS Practical 3
   </a>
  </li>
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Landscape Ecology and Conservation
+   Landscape Ecology
   </a>
  </li>
 </ul>
@@ -298,7 +303,7 @@
     <ul class="nav section-nav flex-column">
      <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#transforming-site-by-species-data">
-       Transforming site by species data.
+       Transforming site by species data
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
@@ -333,8 +338,8 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#presenting-your-results-on-friday-20th-november">
-   Presenting your results on Friday 20th November.
+  <a class="reference internal nav-link" href="#presenting-your-results-on-friday-18th-november">
+   Presenting your results on Friday 18th November
   </a>
  </li>
 </ul>
@@ -350,7 +355,7 @@
                 
   <div class="tex2jax_ignore mathjax_ignore section" id="landscape-ecology-and-conservation">
 <h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this headline">¶</a></h1>
-<p><strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
+<p>Authors: <strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
 <p>In this practical, we are going to use R to:</p>
 <ol class="simple">
 <li><p>obtain landscape metrics from a map;</p></li>
@@ -375,22 +380,12 @@ These will be in boxes like this one.</p>
 </div>
 <div class="section" id="requirements">
 <h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
-<p>This practical needs the following R packages. They have all been installed on
-the RStudio Cloud Project for this practical, but if you are following this
-practical in R or RStudio installed on your own laptop, you will need to install
-the following:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;raster&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;sf&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;landscapemetrics&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;ggplot2&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;rgdal&#39;</span><span class="p">)</span>
-<span class="nf">install.packages</span><span class="p">(</span><span class="s">&#39;vegan&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-<p>You can now load the required packages:</p>
+<p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="doc std std-doc">this guide on setting up
+packages on your computer</span></a> if you are running these practicals
+on your own machine, not RStudio Cloud.</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">raster</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">terra</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">sf</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">landscapemetrics</span><span class="p">)</span>
 <span class="nf">library</span><span class="p">(</span><span class="n">vegan</span><span class="p">)</span>
@@ -412,7 +407,7 @@ between 2001 and 2007. The data set contains the abundance of 140 species that
 were captured in 65 sites, from three different regions, each containing a
 control landscape and a 10,000 ha fragmented landscape. The fragmented
 landscapes varied in their  proportions of forest cover  (10, 30 and 50% cover).</p>
-<p><img alt="" src="../_images/figure_sampling_sites.jpg" /></p>
+<p><img alt="sampling_site_layout" src="../_images/figure_sampling_sites.jpg" /></p>
 <p>More info about the data set can be found in the following papers:</p>
 <ul class="simple">
 <li><p>Banks-Leite, C., Ewers, R. M., &amp; Metzger, J. P. (2012). Unraveling the drivers
@@ -431,23 +426,23 @@ conservation importance. Journal of Applied Ecology 48(3), 706-714.
 (WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/sites.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/sites.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
 <span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Lon&#39;</span><span class="p">,</span><span class="s">&#39;Lat&#39;</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">sites</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Landscape_ID&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">sites</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Landscape_ID&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Classes ‘sf’ and &#39;data.frame&#39;:	65 obs. of  5 variables:
- $ Site        : Factor w/ 65 levels &quot;Alce&quot;,&quot;Alcides&quot;,..: 1 2 3 4 5 6 7 8 9 10 ...
- $ Landscape   : Factor w/ 2 levels &quot;Control&quot;,&quot;Fragmented&quot;: 2 2 2 2 1 2 2 2 2 2 ...
+ $ Site        : chr  &quot;Alce&quot; &quot;Alcides&quot; &quot;Alteres&quot; &quot;Antenor&quot; ...
+ $ Landscape   : chr  &quot;Fragmented&quot; &quot;Fragmented&quot; &quot;Fragmented&quot; &quot;Fragmented&quot; ...
  $ Percent     : int  50 30 10 50 90 50 30 50 10 10 ...
- $ Landscape_ID: Factor w/ 3 levels &quot;A&quot;,&quot;B&quot;,&quot;C&quot;: 2 3 1 2 1 2 3 2 1 1 ...
+ $ Landscape_ID: chr  &quot;B&quot; &quot;C&quot; &quot;A&quot; &quot;B&quot; ...
  $ geometry    :sfc_POINT of length 65; first list element:  &#39;XY&#39; num  -47.5 -23.9
  - attr(*, &quot;sf_column&quot;)= chr &quot;geometry&quot;
  - attr(*, &quot;agr&quot;)= Factor w/ 3 levels &quot;constant&quot;,&quot;aggregate&quot;,..: NA NA NA NA
-  ..- attr(*, &quot;names&quot;)= chr  &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Landscape_ID&quot;
+  ..- attr(*, &quot;names&quot;)= chr [1:4] &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Landscape_ID&quot;
 </pre></div>
 </div>
 <img alt="../_images/LEC_week_3_1.png" src="../_images/LEC_week_3_1.png" />
@@ -476,7 +471,7 @@ lots of 0s in the matrix. Few species are globally common.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the abundance data and use the first column (site names) as row names</span>
-<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/abundance.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/abundance.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">dim</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -510,7 +505,7 @@ measure of use frequency: always (3), frequently (2), rarely (1), never (0).
 This matrix thus contains semi-quantitative variables and continuous variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -560,25 +555,26 @@ should translate it for you! This is a database of land cover through time for
 the entire country of Brazil - we are using data contemporary with the bird
 sampling.</p>
 <p>The map is a GEOTIFF file of landcover classes, therefore we are going to use
-the function <code class="docutils literal notranslate"><span class="pre">raster</span></code> from the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package to load the map.  First, load
+the function <code class="docutils literal notranslate"><span class="pre">terra::rast</span></code> function to load the map.  First, load
 the map and check its coordinate system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># load map</span>
-<span class="n">landcover</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="s">&quot;data/map.tif&quot;</span><span class="p">)</span>
+<span class="n">landcover</span> <span class="o">&lt;-</span> <span class="nf">rast</span><span class="p">(</span><span class="s">&quot;data/brazil/map.tif&quot;</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterLayer 
-dimensions : 7421, 11132, 82610572  (nrow, ncol, ncell)
-resolution : 0.0002694946, 0.0002694946  (x, y)
-extent     : -49.00004, -46.00003, -24.99993, -23.00002  (xmin, xmax, ymin, ymax)
-crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : map.tif 
-names      : map 
-values     : 0, 33  (min, max)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class       : SpatRaster 
+dimensions  : 7421, 11132, 1  (nrow, ncol, nlyr)
+resolution  : 0.0002694946, 0.0002694946  (x, y)
+extent      : -49.00004, -46.00003, -24.99993, -23.00002  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : map.tif 
+name        : map 
+min value   :   0 
+max value   :  33 
 </pre></div>
 </div>
 </div>
@@ -589,7 +585,7 @@ forest, plantation, mangroves, etc. We will only be looking at forests
 <p>Another important thing is that the map is quite large and  has a <strong>very fine
 resolution</strong> (0.000269° is about 1 arcsecond or ~30 metres). There are over 82
 million pixels in the image and so the data is slow to handle. In fact, although
-the file loaded quickly, it <strong>did not load the actual data</strong>. The <code class="docutils literal notranslate"><span class="pre">raster</span></code>
+the file loaded quickly, it <strong>did not load the actual data</strong>. The <code class="docutils literal notranslate"><span class="pre">terra</span></code>
 package often does this to keep the memory load low - it only loads data when
 requested and has tricks for only loading the data it needs. You can see this:</p>
 <div class="cell docutils container">
@@ -629,46 +625,40 @@ need to:</p>
 <span class="c1"># Buffer the region by 0.1 degrees to get coverage around the landscape.</span>
 <span class="c1"># This is roughly 10 kilometres which is a wide enough border to allow</span>
 <span class="c1"># us to test the scale of effects.</span>
-<span class="c1"># - this throws out a warning, but this is only a rough border.</span>
 <span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_buffer</span><span class="p">(</span><span class="n">sites_region</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span>
 
-<span class="c1"># Convert to a `sp` extent object for use in `crop`</span>
-<span class="n">sites_extent</span> <span class="o">&lt;-</span> <span class="nf">extent</span><span class="p">(</span><span class="nf">matrix</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites_region</span><span class="p">),</span> <span class="n">ncol</span><span class="o">=</span><span class="m">2</span><span class="p">))</span>
-
 <span class="c1"># Crop the landcover data and convert to a binary forest map</span>
-<span class="n">sites_landcover</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span> <span class="n">sites_extent</span><span class="p">)</span>
+<span class="n">sites_landcover</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span> <span class="n">sites_region</span><span class="p">)</span>
 <span class="n">sites_forest</span> <span class="o">&lt;-</span> <span class="n">sites_landcover</span> <span class="o">==</span> <span class="m">3</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class      : RasterLayer 
-dimensions : 2188, 5407, 11830516  (nrow, ncol, ncell)
-resolution : 0.0002694946, 0.0002694946  (x, y)
-extent     : -48.3988, -46.94164, -24.25424, -23.66459  (xmin, xmax, ymin, ymax)
-crs        : +proj=longlat +datum=WGS84 +no_defs +ellps=WGS84 +towgs84=0,0,0 
-source     : memory
-names      : layer 
-values     : 0, 1  (min, max)
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class       : SpatRaster 
+dimensions  : 2188, 5407, 1  (nrow, ncol, nlyr)
+resolution  : 0.0002694946, 0.0002694946  (x, y)
+extent      : -48.3988, -46.94164, -24.25424, -23.66459  (xmin, xmax, ymin, ymax)
+coord. ref. : lon/lat WGS 84 (EPSG:4326) 
+source      : memory 
+name        :   map 
+min value   : FALSE 
+max value   :  TRUE 
 </pre></div>
 </div>
 </div>
 </div>
-<p>If you check that final output, you will see that the values changed to <code class="docutils literal notranslate"><span class="pre">values:</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">(min,</span> <span class="pre">max)</span></code>.</p>
+<p>If you check that final output, you will see that the values changed to
+<code class="docutils literal notranslate"><span class="pre">values:</span> <span class="pre">0,</span> <span class="pre">1</span> <span class="pre">(min,</span> <span class="pre">max)</span></code>.</p>
 <p>Now that we have the regional forest for the sites, we can reproject the data.
 We will use UTM Zone 23S (EPSG: 32723) for all of the landscapes. Remember that
-the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='ngb'</span></code> when
-projecting the data. We’ve also set a resolution of 30 metres. The original
-WGS84 pixels are not square in UTM23S because 1 arc second NS is not equal to
-1 arc second EW, and so setting the resolution tells <code class="docutils literal notranslate"><span class="pre">projectRaster</span></code> to use that
-fixed size rather letting it create rectangular pixels.</p>
+the landcover class data is categorical - we <em>have</em> to use <code class="docutils literal notranslate"><span class="pre">method='near'</span></code> when
+projecting the data. We’ve also set a resolution of 30 metres.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="m">32723</span><span class="p">)</span>
 <span class="c1"># This takes a little while to run!</span>
-<span class="n">sites_forest_utm23S</span> <span class="o">&lt;-</span> <span class="nf">projectRaster</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s">&quot;+init=epsg:32723&quot;</span><span class="p">,</span> 
-                                     <span class="n">res</span><span class="o">=</span><span class="m">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;ngb&#39;</span><span class="p">)</span>
+<span class="n">sites_forest_utm23S</span> <span class="o">&lt;-</span> <span class="nf">project</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span> <span class="s">&quot;epsg:32723&quot;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;near&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -682,7 +672,7 @@ fixed size rather letting it create rectangular pixels.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_17_0.png" src="../_images/LEC_week_17_0.png" />
+<img alt="../_images/LEC_week_18_0.png" src="../_images/LEC_week_18_0.png" />
 </div>
 </div>
 </div>
@@ -691,7 +681,7 @@ fixed size rather letting it create rectangular pixels.</p>
 <p>You can now explore the functions in the package
 <a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a>
 to measure different landscape metrics. You can also look at the complete set of
-<strong>132</strong> landscape metrics that the package will calculate:</p>
+<strong>132 landscape metrics</strong> that the package will calculate:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">lsm_abbreviations_names</span>
@@ -699,8 +689,8 @@ to measure different landscape metrics. You can also look at the complete set of
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><table>
-<caption>A tibble: 132 × 5</caption>
+<div class="output text_html"><table class="dataframe">
+<caption>A tibble: 133 × 5</caption>
 <thead>
 	<tr><th scope=col>metric</th><th scope=col>name</th><th scope=col>type</th><th scope=col>level</th><th scope=col>function_name</th></tr>
 	<tr><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;chr&gt;</th></tr>
@@ -737,36 +727,36 @@ to measure different landscape metrics. You can also look at the complete set of
 	<tr><td>core_cv  </td><td>core area                          </td><td>core area metric    </td><td>class</td><td>lsm_c_core_cv  </td></tr>
 	<tr><td>core_mn  </td><td>core area                          </td><td>core area metric    </td><td>class</td><td>lsm_c_core_mn  </td></tr>
 	<tr><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td><td>⋮</td></tr>
-	<tr><td>iji     </td><td>interspersion and juxtaposition index</td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_iji     </td></tr>
-	<tr><td>joinent </td><td>joint entropy                        </td><td>complexity metric   </td><td>landscape</td><td>lsm_l_joinent </td></tr>
-	<tr><td>lpi     </td><td>largest patch index                  </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_lpi     </td></tr>
-	<tr><td>lsi     </td><td>landscape shape index                </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_lsi     </td></tr>
-	<tr><td>mesh    </td><td>effective mesh size                  </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_mesh    </td></tr>
-	<tr><td>msidi   </td><td>modified simpson's diversity index   </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_msidi   </td></tr>
-	<tr><td>msiei   </td><td>modified simpson's evenness index    </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_msiei   </td></tr>
-	<tr><td>mutinf  </td><td>mutual information                   </td><td>complexity metric   </td><td>landscape</td><td>lsm_l_mutinf  </td></tr>
-	<tr><td>ndca    </td><td>number of disjunct core areas        </td><td>core area metric    </td><td>landscape</td><td>lsm_l_ndca    </td></tr>
-	<tr><td>np      </td><td>number of patches                    </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_np      </td></tr>
-	<tr><td>pafrac  </td><td>perimeter-area fractal dimension     </td><td>shape metric        </td><td>landscape</td><td>lsm_l_pafrac  </td></tr>
-	<tr><td>para_cv </td><td>perimeter-area ratio                 </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_cv </td></tr>
-	<tr><td>para_mn </td><td>perimeter-area ratio                 </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_mn </td></tr>
-	<tr><td>para_sd </td><td>perimeter-area ratio                 </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_sd </td></tr>
-	<tr><td>pd      </td><td>patch density                        </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_pd      </td></tr>
-	<tr><td>pladj   </td><td>percentage of like adjacencies       </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_pladj   </td></tr>
-	<tr><td>pr      </td><td>patch richness                       </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_pr      </td></tr>
-	<tr><td>prd     </td><td>patch richness density               </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_prd     </td></tr>
-	<tr><td>rpr     </td><td>relative patch richness              </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_rpr     </td></tr>
-	<tr><td>shape_cv</td><td>shape index                          </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_cv</td></tr>
-	<tr><td>shape_mn</td><td>shape index                          </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_mn</td></tr>
-	<tr><td>shape_sd</td><td>shape index                          </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_sd</td></tr>
-	<tr><td>shdi    </td><td>shannon's diversity index            </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_shdi    </td></tr>
-	<tr><td>shei    </td><td>shannon's evenness index             </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_shei    </td></tr>
-	<tr><td>sidi    </td><td>simpson's diversity index            </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_sidi    </td></tr>
-	<tr><td>siei    </td><td>simspon's evenness index             </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_siei    </td></tr>
-	<tr><td>split   </td><td>splitting index                      </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_split   </td></tr>
-	<tr><td>ta      </td><td>total area                           </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_ta      </td></tr>
-	<tr><td>tca     </td><td>total core area                      </td><td>core area metric    </td><td>landscape</td><td>lsm_l_tca     </td></tr>
-	<tr><td>te      </td><td>total edge                           </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_te      </td></tr>
+	<tr><td>joinent  </td><td>joint entropy                     </td><td>complexity metric   </td><td>landscape</td><td>lsm_l_joinent  </td></tr>
+	<tr><td>lpi      </td><td>largest patch index               </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_lpi      </td></tr>
+	<tr><td>lsi      </td><td>landscape shape index             </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_lsi      </td></tr>
+	<tr><td>mesh     </td><td>effective mesh size               </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_mesh     </td></tr>
+	<tr><td>msidi    </td><td>modified simpson's diversity index</td><td>diversity metric    </td><td>landscape</td><td>lsm_l_msidi    </td></tr>
+	<tr><td>msiei    </td><td>modified simpson's evenness index </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_msiei    </td></tr>
+	<tr><td>mutinf   </td><td>mutual information                </td><td>complexity metric   </td><td>landscape</td><td>lsm_l_mutinf   </td></tr>
+	<tr><td>ndca     </td><td>number of disjunct core areas     </td><td>core area metric    </td><td>landscape</td><td>lsm_l_ndca     </td></tr>
+	<tr><td>np       </td><td>number of patches                 </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_np       </td></tr>
+	<tr><td>pafrac   </td><td>perimeter-area fractal dimension  </td><td>shape metric        </td><td>landscape</td><td>lsm_l_pafrac   </td></tr>
+	<tr><td>para_cv  </td><td>perimeter-area ratio              </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_cv  </td></tr>
+	<tr><td>para_mn  </td><td>perimeter-area ratio              </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_mn  </td></tr>
+	<tr><td>para_sd  </td><td>perimeter-area ratio              </td><td>shape metric        </td><td>landscape</td><td>lsm_l_para_sd  </td></tr>
+	<tr><td>pd       </td><td>patch density                     </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_pd       </td></tr>
+	<tr><td>pladj    </td><td>percentage of like adjacencies    </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_pladj    </td></tr>
+	<tr><td>pr       </td><td>patch richness                    </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_pr       </td></tr>
+	<tr><td>prd      </td><td>patch richness density            </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_prd      </td></tr>
+	<tr><td>relmutinf</td><td>relative mutual information       </td><td>complexity metric   </td><td>landscape</td><td>lsm_l_relmutinf</td></tr>
+	<tr><td>rpr      </td><td>relative patch richness           </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_rpr      </td></tr>
+	<tr><td>shape_cv </td><td>shape index                       </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_cv </td></tr>
+	<tr><td>shape_mn </td><td>shape index                       </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_mn </td></tr>
+	<tr><td>shape_sd </td><td>shape index                       </td><td>shape metric        </td><td>landscape</td><td>lsm_l_shape_sd </td></tr>
+	<tr><td>shdi     </td><td>shannon's diversity index         </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_shdi     </td></tr>
+	<tr><td>shei     </td><td>shannon's evenness index          </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_shei     </td></tr>
+	<tr><td>sidi     </td><td>simpson's diversity index         </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_sidi     </td></tr>
+	<tr><td>siei     </td><td>simspon's evenness index          </td><td>diversity metric    </td><td>landscape</td><td>lsm_l_siei     </td></tr>
+	<tr><td>split    </td><td>splitting index                   </td><td>aggregation metric  </td><td>landscape</td><td>lsm_l_split    </td></tr>
+	<tr><td>ta       </td><td>total area                        </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_ta       </td></tr>
+	<tr><td>tca      </td><td>total core area                   </td><td>core area metric    </td><td>landscape</td><td>lsm_l_tca      </td></tr>
+	<tr><td>te       </td><td>total edge                        </td><td>area and edge metric</td><td>landscape</td><td>lsm_l_te       </td></tr>
 </tbody>
 </table>
 </div></div>
@@ -803,7 +793,7 @@ meters. We will use the Alce site as an example:</p>
 
 <span class="c1"># Use Alce as an example</span>
 <span class="n">alce</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">plot_id</span><span class="o">==</span><span class="s">&#39;Alce&#39;</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">22</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">23</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -814,30 +804,30 @@ meters. We will use the Alce site as an example:</p>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># A tibble: 23 × 8
    layer level     class    id metric  value plot_id percentage_inside
-   &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;fct&gt;               &lt;dbl&gt;
- 1     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.0  Alce                 99.9
- 2     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.35 Alce                 99.9
- 3     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4    Alce                 99.9
- 4     1 class         1    <span class=" -Color -Color-Red">NA</span> np      11    Alce                 99.9
- 5     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.3  Alce                 99.9
- 6     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.7  Alce                 99.9
- 7     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  7.52 Alce                 99.9
- 8     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      15    Alce                 99.9
- 9     1 patch         0     1 area    74.9  Alce                 99.9
-10     1 patch         0     2 area     0.09 Alce                 99.9
-11     1 patch         0     3 area     0.09 Alce                 99.9
-12     1 patch         0     4 area     0.9  Alce                 99.9
-13     1 patch         1     5 area     0.99 Alce                 99.9
-14     1 patch         1     6 area    28.1  Alce                 99.9
-15     1 patch         1     7 area     0.63 Alce                 99.9
-16     1 patch         1     8 area     0.27 Alce                 99.9
-17     1 patch         1     9 area     1.98 Alce                 99.9
-18     1 patch         1    10 area     2.07 Alce                 99.9
-19     1 patch         1    11 area     0.45 Alce                 99.9
-20     1 patch         1    12 area     1.35 Alce                 99.9
-21     1 patch         1    13 area     0.63 Alce                 99.9
-22     1 patch         1    14 area     0.09 Alce                 99.9
-# … with 1 more row
+   &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;
+ 1     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.0  Alce                 100.
+ 2     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.38 Alce                 100.
+ 3     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4    Alce                 100.
+ 4     1 class         1    <span class=" -Color -Color-Red">NA</span> np      11    Alce                 100.
+ 5     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.1  Alce                 100.
+ 6     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.9  Alce                 100.
+ 7     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  7.54 Alce                 100.
+ 8     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      15    Alce                 100.
+ 9     1 patch         0     1 area    75.1  Alce                 100.
+10     1 patch         0     2 area     0.09 Alce                 100.
+11     1 patch         0     3 area     0.09 Alce                 100.
+12     1 patch         0     4 area     0.72 Alce                 100.
+13     1 patch         1     5 area     0.99 Alce                 100.
+14     1 patch         1     6 area    28.1  Alce                 100.
+15     1 patch         1     7 area     0.63 Alce                 100.
+16     1 patch         1     8 area     0.27 Alce                 100.
+17     1 patch         1     9 area     2.07 Alce                 100.
+18     1 patch         1    10 area     2.07 Alce                 100.
+19     1 patch         1    11 area     0.45 Alce                 100.
+20     1 patch         1    12 area     1.35 Alce                 100.
+21     1 patch         1    13 area     0.63 Alce                 100.
+22     1 patch         1    14 area     0.09 Alce                 100.
+23     1 patch         1    15 area     0.54 Alce                 100.
 </pre></div>
 </div>
 </div>
@@ -850,24 +840,24 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">112.86</div></div>
+<div class="output text_html">113.13</div></div>
 </div>
 <p>From that table, you can see that there are 15 patches in the Alce local
 landscape that sum to 113.13 hectares. That is not quite the precise area of the
 circular landscape (<span class="math notranslate nohighlight">\(\pi \times 600^2 = 1130973 m^2 \approx 113.1 ha\)</span>) because
-the landscape is used to select a set of whole pixels. The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics
-summarise the areas of the patches by class (10 forest patches, 4 matrix
+the landscape is used to select a set of whole pixels rather than a precise circle.
+The <code class="docutils literal notranslate"><span class="pre">class</span></code> metrics summarise the areas of the patches by class (11 forest patches, 4 matrix
 patches) and the <code class="docutils literal notranslate"><span class="pre">landscape</span></code> metrics aggregate everything. We can use the table
 to calculate the <code class="docutils literal notranslate"><span class="pre">lsm_l_area_mn</span></code> value by hand:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Weighted average of class patch sizes (with some rounding error)</span>
-<span class="p">(</span><span class="m">19.1</span> <span class="o">*</span> <span class="m">4</span> <span class="o">+</span> <span class="m">3.65</span> <span class="o">*</span> <span class="m">10</span><span class="p">)</span> <span class="o">/</span> <span class="m">15</span>
+<span class="p">(</span><span class="m">19.0</span> <span class="o">*</span> <span class="m">4</span> <span class="o">+</span> <span class="m">3.38</span> <span class="o">*</span> <span class="m">11</span><span class="p">)</span> <span class="o">/</span> <span class="m">15</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">8.06428571428571</div></div>
+<div class="output text_html">7.54533333333333</div></div>
 </div>
 </div>
 <div class="section" id="merging-landscape-metrics-onto-sites">
@@ -909,23 +899,23 @@ want the method of calculation of each value to be obvious.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><table>
+<div class="output text_html"><table class="dataframe">
 <caption>A data.frame: 10 × 4</caption>
 <thead>
 	<tr><th></th><th scope=col>plot_id</th><th scope=col>C600.area_mn</th><th scope=col>C600.np</th><th scope=col>C600.pland</th></tr>
-	<tr><th></th><th scope=col>&lt;fct&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
+	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>Alce     </td><td>  3.354545</td><td>11</td><td> 32.69537</td></tr>
-	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.910000</td><td> 9</td><td> 38.93735</td></tr>
+	<tr><th scope=row>1</th><td>Alce     </td><td>  3.379091</td><td>11</td><td> 32.85601</td></tr>
+	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.910000</td><td> 9</td><td> 39.03021</td></tr>
 	<tr><th scope=row>7</th><td>Alteres  </td><td> 28.620000</td><td> 1</td><td> 25.27822</td></tr>
-	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.670000</td><td> 1</td><td> 84.76874</td></tr>
-	<tr><th scope=row>13</th><td>Areial   </td><td>112.770000</td><td> 1</td><td>100.00000</td></tr>
-	<tr><th scope=row>16</th><td>Baleia   </td><td>  7.087500</td><td> 8</td><td> 50.19920</td></tr>
-	<tr><th scope=row>19</th><td>BetoJamil</td><td>  4.880000</td><td> 9</td><td> 38.60759</td></tr>
-	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.250000</td><td> 4</td><td> 39.74563</td></tr>
-	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.590000</td><td> 4</td><td> 16.25498</td></tr>
-	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.330000</td><td> 3</td><td> 40.65235</td></tr>
+	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.400000</td><td> 1</td><td> 84.52951</td></tr>
+	<tr><th scope=row>13</th><td>Areial   </td><td>112.680000</td><td> 1</td><td>100.00000</td></tr>
+	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.112857</td><td> 7</td><td> 50.31898</td></tr>
+	<tr><th scope=row>19</th><td>BetoJamil</td><td>  4.850000</td><td> 9</td><td> 38.33992</td></tr>
+	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.205000</td><td> 4</td><td> 39.64968</td></tr>
+	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.567500</td><td> 4</td><td> 16.13672</td></tr>
+	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.270000</td><td> 3</td><td> 40.46105</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1055,7 +1045,7 @@ report your results and why?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_33_0.png" src="../_images/LEC_week_33_0.png" />
+<img alt="../_images/LEC_week_35_0.png" src="../_images/LEC_week_35_0.png" />
 </div>
 </div>
 <p>Hint: There is no right or wrong answer here. You can choose any metric as long
@@ -1079,7 +1069,7 @@ trapped.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_35_0.png" src="../_images/LEC_week_35_0.png" />
+<img alt="../_images/LEC_week_37_0.png" src="../_images/LEC_week_37_0.png" />
 </div>
 </div>
 <p>How does this compare to slide 11 of <strong>Measuring Biodiversity</strong> lecture which
@@ -1108,7 +1098,7 @@ axes of community variation across sites.</p></li>
 </ol>
 <p>All of these steps have multiple options!</p>
 <div class="section" id="transforming-site-by-species-data">
-<h4>Transforming site by species data.<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this headline">¶</a></h4>
+<h4>Transforming site by species data<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this headline">¶</a></h4>
 <p>There are several common approaches used for transforming site by species
 matrices <em>before</em> calculating dissimilarities. All of these approaches alter the
 weighting given to the different species.</p>
@@ -1158,17 +1148,17 @@ dissimilarity index computed from raw abundances.</p>
 <p>Have a look at the association matrix (<code class="docutils literal notranslate"><span class="pre">print(bray)</span></code>), and notice it is
 triangular. Why do you think that is? We can visualise this data to help
 understand what is going on. We’re actually going to cheat a bit here - we have
-a big matrix and the <code class="docutils literal notranslate"><span class="pre">raster</span></code> package is really good at plotting those
+a big matrix and the <code class="docutils literal notranslate"><span class="pre">terra</span></code> package is really good at plotting those
 quickly…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span> <span class="o">&lt;-</span> <span class="nf">raster</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span> <span class="o">&lt;-</span> <span class="nf">rast</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">bray_r</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_39_0.png" src="../_images/LEC_week_39_0.png" />
+<img alt="../_images/LEC_week_41_0.png" src="../_images/LEC_week_41_0.png" />
 </div>
 </div>
 <p>The first thing that jumps out is the diagonal - this is just that comparing a
@@ -1232,7 +1222,7 @@ of these axes are correlated.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><table>
+<div class="output text_html"><table class="dataframe">
 <caption>A matrix: 8 × 8 of type dbl</caption>
 <thead>
 	<tr><th></th><th scope=col>bray_raw_pcoa_1</th><th scope=col>bray_raw_pcoa_2</th><th scope=col>bray_raw_pcoa_3</th><th scope=col>bray_raw_pcoa_4</th><th scope=col>bray_raw_pcoa_5</th><th scope=col>bray_raw_pcoa_6</th><th scope=col>bray_raw_pcoa_7</th><th scope=col>bray_raw_pcoa_8</th></tr>
@@ -1275,7 +1265,7 @@ structure.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_49_0.png" src="../_images/LEC_week_49_0.png" />
+<img alt="../_images/LEC_week_52_0.png" src="../_images/LEC_week_52_0.png" />
 </div>
 </div>
 <p>Which patterns can you see from that plot? Along which axis do you see the
@@ -1307,6 +1297,7 @@ cumulative calculation!</p>
 <span class="n">eig</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="p">[</span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span> <span class="o">&gt;</span><span class="m">0</span><span class="p">]</span> 
 <span class="nf">barplot</span><span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Axis variation&#39;</span><span class="p">)</span>
 <span class="nf">barplot</span><span class="p">(</span><span class="nf">cumsum</span><span class="p">(</span><span class="n">eig</span><span class="p">)</span><span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Cumulative variation&#39;</span><span class="p">)</span>
+
 <span class="c1"># Print the percentage variation of the first 8 </span>
 <span class="nf">head</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&#39;%0.2f%%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">))</span> <span class="o">*</span> <span class="m">100</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
 </pre></div>
@@ -1319,7 +1310,7 @@ cumulative calculation!</p>
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'21.16%'</li><li>'12.04%'</li><li>'8.85%'</li><li>'5.86%'</li><li>'4.92%'</li><li>'3.94%'</li><li>'3.68%'</li><li>'3.42%'</li></ol>
-</div><img alt="../_images/LEC_week_51_1.png" src="../_images/LEC_week_51_1.png" />
+</div><img alt="../_images/LEC_week_54_1.png" src="../_images/LEC_week_54_1.png" />
 </div>
 </div>
 <p>For this particular PCoA, the bar plot doesn’t really give a good indication
@@ -1344,6 +1335,7 @@ species!</p>
 
 ````{admonition}  Sidebar: Shepard diagrams
 :class: hint
+
 Shepard diagram's compares the distances between sites using our PCoA axes to
 the original distances calculated using all the community data. If the PCoA
 captures the data well, these two distances will be strongly correlated and so
@@ -1435,21 +1427,21 @@ lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.242281 -0.081431 -0.006381  0.093915  0.222799 
+-0.223086 -0.093040  0.006686  0.081396  0.241880 
 
 Coefficients:
-              Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept)  0.2866914  0.0347933   8.240 1.36e-11 ***
-C600.pland  -0.0053646  0.0005829  -9.203 2.89e-13 ***
+             Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.286460   0.034732  -8.248 1.32e-11 ***
+C600.pland   0.005363   0.000582   9.214 2.77e-13 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1249 on 63 degrees of freedom
-Multiple R-squared:  0.5734,	Adjusted R-squared:  0.5667 
-F-statistic: 84.69 on 1 and 63 DF,  p-value: 2.89e-13
+Residual standard error: 0.1248 on 63 degrees of freedom
+Multiple R-squared:  0.574,	Adjusted R-squared:  0.5673 
+F-statistic:  84.9 on 1 and 63 DF,  p-value: 2.765e-13
 </pre></div>
 </div>
-<img alt="../_images/LEC_week_53_1.png" src="../_images/LEC_week_53_1.png" />
+<img alt="../_images/LEC_week_56_1.png" src="../_images/LEC_week_56_1.png" />
 </div>
 </div>
 </div>
@@ -1480,7 +1472,7 @@ looking forward. Ecology Letters 9, 741–758.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_55_0.png" src="../_images/LEC_week_55_0.png" />
+<img alt="../_images/LEC_week_58_0.png" src="../_images/LEC_week_58_0.png" />
 </div>
 </div>
 <p>That dendrogram shows how species are clustered according to their trait
@@ -1526,12 +1518,12 @@ present your results.</p>
 <p>We have explored different ways to measure abundance, richness, diversity,
 evenness. Select one of these  as your response variable.</p>
 <ul class="simple">
-<li><p><strong>Groups SP02, SP05, SP08, SP11, SP14</strong>: Community composition</p></li>
+<li><p><strong>Groups SP02, SP05, SP08, SP14</strong>: Community composition</p></li>
 </ul>
 <p>We have explored different ways to do an ordination. You can scale or not, use
 binary data or not, your choice. Select one of these as your response variable.</p>
 <ul class="simple">
-<li><p><strong>Groups SP03, SP06, SP09, SP12, SP15</strong>: Functional diversity</p></li>
+<li><p><strong>Groups SP03, SP06, SP09</strong>: Functional diversity</p></li>
 </ul>
 <p>We only explored one way of measuring functional diversity. But there are other
 more traditional ways of looking into traits of species that we have, for
@@ -1541,8 +1533,8 @@ preference.</p>
 </div>
 </div>
 </div>
-<div class="section" id="presenting-your-results-on-friday-20th-november">
-<h2>Presenting your results on Friday 20th November.<a class="headerlink" href="#presenting-your-results-on-friday-20th-november" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="presenting-your-results-on-friday-18th-november">
+<h2>Presenting your results on Friday 18th November<a class="headerlink" href="#presenting-your-results-on-friday-18th-november" title="Permalink to this headline">¶</a></h2>
 <p>Please have one slide ready to present with the graph of your response ~
 exploratory variable. Please ensure that the labels can be read on small
 screens. Also, please include on this graph a fitted line, and ideally a
@@ -1570,16 +1562,16 @@ time.</p>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "r"
+            mode: "ir420"
         },
         kernelOptions: {
-            kernelName: "ir",
+            kernelName: "ir420",
             path: "./practical_4"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'ir'</script>
+    <script>kernelName = 'ir420'</script>
 
               </div>
               
