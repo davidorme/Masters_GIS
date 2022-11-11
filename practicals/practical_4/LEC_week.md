@@ -812,12 +812,12 @@ plot(bray_raw_pcoa_1 ~ C600.pland, data=sites)
 abline(mod_fc, col='red')
 ```
 
-```{admonition} Using R to assess functional diversity
+```{admonition} Optional: Using R to assess functional diversity
 ---
 class: hint
 ---
 
-This section is an optional extra that shows how to use trait data to calculate 
+The following section is an optional extra that shows how to use trait data to calculate 
 functional diversity measures and incorporate those into landscape analyses. These 
 techniques are not required for the group exercise but functional diversity is commonly
 used in landscape ecology and in broader diversity research.
@@ -888,6 +888,8 @@ trait_diversity <- data.frame(Site=names(trait_diversity),
 sites <- merge(sites, trait_diversity)
 ```
 
+## Final group exercise
+
 ```{admonition} Group exercise
 ---
 class: danger
@@ -915,7 +917,7 @@ binary data or not, your choice. Select one of these approaches as your response
 variable.
 ```
 
-## Presenting your results on Friday
+### Presenting your results on Friday
 
 To present your results:
 
