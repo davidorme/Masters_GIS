@@ -17,18 +17,18 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-test <-  projectRaster(bioclim_hist_local, crs='EPSG:32718')
-extent(test)
-res(test)
+# Load some (coarse) country background data
+ne110 <- st_read('data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp')
 ------------------
 
-Error in CRS(SRS_string = x): no arguments in initialization list
+Error: Cannot open "data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp"; The file doesn't seem to exist.
 Traceback:
 
-1. projectRaster(bioclim_hist_local, crs = "EPSG:32718")
-2. .getCRS(crs)
-3. CRS(SRS_string = x)
-4. stop(res[[2]])
-ERROR: Error in CRS(SRS_string = x): no arguments in initialization list
+1. st_read("data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp")
+2. st_read.character("data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp")
+3. CPL_read_ogr(dsn, layer, query, as.character(options), quiet, 
+ .     type, fid_column_name, drivers, wkt_filter, promote_to_multi, 
+ .     int64_as_string, dsn_exists, dsn_isdb, getOption("width"))
+ERROR: Error: Cannot open "data/ne_110m_admin_0_countries/ne_110m_admin_0_countries.shp"; The file doesn't seem to exist.
 
 

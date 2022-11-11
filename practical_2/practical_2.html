@@ -961,9 +961,9 @@ gives us some key statistics, including AUC.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9559791 
-cor            : 0.7238481 
-max TPR+TNR at : 0.02604379 
+AUC            : 0.9646652 
+cor            : 0.7652315 
+max TPR+TNR at : 0.03257974 
 </pre></div>
 </div>
 </div>
@@ -1081,18 +1081,18 @@ observations.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 766 features and 2 fields
 Geometry type: POINT
 Dimension:     XY
-Bounding box:  xmin: 9312.951 ymin: 9569717 xmax: 575586.5 ymax: 10879930
+Bounding box:  xmin: 277.6292 ymin: 9566234 xmax: 576127.7 ymax: 10870380
 Projected CRS: WGS 84 / UTM zone 18S
 First 10 features:
    kfold pa                  geometry
 1      2  1    POINT (149798 9936513)
-3      4  1  POINT (156685.1 9964925)
-7      5  1  POINT (134253.4 9948230)
-8      1  1 POINT (429786.7 10526533)
-9      1  1 POINT (436714.8 10515131)
-10     3  1    POINT (163066 9976153)
-11     5  1 POINT (148013.6 10028318)
-12     3  1 POINT (152531.1 10032452)
+3      2  1  POINT (156685.1 9964925)
+7      4  1  POINT (134253.4 9948230)
+8      3  1 POINT (429786.7 10526533)
+9      2  1 POINT (436714.8 10515131)
+10     2  1    POINT (163066 9976153)
+11     2  1 POINT (148013.6 10028318)
+12     4  1 POINT (152531.1 10032452)
 13     5  1 POINT (155490.2 10031935)
 14     3  1 POINT (157889.8 10032259)
 </pre></div>
@@ -1113,18 +1113,18 @@ into the data frame.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 766 features and 22 fields
 Geometry type: POINT
 Dimension:     XY
-Bounding box:  xmin: 9312.951 ymin: 9569717 xmax: 575586.5 ymax: 10879930
+Bounding box:  xmin: 277.6292 ymin: 9566234 xmax: 576127.7 ymax: 10870380
 Projected CRS: WGS 84 / UTM zone 18S
 First 10 features:
    kfold pa ID      bio1      bio2     bio3     bio4     bio5      bio6
 1      2  1  1  7.072452  9.984288 85.62547 51.81070 12.87623  1.217051
-3      4  1  2  7.172537 10.287475 88.36607 42.57916 12.89965  1.263602
-7      5  1  3  7.705094 11.024811 89.50469 34.83894 13.79287  1.483661
-8      1  1  4 17.549557  8.956165 90.82992 30.61368 22.55479 12.695293
-9      1  1  5 17.184124  9.135429 91.14763 30.10217 22.25498 12.229358
-10     3  1  6  9.911862 10.040993 88.04670 42.08802 15.52201  4.118061
-11     5  1  7 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
-12     3  1  8 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+3      2  1  2  7.172537 10.287475 88.36607 42.57916 12.89965  1.263602
+7      4  1  3  7.705094 11.024811 89.50469 34.83894 13.79287  1.483661
+8      3  1  4 17.549557  8.956165 90.82992 30.61368 22.55479 12.695293
+9      2  1  5 17.184124  9.135429 91.14763 30.10217 22.25498 12.229358
+10     2  1  6  9.911862 10.040993 88.04670 42.08802 15.52201  4.118061
+11     2  1  7 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+12     4  1  8 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
 13     5  1  9 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
 14     3  1 10 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
         bio7      bio8      bio9     bio10     bio11     bio12    bio13
@@ -1209,24 +1209,24 @@ glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &
 
 Deviance Residuals: 
     Min       1Q   Median       3Q      Max  
--2.7489  -0.1170   0.0857   0.2785   3.3627  
+-2.4869  -0.1347   0.0818   0.3112   3.3850  
 
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -5.985e+01  1.442e+01  -4.152 3.30e-05 ***
-bio2         7.428e-01  3.062e-01   2.425   0.0153 *  
-bio4         6.983e-03  2.991e-02   0.233   0.8154    
-bio3         6.657e-01  1.531e-01   4.347 1.38e-05 ***
-bio1        -8.638e-01  8.456e-02 -10.216  &lt; 2e-16 ***
-bio12        2.561e-03  4.751e-04   5.390 7.06e-08 ***
+(Intercept) -5.816e+01  1.357e+01  -4.285 1.83e-05 ***
+bio2         8.191e-01  2.868e-01   2.856   0.0043 ** 
+bio4        -6.465e-03  2.725e-02  -0.237   0.8124    
+bio3         6.434e-01  1.441e-01   4.465 8.02e-06 ***
+bio1        -8.240e-01  7.718e-02 -10.677  &lt; 2e-16 ***
+bio12        2.284e-03  4.472e-04   5.108 3.26e-07 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 222.42  on 606  degrees of freedom
-AIC: 234.42
+Residual deviance: 242.27  on 606  degrees of freedom
+AIC: 254.27
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1280,9 +1280,9 @@ variable in turn, holding all the other variables at their median value.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9652555 
-cor            : 0.7770545 
-max TPR+TNR at : 0.02048421 
+AUC            : 0.9937595 
+cor            : 0.8262676 
+max TPR+TNR at : 1.103575 
 </pre></div>
 </div>
 </div>
@@ -1300,7 +1300,7 @@ GLM, we can use <code class="docutils literal notranslate"><span class="pre">plo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.5051209
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.7509294
 </pre></div>
 </div>
 </div>
@@ -1363,8 +1363,8 @@ of model predictions:</p>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    2050
 hist    0    1
-   0 4318    0
-   1  109   34
+   0 4377    0
+   1   74   10
 </pre></div>
 </div>
 </div>
@@ -1404,7 +1404,7 @@ records you will get - pick a species that has a few thousand at most.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">589</div></div>
+<div class="output text_html">590</div></div>
 </div>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
@@ -1592,10 +1592,10 @@ average across partitions. See if you can calculate these!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9652555 0.9871884 0.9745320 0.9877078 0.9672795
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9937595 0.9830332 0.9662675 0.9714335 0.9853264
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9763926
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.979964
 </pre></div>
 </div>
 <img alt="../_images/practical_2_89_2.png" src="../_images/practical_2_89_2.png" />

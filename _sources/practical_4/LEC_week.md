@@ -27,9 +27,9 @@ In this practical, we are going to use R to:
 ---
 class: danger
 ---
-Everyone in the class will have access to the same data but each group will be
-assigned a specific question that needs to be answered by Friday 20th November
-2020. Instructions for this exercise will be in boxes like this one.
+Everyone in the class will have access to the same data but each group will be assigned
+a specific question that needs to be answered by the Friday sessions of this week. 
+Instructions for this exercise will be in boxes like this one.
 
 On Friday, one representative from each group (make sure to decide this
 beforehand), will present their results on a single slide. A discussion will 
@@ -87,7 +87,7 @@ More info about the data set can be found in the following papers:
   conservation importance. Journal of Applied Ecology 48(3), 706-714.
   [https://doi.org/10.1111/j.1365-2664.2011.01966.x](https://doi.org/10.1111/j.1365-2664.2011.01966.x)
 
-There are three files to load.
+There are two files to load.
 
 #### Sites data
 
@@ -130,27 +130,6 @@ dim(abundance)
 The abundance data has 65 rows - one for each site - and there are 140 species
 that were seen in at least one site.
 
-#### Species trait data
-
-Last, the bird trait data set includes information about:
-
-- The main diet of all species, split into five categories (`Invertebrates`,
-  `Vertebrates`, `Fruits`, `Nectar`, `Seeds`).
-- The preferred foraging strata, split into four categories (`Ground`,
-  `Understory`, `Midstory`, `Canopy`)
-- The species' mean body size (`BMass`).
-- The number of habitats the species uses (`Nhabitats`), representing
-  specialisation.
-
-The values used for the diet and foraging strata are a semi-quantitative
-measure of use frequency: always (3), frequently (2), rarely (1), never (0).
-This matrix thus contains semi-quantitative variables and continuous variables.
-
-```{code-cell} r
-traits <- read.csv("data/brazil/bird_traits.csv", stringsAsFactors = FALSE)
-str(traits)
-```
-
 #### Data checking
 
 It is always worth looking at the data frames in detail, to understand their
@@ -160,7 +139,6 @@ contents. We have used `str` to look at the structure but you can also use
 ```r
 View(sites)
 View(abundance)
-View(Traits)
 ```
 
 It is also wise to check for missing data. Some key tools:
@@ -834,32 +812,68 @@ plot(bray_raw_pcoa_1 ~ C600.pland, data=sites)
 abline(mod_fc, col='red')
 ```
 
+```{admonition} Optional: Using R to assess functional diversity
+---
+class: hint
+---
+
+The following section is an optional extra that shows how to use trait data to calculate 
+functional diversity measures and incorporate those into landscape analyses. These 
+techniques are not required for the group exercise but functional diversity is commonly
+used in landscape ecology and in broader diversity research.
+```
+
 ### Functional diversity
 
 There are many measures of functional diversity, evenness and composition. Here
 we will only use one approach `treedive`, which is available in the `vegan`
 package. This calculates functional diversity as the total branch length of a
 trait dendrogram. The higher the number the more variation we have in traits
-within a community, which in theory equals to more functions provided.
+within a community, which in theory correlates with a greater number of provided
+evosystem functions.
 
 > Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and
 > looking forward. Ecology Letters 9, 741–758.
+
+First, you will need to load the `traits` dataset, which includes information about:
+
+- The main diet of all species, split into five categories (`Invertebrates`,
+  `Vertebrates`, `Fruits`, `Nectar`, `Seeds`).
+- The preferred foraging strata, split into four categories (`Ground`,
+  `Understory`, `Midstory`, `Canopy`)
+- The species' mean body size (`BMass`).
+- The number of habitats the species uses (`Nhabitats`), representing
+  specialisation.
+
+The values used for the diet and foraging strata are a semi-quantitative
+measure of use frequency: always (3), frequently (2), rarely (1), never (0).
+This matrix thus contains semi-quantitative variables and continuous variables.
+
+```{code-cell} r
+traits <- read.csv("data/brazil/bird_traits.csv", stringsAsFactors = FALSE)
+str(traits)
+```
+
+That data needs to be restructured to name the data frame rows by species and remove the
+species names field to leave just the traits fields.
 
 ```{code-cell} r
 # Get a data frame holding only trait values, with rownames 
 traits_only <- subset(traits, select=-Species)
 rownames(traits_only) <- traits$Species
+
 # Calculate the trait distance matrix
 trait_dist <- taxa2dist(traits_only, varstep=TRUE)
+
 # And get a trait dendrogram
 trait_tree <- hclust(trait_dist, "aver")
 plot(trait_tree, hang=-1, cex=0.3)
 ```
 
-That dendrogram shows how species are clustered according to their trait
-similarity and the branch lengths measure an amount of functional diversity. The
-next step is to find the set of species in each site, reduce the dendrogram to
-just those species and find out the total branch length of that subtree.
+That dendrogram shows how species are clustered according to their trait similarity and
+the branch lengths measure an amount of functional diversity. The next step is to find
+the set of species in each site, reduce the dendrogram to just those species and find
+out the total branch length of that subtree.
 
 ```{code-cell} r
 trait_diversity <- treedive(abundance, trait_tree)
@@ -874,13 +888,7 @@ trait_diversity <- data.frame(Site=names(trait_diversity),
 sites <- merge(sites, trait_diversity)
 ```
 
-```{admonition} Explore the data
----
-class: hint
----
-How does functional diversity vary with percentage of forest cover across sites?
-
-```
+## Final group exercise
 
 ```{admonition} Group exercise
 ---
@@ -892,42 +900,45 @@ data. Choose it carefully because you will need to defend your choice when you
 present your results.
 
 
-* **Groups SP01, SP04, SP07, SP13**: Species richness and abundance
+* **Groups SP01,04,08,13**: Species richness or diversity
 
-We have explored different ways to measure abundance, richness, diversity,
-evenness. Select one of these  as your response variable.
+We have explored different ways to measure richness and diversity: select one of these  
+as your response variable.
 
-* **Groups SP02, SP05, SP08, SP14**: Community composition
+* **Groups 02,05,08,14**: abundance or evenness
 
-We have explored different ways to do an ordination. You can scale or not, use
-binary data or not, your choice. Select one of these as your response variable.
+We have explored different ways to measure abundance and evenness: select one of these  
+as your response variable.
 
-* **Groups SP03, SP06, SP09**: Functional diversity
+* **Groups 03,06,09**: community composition
 
-We only explored one way of measuring functional diversity. But there are other
-more traditional ways of looking into traits of species that we have, for
-instance, species richness of insectivores, or abundance of specialists (those
-that only use one habitat). You have freedom to choose the response variable of
-preference. 
-
+We have explored different ways to do a community ordination. You can scale or not, use
+binary data or not, your choice. Select one of these approaches as your response
+variable.
 ```
 
-## Presenting your results on Friday 18th November
+### Presenting your results on Friday
 
-Please have one slide ready to present with the graph of your response ~
-exploratory variable. Please ensure that the labels can be read on small
-screens. Also, please include on this graph a fitted line, and ideally a
-confidence interval. The slide should also contain the $r^2$ of the relationship
-and p-value. Do not worry if you don't find significant results! That's to be
-expected. Each group will have a maximum of 5 minutes to present their results.
+To present your results:
 
-A final note on analyses: some of the variables we have used are better modelled
-using a GLM. That has not yet been covered in depth in the Masters modules. You
-are not expected to use a GLM here - although you can if you know how to use it
-and a GLM would be appropriate for your data.
+- Have **one** slide ready to present with the graph the relationship between your
+  chosen response and explanatory variable.
+- Ensure that the labels can be read on small screens!
+- Include on this graph a fitted line, and ideally a confidence interval.
+- Also include the $r^2$ of the relationship and p-value.
 
-It is anticipated that the exploratory variables **will** be correlated, so
-fitting more complex models (e.g. a multiple regression) may not be appropriate.
-This is the same problem of **multicollinearity** that was mentioned in the GIS
-week. For the moment, use single regressions for each exploratory variable at a
-time.
+Do not worry if you don't find significant results! That's to be expected. Each group
+will have a maximum of 5 minutes to present their results.
+
+Two final notes on analyses:
+
+1. Some of the variables we have used are better modelled using a GLM. That has not yet
+   been covered in depth in the Masters modules. You are not expected to use a GLM
+   here - although you can if you know how to use it and a GLM would be appropriate
+   for your data.
+
+2. Some explanatory variables **will** be correlated, so fitting more complex models
+   (e.g. a multiple regression) may not be appropriate. This is the same problem of
+   **multicollinearity** that was mentioned in the GIS species distribution modelling
+   practical. For the moment, use single regressions for each explanatory variable at a
+   time.

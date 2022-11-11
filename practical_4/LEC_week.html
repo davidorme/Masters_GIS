@@ -232,11 +232,6 @@
       </a>
      </li>
      <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#species-trait-data">
-       Species trait data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
       <a class="reference internal nav-link" href="#data-checking">
        Data checking
       </a>
@@ -338,9 +333,16 @@
   </ul>
  </li>
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#presenting-your-results-on-friday-18th-november">
-   Presenting your results on Friday 18th November
+  <a class="reference internal nav-link" href="#final-group-exercise">
+   Final group exercise
   </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#presenting-your-results-on-friday">
+     Presenting your results on Friday
+    </a>
+   </li>
+  </ul>
  </li>
 </ul>
 
@@ -365,9 +367,9 @@ loss and fragmentation.</p></li>
 </ol>
 <div class="danger admonition">
 <p class="admonition-title">Class group exercise</p>
-<p>Everyone in the class will have access to the same data but each group will be
-assigned a specific question that needs to be answered by Friday 20th November
-2020. Instructions for this exercise will be in boxes like this one.</p>
+<p>Everyone in the class will have access to the same data but each group will be assigned
+a specific question that needs to be answered by the Friday sessions of this week.
+Instructions for this exercise will be in boxes like this one.</p>
 <p>On Friday, one representative from each group (make sure to decide this
 beforehand), will present their results on a single slide. A discussion will
 follow.</p>
@@ -419,7 +421,7 @@ Ecology 93(12), 2560-2569.
 conservation importance. Journal of Applied Ecology 48(3), 706-714.
 <a class="reference external" href="https://doi.org/10.1111/j.1365-2664.2011.01966.x">https://doi.org/10.1111/j.1365-2664.2011.01966.x</a></p></li>
 </ul>
-<p>There are three files to load.</p>
+<p>There are two files to load.</p>
 <div class="section" id="sites-data">
 <h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this headline">¶</a></h4>
 <p>First, we can load the sites data and use the longitude and latitude coordinates
@@ -488,47 +490,6 @@ lots of 0s in the matrix. Few species are globally common.</p>
 <p>The abundance data has 65 rows - one for each site - and there are 140 species
 that were seen in at least one site.</p>
 </div>
-<div class="section" id="species-trait-data">
-<h4>Species trait data<a class="headerlink" href="#species-trait-data" title="Permalink to this headline">¶</a></h4>
-<p>Last, the bird trait data set includes information about:</p>
-<ul class="simple">
-<li><p>The main diet of all species, split into five categories (<code class="docutils literal notranslate"><span class="pre">Invertebrates</span></code>,
-<code class="docutils literal notranslate"><span class="pre">Vertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Fruits</span></code>, <code class="docutils literal notranslate"><span class="pre">Nectar</span></code>, <code class="docutils literal notranslate"><span class="pre">Seeds</span></code>).</p></li>
-<li><p>The preferred foraging strata, split into four categories (<code class="docutils literal notranslate"><span class="pre">Ground</span></code>,
-<code class="docutils literal notranslate"><span class="pre">Understory</span></code>, <code class="docutils literal notranslate"><span class="pre">Midstory</span></code>, <code class="docutils literal notranslate"><span class="pre">Canopy</span></code>)</p></li>
-<li><p>The species’ mean body size (<code class="docutils literal notranslate"><span class="pre">BMass</span></code>).</p></li>
-<li><p>The number of habitats the species uses (<code class="docutils literal notranslate"><span class="pre">Nhabitats</span></code>), representing
-specialisation.</p></li>
-</ul>
-<p>The values used for the diet and foraging strata are a semi-quantitative
-measure of use frequency: always (3), frequently (2), rarely (1), never (0).
-This matrix thus contains semi-quantitative variables and continuous variables.</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
-<span class="nf">str</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;data.frame&#39;:	140 obs. of  12 variables:
- $ Species      : chr  &quot;species1&quot; &quot;species2&quot; &quot;species3&quot; &quot;species4&quot; ...
- $ Invertebrates: int  1 1 1 3 3 3 2 3 2 3 ...
- $ Vertebrates  : int  0 0 0 0 0 0 2 0 2 0 ...
- $ Fruits       : int  0 0 0 0 0 0 1 0 1 1 ...
- $ Nectar       : int  3 3 3 0 0 0 0 0 0 0 ...
- $ Seeds        : int  0 0 0 0 0 0 0 0 0 0 ...
- $ Ground       : int  0 0 0 1 1 3 1 0 2 0 ...
- $ Understory   : int  3 1 2 3 1 1 2 3 2 3 ...
- $ Midstory     : int  1 2 2 1 3 0 2 1 2 1 ...
- $ Canopy       : int  1 2 2 0 0 0 2 0 0 0 ...
- $ BMass        : num  5 4.3 4.1 18.8 39 24.8 43.4 35.5 175 10.3 ...
- $ Nhabitats    : int  4 3 5 1 1 1 2 1 3 3 ...
-</pre></div>
-</div>
-</div>
-</div>
-</div>
 <div class="section" id="data-checking">
 <h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this headline">¶</a></h4>
 <p>It is always worth looking at the data frames in detail, to understand their
@@ -536,7 +497,6 @@ contents. We have used <code class="docutils literal notranslate"><span class="p
 <code class="docutils literal notranslate"><span class="pre">View</span></code> to look at the dataset as a table.</p>
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">View</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
 <span class="nf">View</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
-<span class="nf">View</span><span class="p">(</span><span class="n">Traits</span><span class="p">)</span>
 </pre></div>
 </div>
 <p>It is also wise to check for missing data. Some key tools:</p>
@@ -672,7 +632,7 @@ projecting the data. We’ve also set a resolution of 30 metres.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_18_0.png" src="../_images/LEC_week_18_0.png" />
+<img alt="../_images/LEC_week_16_0.png" src="../_images/LEC_week_16_0.png" />
 </div>
 </div>
 </div>
@@ -1045,7 +1005,7 @@ report your results and why?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_35_0.png" src="../_images/LEC_week_35_0.png" />
+<img alt="../_images/LEC_week_33_0.png" src="../_images/LEC_week_33_0.png" />
 </div>
 </div>
 <p>Hint: There is no right or wrong answer here. You can choose any metric as long
@@ -1069,7 +1029,7 @@ trapped.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_37_0.png" src="../_images/LEC_week_37_0.png" />
+<img alt="../_images/LEC_week_35_0.png" src="../_images/LEC_week_35_0.png" />
 </div>
 </div>
 <p>How does this compare to slide 11 of <strong>Measuring Biodiversity</strong> lecture which
@@ -1158,7 +1118,7 @@ quickly…</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_41_0.png" src="../_images/LEC_week_41_0.png" />
+<img alt="../_images/LEC_week_39_0.png" src="../_images/LEC_week_39_0.png" />
 </div>
 </div>
 <p>The first thing that jumps out is the diagonal - this is just that comparing a
@@ -1265,7 +1225,7 @@ structure.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_52_0.png" src="../_images/LEC_week_52_0.png" />
+<img alt="../_images/LEC_week_50_0.png" src="../_images/LEC_week_50_0.png" />
 </div>
 </div>
 <p>Which patterns can you see from that plot? Along which axis do you see the
@@ -1310,7 +1270,7 @@ cumulative calculation!</p>
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'21.16%'</li><li>'12.04%'</li><li>'8.85%'</li><li>'5.86%'</li><li>'4.92%'</li><li>'3.94%'</li><li>'3.68%'</li><li>'3.42%'</li></ol>
-</div><img alt="../_images/LEC_week_54_1.png" src="../_images/LEC_week_54_1.png" />
+</div><img alt="../_images/LEC_week_52_1.png" src="../_images/LEC_week_52_1.png" />
 </div>
 </div>
 <p>For this particular PCoA, the bar plot doesn’t really give a good indication
@@ -1441,8 +1401,15 @@ Multiple R-squared:  0.574,	Adjusted R-squared:  0.5673
 F-statistic:  84.9 on 1 and 63 DF,  p-value: 2.765e-13
 </pre></div>
 </div>
-<img alt="../_images/LEC_week_56_1.png" src="../_images/LEC_week_56_1.png" />
+<img alt="../_images/LEC_week_54_1.png" src="../_images/LEC_week_54_1.png" />
 </div>
+</div>
+<div class="hint admonition">
+<p class="admonition-title">Optional: Using R to assess functional diversity</p>
+<p>The following section is an optional extra that shows how to use trait data to calculate
+functional diversity measures and incorporate those into landscape analyses. These
+techniques are not required for the group exercise but functional diversity is commonly
+used in landscape ecology and in broader diversity research.</p>
 </div>
 </div>
 </div>
@@ -1453,18 +1420,61 @@ F-statistic:  84.9 on 1 and 63 DF,  p-value: 2.765e-13
 we will only use one approach <code class="docutils literal notranslate"><span class="pre">treedive</span></code>, which is available in the <code class="docutils literal notranslate"><span class="pre">vegan</span></code>
 package. This calculates functional diversity as the total branch length of a
 trait dendrogram. The higher the number the more variation we have in traits
-within a community, which in theory equals to more functions provided.</p>
+within a community, which in theory correlates with a greater number of provided
+evosystem functions.</p>
 <blockquote>
 <div><p>Petchey, O.L. and Gaston, K.J. 2006. Functional diversity: back to basics and
 looking forward. Ecology Letters 9, 741–758.</p>
 </div></blockquote>
+<p>First, you will need to load the <code class="docutils literal notranslate"><span class="pre">traits</span></code> dataset, which includes information about:</p>
+<ul class="simple">
+<li><p>The main diet of all species, split into five categories (<code class="docutils literal notranslate"><span class="pre">Invertebrates</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Vertebrates</span></code>, <code class="docutils literal notranslate"><span class="pre">Fruits</span></code>, <code class="docutils literal notranslate"><span class="pre">Nectar</span></code>, <code class="docutils literal notranslate"><span class="pre">Seeds</span></code>).</p></li>
+<li><p>The preferred foraging strata, split into four categories (<code class="docutils literal notranslate"><span class="pre">Ground</span></code>,
+<code class="docutils literal notranslate"><span class="pre">Understory</span></code>, <code class="docutils literal notranslate"><span class="pre">Midstory</span></code>, <code class="docutils literal notranslate"><span class="pre">Canopy</span></code>)</p></li>
+<li><p>The species’ mean body size (<code class="docutils literal notranslate"><span class="pre">BMass</span></code>).</p></li>
+<li><p>The number of habitats the species uses (<code class="docutils literal notranslate"><span class="pre">Nhabitats</span></code>), representing
+specialisation.</p></li>
+</ul>
+<p>The values used for the diet and foraging strata are a semi-quantitative
+measure of use frequency: always (3), frequently (2), rarely (1), never (0).
+This matrix thus contains semi-quantitative variables and continuous variables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="nf">str</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;data.frame&#39;:	140 obs. of  12 variables:
+ $ Species      : chr  &quot;species1&quot; &quot;species2&quot; &quot;species3&quot; &quot;species4&quot; ...
+ $ Invertebrates: int  1 1 1 3 3 3 2 3 2 3 ...
+ $ Vertebrates  : int  0 0 0 0 0 0 2 0 2 0 ...
+ $ Fruits       : int  0 0 0 0 0 0 1 0 1 1 ...
+ $ Nectar       : int  3 3 3 0 0 0 0 0 0 0 ...
+ $ Seeds        : int  0 0 0 0 0 0 0 0 0 0 ...
+ $ Ground       : int  0 0 0 1 1 3 1 0 2 0 ...
+ $ Understory   : int  3 1 2 3 1 1 2 3 2 3 ...
+ $ Midstory     : int  1 2 2 1 3 0 2 1 2 1 ...
+ $ Canopy       : int  1 2 2 0 0 0 2 0 0 0 ...
+ $ BMass        : num  5 4.3 4.1 18.8 39 24.8 43.4 35.5 175 10.3 ...
+ $ Nhabitats    : int  4 3 5 1 1 1 2 1 3 3 ...
+</pre></div>
+</div>
+</div>
+</div>
+<p>That data needs to be restructured to name the data frame rows by species and remove the
+species names field to leave just the traits fields.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a data frame holding only trait values, with rownames </span>
 <span class="n">traits_only</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">traits</span><span class="p">,</span> <span class="n">select</span><span class="o">=-</span><span class="n">Species</span><span class="p">)</span>
 <span class="nf">rownames</span><span class="p">(</span><span class="n">traits_only</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">traits</span><span class="o">$</span><span class="n">Species</span>
+
 <span class="c1"># Calculate the trait distance matrix</span>
 <span class="n">trait_dist</span> <span class="o">&lt;-</span> <span class="nf">taxa2dist</span><span class="p">(</span><span class="n">traits_only</span><span class="p">,</span> <span class="n">varstep</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+
 <span class="c1"># And get a trait dendrogram</span>
 <span class="n">trait_tree</span> <span class="o">&lt;-</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">trait_dist</span><span class="p">,</span> <span class="s">&quot;aver&quot;</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">trait_tree</span><span class="p">,</span> <span class="n">hang</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.3</span><span class="p">)</span>
@@ -1475,10 +1485,10 @@ looking forward. Ecology Letters 9, 741–758.</p>
 <img alt="../_images/LEC_week_58_0.png" src="../_images/LEC_week_58_0.png" />
 </div>
 </div>
-<p>That dendrogram shows how species are clustered according to their trait
-similarity and the branch lengths measure an amount of functional diversity. The
-next step is to find the set of species in each site, reduce the dendrogram to
-just those species and find out the total branch length of that subtree.</p>
+<p>That dendrogram shows how species are clustered according to their trait similarity and
+the branch lengths measure an amount of functional diversity. The next step is to find
+the set of species in each site, reduce the dendrogram to just those species and find
+out the total branch length of that subtree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">treedive</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">trait_tree</span><span class="p">)</span>
@@ -1502,10 +1512,10 @@ it.</p>
 </div>
 </div>
 </div>
-<div class="hint admonition">
-<p class="admonition-title">Explore the data</p>
-<p>How does functional diversity vary with percentage of forest cover across sites?</p>
 </div>
+</div>
+<div class="section" id="final-group-exercise">
+<h2>Final group exercise<a class="headerlink" href="#final-group-exercise" title="Permalink to this headline">¶</a></h2>
 <div class="danger admonition">
 <p class="admonition-title">Group exercise</p>
 <p>Each group already have their landscape metrics measured, now you will need to
@@ -1513,43 +1523,47 @@ focus on choosing one response variable that best represents variation in your
 data. Choose it carefully because you will need to defend your choice when you
 present your results.</p>
 <ul class="simple">
-<li><p><strong>Groups SP01, SP04, SP07, SP13</strong>: Species richness and abundance</p></li>
+<li><p><strong>Groups SP01,04,08,13</strong>: Species richness or diversity</p></li>
 </ul>
-<p>We have explored different ways to measure abundance, richness, diversity,
-evenness. Select one of these  as your response variable.</p>
+<p>We have explored different ways to measure richness and diversity: select one of these<br />
+as your response variable.</p>
 <ul class="simple">
-<li><p><strong>Groups SP02, SP05, SP08, SP14</strong>: Community composition</p></li>
+<li><p><strong>Groups 02,05,08,14</strong>: abundance or evenness</p></li>
 </ul>
-<p>We have explored different ways to do an ordination. You can scale or not, use
-binary data or not, your choice. Select one of these as your response variable.</p>
+<p>We have explored different ways to measure abundance and evenness: select one of these<br />
+as your response variable.</p>
 <ul class="simple">
-<li><p><strong>Groups SP03, SP06, SP09</strong>: Functional diversity</p></li>
+<li><p><strong>Groups 03,06,09</strong>: community composition</p></li>
 </ul>
-<p>We only explored one way of measuring functional diversity. But there are other
-more traditional ways of looking into traits of species that we have, for
-instance, species richness of insectivores, or abundance of specialists (those
-that only use one habitat). You have freedom to choose the response variable of
-preference.</p>
+<p>We have explored different ways to do a community ordination. You can scale or not, use
+binary data or not, your choice. Select one of these approaches as your response
+variable.</p>
 </div>
+<div class="section" id="presenting-your-results-on-friday">
+<h3>Presenting your results on Friday<a class="headerlink" href="#presenting-your-results-on-friday" title="Permalink to this headline">¶</a></h3>
+<p>To present your results:</p>
+<ul class="simple">
+<li><p>Have <strong>one</strong> slide ready to present with the graph the relationship between your
+chosen response and explanatory variable.</p></li>
+<li><p>Ensure that the labels can be read on small screens!</p></li>
+<li><p>Include on this graph a fitted line, and ideally a confidence interval.</p></li>
+<li><p>Also include the <span class="math notranslate nohighlight">\(r^2\)</span> of the relationship and p-value.</p></li>
+</ul>
+<p>Do not worry if you don’t find significant results! That’s to be expected. Each group
+will have a maximum of 5 minutes to present their results.</p>
+<p>Two final notes on analyses:</p>
+<ol class="simple">
+<li><p>Some of the variables we have used are better modelled using a GLM. That has not yet
+been covered in depth in the Masters modules. You are not expected to use a GLM
+here - although you can if you know how to use it and a GLM would be appropriate
+for your data.</p></li>
+<li><p>Some explanatory variables <strong>will</strong> be correlated, so fitting more complex models
+(e.g. a multiple regression) may not be appropriate. This is the same problem of
+<strong>multicollinearity</strong> that was mentioned in the GIS species distribution modelling
+practical. For the moment, use single regressions for each explanatory variable at a
+time.</p></li>
+</ol>
 </div>
-</div>
-<div class="section" id="presenting-your-results-on-friday-18th-november">
-<h2>Presenting your results on Friday 18th November<a class="headerlink" href="#presenting-your-results-on-friday-18th-november" title="Permalink to this headline">¶</a></h2>
-<p>Please have one slide ready to present with the graph of your response ~
-exploratory variable. Please ensure that the labels can be read on small
-screens. Also, please include on this graph a fitted line, and ideally a
-confidence interval. The slide should also contain the <span class="math notranslate nohighlight">\(r^2\)</span> of the relationship
-and p-value. Do not worry if you don’t find significant results! That’s to be
-expected. Each group will have a maximum of 5 minutes to present their results.</p>
-<p>A final note on analyses: some of the variables we have used are better modelled
-using a GLM. That has not yet been covered in depth in the Masters modules. You
-are not expected to use a GLM here - although you can if you know how to use it
-and a GLM would be appropriate for your data.</p>
-<p>It is anticipated that the exploratory variables <strong>will</strong> be correlated, so
-fitting more complex models (e.g. a multiple regression) may not be appropriate.
-This is the same problem of <strong>multicollinearity</strong> that was mentioned in the GIS
-week. For the moment, use single regressions for each exploratory variable at a
-time.</p>
 </div>
 </div>
 
