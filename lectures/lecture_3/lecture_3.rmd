@@ -1,12 +1,17 @@
 ---
 title: Species Distribution Modelling
 author: David Orme
+theme: simple
 ---
 
-<!-- .slide: data-background-image="../shared_images/World3D_600.png"  data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+<!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
+
+<!-- .slide: data-background-image="../shared_images/World3D_600.png"
+data-background-position="right 10px bottom 20px"  data-background-size="40%" -->
+
 # Species Distribution Models
 
-### David Orme
+## David Orme
 
 ```{r setup, echo=FALSE}
 
@@ -23,7 +28,7 @@ author: David Orme
 * Theoretical framework
 * Applications
 * Assessing predictive performance
-* Concerns and future directions 
+* Concerns and future directions
 
 ----
 

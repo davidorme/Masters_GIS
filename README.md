@@ -98,3 +98,7 @@ jupyter-book build practicals/
 ```bash
 ghp-import -n -p -f practicals/_build/html
 ```
+
+That currently seems to stall for some reason, so it is basically the same as:
+
+```
