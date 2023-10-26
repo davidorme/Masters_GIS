@@ -7,3 +7,7 @@ page_authors: true
 execute:
   timeout: 10000
 
+# Configure sphinx
+sphinx:
+  config:
+    myst_heading_anchors: 3

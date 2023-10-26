@@ -15,3 +15,5 @@ practicals/_build
 # Ignore the practical data zipfile
 practicals/practical_data.zip
 
+# Local python settings
+.python-version

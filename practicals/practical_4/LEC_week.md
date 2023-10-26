@@ -7,9 +7,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 # Landscape Ecology and Conservation
@@ -49,7 +49,7 @@ These will be in boxes like this one.
 
 We will need to load the following packages. Remember to read [this guide on setting up
 packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not RStudio Cloud.
+on your own machine, not Posit Cloud.
 
 ```{code-cell} r
 :tags: [remove-stderr]

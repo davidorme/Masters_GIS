@@ -6,10 +6,12 @@ jupytext:
     format_name: myst
     format_version: 0.13
     jupytext_version: 1.11.5
+myst:
+  heading_anchors: 3
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 # Practical Two: Species Distribution Modelling
@@ -37,7 +39,7 @@ raster_obj <- as(spat_raster_obj, 'Raster')
 
 We will need to load the following packages. Remember to read [this guide on setting up
 packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not RStudio Cloud.
+on your own machine, not Posit Cloud.
 
 To load the packages:
 
@@ -58,7 +60,7 @@ library(dismo)
 
 We are going to be using the MAXENT species distribution modelling program. Using MaxEnt
 in R is a bit of a pain, because it requires the MAXENT program to be separately
-installed and also requires the `rJava` package. The RStudio Cloud project for this
+installed and also requires the `rJava` package. The Posit Cloud project for this
 practical is all ready to go, but if you want to follow this on your own machine then
 you will need to:
 

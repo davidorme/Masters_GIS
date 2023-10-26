@@ -7,9 +7,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 # Introduction to the practicals
@@ -40,7 +40,7 @@ If none of those work then ask us!
 
 ## Getting started
 
-* Each practical has its own RStudio Cloud Project. This will contain all of the data
+* Each practical has its own Posit Cloud assignment. This will contain all of the data
   needed for the practical and will have the required packages pre-installed.
 
 * If you are working on your own computer, you will need to install those packages and
