@@ -17,3 +17,6 @@ practicals/practical_data.zip
 
 # Local python settings
 .python-version
+
+# Ignore zipped data directory - bundle for students
+practicals/data.zip
