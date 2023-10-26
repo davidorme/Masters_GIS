@@ -1,365 +1,377 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Landscape Ecology and Conservation &#8212; GIS and Spatial Methods in R</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_4/LEC_week';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="prev" title="Practical Three: Spatial modelling in R" href="../practical_3/practical_3.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction to the practicals
-  </a>
- </li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">GIS and Spatial Methods in R</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction to the practicals
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../required_packages.html">Practical setup for local computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_1/practical_1.html">GIS Practical 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_2/practical_2.html">GIS Practical 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_3/practical_3.html">GIS Practical 3</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Landscape Ecology</a></li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../required_packages.html">
-   Practical setup for local computers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_1/practical_1.html">
-   GIS Practical 1
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_2/practical_2.html">
-   GIS Practical 2
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_3/practical_3.html">
-   GIS Practical 3
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   Landscape Ecology
-  </a>
- </li>
-</ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../_sources/practical_4/LEC_week.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/practical_4/LEC_week.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/practical_4/LEC_week.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main">
         
         
-        
-        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/practical_4/LEC_week.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Landscape Ecology and Conservation</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#requirements">
-   Requirements
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-sets">
-   Data sets
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#species-data">
-     Species data
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#sites-data">
-       Sites data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#abundance-data">
-       Abundance data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#data-checking">
-       Data checking
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#landcover-data">
-     Landcover data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#calculating-landscape-metrics">
-   Calculating landscape metrics
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#landscape-data-processing">
-     Landscape data processing
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extracting-landscape-metrics">
-     Extracting landscape metrics
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#landscape-levels">
-       Landscape levels
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#merging-landscape-metrics-onto-sites">
-       Merging landscape metrics onto sites
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#calculating-biodiversity-metrics">
-   Calculating biodiversity metrics
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness">
-     Measuring site abundance, species richness, species diversity and evenness
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#species-abundance-distribution">
-       Species abundance distribution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#measuring-community-composition">
-     Measuring community composition
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#transforming-site-by-species-data">
-       Transforming site by species data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#calculating-dissimilarity-indices">
-       Calculating dissimilarity Indices
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#principal-coordinate-analysis">
-       Principal coordinate analysis
-      </a>
-      <ul class="nav section-nav flex-column">
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#community-separation-in-space">
-         Community separation in space
-        </a>
-       </li>
-       <li class="toc-h5 nav-item toc-entry">
-        <a class="reference internal nav-link" href="#how-many-axes-to-consider">
-         How many axes to consider
-        </a>
-       </li>
-      </ul>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#functional-diversity">
-     Functional diversity
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#final-group-exercise">
-   Final group exercise
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#presenting-your-results-on-friday">
-     Presenting your results on Friday
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets">Data sets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#species-data">Species data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sites-data">Sites data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#abundance-data">Abundance data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-checking">Data checking</a></li>
 </ul>
-
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#landcover-data">Landcover data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-landscape-metrics">Calculating landscape metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-data-processing">Landscape data processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-landscape-metrics">Extracting landscape metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-levels">Landscape levels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-landscape-metrics-onto-sites">Merging landscape metrics onto sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-biodiversity-metrics">Calculating biodiversity metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness">Measuring site abundance, species richness, species diversity and evenness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-abundance-distribution">Species abundance distribution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-community-composition">Measuring community composition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-site-by-species-data">Transforming site by species data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-dissimilarity-indices">Calculating dissimilarity Indices</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-coordinate-analysis">Principal coordinate analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#community-separation-in-space">Community separation in space</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-axes-to-consider">How many axes to consider</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-diversity">Functional diversity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-group-exercise">Final group exercise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#presenting-your-results-on-friday">Presenting your results on Friday</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="landscape-ecology-and-conservation">
-<h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this headline">¶</a></h1>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="landscape-ecology-and-conservation">
+<h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this heading">#</a></h1>
 <p>Authors: <strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
 <p>In this practical, we are going to use R to:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>obtain landscape metrics from a map;</p></li>
 <li><p>obtain community metrics from a bird dataset; and</p></li>
 <li><p>analyse the data to assess how Atlantic Forest birds are impacted by habitat
@@ -380,11 +392,11 @@ follow.</p>
 individual exercises, which ask you to explore the data and techniques used.
 These will be in boxes like this one.</p>
 </div>
-<div class="section" id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this headline">¶</a></h2>
+<section id="requirements">
+<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">#</a></h2>
 <p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="doc std std-doc">this guide on setting up
 packages on your computer</span></a> if you are running these practicals
-on your own machine, not RStudio Cloud.</p>
+on your own machine, not Posit Cloud.</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">terra</span><span class="p">)</span>
@@ -398,12 +410,12 @@ on your own machine, not RStudio Cloud.</p>
 <div class="cell_output docutils container">
 </div>
 </div>
-</div>
-<div class="section" id="data-sets">
-<h2>Data sets<a class="headerlink" href="#data-sets" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-sets">
+<h2>Data sets<a class="headerlink" href="#data-sets" title="Permalink to this heading">#</a></h2>
 <p>The first step is to load and explore the datasets.</p>
-<div class="section" id="species-data">
-<h3>Species data<a class="headerlink" href="#species-data" title="Permalink to this headline">¶</a></h3>
+<section id="species-data">
+<h3>Species data<a class="headerlink" href="#species-data" title="Permalink to this heading">#</a></h3>
 <p>This is a bird data set that was collected in the Brazilian Atlantic Forest
 between 2001 and 2007. The data set contains the abundance of 140 species that
 were captured in 65 sites, from three different regions, each containing a
@@ -422,8 +434,8 @@ conservation importance. Journal of Applied Ecology 48(3), 706-714.
 <a class="reference external" href="https://doi.org/10.1111/j.1365-2664.2011.01966.x">https://doi.org/10.1111/j.1365-2664.2011.01966.x</a></p></li>
 </ul>
 <p>There are two files to load.</p>
-<div class="section" id="sites-data">
-<h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this headline">¶</a></h4>
+<section id="sites-data">
+<h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this heading">#</a></h4>
 <p>First, we can load the sites data and use the longitude and latitude coordinates
 (WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
 <div class="cell docutils container">
@@ -447,7 +459,7 @@ conservation importance. Journal of Applied Ecology 48(3), 706-714.
   ..- attr(*, &quot;names&quot;)= chr [1:4] &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Landscape_ID&quot;
 </pre></div>
 </div>
-<img alt="../_images/LEC_week_3_1.png" src="../_images/LEC_week_3_1.png" />
+<img alt="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" src="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" />
 </div>
 </div>
 <p>Region A corresponds to the fragmented landscape with 10% forest cover (and
@@ -464,9 +476,9 @@ and</p></li>
 control landscape, so this variable gives you the information of which sites
 belonged to the same region.</p></li>
 </ul>
-</div>
-<div class="section" id="abundance-data">
-<h4>Abundance data<a class="headerlink" href="#abundance-data" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="abundance-data">
+<h4>Abundance data<a class="headerlink" href="#abundance-data" title="Permalink to this heading">#</a></h4>
 <p>Next, read in the data set showing the sites x species abundance matrix. As
 you’ll see, a lot of the species were only caught once or twice and there are
 lots of 0s in the matrix. Few species are globally common.</p>
@@ -489,9 +501,9 @@ lots of 0s in the matrix. Few species are globally common.</p>
 </div>
 <p>The abundance data has 65 rows - one for each site - and there are 140 species
 that were seen in at least one site.</p>
-</div>
-<div class="section" id="data-checking">
-<h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="data-checking">
+<h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this heading">#</a></h4>
 <p>It is always worth looking at the data frames in detail, to understand their
 contents. We have used <code class="docutils literal notranslate"><span class="pre">str</span></code> to look at the structure but you can also use
 <code class="docutils literal notranslate"><span class="pre">View</span></code> to look at the dataset as a table.</p>
@@ -504,10 +516,10 @@ contents. We have used <code class="docutils literal notranslate"><span class="p
 <span class="nf">any</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">abundance</span><span class="p">))</span>
 </pre></div>
 </div>
-</div>
-</div>
-<div class="section" id="landcover-data">
-<h3>Landcover data<a class="headerlink" href="#landcover-data" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="landcover-data">
+<h3>Landcover data<a class="headerlink" href="#landcover-data" title="Permalink to this heading">#</a></h3>
 <p>We will calculate the landscape metrics from a landcover map for the study
 region. If you want to know more about the origin of the map, check
 <a class="reference external" href="https://mapbiomas.org">https://mapbiomas.org</a>. It is in Portuguese but Google
@@ -560,18 +572,18 @@ requested and has tricks for only loading the data it needs. You can see this:</
 <p>We’re not even going to try and plot this map! This is something that would be
 much easier to view in QGIS, which handles visualising big data well. We will
 extract some data from it in the next section.</p>
-</div>
-</div>
-<div class="section" id="calculating-landscape-metrics">
-<h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="landscape-data-processing">
-<h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="calculating-landscape-metrics">
+<h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Permalink to this heading">#</a></h2>
+<section id="landscape-data-processing">
+<h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Permalink to this heading">#</a></h3>
 <p>Before we calculate landscape metrics, we first need to process the land cover
 data to make it easier to work with. In particular, using the whole map is very
 computationally demanding so we need to reduce the data down to the scale of the
 focal regions to extract landscape metrics for each site. In order to do that we
 need to:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Identify a smaller region of interest for the sites</p></li>
 <li><p>Crop the landcover raster down to this region, to use a small dataset.</p></li>
 <li><p>Convert the landcover to a binary forest - matrix map.</p></li>
@@ -600,7 +612,8 @@ dimensions  : 2188, 5407, 1  (nrow, ncol, nlyr)
 resolution  : 0.0002694946, 0.0002694946  (x, y)
 extent      : -48.3988, -46.94164, -24.25424, -23.66459  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-source      : memory 
+source(s)   : memory
+varname     : map 
 name        :   map 
 min value   : FALSE 
 max value   :  TRUE 
@@ -632,12 +645,12 @@ projecting the data. We’ve also set a resolution of 30 metres.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_16_0.png" src="../_images/LEC_week_16_0.png" />
+<img alt="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" src="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" />
 </div>
 </div>
-</div>
-<div class="section" id="extracting-landscape-metrics">
-<h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="extracting-landscape-metrics">
+<h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Permalink to this heading">#</a></h3>
 <p>You can now explore the functions in the package
 <a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a>
 to measure different landscape metrics. You can also look at the complete set of
@@ -721,8 +734,8 @@ to measure different landscape metrics. You can also look at the complete set of
 </table>
 </div></div>
 </div>
-<div class="section" id="landscape-levels">
-<h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Permalink to this headline">¶</a></h4>
+<section id="landscape-levels">
+<h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Permalink to this heading">#</a></h4>
 <p>There are three core levels of calculation and it is important to understand how
 these are applied within a local landscape:</p>
 <ul class="simple">
@@ -762,32 +775,34 @@ meters. We will use the Alce site as an example:</p>
 “The &#39;perecentage_inside&#39; is below 90% for at least one buffer.”
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># A tibble: 23 × 8
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
+“[mask] CRS do not match”
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span># A tibble: 21 × 8
    layer level     class    id metric  value plot_id percentage_inside
    &lt;int&gt; &lt;chr&gt;     &lt;int&gt; &lt;int&gt; &lt;chr&gt;   &lt;dbl&gt; &lt;chr&gt;               &lt;dbl&gt;
- 1     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 19.0  Alce                 100.
- 2     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.38 Alce                 100.
- 3     1 class         0    <span class=" -Color -Color-Red">NA</span> np       4    Alce                 100.
- 4     1 class         1    <span class=" -Color -Color-Red">NA</span> np      11    Alce                 100.
- 5     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.1  Alce                 100.
- 6     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.9  Alce                 100.
- 7     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  7.54 Alce                 100.
- 8     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      15    Alce                 100.
- 9     1 patch         0     1 area    75.1  Alce                 100.
-10     1 patch         0     2 area     0.09 Alce                 100.
-11     1 patch         0     3 area     0.09 Alce                 100.
-12     1 patch         0     4 area     0.72 Alce                 100.
-13     1 patch         1     5 area     0.99 Alce                 100.
-14     1 patch         1     6 area    28.1  Alce                 100.
-15     1 patch         1     7 area     0.63 Alce                 100.
-16     1 patch         1     8 area     0.27 Alce                 100.
-17     1 patch         1     9 area     2.07 Alce                 100.
-18     1 patch         1    10 area     2.07 Alce                 100.
-19     1 patch         1    11 area     0.45 Alce                 100.
-20     1 patch         1    12 area     1.35 Alce                 100.
-21     1 patch         1    13 area     0.63 Alce                 100.
-22     1 patch         1    14 area     0.09 Alce                 100.
-23     1 patch         1    15 area     0.54 Alce                 100.
+ 1     1 class         0    <span class=" -Color -Color-Red">NA</span> area_mn 40.1  Alce                 105.
+ 2     1 class         1    <span class=" -Color -Color-Red">NA</span> area_mn  3.53 Alce                 105.
+ 3     1 class         0    <span class=" -Color -Color-Red">NA</span> np       2    Alce                 105.
+ 4     1 class         1    <span class=" -Color -Color-Red">NA</span> np      11    Alce                 105.
+ 5     1 class         0    <span class=" -Color -Color-Red">NA</span> pland   67.3  Alce                 105.
+ 6     1 class         1    <span class=" -Color -Color-Red">NA</span> pland   32.7  Alce                 105.
+ 7     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> area_mn  9.16 Alce                 105.
+ 8     1 landscape    <span class=" -Color -Color-Red">NA</span>    <span class=" -Color -Color-Red">NA</span> np      13    Alce                 105.
+ 9     1 patch         0     1 area    78.9  Alce                 105.
+10     1 patch         0     2 area     1.26 Alce                 105.
+11     1 patch         1     3 area     0.99 Alce                 105.
+12     1 patch         1     4 area    28.6  Alce                 105.
+13     1 patch         1     5 area     0.72 Alce                 105.
+14     1 patch         1     6 area     0.36 Alce                 105.
+15     1 patch         1     7 area     2.16 Alce                 105.
+16     1 patch         1     8 area     2.07 Alce                 105.
+17     1 patch         1     9 area     0.54 Alce                 105.
+18     1 patch         1    10 area     1.35 Alce                 105.
+19     1 patch         1    11 area     1.17 Alce                 105.
+20     1 patch         1    12 area     0.09 Alce                 105.
+21     1 patch         1    13 area     0.81 Alce                 105.
 </pre></div>
 </div>
 </div>
@@ -800,7 +815,7 @@ meters. We will use the Alce site as an example:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">113.13</div></div>
+<div class="output text_html">119.07</div></div>
 </div>
 <p>From that table, you can see that there are 15 patches in the Alce local
 landscape that sum to 113.13 hectares. That is not quite the precise area of the
@@ -819,11 +834,11 @@ to calculate the <code class="docutils literal notranslate"><span class="pre">ls
 <div class="cell_output docutils container">
 <div class="output text_html">7.54533333333333</div></div>
 </div>
-</div>
-<div class="section" id="merging-landscape-metrics-onto-sites">
-<h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="merging-landscape-metrics-onto-sites">
+<h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Permalink to this heading">#</a></h4>
 <p>The contents of <code class="docutils literal notranslate"><span class="pre">lsm</span></code> is rather unhelpful in two ways:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>The variables are not in separate columns, but stacked in the <code class="docutils literal notranslate"><span class="pre">value</span></code> and
 <code class="docutils literal notranslate"><span class="pre">metric</span></code> fields.</p></li>
 <li><p>Class variables include rows for both the matrix and forest, and we are
@@ -831,7 +846,7 @@ primarily interested in the forest class metrics.</p></li>
 </ol>
 <p>So, we need a couple of tools to help convert this output into something easier
 to use:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>We can use <code class="docutils literal notranslate"><span class="pre">subset</span></code> to keep just the columns and rows we actually want:
 forest class metrics and values.</p></li>
 <li><p>We need to <code class="docutils literal notranslate"><span class="pre">reshape</span></code> the data frame to have a column for each measure. (The
@@ -866,16 +881,16 @@ want the method of calculation of each value to be obvious.</p></li>
 	<tr><th></th><th scope=col>&lt;chr&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>Alce     </td><td>  3.379091</td><td>11</td><td> 32.85601</td></tr>
-	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.910000</td><td> 9</td><td> 39.03021</td></tr>
-	<tr><th scope=row>7</th><td>Alteres  </td><td> 28.620000</td><td> 1</td><td> 25.27822</td></tr>
-	<tr><th scope=row>10</th><td>Antenor  </td><td> 95.400000</td><td> 1</td><td> 84.52951</td></tr>
-	<tr><th scope=row>13</th><td>Areial   </td><td>112.680000</td><td> 1</td><td>100.00000</td></tr>
-	<tr><th scope=row>16</th><td>Baleia   </td><td>  8.112857</td><td> 7</td><td> 50.31898</td></tr>
-	<tr><th scope=row>19</th><td>BetoJamil</td><td>  4.850000</td><td> 9</td><td> 38.33992</td></tr>
-	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.205000</td><td> 4</td><td> 39.64968</td></tr>
-	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.567500</td><td> 4</td><td> 16.13672</td></tr>
-	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.270000</td><td> 3</td><td> 40.46105</td></tr>
+	<tr><th scope=row>1</th><td>Alce     </td><td>  3.534545</td><td>11</td><td> 32.65306</td></tr>
+	<tr><th scope=row>4</th><td>Alcides  </td><td>  4.833000</td><td>10</td><td> 40.46722</td></tr>
+	<tr><th scope=row>7</th><td>Alteres  </td><td> 29.070000</td><td> 1</td><td> 24.34062</td></tr>
+	<tr><th scope=row>10</th><td>Antenor  </td><td>101.070000</td><td> 1</td><td> 84.81873</td></tr>
+	<tr><th scope=row>13</th><td>Areial   </td><td>118.800000</td><td> 1</td><td>100.00000</td></tr>
+	<tr><th scope=row>16</th><td>Baleia   </td><td> 10.095000</td><td> 6</td><td> 50.90772</td></tr>
+	<tr><th scope=row>19</th><td>BetoJamil</td><td>  5.793750</td><td> 8</td><td> 38.80934</td></tr>
+	<tr><th scope=row>22</th><td>Bicudinho</td><td> 11.767500</td><td> 4</td><td> 39.56127</td></tr>
+	<tr><th scope=row>25</th><td>Boiadeiro</td><td>  4.680000</td><td> 4</td><td> 15.68627</td></tr>
+	<tr><th scope=row>28</th><td>Bojado   </td><td> 15.480000</td><td> 3</td><td> 38.97281</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -935,11 +950,11 @@ landscape area.</p></li>
 </li>
 </ul>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="calculating-biodiversity-metrics">
-<h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="calculating-biodiversity-metrics">
+<h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Permalink to this heading">#</a></h2>
 <p>The over-riding research question we are looking at is:</p>
 <blockquote>
 <div><p>Is the structure of the bird community influenced by the spatial
@@ -948,8 +963,8 @@ characteristics of the sites?</p>
 <p>However there are lots of different ways of measuring community structure. We
 will look at measures of overall diversity, community composition and functional
 diversity.</p>
-<div class="section" id="measuring-site-abundance-species-richness-species-diversity-and-evenness">
-<h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Permalink to this headline">¶</a></h3>
+<section id="measuring-site-abundance-species-richness-species-diversity-and-evenness">
+<h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Permalink to this heading">#</a></h3>
 <p>Abundance can be measured at the species level, but here we are interested in
 total community abundance, so the total number of individuals captured at each
 site. We can only measure bird abundance because this study used mist nets,
@@ -1005,13 +1020,13 @@ report your results and why?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_33_0.png" src="../_images/LEC_week_33_0.png" />
+<img alt="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" src="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" />
 </div>
 </div>
 <p>Hint: There is no right or wrong answer here. You can choose any metric as long
 as you understand its advantages and disadvantages.</p>
-<div class="section" id="species-abundance-distribution">
-<h4>Species abundance distribution<a class="headerlink" href="#species-abundance-distribution" title="Permalink to this headline">¶</a></h4>
+<section id="species-abundance-distribution">
+<h4>Species abundance distribution<a class="headerlink" href="#species-abundance-distribution" title="Permalink to this heading">#</a></h4>
 <p>We could also look at the rank abundance of species to understand if our
 community is dominated by a few species or to assess the prevalence of rare
 species. Rare species are those that were caught a few times only. This is
@@ -1029,22 +1044,22 @@ trapped.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_35_0.png" src="../_images/LEC_week_35_0.png" />
+<img alt="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" src="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" />
 </div>
 </div>
 <p>How does this compare to slide 11 of <strong>Measuring Biodiversity</strong> lecture which
 shows the patterns of Amazonian trees and bats? Try doing this for each
 fragmented landscape to see if trends are affected by habitat cover.</p>
-</div>
-</div>
-<div class="section" id="measuring-community-composition">
-<h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="measuring-community-composition">
+<h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Permalink to this heading">#</a></h3>
 <p>Community composition is a class of biodiversity measure that incorporates
 information on species richness, abundance and species identity. That
 inclusivity makes them a very informative biodiversity metric but they are also
 complex to compute and interpret.</p>
 <p>There are three stages to assessing community composition:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>The raw data for community composition is a site by species matrix showing
 the abundance (or presence) of each species at each site. It is common to
 <strong>transform the site by species</strong> data in one or more ways to adjust the
@@ -1057,12 +1072,12 @@ differences and an <strong>ordination</strong> can then be used to identify inde
 axes of community variation across sites.</p></li>
 </ol>
 <p>All of these steps have multiple options!</p>
-<div class="section" id="transforming-site-by-species-data">
-<h4>Transforming site by species data<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this headline">¶</a></h4>
+<section id="transforming-site-by-species-data">
+<h4>Transforming site by species data<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this heading">#</a></h4>
 <p>There are several common approaches used for transforming site by species
 matrices <em>before</em> calculating dissimilarities. All of these approaches alter the
 weighting given to the different species.</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Reducing abundance data to a <strong>binary presence-absence data</strong>. This
 transformation emphasizes differences in species identity and differences in
 rare species between sites, often giving measures of <span class="math notranslate nohighlight">\(\beta\)</span> diversity, and
@@ -1086,9 +1101,9 @@ common OTUs).</p></li>
 </ol>
 <p>We will revisit this but for the moment we will stick with the raw abundance
 data.</p>
-</div>
-<div class="section" id="calculating-dissimilarity-indices">
-<h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="calculating-dissimilarity-indices">
+<h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Permalink to this heading">#</a></h4>
 <p>Dissimilarity indices are used to compare two sites using the total number (or
 abundances) of species in each site (A + B), along with the number (or
 abundances) of species shared between the site (J). These can be calculated
@@ -1118,7 +1133,7 @@ quickly…</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_39_0.png" src="../_images/LEC_week_39_0.png" />
+<img alt="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" src="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" />
 </div>
 </div>
 <p>The first thing that jumps out is the diagonal - this is just that comparing a
@@ -1132,9 +1147,9 @@ Jaccard are commonly used for species abundance data.</p>
 data. For example, Euclidean distance is widely used for environmental data
 (landscape metrics, geographic distance, temperature, altitude, etc) but is
 <strong>not</strong> ecologically meaningful for biodiversity data!</p>
-</div>
-<div class="section" id="principal-coordinate-analysis">
-<h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="principal-coordinate-analysis">
+<h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Permalink to this heading">#</a></h4>
 <p>We can now perform a principal coordinate analysis (PCoA) using the <code class="docutils literal notranslate"><span class="pre">bray</span></code>
 matrix as input. This is sometimes called <em>classical multidimensional scaling</em>,
 hence the function name: <code class="docutils literal notranslate"><span class="pre">cmdscale</span></code>. The PCoA will take your dissimilarity
@@ -1157,8 +1172,8 @@ these <strong>different axes differ in how much variation they describe</strong>
 want to consider more than a few. Here, we have only kept the data for the first
 eight (<code class="docutils literal notranslate"><span class="pre">k=8</span></code>). We are also hanging on the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eig=TRUE</span></code>), which are
 measures of the amount variation associated with each axis.</p>
-<div class="section" id="community-separation-in-space">
-<h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Permalink to this headline">¶</a></h5>
+<section id="community-separation-in-space">
+<h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Permalink to this heading">#</a></h5>
 <p>We will now explore community composition graphically, which is most convenient
 in two dimensions. We have to extract the new coordinates of the data before
 being able to plot them. Once again, it is wise to give clear names to each
@@ -1225,7 +1240,7 @@ structure.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_50_0.png" src="../_images/LEC_week_50_0.png" />
+<img alt="../_images/5ff47c4fd41ed1e9a588e5fd134c50f6deef836322d77f7aa526c7f5645d77fb.png" src="../_images/5ff47c4fd41ed1e9a588e5fd134c50f6deef836322d77f7aa526c7f5645d77fb.png" />
 </div>
 </div>
 <p>Which patterns can you see from that plot? Along which axis do you see the
@@ -1236,9 +1251,9 @@ axes.</p>
 <p>Now plot PCoA axis 1 against the percentage of forest cover. Which trends do you get?
 And what about axis 2?</p>
 </div>
-</div>
-<div class="section" id="how-many-axes-to-consider">
-<h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Permalink to this headline">¶</a></h5>
+</section>
+<section id="how-many-axes-to-consider">
+<h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Permalink to this heading">#</a></h5>
 <p>The eigenvalues show the variance - hence the information content - associated
 with each principal coordinate axis. Note that the eigenvalues are in descending
 order, so that the axes are numbered in order of their importance. Also note
@@ -1270,7 +1285,7 @@ cumulative calculation!</p>
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'21.16%'</li><li>'12.04%'</li><li>'8.85%'</li><li>'5.86%'</li><li>'4.92%'</li><li>'3.94%'</li><li>'3.68%'</li><li>'3.42%'</li></ol>
-</div><img alt="../_images/LEC_week_52_1.png" src="../_images/LEC_week_52_1.png" />
+</div><img alt="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" src="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" />
 </div>
 </div>
 <p>For this particular PCoA, the bar plot doesn’t really give a good indication
@@ -1339,7 +1354,7 @@ sites in the ordination space will change</em> and so will <em>the relative impo
 of the PCoA axes</em>.</p>
 <p>So, now explore varying the steps in this analysis. Change your inputs, change
 the dissimilarity metric and recalculate your ordination.</p>
-<ol>
+<ol class="arabic">
 <li><p>Use the command <code class="docutils literal notranslate"><span class="pre">scaled_abundance</span> <span class="pre">&lt;-</span> <span class="pre">scale(abundance)</span></code> and use this as an
 input to <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>. This will automatically scale the matrix by columns, so
 each column will have a mean of near 0, and standard deviation of 1.</p></li>
@@ -1387,21 +1402,21 @@ lm(formula = bray_raw_pcoa_1 ~ C600.pland, data = sites)
 
 Residuals:
       Min        1Q    Median        3Q       Max 
--0.223086 -0.093040  0.006686  0.081396  0.241880 
+-0.225994 -0.087612  0.008098  0.078311  0.241801 
 
 Coefficients:
-             Estimate Std. Error t value Pr(&gt;|t|)    
-(Intercept) -0.286460   0.034732  -8.248 1.32e-11 ***
-C600.pland   0.005363   0.000582   9.214 2.77e-13 ***
+              Estimate Std. Error t value Pr(&gt;|t|)    
+(Intercept) -0.2871733  0.0344031  -8.347 8.82e-12 ***
+C600.pland   0.0054018  0.0005789   9.331 1.74e-13 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
-Residual standard error: 0.1248 on 63 degrees of freedom
-Multiple R-squared:  0.574,	Adjusted R-squared:  0.5673 
-F-statistic:  84.9 on 1 and 63 DF,  p-value: 2.765e-13
+Residual standard error: 0.1239 on 63 degrees of freedom
+Multiple R-squared:  0.5802,	Adjusted R-squared:  0.5735 
+F-statistic: 87.06 on 1 and 63 DF,  p-value: 1.742e-13
 </pre></div>
 </div>
-<img alt="../_images/LEC_week_54_1.png" src="../_images/LEC_week_54_1.png" />
+<img alt="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" src="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" />
 </div>
 </div>
 <div class="hint admonition">
@@ -1411,11 +1426,11 @@ functional diversity measures and incorporate those into landscape analyses. The
 techniques are not required for the group exercise but functional diversity is commonly
 used in landscape ecology and in broader diversity research.</p>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="functional-diversity">
-<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+</section>
+<section id="functional-diversity">
+<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Permalink to this heading">#</a></h3>
 <p>There are many measures of functional diversity, evenness and composition. Here
 we will only use one approach <code class="docutils literal notranslate"><span class="pre">treedive</span></code>, which is available in the <code class="docutils literal notranslate"><span class="pre">vegan</span></code>
 package. This calculates functional diversity as the total branch length of a
@@ -1482,7 +1497,7 @@ species names field to leave just the traits fields.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/LEC_week_58_0.png" src="../_images/LEC_week_58_0.png" />
+<img alt="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" src="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" />
 </div>
 </div>
 <p>That dendrogram shows how species are clustered according to their trait similarity and
@@ -1512,10 +1527,10 @@ it.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="final-group-exercise">
-<h2>Final group exercise<a class="headerlink" href="#final-group-exercise" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="final-group-exercise">
+<h2>Final group exercise<a class="headerlink" href="#final-group-exercise" title="Permalink to this heading">#</a></h2>
 <div class="danger admonition">
 <p class="admonition-title">Group exercise</p>
 <p>Each group already have their landscape metrics measured, now you will need to
@@ -1539,8 +1554,8 @@ as your response variable.</p>
 binary data or not, your choice. Select one of these approaches as your response
 variable.</p>
 </div>
-<div class="section" id="presenting-your-results-on-friday">
-<h3>Presenting your results on Friday<a class="headerlink" href="#presenting-your-results-on-friday" title="Permalink to this headline">¶</a></h3>
+<section id="presenting-your-results-on-friday">
+<h3>Presenting your results on Friday<a class="headerlink" href="#presenting-your-results-on-friday" title="Permalink to this heading">#</a></h3>
 <p>To present your results:</p>
 <ul class="simple">
 <li><p>Have <strong>one</strong> slide ready to present with the graph the relationship between your
@@ -1552,7 +1567,7 @@ chosen response and explanatory variable.</p></li>
 <p>Do not worry if you don’t find significant results! That’s to be expected. Each group
 will have a maximum of 5 minutes to present their results.</p>
 <p>Two final notes on analyses:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Some of the variables we have used are better modelled using a GLM. That has not yet
 been covered in depth in the Masters modules. You are not expected to use a GLM
 here - although you can if you know how to use it and a GLM would be appropriate
@@ -1563,9 +1578,9 @@ for your data.</p></li>
 practical. For the moment, use single regressions for each explanatory variable at a
 time.</p></li>
 </ol>
-</div>
-</div>
-</div>
+</section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1576,58 +1591,144 @@ time.</p></li>
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "ir420"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "ir420",
+            name: "ir",
             path: "./practical_4"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'ir420'</script>
+    <script>kernelName = 'ir'</script>
 
-              </div>
+                </article>
               
-        
-            
 
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../practical_3/practical_3.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Practical Three: Spatial modelling in R</p>
-            </div>
-        </a>
-    </div>
-
-</div>
-        
-        </div>
-    </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By David Orme<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../practical_3/practical_3.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Practical Three: Spatial modelling in R</p>
       </div>
-    </div>
-  
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#requirements">Requirements</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-sets">Data sets</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#species-data">Species data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#sites-data">Sites data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#abundance-data">Abundance data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-checking">Data checking</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#landcover-data">Landcover data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-landscape-metrics">Calculating landscape metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-data-processing">Landscape data processing</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-landscape-metrics">Extracting landscape metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#landscape-levels">Landscape levels</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#merging-landscape-metrics-onto-sites">Merging landscape metrics onto sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-biodiversity-metrics">Calculating biodiversity metrics</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness">Measuring site abundance, species richness, species diversity and evenness</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-abundance-distribution">Species abundance distribution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#measuring-community-composition">Measuring community composition</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#transforming-site-by-species-data">Transforming site by species data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#calculating-dissimilarity-indices">Calculating dissimilarity Indices</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#principal-coordinate-analysis">Principal coordinate analysis</a><ul class="nav section-nav flex-column">
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#community-separation-in-space">Community separation in space</a></li>
+<li class="toc-h5 nav-item toc-entry"><a class="reference internal nav-link" href="#how-many-axes-to-consider">How many axes to consider</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#functional-diversity">Functional diversity</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#final-group-exercise">Final group exercise</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#presenting-your-results-on-friday">Presenting your results on Friday</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Orme
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

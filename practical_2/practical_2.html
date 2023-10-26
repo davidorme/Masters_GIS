@@ -1,357 +1,369 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Practical Two: Species Distribution Modelling &#8212; GIS and Spatial Methods in R</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_2/practical_2';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Practical Three: Spatial modelling in R" href="../practical_3/practical_3.html" />
     <link rel="prev" title="Practical One: GIS data and plotting" href="../practical_1/practical_1.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction to the practicals
-  </a>
- </li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">GIS and Spatial Methods in R</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction to the practicals
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../required_packages.html">Practical setup for local computers</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_1/practical_1.html">GIS Practical 1</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">GIS Practical 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_3/practical_3.html">GIS Practical 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_4/LEC_week.html">Landscape Ecology</a></li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../required_packages.html">
-   Practical setup for local computers
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_1/practical_1.html">
-   GIS Practical 1
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   GIS Practical 2
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_3/practical_3.html">
-   GIS Practical 3
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_4/LEC_week.html">
-   Landscape Ecology
-  </a>
- </li>
-</ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../_sources/practical_2/practical_2.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/practical_2/practical_2.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/practical_2/practical_2.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main">
         
         
-        
-        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/practical_2/practical_2.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Practical Two: Species Distribution Modelling</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#required-packages">
-   Required packages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#introduction">
-   Introduction
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#data-preparation">
-   Data preparation
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#focal-species-distribution">
-     Focal species distribution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#predictor-variables">
-     Predictor variables
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reproject-the-data">
-     Reproject the data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#pseudo-absence-data">
-     Pseudo-absence data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#testing-and-training-dataset">
-     Testing and training dataset
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#species-distribution-modelling">
-   Species Distribution Modelling
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-bioclim-model">
-     The BIOCLIM model
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#fitting-the-model">
-       Fitting the model
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-predictions">
-       Model predictions
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-evaluation">
-       Model evaluation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#species-distribution">
-       Species distribution
-      </a>
-     </li>
-    </ul>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#generalised-linear-model-glm">
-     Generalised Linear Model (GLM)
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#data-restructuring">
-       Data restructuring
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#fitting-the-glm">
-       Fitting the GLM
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#model-predictions-and-evaluation">
-       Model predictions and evaluation
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#species-distribution-from-glm">
-       Species distribution from GLM
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#sandbox-things-to-try-with-sdms">
-   Sandbox - things to try with SDMs
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#modelling-a-different-species">
-     Modelling a different species
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#does-our-background-choice-matter">
-     Does our background choice matter?
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cross-validation">
-     Cross validation
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#reducing-the-set-of-variables">
-   Reducing the set of variables
-  </a>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-packages">Required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-species-distribution">Focal species distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictor-variables">Predictor variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproject-the-data">Reproject the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-absence-data">Pseudo-absence data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-and-training-dataset">Testing and training dataset</a></li>
 </ul>
-
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution-modelling">Species Distribution Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bioclim-model">The BIOCLIM model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-predictions">Model predictions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model evaluation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution">Species distribution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalised-linear-model-glm">Generalised Linear Model (GLM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-restructuring">Data restructuring</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-glm">Fitting the GLM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-predictions-and-evaluation">Model predictions and evaluation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution-from-glm">Species distribution from GLM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandbox-things-to-try-with-sdms">Sandbox - things to try with SDMs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling-a-different-species">Modelling a different species</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#does-our-background-choice-matter">Does our background choice matter?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-the-set-of-variables">Reducing the set of variables</a></li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="tex2jax_ignore mathjax_ignore section" id="practical-two-species-distribution-modelling">
-<h1>Practical Two: Species Distribution Modelling<a class="headerlink" href="#practical-two-species-distribution-modelling" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="required-packages">
-<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="practical-two-species-distribution-modelling">
+<h1>Practical Two: Species Distribution Modelling<a class="headerlink" href="#practical-two-species-distribution-modelling" title="Permalink to this heading">#</a></h1>
+<section id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this heading">#</a></h2>
 <p>There are many R packages available for species distribution modelling. If you search
 through the <a class="reference external" href="https://cran.r-project.org/web/packages/index.html">CRAN package index</a> for
 ‘species distribution’, you will find over 20 different packages that do something - and
@@ -368,7 +380,7 @@ below to convert a <code class="docutils literal notranslate"><span class="pre">
 </div>
 <p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="doc std std-doc">this guide on setting up
 packages on your computer</span></a> if you are running these practicals
-on your own machine, not RStudio Cloud.</p>
+on your own machine, not Posit Cloud.</p>
 <p>To load the packages:</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
@@ -390,7 +402,7 @@ on your own machine, not RStudio Cloud.</p>
 
 We are going to be using the MAXENT species distribution modelling program. Using MaxEnt
 in R is a bit of a pain, because it requires the MAXENT program to be separately
-installed and also requires the `rJava` package. The RStudio Cloud project for this
+installed and also requires the `rJava` package. The Posit Cloud project for this
 practical is all ready to go, but if you want to follow this on your own machine then
 you will need to:
 
@@ -415,9 +427,9 @@ actually equivalent to a Generalised Linear Model (GLM), but we will use a few
 approaches here and MaxEnt is a framework that has been widely used and discussed.
 
 -->
-</div>
-<div class="section" id="introduction">
-<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading">#</a></h2>
 <p>This practical gives a basic introduction to species distribution modelling using R. We
 will be using R to characterise a selected species environmental requirements under
 present day climatic conditions and then projecting the availability of suitable
@@ -425,16 +437,16 @@ climatic conditions into the future. This information will then be used to analy
 projected range changes due to climate change. During this process we will analyse the
 performance of species distribution models and the impacts of threshold choice, variable
 selection and data availability on model quality.</p>
-</div>
-<div class="section" id="data-preparation">
-<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="data-preparation">
+<h2>Data preparation<a class="headerlink" href="#data-preparation" title="Permalink to this heading">#</a></h2>
 <p>There are two main inputs to a species distribution model. The first is a set of points
 describing locations in which the species is known to be found. The second is a set of
 environmental raster layers – these are the variables that will be used to characterise
 the species’ environmental niche by looking at the environmental values where the
 species is found.</p>
-<div class="section" id="focal-species-distribution">
-<h3>Focal species distribution<a class="headerlink" href="#focal-species-distribution" title="Permalink to this headline">¶</a></h3>
+<section id="focal-species-distribution">
+<h3>Focal species distribution<a class="headerlink" href="#focal-species-distribution" title="Permalink to this heading">#</a></h3>
 <p>We will be using the Mountain Tapir (<em>Tapirus pinchaque</em>) as an example species.</p>
 <p><img alt="Tapirus pinchaque. © Diego Lizcano" src="../_images/tapirus-pinchaque.jpg" /><br />
 <em>Tapirus pinchaque</em>. © Diego Lizcano</p>
@@ -560,12 +572,12 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_9_0.png" src="../_images/practical_2_9_0.png" />
+<img alt="../_images/34f62eb3beda7d2b322804cdf12d74f8344494d5b54cc1d32f4ca0de53033caf.png" src="../_images/34f62eb3beda7d2b322804cdf12d74f8344494d5b54cc1d32f4ca0de53033caf.png" />
 </div>
 </div>
-</div>
-<div class="section" id="predictor-variables">
-<h3>Predictor variables<a class="headerlink" href="#predictor-variables" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="predictor-variables">
+<h3>Predictor variables<a class="headerlink" href="#predictor-variables" title="Permalink to this heading">#</a></h3>
 <p>Several sources of different environmental data were mentioned in the lecture, but in
 this practical we will be using climatic variables to describe the environment. In
 particular, we will be using the BIOCLIM variables. These are based on simple
@@ -663,7 +675,7 @@ max values  :  34.3, 21.0,  94.8, 2338.2,  52.5,  27.1, ...
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_15_0.png" src="../_images/practical_2_15_0.png" />
+<img alt="../_images/7c6fec5f72045f5347337781f8849365b22d9801eb7033c7d4f23307e8d5dcb3.png" src="../_images/7c6fec5f72045f5347337781f8849365b22d9801eb7033c7d4f23307e8d5dcb3.png" />
 </div>
 </div>
 <p>We are immediately going to crop the environmental data down to a sensible modelling
@@ -679,9 +691,9 @@ things run quickly.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="reproject-the-data">
-<h3>Reproject the data<a class="headerlink" href="#reproject-the-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="reproject-the-data">
+<h3>Reproject the data<a class="headerlink" href="#reproject-the-data" title="Permalink to this heading">#</a></h3>
 <p>All of our data so far has been in the WGS84 geographic coordinate system. We now need
 to reproject the data into an appropriate projected coordinate system: the
 <a class="reference external" href="https://en.wikipedia.org/wiki/Universal_Transverse_Mercator_coordinate_system">Universal Transverse Mercator Zone 18S</a>
@@ -741,9 +753,9 @@ specific grid we want and project the data into that.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="pseudo-absence-data">
-<h3>Pseudo-absence data<a class="headerlink" href="#pseudo-absence-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="pseudo-absence-data">
+<h3>Pseudo-absence data<a class="headerlink" href="#pseudo-absence-data" title="Permalink to this heading">#</a></h3>
 <p>Many of the methods below require <strong>absence data</strong>, either for fitting a model or for
 evaluating the model performance. Rarely, we might actually have real absence data from
 exhaustive surveys, but usually we only have presence data. So, modelling commonly uses
@@ -814,7 +826,7 @@ here is to pick points that are within 100 km of observed points, but not closer
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_31_0.png" src="../_images/practical_2_31_0.png" />
+<img alt="../_images/5678b0dc16bf679f742f464a1023c7c66cb35f0f060527b119d110429e9b9d63.png" src="../_images/5678b0dc16bf679f742f464a1023c7c66cb35f0f060527b119d110429e9b9d63.png" />
 </div>
 </div>
 <p>A really useful starting point for further detail on pseudo absences is the following
@@ -825,9 +837,9 @@ pseudo‐absences for species distribution models: how, where and how many?. Met
 Ecology and Evolution, 3: 327-338.
 <a class="reference external" href="https://doi:10.1111/j.2041-210X.2011.00172.x">doi:10.1111/j.2041-210X.2011.00172.x</a></p>
 </div></blockquote>
-</div>
-<div class="section" id="testing-and-training-dataset">
-<h3>Testing and training dataset<a class="headerlink" href="#testing-and-training-dataset" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="testing-and-training-dataset">
+<h3>Testing and training dataset<a class="headerlink" href="#testing-and-training-dataset" title="Permalink to this heading">#</a></h3>
 <p>One important part of the modelling process is to keep separate data for <em>training</em> the
 model (the process of fitting the model to data) and for <em>testing</em> the model (the
 process of checking model performance). Here we will use a 20:80 split - retaining 20%
@@ -859,13 +871,13 @@ models with discrimination accuracy is uninformative for many applications. J
 Biogeogr. 2020; 47: 167– 180.
 <a class="reference external" href="https://doi.org/10.1111/jbi.13705">https://doi.org/10.1111/jbi.13705</a>.</p>
 </div></blockquote>
-</div>
-</div>
-<div class="section" id="species-distribution-modelling">
-<h2>Species Distribution Modelling<a class="headerlink" href="#species-distribution-modelling" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="species-distribution-modelling">
+<h2>Species Distribution Modelling<a class="headerlink" href="#species-distribution-modelling" title="Permalink to this heading">#</a></h2>
 <p>Now we’ve got all of our data set up we can progress to some actual modelling!</p>
-<div class="section" id="the-bioclim-model">
-<h3>The BIOCLIM model<a class="headerlink" href="#the-bioclim-model" title="Permalink to this headline">¶</a></h3>
+<section id="the-bioclim-model">
+<h3>The BIOCLIM model<a class="headerlink" href="#the-bioclim-model" title="Permalink to this heading">#</a></h3>
 <p>One of the earliest species distribution models is BIOCLIM.</p>
 <blockquote>
 <div><p>Nix, H.A., 1986. A biogeographic analysis of Australian elapid snakes. In: Atlas of
@@ -880,8 +892,8 @@ is.</p>
 <p>This kind of approach is often called a <em>bioclimatic envelope</em>, which is where the model
 name comes from. The BIOCLIM <em>variables</em> that we loaded earlier were designed to be used
 with the BIOCLIM algorithm.</p>
-<div class="section" id="fitting-the-model">
-<h4>Fitting the model<a class="headerlink" href="#fitting-the-model" title="Permalink to this headline">¶</a></h4>
+<section id="fitting-the-model">
+<h4>Fitting the model<a class="headerlink" href="#fitting-the-model" title="Permalink to this heading">#</a></h4>
 <p>To fit a bioclimatic envelope, we need the environmental layers and a matrix of XY
 coordinates for the training data showing where the species is observed. The
 <code class="docutils literal notranslate"><span class="pre">st_coordinates</span></code> function is a useful <code class="docutils literal notranslate"><span class="pre">sf</span></code> function for extracting point coordinates: it
@@ -909,7 +921,7 @@ The <code class="docutils literal notranslate"><span class="pre">a</span></code>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_37_0.png" src="../_images/practical_2_37_0.png" />
+<img alt="../_images/79a719d19d85374cf6fbd4941f628f185b4bb143de49dc463fd59487505403b1.png" src="../_images/79a719d19d85374cf6fbd4941f628f185b4bb143de49dc463fd59487505403b1.png" />
 </div>
 </div>
 <p>In that second plot, note that these two variables (mean annual temperature <code class="docutils literal notranslate"><span class="pre">BIO1</span></code> and
@@ -918,9 +930,9 @@ This is not likely to be an issue for this method, but in many models it is a <s
 idea</strong> to have strongly correlated explanatory variables: it is called
 <strong><a class="reference external" href="https://en.wikipedia.org/wiki/Multicollinearity">multicollinearity</a></strong> and can cause
 serious statistical issues. We will revisit this in the GLM example further down.</p>
-</div>
-<div class="section" id="model-predictions">
-<h4>Model predictions<a class="headerlink" href="#model-predictions" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="model-predictions">
+<h4>Model predictions<a class="headerlink" href="#model-predictions" title="Permalink to this heading">#</a></h4>
 <p>We’ve now fitted our model and can use the model parameters to predict the <code class="docutils literal notranslate"><span class="pre">bioclim</span></code>
 score for the whole map. Note that a lot of the map has a <strong>score of zero</strong>: none of the
 environmental variables in these cells fall within the range seen in the occupied cells.</p>
@@ -937,12 +949,12 @@ environmental variables in these cells fall within the range seen in the occupie
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_40_0.png" src="../_images/practical_2_40_0.png" />
+<img alt="../_images/d6b6a7ea122933c5b58d3226c60ce82914a0bcb490f7a4335dda062a57f38d89.png" src="../_images/d6b6a7ea122933c5b58d3226c60ce82914a0bcb490f7a4335dda062a57f38d89.png" />
 </div>
 </div>
-</div>
-<div class="section" id="model-evaluation">
-<h4>Model evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="model-evaluation">
+<h4>Model evaluation<a class="headerlink" href="#model-evaluation" title="Permalink to this heading">#</a></h4>
 <p>We can also now evaluate our model using the retained test data. Note that here, we do
 have to <strong>provide absence data</strong>: all of the standard performance metrics come from a
 confusion matrix, which requires false and true negatives. The output of <code class="docutils literal notranslate"><span class="pre">evaluate</span></code>
@@ -961,9 +973,9 @@ gives us some key statistics, including AUC.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9646652 
-cor            : 0.7652315 
-max TPR+TNR at : 0.03257974 
+AUC            : 0.9112835 
+cor            : 0.6990318 
+max TPR+TNR at : 0.124083 
 </pre></div>
 </div>
 </div>
@@ -987,12 +999,12 @@ performance: here we find the threshold that gives the best kappa.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_45_0.png" src="../_images/practical_2_45_0.png" />
+<img alt="../_images/e138e6f8802338c402c58a3264b1ba44fcc7fa0d40984b07085c8aae6ff8aeb9.png" src="../_images/e138e6f8802338c402c58a3264b1ba44fcc7fa0d40984b07085c8aae6ff8aeb9.png" />
 </div>
 </div>
-</div>
-<div class="section" id="species-distribution">
-<h4>Species distribution<a class="headerlink" href="#species-distribution" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="species-distribution">
+<h4>Species distribution<a class="headerlink" href="#species-distribution" title="Permalink to this heading">#</a></h4>
 <p>That gives us all the information we need to make a prediction about the species
 distribution:</p>
 <div class="cell docutils container">
@@ -1005,7 +1017,7 @@ distribution:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_48_0.png" src="../_images/practical_2_48_0.png" />
+<img alt="../_images/135d7c15d204aaefc20c2e531616e351bd55ca739e2f6ee9bac19a3d13e8db3e.png" src="../_images/135d7c15d204aaefc20c2e531616e351bd55ca739e2f6ee9bac19a3d13e8db3e.png" />
 </div>
 </div>
 <div class="admonition-future-distribution-of-the-tapir admonition">
@@ -1014,6 +1026,11 @@ distribution:</p>
 predicted range change - can you figure out how to create these plots?</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Predict from the same model but using the future data</span>
 <span class="n">bioclim_pred_future</span> <span class="o">&lt;-</span> <span class="nf">predict</span><span class="p">(</span><span class="n">bioclim_future_local</span><span class="p">,</span> <span class="n">bioclim_model</span><span class="p">)</span>
@@ -1036,22 +1053,23 @@ predicted range change - can you figure out how to create these plots?</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_51_0.png" src="../_images/practical_2_51_0.png" />
+<img alt="../_images/db428ae1ef4aa5f4c45e97ca9d8fd03bab1b22145d8b77cb3e80f4800312c783.png" src="../_images/db428ae1ef4aa5f4c45e97ca9d8fd03bab1b22145d8b77cb3e80f4800312c783.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="generalised-linear-model-glm">
-<h3>Generalised Linear Model (GLM)<a class="headerlink" href="#generalised-linear-model-glm" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="generalised-linear-model-glm">
+<h3>Generalised Linear Model (GLM)<a class="headerlink" href="#generalised-linear-model-glm" title="Permalink to this heading">#</a></h3>
 <p>We are going to jump the gun a bit here and use a GLM. You will cover the statistical
 background for this later in the course, but essentially it is a kind of regression that
 allows us to model presence/absence as a <strong>binary response variable</strong> more
 appropriately. <strong>Do not worry about the statistical details here</strong>: we will treat this
 as just another algorithm for predicting species presence. You will learn about GLMs
 later in more theoretical depth - they are hugely useful.</p>
-<div class="section" id="data-restructuring">
-<h4>Data restructuring<a class="headerlink" href="#data-restructuring" title="Permalink to this headline">¶</a></h4>
+<section id="data-restructuring">
+<h4>Data restructuring<a class="headerlink" href="#data-restructuring" title="Permalink to this heading">#</a></h4>
 <p>The <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> model allowed us just to provide points and some maps but many other
 distribution models require us to use a <strong>model formula</strong>, as you saw last week with
 linear models. So we need to restructure our data into a data frame of species
@@ -1081,20 +1099,20 @@ observations.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 766 features and 2 fields
 Geometry type: POINT
 Dimension:     XY
-Bounding box:  xmin: 277.6292 ymin: 9566234 xmax: 576127.7 ymax: 10870380
+Bounding box:  xmin: -2912.081 ymin: 9566584 xmax: 578458.8 ymax: 10860440
 Projected CRS: WGS 84 / UTM zone 18S
 First 10 features:
    kfold pa                  geometry
-1      2  1    POINT (149798 9936513)
-3      2  1  POINT (156685.1 9964925)
-7      4  1  POINT (134253.4 9948230)
-8      3  1 POINT (429786.7 10526533)
-9      2  1 POINT (436714.8 10515131)
-10     2  1    POINT (163066 9976153)
-11     2  1 POINT (148013.6 10028318)
-12     4  1 POINT (152531.1 10032452)
-13     5  1 POINT (155490.2 10031935)
-14     3  1 POINT (157889.8 10032259)
+1      4  1    POINT (149798 9936513)
+3      4  1  POINT (156685.1 9964925)
+7      3  1  POINT (134253.4 9948230)
+8      1  1 POINT (429786.7 10526533)
+9      1  1 POINT (436714.8 10515131)
+10     5  1    POINT (163066 9976153)
+11     3  1 POINT (148013.6 10028318)
+12     5  1 POINT (152531.1 10032452)
+13     1  1 POINT (155490.2 10031935)
+14     1  1 POINT (157889.8 10032259)
 </pre></div>
 </div>
 </div>
@@ -1113,20 +1131,20 @@ into the data frame.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 766 features and 22 fields
 Geometry type: POINT
 Dimension:     XY
-Bounding box:  xmin: 277.6292 ymin: 9566234 xmax: 576127.7 ymax: 10870380
+Bounding box:  xmin: -2912.081 ymin: 9566584 xmax: 578458.8 ymax: 10860440
 Projected CRS: WGS 84 / UTM zone 18S
 First 10 features:
    kfold pa ID      bio1      bio2     bio3     bio4     bio5      bio6
-1      2  1  1  7.072452  9.984288 85.62547 51.81070 12.87623  1.217051
-3      2  1  2  7.172537 10.287475 88.36607 42.57916 12.89965  1.263602
-7      4  1  3  7.705094 11.024811 89.50469 34.83894 13.79287  1.483661
-8      3  1  4 17.549557  8.956165 90.82992 30.61368 22.55479 12.695293
-9      2  1  5 17.184124  9.135429 91.14763 30.10217 22.25498 12.229358
-10     2  1  6  9.911862 10.040993 88.04670 42.08802 15.52201  4.118061
-11     2  1  7 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
-12     4  1  8 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
-13     5  1  9 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
-14     3  1 10 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+1      4  1  1  7.072452  9.984288 85.62547 51.81070 12.87623  1.217051
+3      4  1  2  7.172537 10.287475 88.36607 42.57916 12.89965  1.263602
+7      3  1  3  7.705094 11.024811 89.50469 34.83894 13.79287  1.483661
+8      1  1  4 17.549557  8.956165 90.82992 30.61368 22.55479 12.695293
+9      1  1  5 17.184124  9.135429 91.14763 30.10217 22.25498 12.229358
+10     5  1  6  9.911862 10.040993 88.04670 42.08802 15.52201  4.118061
+11     3  1  7 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+12     5  1  8 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+13     1  1  9 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
+14     1  1 10 11.909942 11.100656 89.72603 20.09789 18.01456  5.639944
         bio7      bio8      bio9     bio10     bio11     bio12    bio13
 1  11.659174  6.945419  7.117470  7.476185  6.322656 1205.8021 129.4123
 3  11.636047  7.018712  7.210472  7.502191  6.549582 1095.5497 113.3282
@@ -1164,9 +1182,9 @@ First 10 features:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="fitting-the-glm">
-<h4>Fitting the GLM<a class="headerlink" href="#fitting-the-glm" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="fitting-the-glm">
+<h4>Fitting the GLM<a class="headerlink" href="#fitting-the-glm" title="Permalink to this heading">#</a></h4>
 <p>We can now fit the GLM using a model formula: the <code class="docutils literal notranslate"><span class="pre">family=binomial(link</span> <span class="pre">=</span> <span class="pre">&quot;logit&quot;)</span></code> is
 the change that allows us to model binary data better, but we do not need the gory
 details here.</p>
@@ -1175,7 +1193,7 @@ details here.</p>
 <li><p>The number of bioclim variables has been reduced from the full set of 19 down to five.
 This is because of the issue of multicollinearity - some pairs of <code class="docutils literal notranslate"><span class="pre">bioclim</span></code> variables
 are very strongly correlated. The five variables are chosen to represent related
-groups of variables (<a class="reference external" href="#reducing-the-set-of-variables">show me how!</a>).</p></li>
+groups of variables (<a class="reference internal" href="#reducing-the-set-of-variables"><span class="std std-doc">show me how!</span></a>).</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">subset</span></code> argument is used to hold back one of the <code class="docutils literal notranslate"><span class="pre">kfold</span></code> partitions for testing.</p></li>
 <li><p>The <code class="docutils literal notranslate"><span class="pre">predict</span></code> method for a GLM needs an extra argument (<code class="docutils literal notranslate"><span class="pre">type='response'</span></code>) to make it
 give us predictions as the probability of species occurence. The default model
@@ -1207,26 +1225,22 @@ similar to a linear model summary. It is interpreted in much the same way.</p>
 glm(formula = pa ~ bio2 + bio4 + bio3 + bio1 + bio12, family = binomial(link = &quot;logit&quot;), 
     data = pa_data, subset = kfold != 1)
 
-Deviance Residuals: 
-    Min       1Q   Median       3Q      Max  
--2.4869  -0.1347   0.0818   0.3112   3.3850  
-
 Coefficients:
               Estimate Std. Error z value Pr(&gt;|z|)    
-(Intercept) -5.816e+01  1.357e+01  -4.285 1.83e-05 ***
-bio2         8.191e-01  2.868e-01   2.856   0.0043 ** 
-bio4        -6.465e-03  2.725e-02  -0.237   0.8124    
-bio3         6.434e-01  1.441e-01   4.465 8.02e-06 ***
-bio1        -8.240e-01  7.718e-02 -10.677  &lt; 2e-16 ***
-bio12        2.284e-03  4.472e-04   5.108 3.26e-07 ***
+(Intercept) -6.847e+01  1.332e+01  -5.140 2.74e-07 ***
+bio2         7.228e-01  3.430e-01   2.108   0.0351 *  
+bio4         7.093e-03  3.063e-02   0.232   0.8168    
+bio3         7.579e-01  1.431e-01   5.296 1.18e-07 ***
+bio1        -1.040e+00  1.011e-01 -10.282  &lt; 2e-16 ***
+bio12        3.901e-03  5.696e-04   6.849 7.41e-12 ***
 ---
 Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
 
 (Dispersion parameter for binomial family taken to be 1)
 
     Null deviance: 848.41  on 611  degrees of freedom
-Residual deviance: 242.27  on 606  degrees of freedom
-AIC: 254.27
+Residual deviance: 221.99  on 606  degrees of freedom
+AIC: 233.99
 
 Number of Fisher Scoring iterations: 7
 </pre></div>
@@ -1245,14 +1259,14 @@ variable in turn, holding all the other variables at their median value.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_62_0.png" src="../_images/practical_2_62_0.png" />
+<img alt="../_images/cac59955a635a27ceb6e77da599330dca7acb294b6890d00e436aded5e98976c.png" src="../_images/cac59955a635a27ceb6e77da599330dca7acb294b6890d00e436aded5e98976c.png" />
 </div>
 </div>
-</div>
-<div class="section" id="model-predictions-and-evaluation">
-<h4>Model predictions and evaluation<a class="headerlink" href="#model-predictions-and-evaluation" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="model-predictions-and-evaluation">
+<h4>Model predictions and evaluation<a class="headerlink" href="#model-predictions-and-evaluation" title="Permalink to this heading">#</a></h4>
 <p>We can now evaluate our model using the same techniques as before:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Create a prediction layer.</p></li>
 </ol>
 <div class="cell docutils container">
@@ -1262,7 +1276,7 @@ variable in turn, holding all the other variables at their median value.</p>
 </div>
 </div>
 </div>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Evaluate the model using the test data.</p></li>
 </ol>
 <div class="cell docutils container">
@@ -1280,14 +1294,14 @@ variable in turn, holding all the other variables at their median value.</p>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>class          : ModelEvaluation 
 n presences    : 77 
 n absences     : 77 
-AUC            : 0.9937595 
-cor            : 0.8262676 
-max TPR+TNR at : 1.103575 
+AUC            : 0.9563164 
+cor            : 0.7529281 
+max TPR+TNR at : 0.5675798 
 </pre></div>
 </div>
 </div>
 </div>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Find the maximum kappa threshold. This is a little more complicated than before the
 threshold we get is again on the <em>scale of the linear predictor</em>. For this kind of
 GLM, we can use <code class="docutils literal notranslate"><span class="pre">plogis</span></code> to convert back.</p></li>
@@ -1300,12 +1314,12 @@ GLM, we can use <code class="docutils literal notranslate"><span class="pre">plo
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.7509294
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.6382045
 </pre></div>
 </div>
 </div>
 </div>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Look at some model performance plots</p></li>
 </ol>
 <div class="cell docutils container">
@@ -1319,12 +1333,12 @@ GLM, we can use <code class="docutils literal notranslate"><span class="pre">plo
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_71_0.png" src="../_images/practical_2_71_0.png" />
+<img alt="../_images/7d3093273ae1b865b5071e6885390591ff20cd6e8f778dc06898dce897e76a3b.png" src="../_images/7d3093273ae1b865b5071e6885390591ff20cd6e8f778dc06898dce897e76a3b.png" />
 </div>
 </div>
-</div>
-<div class="section" id="species-distribution-from-glm">
-<h4>Species distribution from GLM<a class="headerlink" href="#species-distribution-from-glm" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="species-distribution-from-glm">
+<h4>Species distribution from GLM<a class="headerlink" href="#species-distribution-from-glm" title="Permalink to this heading">#</a></h4>
 <p>We can now again use the threshold to convert the model outputs into a predicted
 species’ distribution map and compare current suitability to future suitability.</p>
 <div class="cell docutils container">
@@ -1349,7 +1363,7 @@ species’ distribution map and compare current suitability to future suitabilit
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_74_0.png" src="../_images/practical_2_74_0.png" />
+<img alt="../_images/4efc0d64f2ecd483f47317ddd5df15e46bb100e6cb320a942845fabb882c2d55.png" src="../_images/4efc0d64f2ecd483f47317ddd5df15e46bb100e6cb320a942845fabb882c2d55.png" />
 </div>
 </div>
 <p>One simple way to describe the modelled changes is simply to look at a table of the pair
@@ -1361,21 +1375,21 @@ of model predictions:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    2050
-hist    0    1
-   0 4377    0
-   1   74   10
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       2050
+hist    FALSE TRUE
+  FALSE  4338    0
+  TRUE     74   49
 </pre></div>
 </div>
 </div>
 </div>
 <p>This GLM predicts a significant loss of existing range for this species by
 2041 - 2060 and no expansion into new areas.</p>
-</div>
-</div>
-</div>
-<div class="section" id="sandbox-things-to-try-with-sdms">
-<h2>Sandbox - things to try with SDMs<a class="headerlink" href="#sandbox-things-to-try-with-sdms" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="sandbox-things-to-try-with-sdms">
+<h2>Sandbox - things to try with SDMs<a class="headerlink" href="#sandbox-things-to-try-with-sdms" title="Permalink to this heading">#</a></h2>
 <p>The previous sections have introduced the main approaches for fitting and assessing
 models so the following sections are intended to give you some things to try. You do not
 have to try all of them in the practical - pick things that interest you and give them a
@@ -1383,11 +1397,11 @@ go.</p>
 <p>One of the things to take away from these options are that SDMs have an extremely wide
 range of options, so testing and comparing many approaches is vital to identifying the
 features of model predictions that are comparable.</p>
-<div class="section" id="modelling-a-different-species">
-<h3>Modelling a different species<a class="headerlink" href="#modelling-a-different-species" title="Permalink to this headline">¶</a></h3>
+<section id="modelling-a-different-species">
+<h3>Modelling a different species<a class="headerlink" href="#modelling-a-different-species" title="Permalink to this heading">#</a></h3>
 <p>The environmental data is global, so we can use it to model any terrestrial organism for
 which we can get location data. So:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>Have a look at the <a class="reference external" href="https://www.gbif.org/species/search">GBIF species data page</a> and
 pick a species you would like to model. It probably makes sense to pick something
 with a relatively limited range.</p></li>
@@ -1404,7 +1418,7 @@ records you will get - pick a species that has a few thousand at most.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html">590</div></div>
+<div class="output text_html">1609</div></div>
 </div>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
@@ -1419,7 +1433,7 @@ records you will get - pick a species that has a few thousand at most.</p></li>
 <div class="cell_output docutils container">
 </div>
 </div>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>You will then need to clean the GBIF points - have a look at the <code class="docutils literal notranslate"><span class="pre">sdm</span></code> vignette
 mentioned above for ways to tackle cleaning the data. One tip - check the
 <code class="docutils literal notranslate"><span class="pre">basisOfRecord</span></code> field because the GBIF occurence database includes things like the
@@ -1428,13 +1442,18 @@ though.</p></li>
 <li><p>Select an appropriate extent for the modelling and update <code class="docutils literal notranslate"><span class="pre">model_extent</span></code>.</p></li>
 <li><p>Follow the process above to create your model.</p></li>
 </ol>
-</div>
-<div class="section" id="does-our-background-choice-matter">
-<h3>Does our background choice matter?<a class="headerlink" href="#does-our-background-choice-matter" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="does-our-background-choice-matter">
+<h3>Does our background choice matter?<a class="headerlink" href="#does-our-background-choice-matter" title="Permalink to this heading">#</a></h3>
 <p>The examples above have used the spatially structured background data. Does this matter?
 The plot below compares the GLM fitted with the structured background to the wider
 sample created using <code class="docutils literal notranslate"><span class="pre">randomPoints</span></code>. Can you create this model?</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># 1. Create the new dataset</span>
 <span class="n">present</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">tapir_GBIF</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="s">&#39;kfold&#39;</span><span class="p">)</span>
@@ -1473,13 +1492,14 @@ sample created using <code class="docutils literal notranslate"><span class="pre
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_82_0.png" src="../_images/practical_2_82_0.png" />
+<img alt="../_images/5c22fca5425e62d0e653a463d277d155a2679a570209b29749731ae1e6d84c64.png" src="../_images/5c22fca5425e62d0e653a463d277d155a2679a570209b29749731ae1e6d84c64.png" />
 </div>
 </div>
-</div>
-<div class="section" id="cross-validation">
-<h3>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="cross-validation">
+<h3>Cross validation<a class="headerlink" href="#cross-validation" title="Permalink to this heading">#</a></h3>
 <div class="admonition attention">
 <p class="admonition-title">Attention</p>
 <p>This exercise calls for more programming skills - you need to be able to write a loop
@@ -1501,7 +1521,7 @@ species distribution models. Methods Ecol Evol. 2019; 10: 225– 232.
 <p>Try and create the output below, collecting the ROC lines and AUCs across all five
 possible test partitions of the GLM model. There are two things here that are more
 difficult:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>A way to get the ROC data from the output of <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> - this is not obvious because
 <code class="docutils literal notranslate"><span class="pre">dismo</span></code> uses a different coding approach
 (<a class="reference external" href="http://adv-r.had.co.nz/S4.html">S4 methods</a>) that is a bit more obscure. Don’t
@@ -1525,7 +1545,7 @@ AUC value, you need to use <code class="docutils literal notranslate"><span clas
 </div>
 </div>
 </div>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>You want each model evaluation to be carried out using the <strong>same threshold
 breakpoints</strong>, otherwise it is difficult to align the outputs of the different
 partitions. We can give <code class="docutils literal notranslate"><span class="pre">evaluate</span></code> a set of breakpoints but - for the GLM - the
@@ -1548,6 +1568,11 @@ approach allows you to set those breakpoints.</p></li>
 <p>The ouputs below show the AUC and ROC curve for each of the <span class="math notranslate nohighlight">\(k\)</span>-fold partitions and the
 average across partitions. See if you can calculate these!</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make some objects to store the data</span>
 <span class="n">tpr_all</span> <span class="o">&lt;-</span> <span class="nf">matrix</span><span class="p">(</span><span class="n">ncol</span><span class="o">=</span><span class="m">5</span><span class="p">,</span> <span class="n">nrow</span><span class="o">=</span><span class="nf">length</span><span class="p">(</span><span class="n">thresholds</span><span class="p">))</span>
@@ -1591,20 +1616,21 @@ average across partitions. See if you can calculate these!</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9937595 0.9830332 0.9662675 0.9714335 0.9853264
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9563164 0.9785319 0.9946028 0.9871884 0.9723393
 </pre></div>
 </div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.979964
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[1] 0.9777958
 </pre></div>
 </div>
-<img alt="../_images/practical_2_89_2.png" src="../_images/practical_2_89_2.png" />
+<img alt="../_images/3f91dd4332698757b67fdd4356900fedfcbbaa9cf09e78e7421ee2aee0d20619.png" src="../_images/3f91dd4332698757b67fdd4356900fedfcbbaa9cf09e78e7421ee2aee0d20619.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="reducing-the-set-of-variables">
-<h2>Reducing the set of variables<a class="headerlink" href="#reducing-the-set-of-variables" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="reducing-the-set-of-variables">
+<h2>Reducing the set of variables<a class="headerlink" href="#reducing-the-set-of-variables" title="Permalink to this heading">#</a></h2>
 <p>The details of this selection process are hidden below. I’m using clustering to find
 groups - you do not need to look at this but I do not like hiding my working!</p>
 <div class="cell docutils container">
@@ -1633,11 +1659,11 @@ groups - you do not need to look at this but I do not like hiding my working!</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_2_92_0.png" src="../_images/practical_2_92_0.png" />
+<img alt="../_images/1636ccfb9e7e4a55ca62295b42224f2dcf4dc11e9e30510afdf7ab1484e89a73.png" src="../_images/1636ccfb9e7e4a55ca62295b42224f2dcf4dc11e9e30510afdf7ab1484e89a73.png" />
 </div>
 </div>
-</div>
-</div>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -1648,67 +1674,145 @@ groups - you do not need to look at this but I do not like hiding my working!</p
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "ir420"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "ir420",
+            name: "ir",
             path: "./practical_2"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'ir420'</script>
+    <script>kernelName = 'ir'</script>
 
-              </div>
+                </article>
               
-        
-            
 
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../practical_1/practical_1.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Practical One: GIS data and plotting</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="../practical_3/practical_3.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Practical Three: Spatial modelling in R</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
-</div>
-        
-        </div>
-    </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By David Orme<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../practical_1/practical_1.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Practical One: GIS data and plotting</p>
       </div>
-    </div>
-  
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+    </a>
+    <a class="right-next"
+       href="../practical_3/practical_3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Practical Three: Spatial modelling in R</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-packages">Required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#introduction">Introduction</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#data-preparation">Data preparation</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#focal-species-distribution">Focal species distribution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#predictor-variables">Predictor variables</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reproject-the-data">Reproject the data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#pseudo-absence-data">Pseudo-absence data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#testing-and-training-dataset">Testing and training dataset</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution-modelling">Species Distribution Modelling</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-bioclim-model">The BIOCLIM model</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-model">Fitting the model</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-predictions">Model predictions</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-evaluation">Model evaluation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution">Species distribution</a></li>
+</ul>
+</li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#generalised-linear-model-glm">Generalised Linear Model (GLM)</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#data-restructuring">Data restructuring</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#fitting-the-glm">Fitting the GLM</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#model-predictions-and-evaluation">Model predictions and evaluation</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#species-distribution-from-glm">Species distribution from GLM</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#sandbox-things-to-try-with-sdms">Sandbox - things to try with SDMs</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#modelling-a-different-species">Modelling a different species</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#does-our-background-choice-matter">Does our background choice matter?</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cross-validation">Cross validation</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#reducing-the-set-of-variables">Reducing the set of variables</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Orme
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

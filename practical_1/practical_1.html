@@ -1,496 +1,410 @@
 
+
 <!DOCTYPE html>
 
-<html>
+
+<html lang="en" >
+
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
     <title>Practical One: GIS data and plotting &#8212; GIS and Spatial Methods in R</title>
-    
-  <link href="../_static/css/theme.css" rel="stylesheet" />
-  <link href="../_static/css/index.c5995385ac14fb8791e8eb36b4908be2.css" rel="stylesheet" />
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
 
-    
-  <link rel="stylesheet"
-    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
-  <link rel="preload" as="font" type="font/woff2" crossorigin
-    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+  
+  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
 
-    
-      
-
-    
     <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
     <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
     <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
     <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
-    
-  <link rel="preload" as="script" href="../_static/js/index.1c5a1a01449ed65a7b51.js">
+    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
+  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
 
     <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
     <script src="../_static/jquery.js"></script>
     <script src="../_static/underscore.js"></script>
+    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
     <script src="../_static/doctools.js"></script>
-    <script src="../_static/togglebutton.js"></script>
     <script src="../_static/clipboard.min.js"></script>
     <script src="../_static/copybutton.js"></script>
-    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script src="../_static/sphinx-book-theme.12a9622fbb08dcb3a2a40b2c02b83a57.js"></script>
-    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
-    <script>
-        const thebe_selector = ".thebe"
-        const thebe_selector_input = "pre"
-        const thebe_selector_output = ".output"
-    </script>
+    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
     <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'practical_1/practical_1';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Practical Two: Species Distribution Modelling" href="../practical_2/practical_2.html" />
     <link rel="prev" title="Required packages and data" href="../required_packages.html" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="docsearch:language" content="en" />
-    
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
   </head>
-  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
-    
-    <div class="container-fluid" id="banner"></div>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
 
-    
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <div id="pst-scroll-pixel-helper"></div>
 
-    <div class="container-xl">
-      <div class="row">
-          
-<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>
+    Back to top
+  </button>
+
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
     
-        <div class="navbar-brand-box">
-    <a class="navbar-brand text-wrap" href="../index.html">
-      
-      
-      
-      <h1 class="site-logo" id="site-title">GIS and Spatial Methods in R</h1>
-      
-    </a>
-</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
-  <i class="icon fas fa-search"></i>
-  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
-</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
-    <div class="bd-toc-item active">
-        <ul class="nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../intro.html">
-   Introduction to the practicals
-  </a>
- </li>
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">GIS and Spatial Methods in R</p>
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../intro.html">
+                    Introduction to the practicals
+                </a>
+            </li>
+        </ul>
+        <ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../required_packages.html">Practical setup for local computers</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">GIS Practical 1</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_2/practical_2.html">GIS Practical 2</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_3/practical_3.html">GIS Practical 3</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_4/LEC_week.html">Landscape Ecology</a></li>
 </ul>
-<ul class="current nav bd-sidenav">
- <li class="toctree-l1">
-  <a class="reference internal" href="../required_packages.html">
-   Practical setup for local computers
-  </a>
- </li>
- <li class="toctree-l1 current active">
-  <a class="current reference internal" href="#">
-   GIS Practical 1
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_2/practical_2.html">
-   GIS Practical 2
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_3/practical_3.html">
-   GIS Practical 3
-  </a>
- </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="../practical_4/LEC_week.html">
-   Landscape Ecology
-  </a>
- </li>
-</ul>
 
     </div>
-</nav> <!-- To handle the deprecated key -->
-
-<div class="navbar_extra_footer">
-  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
-</div>
-
-</div>
-
-
-          
-
-
-          
-<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
-    
-    <div class="topbar container-xl fixed-top">
-    <div class="topbar-contents row">
-        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
-        <div class="col pl-md-4 topbar-main">
-            
-            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
-                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
-                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
-                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
-                <i class="fas fa-bars"></i>
-                <i class="fas fa-arrow-left"></i>
-                <i class="fas fa-arrow-up"></i>
-            </button>
-            
-            
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
-            class="fas fa-download"></i></button>
-
-    <div class="dropdown-buttons">
-        <!-- ipynb file if we had a myst markdown file -->
-        <a class="dropdown-buttons"
-            href="../_sources/practical_1/practical_1.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download notebook file" data-toggle="tooltip"
-                data-placement="left">.ipynb</button></a>
-        <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/practical_1/practical_1.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
-                data-placement="left">.md</button></a>
-        <!-- Download PDF via print -->
-        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
-            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+</nav></div>
     </div>
-</div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
 
-            <!-- Source interaction buttons -->
 
-            <!-- Full screen (wrap in <a> to have style consistency -->
-
-<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
-        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
-        title="Fullscreen mode"><i
-            class="fas fa-expand"></i></button></a>
-
-            <!-- Launch buttons -->
-
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/practical_1/practical_1.md"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
+      </div>
+      
+      <main id="main-content" class="bd-main">
         
         
-        
-        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
     </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../_sources/practical_1/practical_1.md" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.md</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
 </div>
 
-        </div>
 
-        <!-- Table of contents -->
-        <div class="d-none d-md-block col-md-2 bd-toc show">
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
+    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Practical One: GIS data and plotting</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
             
-            <div class="tocsection onthispage pt-5 pb-3">
-                <i class="fas fa-list"></i> Contents
+            <div>
+                <h2> Contents </h2>
             </div>
-            <nav id="bd-toc-nav" aria-label="Page">
+            <nav aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#required-packages">
-   Required packages
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#vector-data">
-   Vector data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#making-vectors-from-coordinates">
-     Making vectors from coordinates
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#making-vector-points-from-a-dataframe">
-     Making vector points from a dataframe
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-geometry-operations">
-     Vector geometry operations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#features-and-geometries">
-     Features and geometries
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-data-and-attributes">
-     Vector data and attributes
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-attributes">
-     Spatial attributes
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#plotting-sf-objects">
-     Plotting
-     <code class="docutils literal notranslate">
-      <span class="pre">
-       sf
-      </span>
-     </code>
-     objects
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reprojecting-vector-data">
-     Reprojecting vector data
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#proj4-strings">
-       Proj4 strings
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#degrees-are-not-constant">
-       Degrees are not constant
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#rasters">
-   Rasters
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#creating-a-raster">
-     Creating a raster
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#changing-raster-resolution">
-     Changing raster resolution
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#aggregating-rasters">
-     Aggregating rasters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#disaggregating-rasters">
-     Disaggregating rasters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#resampling">
-     Resampling
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#reprojecting-a-raster">
-     Reprojecting a raster
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#converting-between-vector-and-raster-data-types">
-   Converting between vector and raster data types
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#vector-to-raster">
-     Vector to raster
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#raster-to-vector">
-     Raster to vector
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-data-in-files">
-   Using data in files
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-vector-data">
-     Saving vector data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#saving-raster-data">
-     Saving raster data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#loading-vector-data">
-     Loading Vector data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#loading-xy-data">
-     Loading XY data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#loading-raster-data">
-     Loading Raster data
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#raster-stacks">
-     Raster Stacks
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#overlaying-raster-and-vector-data">
-   Overlaying raster and vector data
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#cropping-data">
-     Cropping data
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#spatial-joins-and-raster-data-extraction">
-   Spatial joins and raster data extraction
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#spatial-joining">
-     Spatial joining
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#extracting-data-from-rasters">
-     Extracting data from Rasters
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#raster-cell-statistics-and-locations">
-     Raster cell statistics and locations
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#the-extract-function">
-     The extract function
-    </a>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#mini-projects">
-   Mini projects
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#precipitation-transect-for-new-guinea">
-     Precipitation transect for  New Guinea
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#fishing-pressure-in-fiji">
-     Fishing pressure in Fiji
-    </a>
-    <ul class="nav section-nav flex-column">
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#loading-the-data">
-       Loading the data
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#create-the-cost-surface">
-       Create the cost surface
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#finding-launch-points">
-       Finding launch points
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#find-distances">
-       Find distances
-      </a>
-     </li>
-     <li class="toc-h4 nav-item toc-entry">
-      <a class="reference internal nav-link" href="#loop-over-sites">
-       Loop over sites
-      </a>
-     </li>
-    </ul>
-   </li>
-  </ul>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#using-ggplot-to-make-maps">
-   Using ggplot to make maps
-  </a>
- </li>
- <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#colour-palettes">
-   Colour palettes
-  </a>
-  <ul class="nav section-nav flex-column">
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#viridis">
-     Viridis
-    </a>
-   </li>
-   <li class="toc-h3 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#brewer">
-     Brewer
-    </a>
-   </li>
-  </ul>
- </li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-packages">Required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data">Vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-vectors-from-coordinates">Making vectors from coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-vector-points-from-a-dataframe">Making vector points from a dataframe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-geometry-operations">Vector geometry operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-geometries">Features and geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data-and-attributes">Vector data and attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-attributes">Spatial attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-sf-objects">Plotting <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-vector-data">Reprojecting vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proj4-strings">Proj4 strings</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#degrees-are-not-constant">Degrees are not constant</a></li>
 </ul>
-
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rasters">Rasters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster">Creating a raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-raster-resolution">Changing raster resolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-rasters">Aggregating rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregating-rasters">Disaggregating rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-a-raster">Reprojecting a raster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-between-vector-and-raster-data-types">Converting between vector and raster data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-to-raster">Vector to raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-to-vector">Raster to vector</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-data-in-files">Using data in files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-vector-data">Saving vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-raster-data">Saving raster data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-vector-data">Loading Vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-xy-data">Loading XY data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-raster-data">Loading Raster data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-stacks">Raster Stacks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-raster-and-vector-data">Overlaying raster and vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cropping-data">Cropping data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joins-and-raster-data-extraction">Spatial joins and raster data extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joining">Spatial joining</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-data-from-rasters">Extracting data from Rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-cell-statistics-and-locations">Raster cell statistics and locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-extract-function">The extract function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-projects">Mini projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precipitation-transect-for-new-guinea">Precipitation transect for  New Guinea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fishing-pressure-in-fiji">Fishing pressure in Fiji</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">Loading the data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-cost-surface">Create the cost surface</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-launch-points">Finding launch points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#find-distances">Find distances</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-sites">Loop over sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ggplot-to-make-maps">Using ggplot to make maps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#colour-palettes">Colour palettes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viridis">Viridis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brewer">Brewer</a></li>
+</ul>
+</li>
+</ul>
             </nav>
         </div>
     </div>
 </div>
-    <div id="main-content" class="row">
-        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
-        
-              <div>
+
+              
                 
-  <div class="cell tag_remove-input docutils container">
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <div class="cell tag_remove-input tag_remove-stderr docutils container">
+<div class="cell_output docutils container">
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="practical-one-gis-data-and-plotting">
-<h1>Practical One: GIS data and plotting<a class="headerlink" href="#practical-one-gis-data-and-plotting" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="required-packages">
-<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this headline">¶</a></h2>
+</div>
+<section class="tex2jax_ignore mathjax_ignore" id="practical-one-gis-data-and-plotting">
+<h1>Practical One: GIS data and plotting<a class="headerlink" href="#practical-one-gis-data-and-plotting" title="Permalink to this heading">#</a></h1>
+<section id="required-packages">
+<h2>Required packages<a class="headerlink" href="#required-packages" title="Permalink to this heading">#</a></h2>
 <p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="doc std std-doc">this guide on setting up
 packages on your computer</span></a> if you are running these practicals
-on your own machine, not RStudio Cloud.</p>
+on your own machine, not Posit Cloud.</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">terra</span><span class="p">)</span>     <span class="c1"># core raster GIS package</span>
@@ -505,11 +419,12 @@ on your own machine, not RStudio Cloud.</p>
 <div class="cell_output docutils container">
 </div>
 </div>
-<p>We are also going to turn off an advanced feature used by the sf package. The <code class="docutils literal notranslate"><span class="pre">s2</span></code>
-package is designed to do spherical GIS correctly: it handles latitudes and longitudes
-on the surface of a sphere rather than  than pretending that the coordinates are on a
-flat plane. That is <strong>definitely</strong> the right way to do this, but some of the datasets we
-will use in this practical have some issues with using <code class="docutils literal notranslate"><span class="pre">s2</span></code>, so we will turn it off.</p>
+<p>We are also going to turn off an advanced feature used by the <code class="docutils literal notranslate"><span class="pre">sf</span></code> package. In the
+background, <code class="docutils literal notranslate"><span class="pre">sf</span></code> uses the <code class="docutils literal notranslate"><span class="pre">s2</span></code> package to handle spherical geometry: that is, it handles
+latitude and longitude coordinates as angular positions on the surface of a sphere
+rather than pretending that they are cartesian coordinates are on a flat plane. That is
+<strong>definitely</strong> the right way to do this, but some of the datasets we will use in this
+practical have some issues with using <code class="docutils literal notranslate"><span class="pre">s2</span></code>, so we will turn it off.</p>
 <p>As a result, you will see a few warnings like this:</p>
 <blockquote>
 <div><p>although coordinates are longitude/latitude, st_intersects assumes that they are
@@ -527,9 +442,9 @@ planar</p>
 <p>You will see a whole load of package loading messages about GDAL, GEOS, PROJ which are
 not shown here. Don’t worry about this - they are not errors, just R linking to some key
 open source GIS toolkits.</p>
-</div>
-<div class="section" id="vector-data">
-<h2>Vector data<a class="headerlink" href="#vector-data" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="vector-data">
+<h2>Vector data<a class="headerlink" href="#vector-data" title="Permalink to this heading">#</a></h2>
 <p>We will mostly be using the more recent <code class="docutils literal notranslate"><span class="pre">sf</span></code> package to handle vector data. This
 replaces the a lot of functionality in older packages like <code class="docutils literal notranslate"><span class="pre">sp</span></code> and <code class="docutils literal notranslate"><span class="pre">rgdal</span></code> under a more
 elegant and consistent interface.</p>
@@ -538,8 +453,8 @@ fast and open-source GIS libraries <code class="docutils literal notranslate"><s
 data geometry) and <code class="docutils literal notranslate"><span class="pre">proj</span></code> (coordinate system projections).</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package is also used for most of the vector data GIS in the core textbook:</p>
 <p><a class="reference external" href="https://geocompr.robinlovelace.net/index.html">https://geocompr.robinlovelace.net/index.html</a></p>
-<div class="section" id="making-vectors-from-coordinates">
-<h3>Making vectors from coordinates<a class="headerlink" href="#making-vectors-from-coordinates" title="Permalink to this headline">¶</a></h3>
+<section id="making-vectors-from-coordinates">
+<h3>Making vectors from coordinates<a class="headerlink" href="#making-vectors-from-coordinates" title="Permalink to this heading">#</a></h3>
 <p>To start, let’s create a population density map for the British Isles, using the data
 below:</p>
 <div class="cell docutils container">
@@ -569,11 +484,11 @@ Eire. We also want to isolate London from the rest of England. This map is going
 <em>very</em> approximate and we’re going to put the map together in a rather peculiar way, to
 show different geometry types and operations.</p>
 <p>The map below looks a bit peculiar - squashed vertically - because it is plotting
-latitude and longitude degrees as if they are constant units and they are not. We’ll
-come back to this in the section on reprojection below.</p>
+latitude and longitude degrees as if they are <strong>cartesian coordinates</strong> and they are
+not. We’ll come back to this in the section on reprojection below.</p>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_9_0.png" src="../_images/practical_1_9_0.png" />
+<img alt="../_images/6a65d2133a55aab4957cfaa577348620302a35b0cdd0f6c15cfd60b75f694d3f.png" src="../_images/6a65d2133a55aab4957cfaa577348620302a35b0cdd0f6c15cfd60b75f694d3f.png" />
 </div>
 </div>
 <p>In order to create vector data, we need to provide a set of coordinates for the points.
@@ -623,12 +538,12 @@ here by setting an aspect ratio of one (<code class="docutils literal notranslat
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_13_0.png" src="../_images/practical_1_13_0.png" />
+<img alt="../_images/209fa7a8cf21135bc64c966e29e6b21507ad311aded8154351161a6c33bc1494.png" src="../_images/209fa7a8cf21135bc64c966e29e6b21507ad311aded8154351161a6c33bc1494.png" />
 </div>
 </div>
-</div>
-<div class="section" id="making-vector-points-from-a-dataframe">
-<h3>Making vector points from a dataframe<a class="headerlink" href="#making-vector-points-from-a-dataframe" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="making-vector-points-from-a-dataframe">
+<h3>Making vector points from a dataframe<a class="headerlink" href="#making-vector-points-from-a-dataframe" title="Permalink to this heading">#</a></h3>
 <p>We can easily turn a data frame with coordinates in columns into a point vector data
 source. The example here creates point locations for capital cities.</p>
 <div class="cell docutils container">
@@ -661,11 +576,11 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="vector-geometry-operations">
-<h3>Vector geometry operations<a class="headerlink" href="#vector-geometry-operations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="vector-geometry-operations">
+<h3>Vector geometry operations<a class="headerlink" href="#vector-geometry-operations" title="Permalink to this heading">#</a></h3>
 <p>That is a good start but we’ve got some issues:</p>
-<ol class="simple">
+<ol class="arabic simple">
 <li><p>We are missing a separate polygon for London.</p></li>
 <li><p>The boundary for Wales is poorly digitized - we want a common border with England.</p></li>
 <li><p>We have not separated Northern Ireland from Eire.</p></li>
@@ -755,12 +670,12 @@ Ireland polygon to get Northern Ireland and Eire.</p>
 </div>
 <div class="cell tag_remove-input docutils container">
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_28_0.png" src="../_images/practical_1_28_0.png" />
+<img alt="../_images/4dd3c825dff269e974bff0207a616c2e0ebb060451dc4033efdbda3d851c2329.png" src="../_images/4dd3c825dff269e974bff0207a616c2e0ebb060451dc4033efdbda3d851c2329.png" />
 </div>
 </div>
-</div>
-<div class="section" id="features-and-geometries">
-<h3>Features and geometries<a class="headerlink" href="#features-and-geometries" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="features-and-geometries">
+<h3>Features and geometries<a class="headerlink" href="#features-and-geometries" title="Permalink to this heading">#</a></h3>
 <p>That <code class="docutils literal notranslate"><span class="pre">uk_eire_sfc</span></code> object now contains 6 <strong>features</strong>: a feature is a set of one or more
 vector GIS geometries that represent a spatial unit we are interested in. At the moment,
 <code class="docutils literal notranslate"><span class="pre">uk_eire_sfc</span></code> hold six features, each of which consists of a single polygon. The England
@@ -809,7 +724,8 @@ First 5 geometries:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_union assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_union assumes that they are
+planar
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Geometry set for 1 feature 
@@ -835,7 +751,7 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_33_0.png" src="../_images/practical_1_33_0.png" />
+<img alt="../_images/ec7c1e3a52eb3e28b3d5713ea4363d15bc25dda349e35a0f6aa14b5e0b797af3.png" src="../_images/ec7c1e3a52eb3e28b3d5713ea4363d15bc25dda349e35a0f6aa14b5e0b797af3.png" />
 </div>
 </div>
 <!-- ## Geometry errors and validity
@@ -859,9 +775,9 @@ However, sometimes geometries are not valid, for example
 Zooming in and exploring GIS data is one of the things that R is currently poor at - you
 are better off installing QGIS if you want to look over your data.
 -->
-</div>
-<div class="section" id="vector-data-and-attributes">
-<h3>Vector data and attributes<a class="headerlink" href="#vector-data-and-attributes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="vector-data-and-attributes">
+<h3>Vector data and attributes<a class="headerlink" href="#vector-data-and-attributes" title="Permalink to this heading">#</a></h3>
 <p>So far we just have the vector geometries, but GIS data is about pairing spatial
 features with data about those features, often called <em>attributes</em> or <em>properties</em>.</p>
 <p>This kind of structure is basically just a type of data frame. A set of fields (or
@@ -907,7 +823,7 @@ will come back to making maps look better later on.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_37_0.png" src="../_images/practical_1_37_0.png" />
+<img alt="../_images/7b4e5e33e2900e0b3d1871f68a9c8ebd680f066ba6f76065d6316b1745ec470c.png" src="../_images/7b4e5e33e2900e0b3d1871f68a9c8ebd680f066ba6f76065d6316b1745ec470c.png" />
 </div>
 </div>
 <p>Since an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object is an extended data frame, we can add attributes by adding fields
@@ -974,9 +890,9 @@ Geodetic CRS:  WGS 84
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="spatial-attributes">
-<h3>Spatial attributes<a class="headerlink" href="#spatial-attributes" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="spatial-attributes">
+<h3>Spatial attributes<a class="headerlink" href="#spatial-attributes" title="Permalink to this heading">#</a></h3>
 <p>One common thing that people want to know are spatial attributes of geometries and there
 are a range of commands to find these things out. One thing we might want are the
 <strong>centroids</strong> of features.</p>
@@ -995,15 +911,15 @@ are a range of commands to find these things out. One thing we might want are th
 <div class="output text_html"><table class="dataframe">
 <caption>A matrix: 6 × 2 of type dbl</caption>
 <thead>
-	<tr><th></th><th scope=col>X</th><th scope=col>Y</th></tr>
+	<tr><th scope=col>X</th><th scope=col>Y</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>-8.102211</td><td>53.20399</td></tr>
-	<tr><th scope=row>2</th><td>-1.479850</td><td>52.43729</td></tr>
-	<tr><th scope=row>3</th><td>-0.098056</td><td>51.51361</td></tr>
-	<tr><th scope=row>4</th><td>-6.717310</td><td>54.66788</td></tr>
-	<tr><th scope=row>5</th><td>-3.867713</td><td>56.65262</td></tr>
-	<tr><th scope=row>6</th><td>-3.854234</td><td>52.39819</td></tr>
+	<tr><td>-8.102211</td><td>53.20399</td></tr>
+	<tr><td>-1.479850</td><td>52.43729</td></tr>
+	<tr><td>-0.098056</td><td>51.51361</td></tr>
+	<tr><td>-6.717310</td><td>54.66788</td></tr>
+	<tr><td>-3.867713</td><td>56.65262</td></tr>
+	<tr><td>-3.854234</td><td>52.39819</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -1030,7 +946,7 @@ Under the hood, it is using calculations on the surface of a sphere, so called
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
-Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
+Attribute-geometry relationships: constant (3), NA&#39;s (2)
 Geometry type: POLYGON
 Dimension:     XY
 Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
@@ -1067,7 +983,7 @@ commands to handle these fields:</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 5 fields
-Attribute-geometry relationship: 3 constant, 0 aggregate, 0 identity, 2 NA&#39;s
+Attribute-geometry relationships: constant (3), NA&#39;s (2)
 Geometry type: POLYGON
 Dimension:     XY
 Bounding box:  xmin: -10 ymin: 50 xmax: 1.6 ymax: 58.6
@@ -1161,9 +1077,9 @@ the neighbouring polygons in our data.</p>
 </div>
 <p>Again, <code class="docutils literal notranslate"><span class="pre">sf</span></code> is noting that we have a geographic coordinate system and internally
 calculating distances in metres.</p>
-</div>
-<div class="section" id="plotting-sf-objects">
-<h3>Plotting <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects<a class="headerlink" href="#plotting-sf-objects" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="plotting-sf-objects">
+<h3>Plotting <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects<a class="headerlink" href="#plotting-sf-objects" title="Permalink to this heading">#</a></h3>
 <p>If you plot an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object, the default is to plot a map for every attribute, but you
 can pick a single field to plot by using square brackets. So, now we can show our map of
 population density:</p>
@@ -1174,7 +1090,7 @@ population density:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_55_0.png" src="../_images/practical_1_55_0.png" />
+<img alt="../_images/f2d51ac13d702df08a747e59473e59f7da3cea7b0ff8ac0d5885a15876cf1f5d.png" src="../_images/f2d51ac13d702df08a747e59473e59f7da3cea7b0ff8ac0d5885a15876cf1f5d.png" />
 </div>
 </div>
 <p>If you just want to plot the geometries, without any labelling or colours, the
@@ -1186,6 +1102,11 @@ reprojection section below for an example.</p>
 log scale on the right.</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># You could simply log the data:</span>
 <span class="n">uk_eire_sf</span><span class="o">$</span><span class="n">log_n_km2</span> <span class="o">&lt;-</span> <span class="nf">log10</span><span class="p">(</span><span class="n">uk_eire_sf</span><span class="o">$</span><span class="n">n_km2</span><span class="p">)</span>
@@ -1196,13 +1117,14 @@ log scale on the right.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_58_0.png" src="../_images/practical_1_58_0.png" />
-<img alt="../_images/practical_1_58_1.png" src="../_images/practical_1_58_1.png" />
+<img alt="../_images/ef20662893a4831b4b2a928be5341565a52868a50af458bb906c3d65653c985a.png" src="../_images/ef20662893a4831b4b2a928be5341565a52868a50af458bb906c3d65653c985a.png" />
+<img alt="../_images/8e1c571b827036b443fe1cbe5fb8e18cd88dbd7c6f9bed3c64adf6a05b15e92e.png" src="../_images/8e1c571b827036b443fe1cbe5fb8e18cd88dbd7c6f9bed3c64adf6a05b15e92e.png" />
 </div>
+</details>
 </div>
-</div>
-<div class="section" id="reprojecting-vector-data">
-<h3>Reprojecting vector data<a class="headerlink" href="#reprojecting-vector-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="reprojecting-vector-data">
+<h3>Reprojecting vector data<a class="headerlink" href="#reprojecting-vector-data" title="Permalink to this heading">#</a></h3>
 <p>First, in the examples above we have been <strong>asserting</strong> that we have data with a
 particular projection (<code class="docutils literal notranslate"><span class="pre">4326</span></code>). This is <strong>not reprojection</strong>: we are simply saying that
 we know these coordinates are in this projection and setting that projection.</p>
@@ -1252,7 +1174,7 @@ not end well if we use it to project the UK and Eire.</p>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      xmin       ymin       xmax       ymax 
--154839.00   17656.53  642772.42  971902.51 
+-154839.00   17655.72  642773.71  971900.65 
 </pre></div>
 </div>
 </div>
@@ -1272,11 +1194,11 @@ projection is <strong>not</strong> a suitable choice for the UK!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_64_0.png" src="../_images/practical_1_64_0.png" />
+<img alt="../_images/54c667eb137419a3edd3275d6036552b0f9c98236c8164972b1db499096e59bf.png" src="../_images/54c667eb137419a3edd3275d6036552b0f9c98236c8164972b1db499096e59bf.png" />
 </div>
 </div>
-<div class="section" id="proj4-strings">
-<h4>Proj4 strings<a class="headerlink" href="#proj4-strings" title="Permalink to this headline">¶</a></h4>
+<section id="proj4-strings">
+<h4>Proj4 strings<a class="headerlink" href="#proj4-strings" title="Permalink to this heading">#</a></h4>
 <p>Those EPSG ID codes save us from <code class="docutils literal notranslate"><span class="pre">proj4</span></code> strings (see <a class="reference external" href="https://proj.org/">here</a>): these
 text strings contain often long and confusing sets of options and parameters that
 actually define a particular projection. The <code class="docutils literal notranslate"><span class="pre">sf</span></code> package is kind to us, but some other
@@ -1290,9 +1212,9 @@ the EPSG website:</p>
 <code class="docutils literal notranslate"><span class="pre">+towgs84=446.448,-125.157,542.06,0.15,0.247,0.842,-20.489</span> <span class="pre">+units=m</span> <span class="pre">+no_defs</span></code></p></li>
 <li><p><strong>32650</strong>: <code class="docutils literal notranslate"><span class="pre">+proj=utm</span> <span class="pre">+zone=50</span> <span class="pre">+datum=WGS84</span> <span class="pre">+units=m</span> <span class="pre">+no_defs</span></code></p></li>
 </ul>
-</div>
-<div class="section" id="degrees-are-not-constant">
-<h4>Degrees are not constant<a class="headerlink" href="#degrees-are-not-constant" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="degrees-are-not-constant">
+<h4>Degrees are not constant<a class="headerlink" href="#degrees-are-not-constant" title="Permalink to this heading">#</a></h4>
 <p>The units of geographic coordinate systems are <strong>angles</strong> of latitide and longitude.
 These are not a constant unit of distance and as lines of longitude converge towards to
 pole, the physical length of a degree decreases. This is why our decision to use a 0.25°
@@ -1347,7 +1269,7 @@ distortions: probably both!</p>
 <div class="cell_output docutils container">
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Units: [m]
          [,1]
-[1,] 69401.61
+[1,] 69401.97
 </pre></div>
 </div>
 </div>
@@ -1359,6 +1281,11 @@ Pauls, rather than the poor atttempt using degrees. The resulting map is below -
 recreate it.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># transform St Pauls to BNG and buffer using 25 km</span>
 <span class="n">london_bng</span> <span class="o">&lt;-</span> <span class="nf">st_buffer</span><span class="p">(</span><span class="nf">st_transform</span><span class="p">(</span><span class="n">st_pauls</span><span class="p">,</span> <span class="m">27700</span><span class="p">),</span> <span class="m">25000</span><span class="p">)</span>
@@ -1373,23 +1300,24 @@ recreate it.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_72_0.png" src="../_images/practical_1_72_0.png" />
+<img alt="../_images/0933651a3f4cbcbaa0ebe48a3ff143db758b8c8de776f10ab580cde24ea4a5d5.png" src="../_images/0933651a3f4cbcbaa0ebe48a3ff143db758b8c8de776f10ab580cde24ea4a5d5.png" />
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="rasters">
-<h2>Rasters<a class="headerlink" href="#rasters" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="rasters">
+<h2>Rasters<a class="headerlink" href="#rasters" title="Permalink to this heading">#</a></h2>
 <p>Rasters are the other major type of spatial data. They consist of a regular grid in
 space, defined by a coordinate system, an origin point, a resolution and a number of
 rows and columns. They effectively hold a matrix of data. We will use the <code class="docutils literal notranslate"><span class="pre">terra</span></code>
 package to handle raster data - this is relatively new and replaces the older <code class="docutils literal notranslate"><span class="pre">raster</span></code>
 package. The <code class="docutils literal notranslate"><span class="pre">terra</span></code> website has fantastic documentation:
 <a class="reference external" href="https://rspatial.org/terra">https://rspatial.org/terra</a>.</p>
-<div class="section" id="creating-a-raster">
-<h3>Creating a raster<a class="headerlink" href="#creating-a-raster" title="Permalink to this headline">¶</a></h3>
+<section id="creating-a-raster">
+<h3>Creating a raster<a class="headerlink" href="#creating-a-raster" title="Permalink to this heading">#</a></h3>
 <p>We are first going to build a simple raster dataset from scratch. We are setting the
 projection, the bounds and the resolution. The raster object (which has the <code class="docutils literal notranslate"><span class="pre">SpatRaster</span></code>
 class) initially has no data values associated with it, but we can then add data.</p>
@@ -1421,7 +1349,7 @@ dimensions  : 19, 26, 1  (nrow, ncol, nlyr)
 resolution  : 0.5, 0.5  (x, y)
 extent      : -11, 2, 49.5, 59  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-source      : memory 
+source(s)   : memory
 name        : lyr.1 
 min value   :     1 
 max value   :   494 
@@ -1442,12 +1370,12 @@ that gives us a transparent gray fill for the polygon.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_77_0.png" src="../_images/practical_1_77_0.png" />
+<img alt="../_images/7086345e645909c1b504d1d550f171b36e3e1df09aa1bf96081a75a47af7bcda.png" src="../_images/7086345e645909c1b504d1d550f171b36e3e1df09aa1bf96081a75a47af7bcda.png" />
 </div>
 </div>
-</div>
-<div class="section" id="changing-raster-resolution">
-<h3>Changing raster resolution<a class="headerlink" href="#changing-raster-resolution" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="changing-raster-resolution">
+<h3>Changing raster resolution<a class="headerlink" href="#changing-raster-resolution" title="Permalink to this heading">#</a></h3>
 <p>You can change a raster to have either coarser or finer resolution, but you have to
 <strong>think</strong> about what the data is and what it means when you <em>aggregate</em> or
 <em>disaggregate</em> the values. You might need to do this to make different data sources have
@@ -1470,12 +1398,12 @@ because it is easier to show the calculations.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_80_0.png" src="../_images/practical_1_80_0.png" />
+<img alt="../_images/ecae468f22c877055e239e94c18919ac770b930de5d25bfa686723f9405414f2.png" src="../_images/ecae468f22c877055e239e94c18919ac770b930de5d25bfa686723f9405414f2.png" />
 </div>
 </div>
-</div>
-<div class="section" id="aggregating-rasters">
-<h3>Aggregating rasters<a class="headerlink" href="#aggregating-rasters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="aggregating-rasters">
+<h3>Aggregating rasters<a class="headerlink" href="#aggregating-rasters" title="Permalink to this heading">#</a></h3>
 <p>With aggregating, we choose an aggregation <em>factor</em> - how many cells to group - and then
 lump sets of cells together. So, for example, a factor of 2 will aggregate blocks of 2x2
 cells.</p>
@@ -1493,7 +1421,7 @@ average of Forest (2) and Moorland (3) codes is easy to calculate but is meaning
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_82_0.png" src="../_images/practical_1_82_0.png" />
+<img alt="../_images/48e322e3a49df38ac82e9c9c07f94857bd68d544376af367dff997b0c51fbbf0.png" src="../_images/48e322e3a49df38ac82e9c9c07f94857bd68d544376af367dff997b0c51fbbf0.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1506,7 +1434,7 @@ average of Forest (2) and Moorland (3) codes is easy to calculate but is meaning
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_83_0.png" src="../_images/practical_1_83_0.png" />
+<img alt="../_images/dcfeeffb2475cb0f7dae6b8331d6f7fdabfa1f856fb6f48533f6bb4734b62989.png" src="../_images/dcfeeffb2475cb0f7dae6b8331d6f7fdabfa1f856fb6f48533f6bb4734b62989.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -1519,7 +1447,7 @@ average of Forest (2) and Moorland (3) codes is easy to calculate but is meaning
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_84_0.png" src="../_images/practical_1_84_0.png" />
+<img alt="../_images/9ee71a26ab8328a31c58a591885af7fa2daa7a604e9b96253d6c0a4629f990ae.png" src="../_images/9ee71a26ab8328a31c58a591885af7fa2daa7a604e9b96253d6c0a4629f990ae.png" />
 </div>
 </div>
 <div class="admonition-issues-with-aggregation admonition">
@@ -1532,9 +1460,9 @@ This occurs in the example data - can you see what it is?</p>
 5s and two 6s. You can use <code class="docutils literal notranslate"><span class="pre">first</span></code> and <code class="docutils literal notranslate"><span class="pre">last</span></code> to specify which value gets chosen but
 strictly there is no single mode.</p>
 </div>
-</div>
-<div class="section" id="disaggregating-rasters">
-<h3>Disaggregating rasters<a class="headerlink" href="#disaggregating-rasters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="disaggregating-rasters">
+<h3>Disaggregating rasters<a class="headerlink" href="#disaggregating-rasters" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">disaggregate</span></code> function also requires a factor, but this time the factor is the
 square root of the number of cells to <em>create</em> from each cell, rather than the number to
 merge. There is again a choice to make on what values to put in the cell. The obvious
@@ -1550,7 +1478,7 @@ is pretty simple and is fine for both continuous and categorical values.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_86_0.png" src="../_images/practical_1_86_0.png" />
+<img alt="../_images/b4ac1f9aab457177c3c75898575f215130f7d0972fac6bf512f1d257dbfd34d9.png" src="../_images/b4ac1f9aab457177c3c75898575f215130f7d0972fac6bf512f1d257dbfd34d9.png" />
 </div>
 </div>
 <p>Another option is to <strong>interpolate</strong> between the values to provide a smoother gradient
@@ -1565,12 +1493,12 @@ between cells. This does <strong>not</strong> make sense for a categorical varia
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_88_0.png" src="../_images/practical_1_88_0.png" />
+<img alt="../_images/0ec485825c699bf82d5ce1ff3234a30f2af47b4b1a38af4bfd8935d17e376fbb.png" src="../_images/0ec485825c699bf82d5ce1ff3234a30f2af47b4b1a38af4bfd8935d17e376fbb.png" />
 </div>
 </div>
-</div>
-<div class="section" id="resampling">
-<h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="resampling">
+<h3>Resampling<a class="headerlink" href="#resampling" title="Permalink to this heading">#</a></h3>
 <p>Note that the previous two functions don’t change the <strong>origin</strong> or <strong>alignments of cell
 borders</strong> at all: they just lump or split the existing values within the same cell
 boundaries.</p>
@@ -1581,9 +1509,9 @@ together.</p>
 <p>If you need to match datasets and they have different origins and alignments then you
 need to use the more complex <code class="docutils literal notranslate"><span class="pre">resample</span></code> function. We won’t look at this further here
 because it is basically a simpler case of …</p>
-</div>
-<div class="section" id="reprojecting-a-raster">
-<h3>Reprojecting a raster<a class="headerlink" href="#reprojecting-a-raster" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="reprojecting-a-raster">
+<h3>Reprojecting a raster<a class="headerlink" href="#reprojecting-a-raster" title="Permalink to this heading">#</a></h3>
 <p>This is conceptually more difficult than reprojecting vector data but we’ve covered the
 main reasons above. You have a series of raster cell values in one projection and then
 want to insert representative values into a set of cells on a different projection. The
@@ -1619,7 +1547,7 @@ grids gets complicated!</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_91_0.png" src="../_images/practical_1_91_0.png" />
+<img alt="../_images/e5ebe2a4677b20fd4a72ae66cc2f3a3ef5b1dc25e640f37d91c21ad10913db3c.png" src="../_images/e5ebe2a4677b20fd4a72ae66cc2f3a3ef5b1dc25e640f37d91c21ad10913db3c.png" />
 </div>
 </div>
 <p>We will use the <code class="docutils literal notranslate"><span class="pre">project</span></code> function, which gives us the choice of interpolating a
@@ -1656,18 +1584,18 @@ that the centres of those red cells do not overlie the original grey grid and
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_96_0.png" src="../_images/practical_1_96_0.png" />
+<img alt="../_images/0bab97ee256f3f812964d1253def8b640c602037e8729ffa81bbcda6375357fc.png" src="../_images/0bab97ee256f3f812964d1253def8b640c602037e8729ffa81bbcda6375357fc.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="converting-between-vector-and-raster-data-types">
-<h2>Converting between vector and raster data types<a class="headerlink" href="#converting-between-vector-and-raster-data-types" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="converting-between-vector-and-raster-data-types">
+<h2>Converting between vector and raster data types<a class="headerlink" href="#converting-between-vector-and-raster-data-types" title="Permalink to this heading">#</a></h2>
 <p>Sometimes you want to represent raster data in vector format or vice versa. It is
 usually worth thinking if you really want to do this - data usually comes in one format
 or another for a reason - but there are plenty of valid reasons to do it.</p>
-<div class="section" id="vector-to-raster">
-<h3>Vector to raster<a class="headerlink" href="#vector-to-raster" title="Permalink to this headline">¶</a></h3>
+<section id="vector-to-raster">
+<h3>Vector to raster<a class="headerlink" href="#vector-to-raster" title="Permalink to this heading">#</a></h3>
 <p>Converting vector data to a raster is a bit like <code class="docutils literal notranslate"><span class="pre">reprojectRaster</span></code>: you provide the
 target raster and the vector data and put it all through the <code class="docutils literal notranslate"><span class="pre">rasterize</span></code> function. There
 are important differences in the way that different geometry types get rasterized. In
@@ -1698,7 +1626,7 @@ set rules to decide which value ‘wins’.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_99_0.png" src="../_images/practical_1_99_0.png" />
+<img alt="../_images/cb1b2f859c2e3cceef83311c3927a6097098a05b1316f8046a65e5339d93f984.png" src="../_images/cb1b2f859c2e3cceef83311c3927a6097098a05b1316f8046a65e5339d93f984.png" />
 </div>
 </div>
 <p>Getting raster versions of polygons is <em>by far</em> the most common use case, but it is also
@@ -1744,7 +1672,7 @@ and it will stop warning us.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_102_0.png" src="../_images/practical_1_102_0.png" />
+<img alt="../_images/13096928f80cd2209b9ac96bca8bec0631d2e357b836ce6cbe0b88127c04e49b.png" src="../_images/13096928f80cd2209b9ac96bca8bec0631d2e357b836ce6cbe0b88127c04e49b.png" />
 </div>
 </div>
 <p>Note the differences between the polygon and line outputs above. To recap:</p>
@@ -1756,11 +1684,11 @@ and it will stop warning us.</p>
 rasterisation but are always included in the line rasterisation.</p>
 <p>The <code class="docutils literal notranslate"><span class="pre">fasterize</span></code> package can hugely speed up <em>polygon</em> rasterization and is built to work
 with <code class="docutils literal notranslate"><span class="pre">sf</span></code>:
-<a class="reference external" href="https://github.com/ecohealthalliance/fasterize">https://github.com/ecohealthalliance/fasterize</a>.
+<a class="github reference external" href="https://github.com/ecohealthalliance/fasterize">ecohealthalliance/fasterize</a>.
 It doesn’t currently support point and line rasterization.</p>
-</div>
-<div class="section" id="raster-to-vector">
-<h3>Raster to vector<a class="headerlink" href="#raster-to-vector" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="raster-to-vector">
+<h3>Raster to vector<a class="headerlink" href="#raster-to-vector" title="Permalink to this heading">#</a></h3>
 <p>Converting a raster to vector data involves making a choice. A raster cell can either be
 viewed as a polygon with a value representing the whole cell or a point with the value
 representing the value at a specific location. Note that it is uncommon to have raster
@@ -1799,19 +1727,18 @@ the raster that does not contain an NA value.</p></li>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 7 features and 1 field
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 6 features and 1 field
 Geometry type: POLYGON
 Dimension:     XY
 Bounding box:  xmin: -2e+05 ymin: 0 xmax: 660000 ymax: 1e+06
 Projected CRS: OSGB36 / British National Grid
               name                       geometry
-1             Eire POLYGON ((40000 620000, 800...
+1             Eire POLYGON ((-2e+05 1e+06, -2e...
 2          England POLYGON ((380000 640000, 42...
 3           London POLYGON ((520000 2e+05, 520...
 4 Northern Ireland POLYGON ((80000 620000, 120...
 5         Scotland POLYGON ((220000 980000, 28...
 6            Wales POLYGON ((240000 4e+05, 320...
-7             &lt;NA&gt; POLYGON ((-2e+05 1e+06, -2e...
 </pre></div>
 </div>
 </div>
@@ -1883,20 +1810,20 @@ First 10 features:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_109_0.png" src="../_images/practical_1_109_0.png" />
+<img alt="../_images/dfef1cb77be100fbcfba41e8deed4dff2872f5ecd7463f5780fcb2c2d6c99f2a.png" src="../_images/dfef1cb77be100fbcfba41e8deed4dff2872f5ecd7463f5780fcb2c2d6c99f2a.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="using-data-in-files">
-<h2>Using data in files<a class="headerlink" href="#using-data-in-files" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="using-data-in-files">
+<h2>Using data in files<a class="headerlink" href="#using-data-in-files" title="Permalink to this heading">#</a></h2>
 <p>There are a huge range of different formats for spatial data. Fortunately, the <code class="docutils literal notranslate"><span class="pre">sf</span></code> and
 <code class="docutils literal notranslate"><span class="pre">terra</span></code> packages make life easy: the <code class="docutils literal notranslate"><span class="pre">st_read</span></code> function in <code class="docutils literal notranslate"><span class="pre">sf</span></code> reads most vector data
 and the <code class="docutils literal notranslate"><span class="pre">rast</span></code> function in <code class="docutils literal notranslate"><span class="pre">terra</span></code> reads most raster formats. There are odd file formats
 that are harder to read but most are covered by these two packages. The two packages
 also provide functions to save data to a file.</p>
-<div class="section" id="saving-vector-data">
-<h3>Saving vector data<a class="headerlink" href="#saving-vector-data" title="Permalink to this headline">¶</a></h3>
+<section id="saving-vector-data">
+<h3>Saving vector data<a class="headerlink" href="#saving-vector-data" title="Permalink to this heading">#</a></h3>
 <p>The most common vector data file format is the shapefile. This was developed by ESRI for
 use in ArcGIS but has become a common standard. We can save our <code class="docutils literal notranslate"><span class="pre">uk_eire_sf</span></code> data to a
 shapfile using the <code class="docutils literal notranslate"><span class="pre">st_write</span></code> function from the <code class="docutils literal notranslate"><span class="pre">sf</span></code> package.</p>
@@ -1973,9 +1900,9 @@ Writing 6 features with 6 fields and geometry type Polygon.
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="saving-raster-data">
-<h3>Saving raster data<a class="headerlink" href="#saving-raster-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="saving-raster-data">
+<h3>Saving raster data<a class="headerlink" href="#saving-raster-data" title="Permalink to this heading">#</a></h3>
 <p>The GeoTIFF file format is one of the most common GIS raster data formats. It is
 basically the same as a TIFF image file but contains embedded data describing the
 origin, resolution and coordinate reference system of the data. Sometimes, you may also
@@ -1996,9 +1923,9 @@ also use <code class="docutils literal notranslate"><span class="pre">filetype</
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="loading-vector-data">
-<h3>Loading Vector data<a class="headerlink" href="#loading-vector-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="loading-vector-data">
+<h3>Loading Vector data<a class="headerlink" href="#loading-vector-data" title="Permalink to this heading">#</a></h3>
 <p>As an example here, we will use the 1:110m scale Natural Earth data on countries. The
 Natural Earth <a class="reference external" href="https://www.naturalearthdata.com/">website</a> is a great open-source
 repository for lots of basic GIS data. It also has a R package that provides access to
@@ -2046,11 +1973,13 @@ values for the missing life expectancy.</p>
 and <code class="docutils literal notranslate"><span class="pre">pal</span></code> arguments to get this effect.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Generate two stacked plots with narrow margins</span>
-<span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">2</span><span class="p">,</span><span class="m">1</span><span class="p">),</span> <span class="n">mar</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">,</span><span class="m">1</span><span class="p">))</span>
-
-<span class="c1"># The first plot is easy</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># The first plot is easy</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">ne_110</span><span class="p">[</span><span class="s">&#39;GDP_MD&#39;</span><span class="p">],</span>  <span class="n">asp</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Global GDP&#39;</span><span class="p">,</span> <span class="n">logz</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
 
 <span class="c1"># Then for the second we need to merge the data</span>
@@ -2063,14 +1992,15 @@ and <code class="docutils literal notranslate"><span class="pre">pal</span></cod
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_123_0.png" src="../_images/practical_1_123_0.png" />
-<img alt="../_images/practical_1_123_1.png" src="../_images/practical_1_123_1.png" />
+<img alt="../_images/a9f724bf48bb62fab30e7eea58490ca47969aebb283bad8bc2df18ed1b59b908.png" src="../_images/a9f724bf48bb62fab30e7eea58490ca47969aebb283bad8bc2df18ed1b59b908.png" />
+<img alt="../_images/9839073c2808b6825967d12cefc603016ff490ae6eb28da23283d6c1066be30a.png" src="../_images/9839073c2808b6825967d12cefc603016ff490ae6eb28da23283d6c1066be30a.png" />
 </div>
 </div>
-</div>
-<div class="section" id="loading-xy-data">
-<h3>Loading XY data<a class="headerlink" href="#loading-xy-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="loading-xy-data">
+<h3>Loading XY data<a class="headerlink" href="#loading-xy-data" title="Permalink to this heading">#</a></h3>
 <p>We’ve looked at this case earlier, but one common source of vector data is a table with
 coordinates in it (either longitude and latitude for geographic coordinates or X and Y
 coordinates for a projected coordinate system). We will load some data like this and
@@ -2108,9 +2038,9 @@ First 10 features:
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="loading-raster-data">
-<h3>Loading Raster data<a class="headerlink" href="#loading-raster-data" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="loading-raster-data">
+<h3>Loading Raster data<a class="headerlink" href="#loading-raster-data" title="Permalink to this heading">#</a></h3>
 <p>We will look at some global topographic data taken from the
 <a class="reference external" href="https://www.ngdc.noaa.gov/mgg/global/">ETOPO1</a> dataset. The original data is at 1 arc
 minute (1/60°) and this file has been resampled to 15 arc minutes (0.25°) to make it a
@@ -2121,7 +2051,7 @@ bit more manageable (466.7Mb to 2.7 Mb).</p>
 <span class="c1"># Look at the data content</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">etopo_25</span><span class="p">)</span>
 <span class="c1"># Plot it </span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">etopo_25</span><span class="p">,</span> <span class="n">plg</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ext</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">190</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">-90</span><span class="p">,</span> <span class="m">90</span><span class="p">)))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">etopo_25</span><span class="p">,</span> <span class="n">plg</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ext</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">190</span><span class="p">,</span> <span class="m">210</span><span class="p">,</span> <span class="m">-90</span><span class="p">,</span> <span class="m">90</span><span class="p">)))</span>
 </pre></div>
 </div>
 </div>
@@ -2137,7 +2067,7 @@ min value   : -9295.364
 max value   :  5930.763 
 </pre></div>
 </div>
-<img alt="../_images/practical_1_128_1.png" src="../_images/practical_1_128_1.png" />
+<img alt="../_images/043d949dd65e1dd1d2492d74e4da4a47b17ebbf75183cad5bbaf1909ee612c9b.png" src="../_images/043d949dd65e1dd1d2492d74e4da4a47b17ebbf75183cad5bbaf1909ee612c9b.png" />
 </div>
 </div>
 <div class="admonition-controlling-raster-plots admonition">
@@ -2156,26 +2086,38 @@ coordinate system as the map: you can move the legend <em>inside</em> the plot o
 a space outside the plot.</p></li>
 </ul>
 </div>
-<div class="cell tag_hide-cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-10000</span><span class="p">,</span> <span class="m">6000</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">250</span><span class="p">)</span>
+<div class="cell tag_remove-input docutils container">
+<div class="cell_output docutils container">
+<img alt="../_images/cf4de081dde3b04ee39d01ddf27703ad0b322a8da07eac763fdd2b61f5a63880.png" src="../_images/cf4de081dde3b04ee39d01ddf27703ad0b322a8da07eac763fdd2b61f5a63880.png" />
+</div>
+</div>
+<div class="toggle docutils container">
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Define a sequence of 65 breakpoints along an elevation gradient from -10 km to 6 km.</span>
+<span class="c1"># There are 64 intervals between these breaks and each interval will be assigned a </span>
+<span class="c1"># colour</span>
+<span class="n">breaks</span> <span class="o">&lt;-</span> <span class="nf">seq</span><span class="p">(</span><span class="m">-10000</span><span class="p">,</span> <span class="m">6000</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="m">250</span><span class="p">)</span>
+
+<span class="c1"># Define 24 land colours for use above sea level (0m)</span>
 <span class="n">land_cols</span>  <span class="o">&lt;-</span> <span class="nf">terrain.colors</span><span class="p">(</span><span class="m">24</span><span class="p">)</span>
+
+<span class="c1"># Generate a colour palette function for sea colours</span>
 <span class="n">sea_pal</span> <span class="o">&lt;-</span> <span class="nf">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;darkslateblue&#39;</span><span class="p">,</span> <span class="s">&#39;steelblue&#39;</span><span class="p">,</span> <span class="s">&#39;paleturquoise&#39;</span><span class="p">))</span>
+
+<span class="c1"># Create 40 sea colours for use below sea level</span>
 <span class="n">sea_cols</span> <span class="o">&lt;-</span> <span class="nf">sea_pal</span><span class="p">(</span><span class="m">40</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">etopo_25</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">bks</span><span class="p">,</span> 
-     <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">sea_cols</span><span class="p">,</span> <span class="n">land_cols</span><span class="p">),</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;continuous&#39;</span><span class="p">,</span>  
+
+<span class="c1"># Plot the raster providing the breaks and combining the two colour sequences to give </span>
+<span class="c1"># 64 colours that switch from sea to land colour schems at 0m.</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">etopo_25</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">,</span> <span class="n">breaks</span><span class="o">=</span><span class="n">breaks</span><span class="p">,</span>
+     <span class="n">col</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">sea_cols</span><span class="p">,</span> <span class="n">land_cols</span><span class="p">),</span> <span class="n">type</span><span class="o">=</span><span class="s">&#39;continuous&#39;</span><span class="p">,</span>
      <span class="n">plg</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ext</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">190</span><span class="p">,</span> <span class="m">200</span><span class="p">,</span> <span class="m">-90</span><span class="p">,</span> <span class="m">90</span><span class="p">))</span>
-<span class="p">)</span> 
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<img alt="../_images/practical_1_130_0.png" src="../_images/practical_1_130_0.png" />
-</div>
-</div>
-</div>
-<div class="section" id="raster-stacks">
-<h3>Raster Stacks<a class="headerlink" href="#raster-stacks" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="raster-stacks">
+<h3>Raster Stacks<a class="headerlink" href="#raster-stacks" title="Permalink to this heading">#</a></h3>
 <p>Raster data very often has multiple <strong>bands</strong>: a single file can contain multiple layers
 of information for the cells in the raster grid. An obvious example is colour imagery,
 where three layers hold red, green and blue values, but satellite data can contain many
@@ -2254,18 +2196,18 @@ place - we have no loss of precision. -->
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_135_0.png" src="../_images/practical_1_135_0.png" />
+<img alt="../_images/59c1a7f8611576186e50d24ff75ebf3a5617ff8dc5119129b5dabc164f2c0d47.png" src="../_images/59c1a7f8611576186e50d24ff75ebf3a5617ff8dc5119129b5dabc164f2c0d47.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="overlaying-raster-and-vector-data">
-<h2>Overlaying raster and vector data<a class="headerlink" href="#overlaying-raster-and-vector-data" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="overlaying-raster-and-vector-data">
+<h2>Overlaying raster and vector data<a class="headerlink" href="#overlaying-raster-and-vector-data" title="Permalink to this heading">#</a></h2>
 <p>In this next exercise, we are going to use some data to build up a more complex map of
 chlorophyll concentrations in the Southern Ocean. There are a few new techniques along
 the way.</p>
-<div class="section" id="cropping-data">
-<h3>Cropping data<a class="headerlink" href="#cropping-data" title="Permalink to this headline">¶</a></h3>
+<section id="cropping-data">
+<h3>Cropping data<a class="headerlink" href="#cropping-data" title="Permalink to this heading">#</a></h3>
 <p>Sometimes you are only interested in a subset of the area covered by a GIS dataset.
 Cropping the data to the area of interest can make plotting easier and can also make GIS
 operations a lot faster, particularly if the data is complex.</p>
@@ -2294,7 +2236,8 @@ Bounding box:  xmin: -180 ymin: -90 xmax: 180 ymax: 83.6341
 Geodetic CRS:  WGS 84
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they
+are planar
 </pre></div>
 </div>
 </div>
@@ -2306,6 +2249,11 @@ help make the data a bit clearer or replace a legend and are easy to add using t
 <code class="docutils literal notranslate"><span class="pre">contour</span></code> function with a raster object.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sea_pal</span> <span class="o">&lt;-</span> <span class="nf">colorRampPalette</span><span class="p">(</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;grey30&#39;</span><span class="p">,</span> <span class="s">&#39;grey50&#39;</span><span class="p">,</span> <span class="s">&#39;grey70&#39;</span><span class="p">))</span>
 
@@ -2321,16 +2269,17 @@ help make the data a bit clearer or replace a legend and are easy to add using t
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_139_0.png" src="../_images/practical_1_139_0.png" />
+<img alt="../_images/105cf4a26248df48502ee191522305562823a8d66394a960251bdd6cfbe22758.png" src="../_images/105cf4a26248df48502ee191522305562823a8d66394a960251bdd6cfbe22758.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="spatial-joins-and-raster-data-extraction">
-<h2>Spatial joins and raster data extraction<a class="headerlink" href="#spatial-joins-and-raster-data-extraction" title="Permalink to this headline">¶</a></h2>
-<div class="section" id="spatial-joining">
-<h3>Spatial joining<a class="headerlink" href="#spatial-joining" title="Permalink to this headline">¶</a></h3>
+</section>
+</section>
+<section id="spatial-joins-and-raster-data-extraction">
+<h2>Spatial joins and raster data extraction<a class="headerlink" href="#spatial-joins-and-raster-data-extraction" title="Permalink to this heading">#</a></h2>
+<section id="spatial-joining">
+<h3>Spatial joining<a class="headerlink" href="#spatial-joining" title="Permalink to this heading">#</a></h3>
 <p>We have merged data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object by matching values in columns, but we can also
 merge data <strong>spatially</strong>. This process is often called a <strong>spatial join</strong>.</p>
 <p>As an example, we are going to look at mapping ‘mosquito outbreaks’ in Africa: we are
@@ -2355,7 +2304,7 @@ terms of both the area of the country and their population size.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_142_0.png" src="../_images/practical_1_142_0.png" />
+<img alt="../_images/d191c24e47772a82f946786cc981b8079d6b71275a9ecc13e867477f36721322.png" src="../_images/d191c24e47772a82f946786cc981b8079d6b71275a9ecc13e867477f36721322.png" />
 </div>
 </div>
 <p>In order to join these data together we need to turn the <code class="docutils literal notranslate"><span class="pre">mosquito_points</span></code> object from a
@@ -2374,7 +2323,7 @@ we can simply add the country name (‘ADMIN’) onto the points.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_144_0.png" src="../_images/practical_1_144_0.png" />
+<img alt="../_images/b4858bad36ff7012d390a4aa82839cb4936f6ccfdfa177f8ccc5fcffa36812c4.png" src="../_images/b4858bad36ff7012d390a4aa82839cb4936f6ccfdfa177f8ccc5fcffa36812c4.png" />
 </div>
 </div>
 <p>We can now aggregate the points within countries. This can give us a count of the number
@@ -2393,7 +2342,7 @@ of points in each country and also converts multiple rows of <code class="docuti
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Simple feature collection with 47 features and 2 fields
-Attribute-geometry relationship: 0 constant, 0 aggregate, 1 identity, 1 NA&#39;s
+Attribute-geometry relationships: identity (1), NA&#39;s (1)
 Geometry type: GEOMETRY
 Dimension:     XY
 Bounding box:  xmin: -1484747 ymin: -3582975 xmax: 4791173 ymax: 3890233
@@ -2468,7 +2417,7 @@ First 10 features:
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_149_0.png" src="../_images/practical_1_149_0.png" />
+<img alt="../_images/c5001452f765c9c56292cedc1a2a010d8e895184feaae980f75bb6c490ea5286.png" src="../_images/c5001452f765c9c56292cedc1a2a010d8e895184feaae980f75bb6c490ea5286.png" />
 </div>
 </div>
 <div class="admonition-alien-invasion admonition">
@@ -2486,6 +2435,11 @@ per alien are going to be ok, but we need a map of alien threat like the one bel
 <p>Can you produce the map countries at risk shown below?</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the data and convert to a sf object</span>
 <span class="n">alien_xy</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&#39;data/aliens.csv&#39;</span><span class="p">)</span>
@@ -2507,19 +2461,22 @@ per alien are going to be ok, but we need a map of alien threat like the one bel
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they
+are planar
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersects assumes that they
+are planar
 </pre></div>
 </div>
-<img alt="../_images/practical_1_151_2.png" src="../_images/practical_1_151_2.png" />
+<img alt="../_images/836583e4acadc37b4adb8303e0e6489fefa6d5a96775d19e1ee2a5f0f5dc681a.png" src="../_images/836583e4acadc37b4adb8303e0e6489fefa6d5a96775d19e1ee2a5f0f5dc681a.png" />
 </div>
 </div>
-</div>
-<div class="section" id="extracting-data-from-rasters">
-<h3>Extracting data from Rasters<a class="headerlink" href="#extracting-data-from-rasters" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="extracting-data-from-rasters">
+<h3>Extracting data from Rasters<a class="headerlink" href="#extracting-data-from-rasters" title="Permalink to this heading">#</a></h3>
 <p>The spatial join above allows us to connect vector data based on location but you might
 also need to extract data from a raster dataset in certain locations. Examples include
 to know the exact altitude or surface temperature of sampling sites or average values
@@ -2553,12 +2510,12 @@ You should end up converting the raw data on the left to the map on the right</p
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_155_0.png" src="../_images/practical_1_155_0.png" />
+<img alt="../_images/ee711ef12aeffe8291a86a52400b62a3173eca3ab70c398c488831019038dacb.png" src="../_images/ee711ef12aeffe8291a86a52400b62a3173eca3ab70c398c488831019038dacb.png" />
 </div>
 </div>
-</div>
-<div class="section" id="raster-cell-statistics-and-locations">
-<h3>Raster cell statistics and locations<a class="headerlink" href="#raster-cell-statistics-and-locations" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="raster-cell-statistics-and-locations">
+<h3>Raster cell statistics and locations<a class="headerlink" href="#raster-cell-statistics-and-locations" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">global</span></code> function provides a way to find global summary statistics of the data in a
 raster. We can also find out the locations of cells with particular characteristics
 using <code class="docutils literal notranslate"><span class="pre">where.max</span></code> of <code class="docutils literal notranslate"><span class="pre">where.min</span></code>. Both of those functions return cell ID numbers, but
@@ -2575,7 +2532,8 @@ dimensions  : 600, 780, 1  (nrow, ncol, nlyr)
 resolution  : 0.01666667, 0.01666667  (x, y)
 extent      : -11.00833, 1.991667, 49.49167, 59.49167  (xmin, xmax, ymin, ymax)
 coord. ref. : lon/lat WGS 84 (EPSG:4326) 
-source      : memory 
+source(s)   : memory
+varname     : etopo_uk 
 name        : etopo_uk 
 min value   :    FALSE 
 max value   :     TRUE 
@@ -2661,6 +2619,11 @@ questions about the result:</p>
 </ul>
 </div>
 <div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">max_cell</span> <span class="o">&lt;-</span> <span class="nf">where.max</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">)</span>
 <span class="n">max_xy</span> <span class="o">&lt;-</span> <span class="nf">xyFromCell</span><span class="p">(</span><span class="n">uk_eire_elev</span><span class="p">,</span> <span class="n">max_cell</span><span class="p">[</span><span class="m">2</span><span class="p">])</span>
@@ -2677,12 +2640,13 @@ questions about the result:</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_162_0.png" src="../_images/practical_1_162_0.png" />
+<img alt="../_images/046f7836dc2e86cb60caad9c25c8588b6339ec39df93590aa06cc3d345e280f6.png" src="../_images/046f7836dc2e86cb60caad9c25c8588b6339ec39df93590aa06cc3d345e280f6.png" />
 </div>
+</details>
 </div>
-</div>
-<div class="section" id="the-extract-function">
-<h3>The extract function<a class="headerlink" href="#the-extract-function" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="the-extract-function">
+<h3>The extract function<a class="headerlink" href="#the-extract-function" title="Permalink to this heading">#</a></h3>
 <p>The previous section shows the basic functions needed to get at raster data but the
 <code class="docutils literal notranslate"><span class="pre">extract</span></code> function makes it easier. It works in different ways on different geometry
 types:</p>
@@ -2837,7 +2801,8 @@ Available layers:
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading query `select * from routes where name=&#39;Pennine Way&#39;&#39; from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_data/uk/National_Trails_Pennine_Way.gpx&#39; 
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Reading query `select * from routes where name=&#39;Pennine Way&#39;&#39;
+from data source `/Users/dorme/Teaching/GIS/Masters_GIS_2020/practicals/practical_data/uk/National_Trails_Pennine_Way.gpx&#39; 
   using driver `GPX&#39;
 Simple feature collection with 1 feature and 12 fields
 Geometry type: LINESTRING
@@ -2857,6 +2822,11 @@ coordinate system so:</p>
 and route vector into the British National Grid. Use a 2km resolution grid.</p>
 </div>
 <div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># reproject the vector data</span>
 <span class="n">pennine_way_BNG</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">pennine_way</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="m">27700</span><span class="p">)</span>
@@ -2867,6 +2837,7 @@ and route vector into the British National Grid. Use a 2km resolution grid.</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>The route data is also very detailed, which is great if you are navigating in a blizzard
 but does take a long time to process for this exercise. So, we’ll also simplify the
@@ -2899,7 +2870,7 @@ available</strong>?</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_178_0.png" src="../_images/practical_1_178_0.png" />
+<img alt="../_images/f9364e5f430149d13a39f1cc97fe515d05380753d8d4bbb5f9dd46dd73f951d8.png" src="../_images/f9364e5f430149d13a39f1cc97fe515d05380753d8d4bbb5f9dd46dd73f951d8.png" />
 </div>
 </div>
 <p>Now we can extract the elevations, cell IDs and the XY coordinates of cells falling
@@ -2921,12 +2892,12 @@ cells along the transect and hence the cumulative distance.</p>
 	<tr><th></th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th><th scope=col>&lt;dbl&gt;</th></tr>
 </thead>
 <tbody>
-	<tr><th scope=row>1</th><td>1</td><td>134.8042</td><td>383000</td><td>629000</td></tr>
-	<tr><th scope=row>2</th><td>1</td><td>193.3675</td><td>383000</td><td>627000</td></tr>
-	<tr><th scope=row>3</th><td>1</td><td>269.3795</td><td>385000</td><td>627000</td></tr>
-	<tr><th scope=row>4</th><td>1</td><td>315.7049</td><td>385000</td><td>625000</td></tr>
-	<tr><th scope=row>5</th><td>1</td><td>423.4430</td><td>385000</td><td>623000</td></tr>
-	<tr><th scope=row>6</th><td>1</td><td>443.0962</td><td>387000</td><td>623000</td></tr>
+	<tr><th scope=row>1</th><td>1</td><td>135.2331</td><td>383000</td><td>629000</td></tr>
+	<tr><th scope=row>2</th><td>1</td><td>188.8285</td><td>383000</td><td>627000</td></tr>
+	<tr><th scope=row>3</th><td>1</td><td>270.6953</td><td>385000</td><td>627000</td></tr>
+	<tr><th scope=row>4</th><td>1</td><td>319.4667</td><td>385000</td><td>625000</td></tr>
+	<tr><th scope=row>5</th><td>1</td><td>423.4091</td><td>385000</td><td>623000</td></tr>
+	<tr><th scope=row>6</th><td>1</td><td>436.3912</td><td>387000</td><td>623000</td></tr>
 </tbody>
 </table>
 </div></div>
@@ -2945,17 +2916,17 @@ cells along the transect and hence the cumulative distance.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_181_0.png" src="../_images/practical_1_181_0.png" />
+<img alt="../_images/b670e8badea99b3a2cf64a9aef50ff4b150afb3a670586c47fd9646162dbbbc7.png" src="../_images/b670e8badea99b3a2cf64a9aef50ff4b150afb3a670586c47fd9646162dbbbc7.png" />
 </div>
 </div>
-</div>
-</div>
-<div class="section" id="mini-projects">
-<h2>Mini projects<a class="headerlink" href="#mini-projects" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+<section id="mini-projects">
+<h2>Mini projects<a class="headerlink" href="#mini-projects" title="Permalink to this heading">#</a></h2>
 <p>You should now have the skills to tackle the miniproject below. Give them a go - the
 answers are still available but try and puzzle it out.</p>
-<div class="section" id="precipitation-transect-for-new-guinea">
-<h3>Precipitation transect for  New Guinea<a class="headerlink" href="#precipitation-transect-for-new-guinea" title="Permalink to this headline">¶</a></h3>
+<section id="precipitation-transect-for-new-guinea">
+<h3>Precipitation transect for  New Guinea<a class="headerlink" href="#precipitation-transect-for-new-guinea" title="Permalink to this heading">#</a></h3>
 <p>You have been given the following WGS84 coordinates of a transect through New Guinea</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2983,6 +2954,11 @@ study area and choose extent coordinates to create neat 1km cell boundaries</p><
 complete.</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the precipitation data</span>
 <span class="n">ng_prec</span> <span class="o">&lt;-</span> <span class="nf">worldclim_tile</span><span class="p">(</span><span class="n">var</span><span class="o">=</span><span class="s">&#39;prec&#39;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">0.5</span><span class="p">,</span> <span class="n">lon</span><span class="o">=</span><span class="m">140</span><span class="p">,</span> <span class="n">lat</span><span class="o">=</span><span class="m">-10</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data&#39;</span><span class="p">)</span>
@@ -3035,16 +3011,18 @@ complete.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they
+are planar
 </pre></div>
 </div>
-<img alt="../_images/practical_1_185_1.png" src="../_images/practical_1_185_1.png" />
+<img alt="../_images/e3ef138b4feebc616980de9ea9cb044b7316419501193ddb5b4959c3cd9d4840.png" src="../_images/e3ef138b4feebc616980de9ea9cb044b7316419501193ddb5b4959c3cd9d4840.png" />
 </div>
 </div>
-</div>
-<div class="section" id="fishing-pressure-in-fiji">
-<h3>Fishing pressure in Fiji<a class="headerlink" href="#fishing-pressure-in-fiji" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="fishing-pressure-in-fiji">
+<h3>Fishing pressure in Fiji<a class="headerlink" href="#fishing-pressure-in-fiji" title="Permalink to this heading">#</a></h3>
 <p>This exercise is quite a bit harder - you will probably need to read more help files (or
 peek at the code) but see how you go!</p>
 <p>Researchers have identified 7 commonly used fishing sites around the island of Kadavu in
@@ -3072,8 +3050,8 @@ Excel to arrange and manage data tables. If you use R you then typically end up
 exporting CSVs to load, but there is a better way: read the data directly from Excel.
 This means that you don’t have to maintain multiple versions of the same data in
 different formats.</p>
-<div class="section" id="loading-the-data">
-<h4>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h4>
+<section id="loading-the-data">
+<h4>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this heading">#</a></h4>
 <ul class="simple">
 <li><p>Use <code class="docutils literal notranslate"><span class="pre">geodata::gadm()</span></code> to obtain the GADM Level 2 vector data for Fiji
 (<code class="docutils literal notranslate"><span class="pre">country='FJI'</span></code>) and then extract Kadavu.</p></li>
@@ -3084,6 +3062,11 @@ tables into <code class="docutils literal notranslate"><span class="pre">sf</spa
 appropriate to Fiji (UTM 60S: EPSG:32760).</p></li>
 </ul>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Download the GADM data for Fiji, convert to sf and then extract Kadavu</span>
 <span class="n">fiji</span> <span class="o">&lt;-</span> <span class="nf">gadm</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s">&#39;FJI&#39;</span><span class="p">,</span> <span class="n">level</span><span class="o">=</span><span class="m">2</span><span class="p">,</span> <span class="n">path</span><span class="o">=</span><span class="s">&#39;data/fiji&#39;</span><span class="p">)</span>
@@ -3108,13 +3091,14 @@ appropriate to Fiji (UTM 60S: EPSG:32760).</p></li>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_188_0.png" src="../_images/practical_1_188_0.png" />
+<img alt="../_images/79dccbb1e3bcf273f9d30035f58bd51af7c3c43f9742b5b84bb9e9180d87a6f6.png" src="../_images/79dccbb1e3bcf273f9d30035f58bd51af7c3c43f9742b5b84bb9e9180d87a6f6.png" />
 </div>
 </div>
-</div>
-<div class="section" id="create-the-cost-surface">
-<h4>Create the cost surface<a class="headerlink" href="#create-the-cost-surface" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="create-the-cost-surface">
+<h4>Create the cost surface<a class="headerlink" href="#create-the-cost-surface" title="Permalink to this heading">#</a></h4>
 <p>The cost surface should assign a uniform cost to moving through the sea and an infinite
 cost (<code class="docutils literal notranslate"><span class="pre">NA</span></code>) to moving over land. The resolution of your cost surface raster matters: a
 very fine resolution will give very precise distances but take a long time to run; a
@@ -3129,6 +3113,11 @@ surface.</p></li>
 <p>Remember from above the difference between rasterizing a polygon and a linestring: cells
 containing coastline contain sea so should be available for movement.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create a template raster covering the whole study area, at a given resolution</span>
 <span class="n">res</span> <span class="o">&lt;-</span> <span class="m">100</span>
@@ -3162,13 +3151,14 @@ containing coastline contain sea so should be available for movement.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_191_0.png" src="../_images/practical_1_191_0.png" />
+<img alt="../_images/7fe4f3611eae72348324c76ae031ecd183a1ad5a1a7768f53229f27460e5e42f.png" src="../_images/7fe4f3611eae72348324c76ae031ecd183a1ad5a1a7768f53229f27460e5e42f.png" />
 </div>
 </div>
-</div>
-<div class="section" id="finding-launch-points">
-<h4>Finding launch points<a class="headerlink" href="#finding-launch-points" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="finding-launch-points">
+<h4>Finding launch points<a class="headerlink" href="#finding-launch-points" title="Permalink to this heading">#</a></h4>
 <p>The villages are not all on the coast! If the village is too far inland then it may sit
 in a cell with an infinite travel cost. So we need to find the closest point on the
 coast to each village using <code class="docutils literal notranslate"><span class="pre">st_nearest_points</span></code>. All points within a polygon are part of
@@ -3178,6 +3168,11 @@ showing the coast to find point on the coast.</p>
 point on the coast. The second points on each of these lines are our nearest launch
 points and we can use <code class="docutils literal notranslate"><span class="pre">st_line_sample</span></code> with <code class="docutils literal notranslate"><span class="pre">sample=1</span></code> to extract them.</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the nearest points on the coast to each village</span>
 <span class="n">village_coast</span> <span class="o">&lt;-</span> <span class="nf">st_nearest_points</span><span class="p">(</span><span class="n">villages</span><span class="p">,</span> <span class="n">coast</span><span class="p">)</span>
@@ -3196,8 +3191,9 @@ points and we can use <code class="docutils literal notranslate"><span class="pr
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_194_0.png" src="../_images/practical_1_194_0.png" />
+<img alt="../_images/e93b9c4caed93063bff21834b095cd2c64a0e07471e3b6974a9a190d852c6e2b.png" src="../_images/e93b9c4caed93063bff21834b095cd2c64a0e07471e3b6974a9a190d852c6e2b.png" />
 </div>
 </div>
 <p>We can add the launch points in to our <code class="docutils literal notranslate"><span class="pre">villages</span></code> object. It is possible to have more
@@ -3211,10 +3207,10 @@ used.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="find-distances">
-<h4>Find distances<a class="headerlink" href="#find-distances" title="Permalink to this headline">¶</a></h4>
-<p>We will use the <code class="docutils literal notranslate"><span class="pre">terra::gridDistance</span></code> function to calculate distances from a village.
+</section>
+<section id="find-distances">
+<h4>Find distances<a class="headerlink" href="#find-distances" title="Permalink to this heading">#</a></h4>
+<p>We will use the <code class="docutils literal notranslate"><span class="pre">terra::gridDist</span></code> function to calculate distances from a village.
 This:</p>
 <ul class="simple">
 <li><p>Calculates distance across a grid to target cells with a particular value,</p></li>
@@ -3234,18 +3230,23 @@ costs of moving around the blocking cell into the bottom right corner.</p>
 <span class="n">r</span><span class="p">[</span><span class="m">4</span><span class="p">,</span><span class="m">4</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="kc">NA</span>    <span class="c1"># Set one NA cell</span>
 
 <span class="c1"># Calculate and plot distances</span>
-<span class="n">d</span> <span class="o">&lt;-</span> <span class="nf">gridDistance</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
+<span class="n">d</span> <span class="o">&lt;-</span> <span class="nf">gridDist</span><span class="p">(</span><span class="n">r</span><span class="p">)</span>
 <span class="nf">plot</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="kc">NULL</span><span class="p">)</span>
 <span class="nf">text</span><span class="p">(</span><span class="n">d</span><span class="p">,</span> <span class="n">digits</span><span class="o">=</span><span class="m">1</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_199_0.png" src="../_images/practical_1_199_0.png" />
+<img alt="../_images/d97fc171b3ceb98d7611e6fd4b3923ae18d77f14f2675a79d8e3692031dfd348.png" src="../_images/d97fc171b3ceb98d7611e6fd4b3923ae18d77f14f2675a79d8e3692031dfd348.png" />
 </div>
 </div>
 <p>Scaling that up to give an example for a single site:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Make a copy of the sea map</span>
 <span class="n">dist</span> <span class="o">&lt;-</span> <span class="n">sea_r</span>
@@ -3256,7 +3257,7 @@ costs of moving around the blocking cell into the bottom right corner.</p>
 <span class="n">dist</span><span class="p">[</span><span class="n">village_cell</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="m">0</span>
 
 <span class="c1"># Now we can calculate the cost distance for each launch point to each site...</span>
-<span class="n">costs</span> <span class="o">&lt;-</span> <span class="nf">gridDistance</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+<span class="n">costs</span> <span class="o">&lt;-</span> <span class="nf">gridDist</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
 
 <span class="nf">plot</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">plg</span><span class="o">=</span><span class="nf">list</span><span class="p">(</span><span class="n">ext</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">672000</span><span class="p">,</span> <span class="m">674000</span><span class="p">,</span> <span class="m">7870000</span><span class="p">,</span> <span class="m">7940000</span><span class="p">)))</span>
 <span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">villages</span><span class="p">[</span><span class="n">site_idx</span><span class="p">,]),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">,</span> <span class="n">pch</span><span class="o">=</span><span class="m">4</span><span class="p">)</span>
@@ -3264,8 +3265,9 @@ costs of moving around the blocking cell into the bottom right corner.</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_202_0.png" src="../_images/practical_1_202_0.png" />
+<img alt="../_images/f625cf0726fa85dd02423567e3bf7c9f3addfc8d15e46940081cb80d0ae7809e.png" src="../_images/f625cf0726fa85dd02423567e3bf7c9f3addfc8d15e46940081cb80d0ae7809e.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3292,12 +3294,17 @@ costs of moving around the blocking cell into the bottom right corner.</p>
 </div>
 </div>
 </div>
-</div>
-<div class="section" id="loop-over-sites">
-<h4>Loop over sites<a class="headerlink" href="#loop-over-sites" title="Permalink to this headline">¶</a></h4>
+</section>
+<section id="loop-over-sites">
+<h4>Loop over sites<a class="headerlink" href="#loop-over-sites" title="Permalink to this heading">#</a></h4>
 <p>We now need to wrap that process in a loop to find the nearest site for each village -
 this can take a little time to run!</p>
 <div class="cell tag_hide-cell docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell content</span>
+<span class="expanded">Hide code cell content</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Create fields to hold the nearest fishing site data</span>
 <span class="n">villages</span><span class="o">$</span><span class="n">nearest_site_index</span> <span class="o">&lt;-</span> <span class="kc">NA</span>
@@ -3314,7 +3321,7 @@ this can take a little time to run!</p>
     <span class="n">dist</span><span class="p">[</span><span class="n">village_cell</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="m">0</span>
 
     <span class="c1"># Now we can calculate the cost distance for each launch point to each site...</span>
-    <span class="n">costs</span> <span class="o">&lt;-</span> <span class="nf">gridDistance</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
+    <span class="n">costs</span> <span class="o">&lt;-</span> <span class="nf">gridDist</span><span class="p">(</span><span class="n">dist</span><span class="p">)</span>
     
     <span class="c1"># And find the nearest site</span>
     <span class="n">distances_to_site</span> <span class="o">&lt;-</span> <span class="nf">extract</span><span class="p">(</span><span class="n">costs</span><span class="p">,</span> <span class="n">sites</span><span class="p">)</span>
@@ -3328,10 +3335,16 @@ this can take a little time to run!</p>
 </pre></div>
 </div>
 </div>
+</details>
 </div>
 <p>And now we can work out the fishing load for each site and map which villages prefer
 which site:</p>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Find the total number of buildings  per site and merge that data</span>
 <span class="c1"># into the sites object</span>
@@ -3351,8 +3364,9 @@ which site:</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_207_0.png" src="../_images/practical_1_207_0.png" />
+<img alt="../_images/9b038b3f7cb9b595ed1de994143a99a716f428c343d966db0ce46a85f107212f.png" src="../_images/9b038b3f7cb9b595ed1de994143a99a716f428c343d966db0ce46a85f107212f.png" />
 </div>
 </div>
 <div class="cell docutils container">
@@ -3379,11 +3393,11 @@ Projected CRS: WGS 84 / UTM zone 60S
 </div>
 </div>
 </div>
-</div>
-</div>
-</div>
-<div class="section" id="using-ggplot-to-make-maps">
-<h2>Using ggplot to make maps<a class="headerlink" href="#using-ggplot-to-make-maps" title="Permalink to this headline">¶</a></h2>
+</section>
+</section>
+</section>
+<section id="using-ggplot-to-make-maps">
+<h2>Using ggplot to make maps<a class="headerlink" href="#using-ggplot-to-make-maps" title="Permalink to this heading">#</a></h2>
 <p>As you will have seen in the last couple of weeks, <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> is a popular package for
 plotting and can be used for with <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects in maps too. There is also a package
 called <code class="docutils literal notranslate"><span class="pre">tmap</span></code> which works in a very similar way to <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> but is more tightly focussed
@@ -3404,7 +3418,7 @@ needing extra tools.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_211_0.png" src="../_images/practical_1_211_0.png" />
+<img alt="../_images/da5b9aaf6a5effc4a580d3184959a39e6f4f6c5c662a925bb06ff700796fe830.png" src="../_images/da5b9aaf6a5effc4a580d3184959a39e6f4f6c5c662a925bb06ff700796fe830.png" />
 </div>
 </div>
 <p>There are several <code class="docutils literal notranslate"><span class="pre">ggplot</span></code> extensions for <code class="docutils literal notranslate"><span class="pre">sf</span></code> that make it easier to colour and label
@@ -3421,7 +3435,8 @@ your <code class="docutils literal notranslate"><span class="pre">ggplot</span><
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they are planar
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>although coordinates are longitude/latitude, st_intersection assumes that they
+are planar
 </pre></div>
 </div>
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
@@ -3432,7 +3447,7 @@ your <code class="docutils literal notranslate"><span class="pre">ggplot</span><
 “st_point_on_surface may not give correct results for longitude/latitude data”
 </pre></div>
 </div>
-<img alt="../_images/practical_1_214_3.png" src="../_images/practical_1_214_3.png" />
+<img alt="../_images/2ba1e561be88d298b6165a70e3e09e772260e8d3ce67f8fad5bf059bc3faea13.png" src="../_images/2ba1e561be88d298b6165a70e3e09e772260e8d3ce67f8fad5bf059bc3faea13.png" />
 </div>
 </div>
 <div class="admonition-european-life-expectancy admonition">
@@ -3452,6 +3467,11 @@ Russian border. This is seen in the first plot below, where the second is croppe
 the reprojected axes</p>
 </div>
 <div class="cell tag_hide-input docutils container">
+<details class="hide above-input">
+<summary aria-label="Toggle hidden content">
+<span class="collapsed">Show code cell source</span>
+<span class="expanded">Hide code cell source</span>
+</summary>
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate the extent in the LAEA projection of the cropped data</span>
 <span class="n">europe_crop_laea</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">europe</span><span class="p">,</span> <span class="m">3035</span><span class="p">)</span>
@@ -3481,17 +3501,18 @@ the reprojected axes</p>
 </pre></div>
 </div>
 </div>
+</details>
 <div class="cell_output docutils container">
 <div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Warning message:
 “attribute variables are assumed to be spatially constant throughout all geometries”
 </pre></div>
 </div>
-<img alt="../_images/practical_1_217_1.png" src="../_images/practical_1_217_1.png" />
+<img alt="../_images/37d4463edef82cb12e319e2155e05d6a04d9bc343e6e45f8d7d670418901c405.png" src="../_images/37d4463edef82cb12e319e2155e05d6a04d9bc343e6e45f8d7d670418901c405.png" />
 </div>
 </div>
-</div>
-<div class="section" id="colour-palettes">
-<h2>Colour palettes<a class="headerlink" href="#colour-palettes" title="Permalink to this headline">¶</a></h2>
+</section>
+<section id="colour-palettes">
+<h2>Colour palettes<a class="headerlink" href="#colour-palettes" title="Permalink to this heading">#</a></h2>
 <p>Colour palettes are an essential part of presenting spatial data, as often we read the
 data as a colour scale on a map, rather than an x- or y-axis of continuous variables.
 There has been a lot of discussion amongst researches on the best colour scales to use.
@@ -3502,8 +3523,8 @@ colours, but I would not recommend using them as there are plenty more better op
 <p>The <code class="docutils literal notranslate"><span class="pre">hcl.colors</span></code> function - as used above - is a far better choice in many cases. There
 are a wide range of palettes (see <code class="docutils literal notranslate"><span class="pre">hcl.pals()</span></code>) with different use cases. There are also
 some specific packages that provide extra colour schemes.</p>
-<div class="section" id="viridis">
-<h3>Viridis<a class="headerlink" href="#viridis" title="Permalink to this headline">¶</a></h3>
+<section id="viridis">
+<h3>Viridis<a class="headerlink" href="#viridis" title="Permalink to this heading">#</a></h3>
 <p>The <code class="docutils literal notranslate"><span class="pre">viridis</span></code> package contains the <code class="docutils literal notranslate"><span class="pre">viridis</span></code> palette, but also these other palettes:</p>
 <p><img alt="Colour palettes from the viridis package." src="../_images/viridis.png" /></p>
 <p>Re-plot the life expectancy map of Europe using each of the other 3 palettes in the
@@ -3511,9 +3532,9 @@ some specific packages that provide extra colour schemes.</p>
 <p>With <code class="docutils literal notranslate"><span class="pre">ggplot</span></code>, you can use the functions <code class="docutils literal notranslate"><span class="pre">scale_color_viridis()</span></code> to colour points, lines
 or texts and <code class="docutils literal notranslate"><span class="pre">scale_fill_viridis()</span></code> to fill areas. Use the <code class="docutils literal notranslate"><span class="pre">option</span></code> argument to select
 which pallette in <code class="docutils literal notranslate"><span class="pre">viridis</span></code> you wish, with the viridis palette being the default.</p>
-</div>
-<div class="section" id="brewer">
-<h3>Brewer<a class="headerlink" href="#brewer" title="Permalink to this headline">¶</a></h3>
+</section>
+<section id="brewer">
+<h3>Brewer<a class="headerlink" href="#brewer" title="Permalink to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">RColorBrewer</span><span class="p">)</span>
@@ -3522,7 +3543,7 @@ which pallette in <code class="docutils literal notranslate"><span class="pre">v
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_219_0.png" src="../_images/practical_1_219_0.png" />
+<img alt="../_images/11138fea55415a557052893c5b3c4e08c41400fd9fce7f4aff8dd11b65b04614.png" src="../_images/11138fea55415a557052893c5b3c4e08c41400fd9fce7f4aff8dd11b65b04614.png" />
 </div>
 </div>
 <p>The first group are spectral palettes that are most similar to <code class="docutils literal notranslate"><span class="pre">viridis</span></code> and good for
@@ -3539,7 +3560,7 @@ occurred in the data.</p>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/practical_1_221_0.png" src="../_images/practical_1_221_0.png" />
+<img alt="../_images/7e0a6d58ee2467d22eadde0af87eb93e7f2d6b351513bd2a93a40bf90085e5de.png" src="../_images/7e0a6d58ee2467d22eadde0af87eb93e7f2d6b351513bd2a93a40bf90085e5de.png" />
 </div>
 </div>
 <p>As with <code class="docutils literal notranslate"><span class="pre">viridis</span></code> you can use <code class="docutils literal notranslate"><span class="pre">scale_color_brewer()</span></code> and <code class="docutils literal notranslate"><span class="pre">scale_fill_brewer()</span></code> in
@@ -3547,9 +3568,9 @@ occurred in the data.</p>
 <!-- ## Extensions
 
 ### GIF of WHO data
-Make a GIF which mapping the time series of the global life expectancy for all countries from 2000 to 2016. Hint use the `tmap` package and `tmap_animation()`. See the 'Geocomputation in R' book for more information. --></div>
-</div>
-</div>
+Make a GIF which mapping the time series of the global life expectancy for all countries from 2000 to 2016. Hint use the `tmap` package and `tmap_animation()`. See the 'Geocomputation in R' book for more information. --></section>
+</section>
+</section>
 
     <script type="text/x-thebe-config">
     {
@@ -3560,67 +3581,179 @@ Make a GIF which mapping the time series of the global life expectancy for all c
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "ir420"
+            mode: "r"
         },
         kernelOptions: {
-            kernelName: "ir420",
+            name: "ir",
             path: "./practical_1"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'ir420'</script>
+    <script>kernelName = 'ir'</script>
 
-              </div>
+                </article>
               
-        
-            
 
-
-
-<div class='prev-next-bottom'>
-    
-    <div id="prev">
-        <a class="left-prev" href="../required_packages.html" title="previous page">
-            <i class="prevnext-label fas fa-angle-left"></i>
-            <div class="prevnext-info">
-                <p class="prevnext-label">previous</p>
-                <p class="prevnext-title">Required packages and data</p>
-            </div>
-        </a>
-    </div>
-     <div id="next">
-        <a class="right-next" href="../practical_2/practical_2.html" title="next page">
-            <div class="prevnext-info">
-                <p class="prevnext-label">next</p>
-                <p class="prevnext-title">Practical Two: Species Distribution Modelling</p>
-            </div>
-            <i class="prevnext-label fas fa-angle-right"></i>
-        </a>
-     </div>
-
-</div>
-        
-        </div>
-    </div>
-    <footer class="footer">
-    <div class="container">
-      <p>
-        
-          By David Orme<br/>
-        
-            &copy; Copyright 2021.<br/>
-      </p>
-    </div>
-  </footer>
-</main>
-
-
+              
+              
+              
+              
+                <footer class="prev-next-footer">
+                  <!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../required_packages.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Required packages and data</p>
       </div>
-    </div>
-  
-  <script src="../_static/js/index.1c5a1a01449ed65a7b51.js"></script>
+    </a>
+    <a class="right-next"
+       href="../practical_2/practical_2.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Practical Two: Species Distribution Modelling</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
 
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#required-packages">Required packages</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data">Vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-vectors-from-coordinates">Making vectors from coordinates</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#making-vector-points-from-a-dataframe">Making vector points from a dataframe</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-geometry-operations">Vector geometry operations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#features-and-geometries">Features and geometries</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-data-and-attributes">Vector data and attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-attributes">Spatial attributes</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#plotting-sf-objects">Plotting <code class="docutils literal notranslate"><span class="pre">sf</span></code> objects</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-vector-data">Reprojecting vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#proj4-strings">Proj4 strings</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#degrees-are-not-constant">Degrees are not constant</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#rasters">Rasters</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#creating-a-raster">Creating a raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#changing-raster-resolution">Changing raster resolution</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#aggregating-rasters">Aggregating rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#disaggregating-rasters">Disaggregating rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#resampling">Resampling</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#reprojecting-a-raster">Reprojecting a raster</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#converting-between-vector-and-raster-data-types">Converting between vector and raster data types</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#vector-to-raster">Vector to raster</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-to-vector">Raster to vector</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-data-in-files">Using data in files</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-vector-data">Saving vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#saving-raster-data">Saving raster data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-vector-data">Loading Vector data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-xy-data">Loading XY data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-raster-data">Loading Raster data</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-stacks">Raster Stacks</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#overlaying-raster-and-vector-data">Overlaying raster and vector data</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#cropping-data">Cropping data</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joins-and-raster-data-extraction">Spatial joins and raster data extraction</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#spatial-joining">Spatial joining</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#extracting-data-from-rasters">Extracting data from Rasters</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#raster-cell-statistics-and-locations">Raster cell statistics and locations</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#the-extract-function">The extract function</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mini-projects">Mini projects</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#precipitation-transect-for-new-guinea">Precipitation transect for  New Guinea</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#fishing-pressure-in-fiji">Fishing pressure in Fiji</a><ul class="nav section-nav flex-column">
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loading-the-data">Loading the data</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#create-the-cost-surface">Create the cost surface</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#finding-launch-points">Finding launch points</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#find-distances">Find distances</a></li>
+<li class="toc-h4 nav-item toc-entry"><a class="reference internal nav-link" href="#loop-over-sites">Loop over sites</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#using-ggplot-to-make-maps">Using ggplot to make maps</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#colour-palettes">Colour palettes</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#viridis">Viridis</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#brewer">Brewer</a></li>
+</ul>
+</li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
   
+  <div class="footer-item">
+    
+<p class="component-author">
+By David Orme
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
+<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+
+  <footer class="bd-footer">
+  </footer>
   </body>
 </html>

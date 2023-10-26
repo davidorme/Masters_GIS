@@ -7,13 +7,13 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 ```{code-cell} r
-:tags: [remove-input]
+:tags: [remove-input, remove-stderr]
 
 # Libraries just used for producing graphics in the page, not used 
 # by any of the exercises.
@@ -30,7 +30,7 @@ library(rnaturalearthdata)
 
 We will need to load the following packages. Remember to read [this guide on setting up
 packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not RStudio Cloud.
+on your own machine, not Posit Cloud.
 
 ```{code-cell} r
 :tags: [remove-stderr]
@@ -43,11 +43,12 @@ library(geodata)   # Download and load functions for core datasets
 library(openxlsx)  # Reading data from Excel files
 ```
 
-We are also going to turn off an advanced feature used by the sf package. The `s2`
-package is designed to do spherical GIS correctly: it handles latitudes and longitudes
-on the surface of a sphere rather than  than pretending that the coordinates are on a
-flat plane. That is **definitely** the right way to do this, but some of the datasets we
-will use in this practical have some issues with using `s2`, so we will turn it off.
+We are also going to turn off an advanced feature used by the `sf` package. In the
+background, `sf` uses the `s2` package to handle spherical geometry: that is, it handles
+latitude and longitude coordinates as angular positions on the surface of a sphere
+rather than pretending that they are cartesian coordinates are on a flat plane. That is
+**definitely** the right way to do this, but some of the datasets we will use in this
+practical have some issues with using `s2`, so we will turn it off.
 
 As a result, you will see a few warnings like this:
 
@@ -98,8 +99,8 @@ Eire. We also want to isolate London from the rest of England. This map is going
 show different geometry types and operations.
 
 The map below looks a bit peculiar - squashed vertically - because it is plotting
-latitude and longitude degrees as if they are constant units and they are not. We'll
-come back to this in the section on reprojection below.
+latitude and longitude degrees as if they are **cartesian coordinates** and they are
+not. We'll come back to this in the section on reprojection below.
 
 ```{code-cell} r
 :tags: [remove-cell]
@@ -111,11 +112,12 @@ options(repr.plot.width=6, repr.plot.height= 5) # Change plot sizes (in cm)
 :tags: [remove-input]
 
 # Create a UK plot - code not seen by students
-uk <- st_as_sf(ne_countries(
+uk <- ne_countries(
      country = c('united kingdom', 'ireland'), 
      scale = 'medium', 
-     type='map_units')
-)
+     type='map_units',
+     returnclass='sf')
+
 lat_b <- 50; lat_t <- 61; lon_l <- -11; lon_r <- 2
 lats <- seq(lat_b, lat_t, by=1)
 lons <- seq(lon_l, lon_r, by=1)
@@ -1060,7 +1062,7 @@ Other file formats are increasingly commonly used in place of the shapefile. Arc
 moved towards the personal geodatabase but more portable options are:
 
 - GeoJSON stores the coordinates and attributes in a single text file: it is
-  _technically_ human readable but you have to be familiar with JSON data structures.
+  *technically* human readable but you have to be familiar with JSON data structures.
 - GeoPackage stores vector data in a single SQLite3 database file. There are multiple
   tables inside this file holding various information about the data, but it is very
   portable and in a single file.
@@ -1141,10 +1143,6 @@ and `pal` arguments to get this effect.
 
 ```{code-cell} r
 :tags: [hide-input]
-
-# Generate two stacked plots with narrow margins
-par(mfrow=c(2,1), mar=c(1,1,1,1))
-
 # The first plot is easy
 plot(ne_110['GDP_MD'],  asp=1, main='Global GDP', logz=TRUE, key.pos=4)
 
@@ -1191,7 +1189,7 @@ etopo_25 <- rast('data/etopo_25.tif')
 # Look at the data content
 print(etopo_25)
 # Plot it 
-plot(etopo_25, plg=list(ext=c(190, 200, -90, 90)))
+plot(etopo_25, plg=list(ext=c(190, 210, -90, 90)))
 ```
 
 ```{admonition} Controlling raster plots
@@ -1212,17 +1210,45 @@ Some hints:
 ```
 
 ```{code-cell} r
-:tags: [hide-cell]
+:tags: [remove-input]
 
-bks <- seq(-10000, 6000, by=250)
+# Code that is actually run to generate the plot - the following code-block is not 
+# executed and is used to provide an expandable and annotated help example
+breaks <- seq(-10000, 6000, by=250)
 land_cols  <- terrain.colors(24)
 sea_pal <- colorRampPalette(c('darkslateblue', 'steelblue', 'paleturquoise'))
 sea_cols <- sea_pal(40)
-plot(etopo_25, axes=FALSE, breaks=bks, 
+plot(etopo_25, axes=FALSE, breaks=breaks, 
      col=c(sea_cols, land_cols), type='continuous',  
-     plg=list(ext=c(190, 200, -90, 90))
+     plg=list(ext=c(190, 210, -90, 90))
 ) 
 ```
+
+````{toggle}
+```{code-block} r
+
+# Define a sequence of 65 breakpoints along an elevation gradient from -10 km to 6 km.
+# There are 64 intervals between these breaks and each interval will be assigned a 
+# colour
+breaks <- seq(-10000, 6000, by=250)
+
+# Define 24 land colours for use above sea level (0m)
+land_cols  <- terrain.colors(24)
+
+# Generate a colour palette function for sea colours
+sea_pal <- colorRampPalette(c('darkslateblue', 'steelblue', 'paleturquoise'))
+
+# Create 40 sea colours for use below sea level
+sea_cols <- sea_pal(40)
+
+# Plot the raster providing the breaks and combining the two colour sequences to give 
+# 64 colours that switch from sea to land colour schems at 0m.
+plot(etopo_25, axes=FALSE, breaks=breaks,
+     col=c(sea_cols, land_cols), type='continuous',
+     plg=list(ext=c(190, 200, -90, 90))
+)
+```
+````
 
 ### Raster Stacks
 
@@ -1954,7 +1980,7 @@ st_geometry(villages) <- 'launch_points'
 
 #### Find distances
 
-We will use the `terra::gridDistance` function to calculate distances from a village.
+We will use the `terra::gridDist` function to calculate distances from a village.
 This:
 
 - Calculates distance across a grid to target cells with a particular value,
@@ -1980,7 +2006,7 @@ r[3,3] <- 0     # This is a target cell
 r[4,4] <- NA    # Set one NA cell
 
 # Calculate and plot distances
-d <- gridDistance(r)
+d <- gridDist(r)
 plot(d, legend=NULL)
 text(d, digits=1)
 ```
@@ -2005,7 +2031,7 @@ village_cell <- cellFromXY(dist, st_coordinates(villages[site_idx,]))
 dist[village_cell] <- 0
 
 # Now we can calculate the cost distance for each launch point to each site...
-costs <- gridDistance(dist)
+costs <- gridDist(dist)
 
 plot(costs, plg=list(ext=c(672000, 674000, 7870000, 7940000)))
 plot(st_geometry(villages[site_idx,]), add=TRUE, pch=4)
@@ -2044,7 +2070,7 @@ for (site_idx in seq(nrow(villages))) {
     dist[village_cell] <- 0
 
     # Now we can calculate the cost distance for each launch point to each site...
-    costs <- gridDistance(dist)
+    costs <- gridDist(dist)
     
     # And find the nearest site
     distances_to_site <- extract(costs, sites)

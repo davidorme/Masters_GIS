@@ -7,9 +7,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 # Required packages and data
@@ -31,7 +31,6 @@ install.packages('raster')   # Older raster GIS package required by some package
 install.packages('geodata')  # Data downloader
 
 install.packages('sp')        # Older vector GIS package - replaced by sf in most cases
-install.packages('rgeos')     # Extended vector data functionality
 install.packages('rgdal')     # Interface to the Geospatial Data Abstraction Library
 install.packages('lwgeom')    # Lightweight geometry engine
 ```

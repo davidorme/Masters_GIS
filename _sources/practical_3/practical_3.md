@@ -7,9 +7,9 @@ jupytext:
     format_version: 0.13
     jupytext_version: 1.11.5
 kernelspec:
-  display_name: R 4.2.0
+  display_name: R
   language: R
-  name: ir420
+  name: ir
 ---
 
 # Practical Three: Spatial modelling in R
