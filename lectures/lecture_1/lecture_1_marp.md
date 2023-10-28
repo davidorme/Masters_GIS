@@ -510,8 +510,6 @@ Inflate spherical balloon inside a cylinder coated with glue
 
 # Raster data
 
-<div>
-
 An **image** covering a continuous surface
 
 - Individual **pixels**, each with a **value**
@@ -519,8 +517,6 @@ An **image** covering a continuous surface
   - Continuous: temperature, precipitation
 - Has a **resolution** (pixel size)
 - Needs **origin** and coordinate system
-
-</div>
 
 ----
 
