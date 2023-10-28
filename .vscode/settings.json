@@ -1,0 +1,6 @@
+{
+    "markdown.marp.themes": [
+        "./gaiaplus.scss",
+        "./rosepine.css"
+    ]
+}

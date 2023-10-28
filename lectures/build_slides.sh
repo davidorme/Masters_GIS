@@ -1,5 +1,6 @@
 #!/usr/bin/env bash
 
+# Switch between building all lecture or just named lectures
 if [ $# -eq 0 ]; 
 	then
 		lectures="lecture_*"
@@ -11,23 +12,26 @@ for src in $lectures; do
 	
 	echo $src
 	
+	src_md="${src}_marp.md"
+	src_rmd="${src}_marp.rmd"
+
 	# Knit RMD files
-	if [ -f $src/$src.rmd ]; then
+	if [ -f $src/$src_rmd ]; then
 		# Knit in the source directory to avoid merging cache and figure directories
 		cd $src
 		echo " - Knitting RMD"; 
-		Rscript -e "knitr::knit('$src.rmd', output='$src.md', quiet=TRUE)"
+		Rscript -e "knitr::knit('$src_rmd', output='$src_md', quiet=TRUE)"
 		cd ../
 	fi
 	
-	# Print through reveal-md, using an alternative port in case the default is
-	# already being used to view slides. Have to build from md here, because 
-	# reveal-md only looks for the JSON configs in the calling directory.
-	echo " - Printing MD"; 
-	reveal-md $src/$src.md --css lectures.css --print slides/$src.pdf --port 1947
+
+	# Build PDF and html
+	echo " - Printing MD to PDF"; 
+	npx @marp-team/marp-cli@latest $src/$src_md \
+		--allow-local-files --html --output pdfs/${src}.pdf
+	
+	echo " - Printing MD to HTML"; 
+	npx @marp-team/marp-cli@latest $src/$src_md \
+		--allow-local-files --html --output $src/${src}.html
 	
 done
-
-# Also update the static view
-reveal-md --css lectures.css --static --port 1947
-
