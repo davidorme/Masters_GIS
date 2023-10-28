@@ -34,7 +34,9 @@ style: |
 
 ![bg width:400px](../shared_images/World3D_600.png)
 
-
+```{r setup, echo=FALSE}
+suppressPackageStartupMessages(library(sf))
+```
 
 ---
 
@@ -151,12 +153,49 @@ Many different terms:
 
 # Niche theory
 
+```{r venn_setup, echo=FALSE}
+r <- 1.6
+side <- 2
 
+abiotic <- st_buffer(st_point(c(-side / 2, 0)), r)
+biotic <- st_buffer(st_point(c(side / 2, 0)), r)
+area <- st_buffer(st_point(c(0, -side / 2 * sqrt(3))), r)
+all <- st_sfc(abiotic, biotic, area)
+
+realised <- st_intersection(abiotic, biotic)
+source <- st_intersection(realised, area)
+sink <- st_difference(area, source)
+
+populations <- c(st_sample(source, 10), st_sample(sink, 10))
+pop_type <- rep(c(1, 4), each = 10)
+
+t_col <- function(color, percent = 50, name = NULL) {
+    ## Get RGB values for named color
+    rgb.val <- col2rgb(color)
+
+    ## Make new color using input color as base and alpha set by transparency
+    t.col <- rgb(rgb.val[1], rgb.val[2], rgb.val[3],
+        max = 255,
+        alpha = (100 - percent) * 255 / 100,
+        names = name
+    )
+
+    ## Save the color
+    invisible(t.col)
+}
+```
 
 <div class='columns'>
 <div>
 
-![plot of chunk venn_1](figure/venn_1-1.png)
+```{r venn_1, echo=FALSE}
+par(mar = c(0, 0, 0, 0), xaxs = "i", yaxs = "i")
+plot(all)
+plot(biotic, col = t_col("forestgreen", 50), add = TRUE)
+plot(abiotic, col = t_col("firebrick", 50), add = TRUE)
+plot(area, col = t_col("dodgerblue", 50), add = TRUE)
+plot(all, add = TRUE)
+```
 
 </div>
 <div>
@@ -177,7 +216,15 @@ Many different terms:
 <div class='columns'>
 <div>
 
-![plot of chunk venn_2](figure/venn_2-1.png)
+```{r venn_2, echo=FALSE}
+par(mar = c(0, 0, 0, 0), xaxs = "i", yaxs = "i")
+plot(all)
+plot(biotic, col = t_col("forestgreen", 50), add = TRUE)
+plot(abiotic, col = t_col("firebrick", 50), add = TRUE)
+plot(area, col = t_col("dodgerblue", 50), add = TRUE)
+plot(realised, col = t_col("orange", 20), add = TRUE)
+plot(all, add = TRUE)
+```
 
 </div>
 <div>
@@ -198,7 +245,15 @@ Many different terms:
 <div class='columns'>
 <div>
 
-![plot of chunk venn_3](figure/venn_3-1.png)
+```{r venn_3, echo=FALSE}
+par(mar = c(0, 0, 0, 0), xaxs = "i", yaxs = "i")
+plot(all)
+plot(biotic, col = t_col("forestgreen", 50), add = TRUE)
+plot(abiotic, col = t_col("firebrick", 50), add = TRUE)
+plot(area, col = t_col("dodgerblue", 50), add = TRUE)
+plot(source, col = t_col("orange", 20), add = TRUE)
+plot(all, add = TRUE)
+```
 
 </div>
 <div>
@@ -220,7 +275,16 @@ Many different terms:
 <div class='columns'>
 <div class='col3'>
 
-![plot of chunk venn_4](figure/venn_4-1.png)
+```{r venn_4, echo=FALSE}
+par(mar = c(0, 0, 0, 0), xaxs = "i", yaxs = "i")
+plot(all)
+plot(biotic, col = t_col("forestgreen", 50), add = TRUE)
+plot(abiotic, col = t_col("firebrick", 50), add = TRUE)
+plot(area, col = t_col("dodgerblue", 50), add = TRUE)
+plot(source, col = t_col("orange", 20), add = TRUE)
+plot(populations, pch = pop_type, lwd = 2, col = "black", cex = 3, add = TRUE)
+plot(all, add = TRUE)
+```
 
 </div>
 <div class='col2'>
@@ -249,7 +313,21 @@ Hutchinson (1957)
 </div>
 <div>
 
-![plot of chunk hutch](figure/hutch-1.png)
+```{r hutch, echo=FALSE}
+par(mar = c(2, 2, 0.1, 0.1), cex = 2.5, mgp = c(1, 0, 0))
+circ <- st_buffer(st_point(c(0, 0)), 5)
+rot <- function(a) matrix(c(cos(a), sin(a), -sin(a), cos(a)), 2, 2)
+potential <- circ * c(1, 0.6) * rot(-pi / 4)
+realised <- circ * c(0.25, 0.5) * rot(-pi / 2.3) + c(1.5, 2)
+
+
+plot(potential, xlab = "Temperature", ylab = "Precipitation", col = "dodgerblue")
+plot(realised, col = "forestgreen", add = TRUE)
+box()
+
+text(st_coordinates(st_centroid(potential)) - c(1, 1), "Potential\nniche")
+text(st_coordinates(st_centroid(realised)), "Realised\nniche")
+```
 
 </div>
 </div>
