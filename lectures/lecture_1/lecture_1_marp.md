@@ -176,8 +176,6 @@ Notes:
 - The Earth is not a sphere (~ 1 in 298 flattening)
 - There are **many** reference ellipsoids or datums.
 
-<div class='vs'></div>
-
 | Name | r<sub>equator</sub> (m)  | r<sub>poles</sub> (m)  |
 |--- |---: |---: |
 | Airy 1830 | 6,377,563.4 | 6,356,256.91 |

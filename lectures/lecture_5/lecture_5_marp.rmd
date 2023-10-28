@@ -438,7 +438,6 @@ Global Moran's I
 * I = `r sprintf('%0.3f', globalMoranRich$estimate[1])`
 * p << 0.001
 
-<div class='vs'></div>
 
 Global Geary's C 
 
@@ -484,7 +483,6 @@ Global Moran's I
 * I = `r sprintf('%0.3f', globalMoranRandRich$estimate[1])`
 * p =  `r sprintf('%0.3f', globalMoranRandRich$p)`
 
-<div class='vs'></div>
 
 Global Geary's C 
 

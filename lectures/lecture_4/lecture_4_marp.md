@@ -34,6 +34,8 @@ style: |
 
 ![bg width:400px](../shared_images/World3D_600.png)
 
+
+
 ---
 
 # Overview
@@ -61,6 +63,8 @@ Zoom in on just two of those categories:
 
 Model predicts: Is this evergreen forest needleleaf or broadleaf
 
+
+
 ----
 
 # Accuracy
@@ -72,6 +76,7 @@ Easy to calculate **accuracy**:
 </div>
 
 <div class="vs"></div>
+
 
 <table>
  <thead>
@@ -118,6 +123,7 @@ But **random** models have ~50% accuracy!
 
 <div class="vs"></div>
 
+
 <table>
  <thead>
   <tr>
@@ -130,26 +136,26 @@ But **random** models have ~50% accuracy!
 <tbody>
   <tr>
    <td style="text-align:left;"> Obs. Needle </td>
-   <td style="text-align:right;"> 759 </td>
-   <td style="text-align:right;"> 743 </td>
+   <td style="text-align:right;"> 734 </td>
+   <td style="text-align:right;"> 768 </td>
    <td style="text-align:right;"> 1502 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Obs. Broad </td>
-   <td style="text-align:right;"> 2460 </td>
-   <td style="text-align:right;"> 2460 </td>
+   <td style="text-align:right;"> 2502 </td>
+   <td style="text-align:right;"> 2418 </td>
    <td style="text-align:right;"> 4920 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Sum </td>
-   <td style="text-align:right;"> 3219 </td>
-   <td style="text-align:right;"> 3203 </td>
+   <td style="text-align:right;"> 3236 </td>
+   <td style="text-align:right;"> 3186 </td>
    <td style="text-align:right;"> 6422 </td>
   </tr>
 </tbody>
 </table>
 
-$$A = \frac{759 + 2460}{6422} = 50.1\%$$
+$$A = \frac{734 + 2418}{6422} = 49.1\%$$
 
 ----
 
@@ -162,6 +168,7 @@ Bad models: **everything is a broadleaf**
 </div>
 
 <div class="vs"></div>
+
 
 <table>
  <thead>
@@ -201,6 +208,7 @@ $$A = \frac{0 + 4920}{6422} = 76.6\%$$
 # Prevalence
 
 Proportion of the observed positive outcomes
+
 
 <table>
  <thead>
@@ -244,6 +252,7 @@ Switching to POS NEG
 # Accuracy
 
 And **accuracy is affected by prevalence**
+
 
 <table>
  <thead>
@@ -391,6 +400,7 @@ Calculate those values:
 
 # Sensitivity and Specificity
 
+
 <table>
  <thead>
   <tr>
@@ -421,6 +431,7 @@ Calculate those values:
   </tr>
 </tbody>
 </table>
+
 
 <table>
  <thead>
@@ -565,6 +576,8 @@ $$
 
 <!-- Simulation of thresholding -->
   
+
+
 ----
 
 # Wait, no. Not TSS
@@ -581,8 +594,10 @@ TSS not useful when low prevalence and  large numbers (SDMs!)
 
 # Probabilistic classification
 
+
 <div class='columns21'>
 <div>
+
 
 ![](figure/threshold-1.png)
 
@@ -617,12 +632,12 @@ A model predicting the probability of presence
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 59 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 41 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
@@ -680,13 +695,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 44 </td>
-   <td style="text-align:right;"> 0 </td>
+   <td style="text-align:right;"> 58 </td>
+   <td style="text-align:right;"> 1 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 26 </td>
-   <td style="text-align:right;"> 30 </td>
+   <td style="text-align:right;"> 20 </td>
+   <td style="text-align:right;"> 21 </td>
   </tr>
 </tbody>
 </table>
@@ -700,15 +715,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 1.000 </td>
+   <td style="text-align:right;"> 0.983 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 0.536 </td>
+   <td style="text-align:right;"> 0.512 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.536 </td>
+   <td style="text-align:right;"> 0.495 </td>
   </tr>
 </tbody>
 </table>
@@ -739,13 +754,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 38 </td>
-   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 50 </td>
+   <td style="text-align:right;"> 9 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 5 </td>
-   <td style="text-align:right;"> 51 </td>
+   <td style="text-align:right;"> 2 </td>
+   <td style="text-align:right;"> 39 </td>
   </tr>
 </tbody>
 </table>
@@ -759,15 +774,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.864 </td>
+   <td style="text-align:right;"> 0.847 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 0.911 </td>
+   <td style="text-align:right;"> 0.951 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.774 </td>
+   <td style="text-align:right;"> 0.799 </td>
   </tr>
 </tbody>
 </table>
@@ -798,13 +813,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 22 </td>
-   <td style="text-align:right;"> 22 </td>
+   <td style="text-align:right;"> 26 </td>
+   <td style="text-align:right;"> 33 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 41 </td>
   </tr>
 </tbody>
 </table>
@@ -818,15 +833,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 0.441 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 1.0 </td>
+   <td style="text-align:right;"> 1.000 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.5 </td>
+   <td style="text-align:right;"> 0.441 </td>
   </tr>
 </tbody>
 </table>
@@ -858,12 +873,12 @@ Switched column orders to match graph.
   <tr>
    <td style="text-align:left;"> Ob + </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 59 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 56 </td>
+   <td style="text-align:right;"> 41 </td>
   </tr>
 </tbody>
 </table>
@@ -892,6 +907,8 @@ Switched column orders to match graph.
 
 </div>
 </div>
+
+
 
 ----
 
@@ -933,6 +950,8 @@ Switched column orders to match graph.
 
 <!-- SDM actual example  -->
 
+
+
 ---
 
 # Species Distribution Models
@@ -969,6 +988,8 @@ Kinkajou (*Potos flavus*)
 </div>
 </div>
 
+
+
 ----
 
 # Species Distribution Models
@@ -980,6 +1001,7 @@ Kinkajou (*Potos flavus*)
 
 </div>
 <div>
+
 
 <table>
  <thead>
@@ -1039,6 +1061,7 @@ Kinkajou (*Potos flavus*)
 </div>
 <div>
 
+
 <table>
  <thead>
   <tr>
@@ -1097,6 +1120,7 @@ Kinkajou (*Potos flavus*)
 </div>
 <div>
 
+
 <table>
  <thead>
   <tr>
@@ -1143,6 +1167,8 @@ Kinkajou (*Potos flavus*)
 </div>
 </div>
 
+
+
 ----
 
 # AUC for the Kinkajou
@@ -1171,6 +1197,7 @@ Maximum sensitivity + specificity shown in red.
 
 </div>
 <div>
+
 
 <table>
  <thead>
