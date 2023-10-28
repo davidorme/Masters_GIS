@@ -4,6 +4,9 @@ title: Spatial modelling
 author: David Orme
 theme: gaia
 style: |
+  .section {
+    padding: 40px;
+  }
   .columns {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -59,10 +62,10 @@ style: |
 
 # Spatial modelling tools
 
-* The examples presented here use R
-* Another excellent program with a nice GUI interface:
-    * Spatial Analysis in Macroecology
-    * http://www.ecoevol.ufg.br/sam/
+- The examples presented here use R
+- Another excellent program with a nice GUI interface:
+    - Spatial Analysis in Macroecology
+    - http://www.ecoevol.ufg.br/sam/
 
 <center>
 
@@ -74,10 +77,10 @@ style: |
 
 # Overview
 
-* Example data: Afrotropical bird diversity
-* Naive models
-* Describing spatial autocorrelation
-* Accounting for spatial autocorrelation
+- Example data: Afrotropical bird diversity
+- Naive models
+- Describing spatial autocorrelation
+- Accounting for spatial autocorrelation
 
 
 
@@ -163,8 +166,8 @@ OK - so what is the problem?
 
 All cells within one step: 
 
-* vertically or
-* horizontally
+- vertically or
+- horizontally
 
 </div>
 </div>
@@ -191,9 +194,9 @@ Bit different for polygons, shared edges etc. but similar concepts
 
 All cells within one step:
 
-* vertically,
-* horizontally or
-* diagonally
+- vertically,
+- horizontally or
+- diagonally
 
 </div>
 </div>
@@ -216,7 +219,7 @@ All cells within one step:
 
 All cells within:
 
-* 2.4 units
+- 2.4 units
 
 </div>
 </div>
@@ -258,15 +261,14 @@ The closest _k_ cells
 
 Global Moran's I 
 
-* I = 0.922
-* p << 0.001
+- I = 0.922
+- p << 0.001
 
-<div class='vs'></div>
 
 Global Geary's C 
 
-* C = 0.070
-* p << 0.001
+- C = 0.070
+- p << 0.001
 
 </div>
 </div>
@@ -295,15 +297,14 @@ Point close together are similar
 
 Global Moran's I
 
-* I = -0.003
-* p =  0.607
+- I = -0.001
+- p =  0.522
 
-<div class='vs'></div>
 
 Global Geary's C 
 
-* C = 1.002
-* p =  0.577
+- C = 0.999
+- p =  0.460
 
 </div>
 </div>
@@ -327,11 +328,11 @@ Not a monotonic process - will return to this later
 
 # Effects of Spatial Autocorrelation
  
-* Data points **not independent**
-* Degrees of freedom reduced: 
-    * **standard errors and significance testing affected**
-* Not equally weighted :
-    * **parameter estimation affected**
+- Data points **not independent**
+- Degrees of freedom reduced: 
+    - **standard errors and significance testing affected**
+- Not equally weighted :
+    - **parameter estimation affected**
 
 <!--
 Degrees of freedom - tends to bias towards finding significance
@@ -342,12 +343,12 @@ Parameters - can affect estimates in unpredictable ways
 
 # Dealing with Spatial Autocorrelation
 
-* Modify the degrees of freedom in significance testing
-* Account for autocorrelation in models:
-    * Simultaneous autoregressive models
-    * Generalised least squares
-    * Eigenvector filtering
-    * Geographically weighted regression
+- Modify the degrees of freedom in significance testing
+- Account for autocorrelation in models:
+    - Simultaneous autoregressive models
+    - Generalised least squares
+    - Eigenvector filtering
+    - Geographically weighted regression
 
 ----
 
@@ -507,8 +508,8 @@ Variograms
 </div>
 <div>
 
-* Model variance as a function of **distance** 
-* Generate a covariance **matrix**
+- Model variance as a function of **distance** 
+- Generate a covariance **matrix**
 
 </div>
 </div>
@@ -541,12 +542,12 @@ Wider range of variance modelling
 </div>
 <div>
 
-* Different shapes:
-    * Exponential
-    * Spherical
-    * Linear
+- Different shapes:
+    - Exponential
+    - Spherical
+    - Linear
 
-* Parameters
+- Parameters
 
 </div>
 </div>
@@ -599,28 +600,28 @@ Degrees of freedom: 2484 total; 2480 residual
 	
 Is the same process happening in:
 
-* different locations (stationarity)?
-* different directions (isotropy)?
+- different locations (stationarity)?
+- different directions (isotropy)?
 
 Is the problem in:
 
-* the spatial structure of autocorrelation?
-* differences in the actual relationship?
+- the spatial structure of autocorrelation?
+- differences in the actual relationship?
 
 ----
 
 # Eigenvector filtering
 
-* Take the **eigendecomposition** of a spatial weights model
-* Use the  **eigenvectors** as variables in the model
-* Use a selection process to identify and include only important eigenvectors
+- Take the **eigendecomposition** of a spatial weights model
+- Use the  **eigenvectors** as variables in the model
+- Use a selection process to identify and include only important eigenvectors
 
 <!--
-* Identical process to principal component analysis
-* Eigenvectors identify independent axes of variation in the model
-* Separate out aspects of autocorrelation
-* Tailor the autocorrelation
-* Each eigenvector soaks up a residual degree of freedom
+- Identical process to principal component analysis
+- Eigenvectors identify independent axes of variation in the model
+- Separate out aspects of autocorrelation
+- Tailor the autocorrelation
+- Each eigenvector soaks up a residual degree of freedom
 -->
 
 ----
@@ -637,8 +638,8 @@ Is the problem in:
 </div>
 <div>
 
-* First four eigenvector filters
-* Independent components of spatial patterning 
+- First four eigenvector filters
+- Independent components of spatial patterning 
 
 </div>
 </div>
@@ -700,7 +701,7 @@ First four eigenvectors
 # Eigenvector filtering
 
 
-`lm(Rich ~ ... + MeanElev + Re(spEV1) + Re(spEV2) + Re(spEV3)`
+`lm(Rich ~ ...  + Re(spEV1) + Re(spEV2) + Re(spEV3)`
 
 
 <small>
@@ -724,10 +725,10 @@ First four eigenvectors
 
 Fit a model for **every cell**:
 
-* Define a local **region size** and a **weighting function**
-* Fit a weighted regression for each cell using the weights
-* Look at how coefficients **vary in space**
-* Possibly serious statistical issues!
+- Define a local **region size** and a **weighting function**
+- Fit a weighted regression for each cell using the weights
+- Look at how coefficients **vary in space**
+- Possibly serious statistical issues!
 
 ----
 
@@ -762,8 +763,8 @@ Not fitting a single regression - fitting 2484 regressions - but they are simple
 </div>
 <div>
 
-* Local $r^2$ values
-* Variation in the explanatory power of the model
+- Local $r^2$ values
+- Variation in the explanatory power of the model
 
 </div>
 </div>
@@ -772,9 +773,9 @@ Not fitting a single regression - fitting 2484 regressions - but they are simple
 
 # Problems
 
-* Profusion of packages: sf, sp, spdep, mgcv, ncf, gstat, nlme, spgwr
-* Different data structures
-* Sometimes poor documentation
-* Speed of calculation (= size of dataset)
-* Memory hungry
-* Too many options
+- Profusion of packages: sf, sp, spdep, mgcv, ncf, gstat, nlme, spgwr
+- Different data structures
+- Sometimes poor documentation
+- Speed of calculation (= size of dataset)
+- Memory hungry
+- Too many options

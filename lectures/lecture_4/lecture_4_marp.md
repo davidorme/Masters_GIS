@@ -40,10 +40,10 @@ style: |
 
 # Overview
 
-* The confusion matrix
-* Measures of model accuracy
-* Thresholds for continuous predictions
-* Application to Species Distribution Models
+- The confusion matrix
+- Measures of model accuracy
+- Thresholds for continuous predictions
+- Application to Species Distribution Models
 
 ---
 
@@ -136,26 +136,26 @@ But **random** models have ~50% accuracy!
 <tbody>
   <tr>
    <td style="text-align:left;"> Obs. Needle </td>
-   <td style="text-align:right;"> 734 </td>
-   <td style="text-align:right;"> 768 </td>
+   <td style="text-align:right;"> 752 </td>
+   <td style="text-align:right;"> 750 </td>
    <td style="text-align:right;"> 1502 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Obs. Broad </td>
-   <td style="text-align:right;"> 2502 </td>
-   <td style="text-align:right;"> 2418 </td>
+   <td style="text-align:right;"> 2479 </td>
+   <td style="text-align:right;"> 2441 </td>
    <td style="text-align:right;"> 4920 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Sum </td>
-   <td style="text-align:right;"> 3236 </td>
-   <td style="text-align:right;"> 3186 </td>
+   <td style="text-align:right;"> 3231 </td>
+   <td style="text-align:right;"> 3191 </td>
    <td style="text-align:right;"> 6422 </td>
   </tr>
 </tbody>
 </table>
 
-$$A = \frac{734 + 2418}{6422} = 49.1\%$$
+$$A = \frac{752 + 2441}{6422} = 49.7\%$$
 
 ----
 
@@ -388,13 +388,13 @@ Calculate those values:
 
 **Sensitivity**
 
-* Another name for the True Positive Rate
-* The proportion of correctly predicted positive observations
+- Another name for the True Positive Rate
+- The proportion of correctly predicted positive observations
 
 **Specificity**
 
-* Another name for the True Negative Rate
-* The proportion of correctly predicted negative observations
+- Another name for the True Negative Rate
+- The proportion of correctly predicted negative observations
 
 ----
 
@@ -569,10 +569,10 @@ $$
 \mbox{TSS} = [0, 1] + [0, 1] - 1
 $$
 
-* TSS = 1 (perfect)
-* TSS = 0 (random)
-* TSS = -1 (always wrong)
-* Unaffected by prevalence.
+- TSS = 1 (perfect)
+- TSS = 0 (random)
+- TSS = -1 (always wrong)
+- Unaffected by prevalence.
 
 <!-- Simulation of thresholding -->
   
@@ -587,8 +587,8 @@ $$
 <!--
 TSS not useful when low prevalence and  large numbers (SDMs!)
 
-* Odds Ratio Skill Score (ORSS)
-* Symmetric Extremal Dependence Index (SEDI)
+- Odds Ratio Skill Score (ORSS)
+- Symmetric Extremal Dependence Index (SEDI)
 -->
 ---
 
@@ -632,12 +632,12 @@ A model predicting the probability of presence
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 59 </td>
+   <td style="text-align:right;"> 54 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 46 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
@@ -695,13 +695,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 58 </td>
-   <td style="text-align:right;"> 1 </td>
+   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 20 </td>
    <td style="text-align:right;"> 21 </td>
+   <td style="text-align:right;"> 25 </td>
   </tr>
 </tbody>
 </table>
@@ -715,15 +715,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.983 </td>
+   <td style="text-align:right;"> 1.000 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 0.512 </td>
+   <td style="text-align:right;"> 0.543 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.495 </td>
+   <td style="text-align:right;"> 0.543 </td>
   </tr>
 </tbody>
 </table>
@@ -754,13 +754,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 50 </td>
-   <td style="text-align:right;"> 9 </td>
+   <td style="text-align:right;"> 47 </td>
+   <td style="text-align:right;"> 7 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 39 </td>
+   <td style="text-align:right;"> 44 </td>
   </tr>
 </tbody>
 </table>
@@ -774,15 +774,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.847 </td>
+   <td style="text-align:right;"> 0.870 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 0.951 </td>
+   <td style="text-align:right;"> 0.957 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.799 </td>
+   <td style="text-align:right;"> 0.827 </td>
   </tr>
 </tbody>
 </table>
@@ -813,13 +813,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 26 </td>
-   <td style="text-align:right;"> 33 </td>
+   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 29 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 46 </td>
   </tr>
 </tbody>
 </table>
@@ -833,7 +833,7 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.441 </td>
+   <td style="text-align:right;"> 0.463 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
@@ -841,7 +841,7 @@ Switched column orders to match graph.
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.441 </td>
+   <td style="text-align:right;"> 0.463 </td>
   </tr>
 </tbody>
 </table>
@@ -873,12 +873,12 @@ Switched column orders to match graph.
   <tr>
    <td style="text-align:left;"> Ob + </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 59 </td>
+   <td style="text-align:right;"> 54 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 41 </td>
+   <td style="text-align:right;"> 46 </td>
   </tr>
 </tbody>
 </table>
@@ -922,8 +922,8 @@ Switched column orders to match graph.
 </div>
 <div>
 
-* Receiver operating characteristic (ROC)
-* A random model gives the red line
+- Receiver operating characteristic (ROC)
+- A random model gives the red line
 
 </div>
 </div>
@@ -940,10 +940,10 @@ Switched column orders to match graph.
 </div>
 <div>
 
-* Called AUC or AUROC
-* AUC varies between 0 and 1
-* AUC = 0.5 is random
-* Threshold independent measure of overall model performance
+- Called AUC or AUROC
+- AUC varies between 0 and 1
+- AUC = 0.5 is random
+- Threshold independent measure of overall model performance
 
 </div>
 </div>

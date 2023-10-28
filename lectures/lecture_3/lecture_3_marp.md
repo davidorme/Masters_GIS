@@ -40,12 +40,12 @@ style: |
 
 # Outline
 
-* <span style='color:firebrick'>Introduction</span>
-* Process overview
-* Theoretical framework
-* Applications
-* Assessing predictive performance
-* Concerns and future directions
+- <span style='color:firebrick'>Introduction</span>
+- Process overview
+- Theoretical framework
+- Applications
+- Assessing predictive performance
+- Concerns and future directions
 
 ----
 
@@ -87,29 +87,29 @@ only 79 between 1999 and 2004.
 
 Many different terms:
 
-* Species Distribution Modelling
-* Climate Envelope Modelling
-* Bioclimate Envelope Modelling
-* Habitat Distribution Modelling
-* Niche Modelling
+- Species Distribution Modelling
+- Climate Envelope Modelling
+- Bioclimate Envelope Modelling
+- Habitat Distribution Modelling
+- Niche Modelling
 
 ---
 
 # Outline
 
-* Introduction
-* <span style='color:firebrick'>Process overview</span>
-* Theoretical framework
-* Applications
-* Assessing predictive performance
-* Concerns and future directions
+- Introduction
+- <span style='color:firebrick'>Process overview</span>
+- Theoretical framework
+- Applications
+- Assessing predictive performance
+- Concerns and future directions
 
 ----
 
 # What are species distribution models?
 
-* Interpolating biological survey data in space
-* Quantitative predictive models of species / environment relationships
+- Interpolating biological survey data in space
+- Quantitative predictive models of species / environment relationships
 
 ![Elith Ea 2009 1](images/elith_ea_2009-1.png)
 
@@ -119,33 +119,33 @@ Many different terms:
 
 # Overview of SDM process
 
-* **Data** on species occurrence in geographical space
-* **Maps** of environmental data
-* A **model** to link occurrence data to the environmental variables
-* A **GIS** with which to produce a map of predicted species occurrence
-* A way to **validate** the predictions
+- **Data** on species occurrence in geographical space
+- **Maps** of environmental data
+- A **model** to link occurrence data to the environmental variables
+- A **GIS** with which to produce a map of predicted species occurrence
+- A way to **validate** the predictions
 
 ----
 
 # Why?
 
-* To **understand** species distributions
-* To **predict** the occurrence of a species for locations where good survey data are lacking
-  * Guide for field surveys
-  * Assess climate change impacts
-  * Predict invasive species spread
-  * Inform reserve selection
+- To **understand** species distributions
+- To **predict** the occurrence of a species for locations where good survey data are lacking
+    - Guide for field surveys
+    - Assess climate change impacts
+    - Predict invasive species spread
+    - Inform reserve selection
 
 ---
 
 # Outline
 
-* Introduction
-* Process overview
-* <span style='color:firebrick'>Theoretical framework</span>
-* Applications
-* Assessing predictive performance
-* Concerns and future directions
+- Introduction
+- Process overview
+- <span style='color:firebrick'>Theoretical framework</span>
+- Applications
+- Assessing predictive performance
+- Concerns and future directions
 
 ----
 
@@ -161,9 +161,9 @@ Many different terms:
 </div>
 <div>
 
-* <span style='color:forestgreen'>Abiotic</span>
-* <span style='color:firebrick'>Biotic</span>
-* <span style='color:dodgerblue'>Accessible area</span>
+- <span style='color:forestgreen'>Abiotic</span>
+- <span style='color:firebrick'>Biotic</span>
+- <span style='color:dodgerblue'>Accessible area</span>
 
 <small>Soberón & Peterson (2005)</small>
 
@@ -182,10 +182,10 @@ Many different terms:
 </div>
 <div>
 
-* <span style='color:forestgreen'>Abiotic</span>
-* <span style='color:firebrick'>Biotic</span>
-* <span style='color:dodgerblue'>Accessible area</span>
-* <span style='color:orange'>**Potential niche**</span>: both biotic and abiotic suitability
+- <span style='color:forestgreen'>Abiotic</span>
+- <span style='color:firebrick'>Biotic</span>
+- <span style='color:dodgerblue'>Accessible area</span>
+- <span style='color:orange'>**Potential niche**</span>: both biotic and abiotic suitability
 
 <small>Soberón & Peterson (2005)</small>
 </div>
@@ -203,10 +203,10 @@ Many different terms:
 </div>
 <div>
 
-* <span style='color:forestgreen'>Abiotic</span>
-* <span style='color:firebrick'>Biotic</span>
-* <span style='color:dodgerblue'>Accessible area</span>
-* <span style='color:orange'>**Realised niche**</span>: accessible and in potential niche
+- <span style='color:forestgreen'>Abiotic</span>
+- <span style='color:firebrick'>Biotic</span>
+- <span style='color:dodgerblue'>Accessible area</span>
+- <span style='color:orange'>**Realised niche**</span>: accessible and in potential niche
 
 <small>Soberón & Peterson (2005)</small>
 
@@ -225,10 +225,10 @@ Many different terms:
 </div>
 <div class='col2'>
 
-* <span style='color:forestgreen'>Abiotic</span>
-* <span style='color:firebrick'>Biotic</span>
-* <span style='color:dodgerblue'>Accessible area</span>
-* <span style='color:orange'>**Populations**</span>: can be both source (o) and sink (x)
+- <span style='color:forestgreen'>Abiotic</span>
+- <span style='color:firebrick'>Biotic</span>
+- <span style='color:dodgerblue'>Accessible area</span>
+- <span style='color:orange'>**Populations**</span>: can be both source (o) and sink (x)
 
 <small>Soberón & Peterson (2005)</small>
 
@@ -329,9 +329,9 @@ ENFA: Ecological niche factor analysis
 
 Species Distribution Models:
 
-* identify areas in a landscape,
-* that have similar environments to localities,
-* where the species has been observed.
+- identify areas in a landscape,
+- that have similar environments to localities,
+- where the species has been observed.
 
 **That's it!**
 
@@ -341,12 +341,12 @@ However, this information can be extremely useful in a wide range of application
 
 # Outline
 
-* Introduction
-* Process overview
-* Theoretical framework
-* <span style="color:firebrick">Applications</span>
-* Assessing predictive performance
-* Concerns and future directions
+- Introduction
+- Process overview
+- Theoretical framework
+- <span style="color:firebrick">Applications</span>
+- Assessing predictive performance
+- Concerns and future directions
 
 ----
 
@@ -491,12 +491,12 @@ Greening of the Arctic
 
 # Outline
 
-* Introduction
-* Process overview
-* Theoretical framework
-* Applications
-* <span style='color:firebrick'>Assessing predictive performance</span>
-* Concerns and future directions
+- Introduction
+- Process overview
+- Theoretical framework
+- Applications
+- <span style='color:firebrick'>Assessing predictive performance</span>
+- Concerns and future directions
 
 ----
 
@@ -588,12 +588,12 @@ Greening of the Arctic
 
 # Outline
 
-* Introduction
-* Process overview
-* Theoretical framework
-* Applications
-* Assessing predictive performance
-* <span style='color:firebrick'>Concerns and future directions</span>
+- Introduction
+- Process overview
+- Theoretical framework
+- Applications
+- Assessing predictive performance
+- <span style='color:firebrick'>Concerns and future directions</span>
 
 ----
 
@@ -605,8 +605,8 @@ Greening of the Arctic
 
 ## Explain vs. Predict
 
-* Occam’s razor: prefer a simple good explanation (model simplification)
-* Prediction: prefer the best explanation even if elements are minor or unclear. Unavoidable with some methods.
+- Occam’s razor: prefer a simple good explanation (model simplification)
+- Prediction: prefer the best explanation even if elements are minor or unclear. Unavoidable with some methods.
 
 ![Parametric](images/parametric.png)
 
@@ -668,14 +668,14 @@ Universal and no dispersal scenarios
 
 **Assumptions**
 
-* Appropriate data exist at a relevant scale
-* Species are at equilibrium with their environment...
+- Appropriate data exist at a relevant scale
+- Species are at equilibrium with their environment...
 
 **Warnings**
 
-* Garbage in, garbage out
-* Model extrapolation in time or space  (transferability)
-* The lure of complicated technology
+- Garbage in, garbage out
+- Model extrapolation in time or space  (transferability)
+- The lure of complicated technology
 
 </div>
 
@@ -694,9 +694,9 @@ Thermal tolerances of Liolaemus from a logistic SDM and from lab data.
 
 # Future directions
 
-* Incorporating **dispersal**
-* Incorporating **biotic** interactions
-* More **mechanistic** models
+- Incorporating **dispersal**
+- Incorporating **biotic** interactions
+- More **mechanistic** models
 
 ----
 
@@ -733,10 +733,10 @@ Blangiardo et al 2013  Spatial and spatio-temporal models with R-INLA. _Spatial 
 
 <small>
 
-* Franklin, J. (2009) Mapping species distributions: spatial inference and prediction Cambridge, Cambridge University Press.
-* Guisan, A., and N. E. Zimmermann. (2000) Predictive habitat distribution models in ecology. Ecological Modelling,135:147-186.
-* Elith J, Graham CH: (2009) Do they? How do they? WHY do they differ? On finding reasons for differing performances of species distribution models. Ecography, 32:66–77.
-* Beale, C.M. and Lennon, J.K. (2012) Incorporating uncertainty in predictive distribution modelling. Phil Trans R. Soc. B 367:247-258
+- Franklin, J. (2009) Mapping species distributions: spatial inference and prediction Cambridge, Cambridge University Press.
+- Guisan, A., and N. E. Zimmermann. (2000) Predictive habitat distribution models in ecology. Ecological Modelling,135:147-186.
+- Elith J, Graham CH: (2009) Do they? How do they? WHY do they differ? On finding reasons for differing performances of species distribution models. Ecography, 32:66–77.
+- Beale, C.M. and Lennon, J.K. (2012) Incorporating uncertainty in predictive distribution modelling. Phil Trans R. Soc. B 367:247-258
 
 </small>
 
@@ -746,15 +746,15 @@ Blangiardo et al 2013  Spatial and spatio-temporal models with R-INLA. _Spatial 
 
 <small>
 
-* Singh, N.J, Yoccoz, N.G., Bhatnagar, Y.V., Fox, J.L. (2009) Using habitat suitability models to sample rare species in high-altitude ecosystems: A case study with Tibetan argali. Biodiversity and Conservation, 18: 2893-2908.
+- Singh, N.J, Yoccoz, N.G., Bhatnagar, Y.V., Fox, J.L. (2009) Using habitat suitability models to sample rare species in high-altitude ecosystems: A case study with Tibetan argali. Biodiversity and Conservation, 18: 2893-2908.
 
-* Nogués-Bravo D., Rodríguez J., Hortal J., Batra P., Araújo M. B. (2008) Climate change, humans, and the extinction of the woolly mammoth. PLoS Biol, 6, e79.
+- Nogués-Bravo D., Rodríguez J., Hortal J., Batra P., Araújo M. B. (2008) Climate change, humans, and the extinction of the woolly mammoth. PLoS Biol, 6, e79.
 
-* Thomas, C. D., A. Cameron, R. E. Green, M. Bakkenes, L. J. Beaumont, Y. C. Collingham, B. F. N. Erasmus et al. (2004.) Extinction risk from climate change. Nature 427:145-148.
+- Thomas, C. D., A. Cameron, R. E. Green, M. Bakkenes, L. J. Beaumont, Y. C. Collingham, B. F. N. Erasmus et al. (2004.) Extinction risk from climate change. Nature 427:145-148.
 
-* Smolik, M. G., S. Dullinger, F. Essl, I. Kleinbauer, M. Leitner, J. Peterseil, L.-M. Stadler et al. (2009). Integrating species distribution models and interacting particle systems to predict the spread of an invasive alien plant. Journal of Biogeography 37:411-422.
+- Smolik, M. G., S. Dullinger, F. Essl, I. Kleinbauer, M. Leitner, J. Peterseil, L.-M. Stadler et al. (2009). Integrating species distribution models and interacting particle systems to predict the spread of an invasive alien plant. Journal of Biogeography 37:411-422.
 
-* Raxworthy, C.J., Martinez-Meyer, E., Horning, N., Nussbaum, R.A., Schneider, G.E., Ortega-Huerta, A., and Peterson, A.T. (2003). Predicting distributions of known and unknown reptiles species in Madagascar. Nature. 426: 837-841.
+- Raxworthy, C.J., Martinez-Meyer, E., Horning, N., Nussbaum, R.A., Schneider, G.E., Ortega-Huerta, A., and Peterson, A.T. (2003). Predicting distributions of known and unknown reptiles species in Madagascar. Nature. 426: 837-841.
 
 </small>
 
@@ -764,9 +764,9 @@ Blangiardo et al 2013  Spatial and spatio-temporal models with R-INLA. _Spatial 
 
 <small>
 
-* Guisan, A., T. C. Edwards, and T. Hastie. 2002. Generalized linear and generalized additive models in studies of species distributions: setting the scene. Ecological Modelling 157:89-100
-* Thuiller, W., B. Laforcade, R. Engler, and M. B. Araújo. 2009. BIOMOD - a platform for ensemble forecasting of species distributions. Ecography 32:369 - 373.
-* Elith, J., J. R. Leathwick, and T. Hastie. 2008. A working guide to boosted regression trees. Journal of Animal Ecology 77:802-813.
-* Phillips, S. J., R. P. Anderson, and R. E. Schapire. 2006. Maximum entropy modeling of species geographic distributions. Ecological Modelling 190:231-259.
+- Guisan, A., T. C. Edwards, and T. Hastie. 2002. Generalized linear and generalized additive models in studies of species distributions: setting the scene. Ecological Modelling 157:89-100
+- Thuiller, W., B. Laforcade, R. Engler, and M. B. Araújo. 2009. BIOMOD - a platform for ensemble forecasting of species distributions. Ecography 32:369 - 373.
+- Elith, J., J. R. Leathwick, and T. Hastie. 2008. A working guide to boosted regression trees. Journal of Animal Ecology 77:802-813.
+- Phillips, S. J., R. P. Anderson, and R. E. Schapire. 2006. Maximum entropy modeling of species geographic distributions. Ecological Modelling 190:231-259.
 
 </small>
