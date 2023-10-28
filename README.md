@@ -41,24 +41,33 @@ Rscript -e "knitr::knit('lecture_5.rmd')"
 
 ### Layout
 
-Markdown is not about layout, so the MARP  framework uses HTML and CSS to position
-elements on the slide. At present, each lecture includes some basic styling classes in
-their YAML headers - these should probably be consolidated into a single theme file.
+Markdown is not about layout, so the MARP framework uses HTML and CSS to position
+elements on the slide. MARP provides some default themes that contain the CSS to define
+layouts: these lectures use a locally defined modification of the `gaia` theme called
+`gaia-local` that is defined in the file `gaia_local.css`. This theme is registered for
+use with the VS Code plugin in the `.vscode/settings.json` file.
 
 ### Exporting lectures
 
 The VS Code plugin provides an export button to generate PDF and HTML files.
 Alternatively, the MARP framework can be run from the command line: this requires the
 use of the Node framework and specifically the `npx` (node package execute) command.
+Note that although the theme is registered for use by the VS Code plugin, it needs to be
+explicitly added to `npx` calls.
 
 ```sh
-npx @marp-team/marp-cli@latest lecture_1/lecture_1_marp.md --allow-local-files --pdf 
+npx @marp-team/marp-cli@latest lecture_1/lecture_1_marp.md \
+  --theme gaia_local.css \
+  --allow-local-files --html --output pdfs/lecture_1.pdf
 ```
 
-You can also create a static HTML page:
+You can also create a static HTML page. Note that this **must** stay in the same
+directory as the original markdown source because it will use the same paths to images.
 
 ```bash
-npx @marp-team/marp-cli@latest lecture_1/lecture_1_marp.md --allow-local-files --html
+npx @marp-team/marp-cli@latest lecture_1/lecture_1_marp.md \
+  --theme gaia_local.css \
+  --allow-local-files --html --output lecture_1/lecture_1.html
 ```
 
 ### Build script

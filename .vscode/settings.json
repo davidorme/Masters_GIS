@@ -1,6 +1,5 @@
 {
     "markdown.marp.themes": [
-        "./gaiaplus.scss",
-        "./rosepine.css"
+        "./lectures/gaia_local.css",
     ]
 }
