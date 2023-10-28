@@ -2,28 +2,7 @@
 marp: true
 title: Remote Sensing
 author: David Orme
-theme: gaia
-style: |
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns12 {
-    display: grid;
-    grid-template-columns:  1fr 2fr;
-    gap: 1rem;
-  }
-  .columns21 {
-    display: grid;
-    grid-template-columns:  2fr 1fr;
-    gap: 1rem;
-  }
+theme: gaia-local
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
@@ -80,10 +59,10 @@ Satellite imagery
 </div>
 </div>
 
-Notes:
-
+<!--
 Elifrits et al. 1978 Mapping land cover from satellite images: A basic, low cost
 approach. EARTH RESOURCES AND REMOTE SENSING. Image taken from a V2 rocket in 1946
+-->
 
 ---
 
@@ -145,9 +124,9 @@ Remote sensors can be:
 </div>
 </div>
 
-Notes:
-
+<!--
 Sveti Stefan, Montenegro: five star island hotel resort
+-->
 
 ----
 
@@ -213,9 +192,9 @@ Sveti Stefan, Montenegro: five star island hotel resort
 </div>
 </div>
 
-Notes:
-
+<!--
 HEO: stationary, MEO: 2-24 hour orbits, LEO: 90 - 120 minutes
+-->
 
 ----
 
@@ -292,9 +271,9 @@ HEO: stationary, MEO: 2-24 hour orbits, LEO: 90 - 120 minutes
 
 ![landsat aster bands w:800](images/landsat_aster_bands.jpg)
 
-Notes:
-
+<!--
 Pink areas on image show atmospheric absorption / transmission
+-->
 
 ----
 
@@ -333,9 +312,9 @@ Multiple steps may be needed to use data:
 
 ![landsat failure w:600px](images/LE07_L1TP_117057_20160721_20161010_01_T1_REFL.jpg)
 
-Notes:
-
+<!--
 Failure of the scan line corrector in 2003
+-->
 
 ---
 

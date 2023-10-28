@@ -2,28 +2,7 @@
 marp: true
 title: GIS concepts
 author: David Orme
-theme: gaia
-style: |
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns12 {
-    display: grid;
-    grid-template-columns:  1fr 2fr;
-    gap: 1rem;
-  }
-  .columns21 {
-    display: grid;
-    grid-template-columns:  2fr 1fr;
-    gap: 1rem;
-  }
+theme: gaia-local
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
@@ -110,12 +89,12 @@ Without **both** of these bits of information, we do not have geographic informa
 
 </div>
 
-Notes:
-
+<!--
 Not quite constant because of flattening. 1 degree of latitude is:
 
 - 110574m at Equator
 - 111694m at Poles
+-->
 
 ----
 
@@ -164,10 +143,10 @@ Not quite constant because of flattening. 1 degree of latitude is:
 </div>
 </div>
 
-Notes:
-
+<!--
 - What is 5,500m a measurement from?
 - What do we need to make our coordinate system.
+-->
 
 ---
 
@@ -224,9 +203,9 @@ Notes:
 </div>
 </div>
 
-Notes:
-
+<!--
 - Down does not necessarily go through the centre of the earth
+-->
 
 ----
 
@@ -234,12 +213,11 @@ Notes:
 
 ![geoid_surface_waterlevel_ellisoid w:900px](images/cross_section-156.png)
 
-Notes:
-
+<!--
 GPS uses height above ellipsoid
-
 - can lead to problems relative to sea level.
 - receivers contain a low resolution look up table for the separation.
+-->
 
 ----
 
@@ -261,11 +239,11 @@ GPS uses height above ellipsoid
 </div>
 </div>
 
-Notes:
-
+<!--
 - International Reference Meridian
 - Currently 100m East of Greenwich Meridian and moving!
 - Local vs geocentric vertical
+-->
 
 ---
 
@@ -337,16 +315,13 @@ Notes:
 </div>
 </div>
 
-Notes:
-
+<!--
 Great circle
-
 - where a plane through the centre hits the surface
 - shortest distance by haversine formula
-
 Triangle
-
 - angles sum to more than 180
+-->
 
 ----
 
@@ -386,10 +361,10 @@ Triangle
 </div>
 </div>
 
-Notes:
-
+<!--
 - The ellipsoid surface of the Earth for small distances (~ 10 km) is flat enough for
   simple purposes but for anything else...
+-->
 
 ----
 
@@ -433,11 +408,10 @@ But most projected coordinate systems can only preserve **one** of these things.
 
 ![Equirectangular w:800](images/Equirectangular.png)
 
-Notes:
-
+<!--
 Doesn’t preserve anything much,
-
 - distance/scale along vertical lines (great circles)
+-->
 
 ----
 
@@ -467,8 +441,9 @@ Classification according to mapping to planar surface:
 </div>
 </div>
 
-Notes:
+<!--
 Great circles in all directions from centre of map
+-->
 
 ----
 
@@ -489,13 +464,11 @@ Great circles in all directions from centre of map
 </div>
 </div>
 
-Notes:
-
+<!--
 Imagine running an old fluorescent tube down the middle and turning it on.
-
 Behrmann projection
-
 - Notice compression of higher latitudes
+-->
 
 ----
 
@@ -505,9 +478,9 @@ Behrmann projection
 
 ![mercator w:800px](images/Mercator-209.png)
 
-Notes:
-
+<!--
 Inflate spherical balloon inside a cylinder coated with glue
+-->
 
 ----
 
@@ -517,10 +490,10 @@ Inflate spherical balloon inside a cylinder coated with glue
 
 ![fuller dymaxion w:800px](images/Fuller-213.png)
 
-Notes:
-
+<!--
 - Local projections onto triangular planes Borders go through sea
 - No up or down
+-->
 
 ---
 

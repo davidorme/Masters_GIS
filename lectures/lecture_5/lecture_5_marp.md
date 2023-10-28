@@ -2,52 +2,7 @@
 marp: true
 title: Spatial modelling
 author: David Orme
-theme: gaia
-style: |
-  .section {
-    padding: 40px;
-  }
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns12 {
-    display: grid;
-    grid-template-columns:  1fr 2fr;
-    gap: 1rem;
-  }
-  .columns21 {
-    display: grid;
-    grid-template-columns:  2fr 1fr;
-    gap: 1rem;
-  }
-  .dotr {
-    height: 25px;
-    width: 25px;
-    background-color: red;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .dotg {
-    height: 25px;
-    width: 25px;
-    background-color: green;
-    border-radius: 50%;
-    display: inline-block;
-  }
-  .dot {
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-  }
+theme: gaia-local
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
@@ -298,13 +253,13 @@ Point close together are similar
 Global Moran's I
 
 - I = -0.001
-- p =  0.522
+- p =  0.534
 
 
 Global Geary's C 
 
 - C = 0.999
-- p =  0.460
+- p =  0.475
 
 </div>
 </div>

@@ -28,10 +28,12 @@ for src in $lectures; do
 	# Build PDF and html
 	echo " - Printing MD to PDF"; 
 	npx @marp-team/marp-cli@latest $src/$src_md \
+		--theme gaia_local.css \
 		--allow-local-files --html --output pdfs/${src}.pdf
 	
 	echo " - Printing MD to HTML"; 
 	npx @marp-team/marp-cli@latest $src/$src_md \
+		--theme gaia_local.css \
 		--allow-local-files --html --output $src/${src}.html
 	
 done

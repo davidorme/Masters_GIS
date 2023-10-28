@@ -2,28 +2,7 @@
 marp: true
 title: Assessing model accuracy
 author: David Orme
-theme: gaia
-style: |
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns12 {
-    display: grid;
-    grid-template-columns:  1fr 2fr;
-    gap: 1rem;
-  }
-  .columns21 {
-    display: grid;
-    grid-template-columns:  2fr 1fr;
-    gap: 1rem;
-  }
+theme: gaia-local
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
@@ -136,26 +115,26 @@ But **random** models have ~50% accuracy!
 <tbody>
   <tr>
    <td style="text-align:left;"> Obs. Needle </td>
-   <td style="text-align:right;"> 752 </td>
-   <td style="text-align:right;"> 750 </td>
+   <td style="text-align:right;"> 776 </td>
+   <td style="text-align:right;"> 726 </td>
    <td style="text-align:right;"> 1502 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Obs. Broad </td>
-   <td style="text-align:right;"> 2479 </td>
-   <td style="text-align:right;"> 2441 </td>
+   <td style="text-align:right;"> 2460 </td>
+   <td style="text-align:right;"> 2460 </td>
    <td style="text-align:right;"> 4920 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Sum </td>
-   <td style="text-align:right;"> 3231 </td>
-   <td style="text-align:right;"> 3191 </td>
+   <td style="text-align:right;"> 3236 </td>
+   <td style="text-align:right;"> 3186 </td>
    <td style="text-align:right;"> 6422 </td>
   </tr>
 </tbody>
 </table>
 
-$$A = \frac{752 + 2441}{6422} = 49.7\%$$
+$$A = \frac{776 + 2460}{6422} = 50.4\%$$
 
 ----
 
@@ -632,12 +611,12 @@ A model predicting the probability of presence
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 47 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 53 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
 </tbody>
@@ -695,13 +674,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 47 </td>
    <td style="text-align:right;"> 0 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 21 </td>
-   <td style="text-align:right;"> 25 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 26 </td>
   </tr>
 </tbody>
 </table>
@@ -719,11 +698,11 @@ Switched column orders to match graph.
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
-   <td style="text-align:right;"> 0.543 </td>
+   <td style="text-align:right;"> 0.491 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.543 </td>
+   <td style="text-align:right;"> 0.491 </td>
   </tr>
 </tbody>
 </table>
@@ -754,13 +733,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 47 </td>
-   <td style="text-align:right;"> 7 </td>
+   <td style="text-align:right;"> 45 </td>
+   <td style="text-align:right;"> 2 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
-   <td style="text-align:right;"> 2 </td>
-   <td style="text-align:right;"> 44 </td>
+   <td style="text-align:right;"> 6 </td>
+   <td style="text-align:right;"> 47 </td>
   </tr>
 </tbody>
 </table>
@@ -774,15 +753,15 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.870 </td>
-  </tr>
-  <tr>
-   <td style="text-align:left;"> Spec </td>
    <td style="text-align:right;"> 0.957 </td>
   </tr>
   <tr>
+   <td style="text-align:left;"> Spec </td>
+   <td style="text-align:right;"> 0.887 </td>
+  </tr>
+  <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.827 </td>
+   <td style="text-align:right;"> 0.844 </td>
   </tr>
 </tbody>
 </table>
@@ -813,13 +792,13 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Ob + </td>
-   <td style="text-align:right;"> 25 </td>
-   <td style="text-align:right;"> 29 </td>
+   <td style="text-align:right;"> 27 </td>
+   <td style="text-align:right;"> 20 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 53 </td>
   </tr>
 </tbody>
 </table>
@@ -833,7 +812,7 @@ Switched column orders to match graph.
 <tbody>
   <tr>
    <td style="text-align:left;"> Sens </td>
-   <td style="text-align:right;"> 0.463 </td>
+   <td style="text-align:right;"> 0.574 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Spec </td>
@@ -841,7 +820,7 @@ Switched column orders to match graph.
   </tr>
   <tr>
    <td style="text-align:left;"> TSS </td>
-   <td style="text-align:right;"> 0.463 </td>
+   <td style="text-align:right;"> 0.574 </td>
   </tr>
 </tbody>
 </table>
@@ -873,12 +852,12 @@ Switched column orders to match graph.
   <tr>
    <td style="text-align:left;"> Ob + </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 54 </td>
+   <td style="text-align:right;"> 47 </td>
   </tr>
   <tr>
    <td style="text-align:left;"> Ob - </td>
    <td style="text-align:right;"> 0 </td>
-   <td style="text-align:right;"> 46 </td>
+   <td style="text-align:right;"> 53 </td>
   </tr>
 </tbody>
 </table>

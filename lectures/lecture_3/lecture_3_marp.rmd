@@ -2,28 +2,7 @@
 marp: true
 title: Species Distribution Modelling
 author: David Orme
-theme: gaia
-style: |
-  .columns {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns3 {
-    display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-    gap: 1rem;
-  }
-  .columns12 {
-    display: grid;
-    grid-template-columns:  1fr 2fr;
-    gap: 1rem;
-  }
-  .columns21 {
-    display: grid;
-    grid-template-columns:  2fr 1fr;
-    gap: 1rem;
-  }
+theme: gaia-local
 ---
 
 <!-- markdownlint-disable MD024 MD025 MD033 MD035 MD036-->
@@ -511,8 +490,9 @@ Suggest that overlapping climatic niches and competition important
 </div>
 </div>
 
-Notes:
+<!--
 Modelling spread using SDMs
+-->
 
 ----
 
