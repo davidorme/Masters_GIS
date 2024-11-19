@@ -29,8 +29,8 @@ library(rnaturalearthdata)
 ## Required packages
 
 We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not Posit Cloud.
+packages on your computer](../required_packages.md) before running these practicals
+on your own machine.
 
 ```{code-cell} r
 :tags: [remove-stderr]

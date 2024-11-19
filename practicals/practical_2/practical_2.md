@@ -5,9 +5,7 @@ jupytext:
     extension: .md
     format_name: myst
     format_version: 0.13
-    jupytext_version: 1.11.5
-myst:
-  heading_anchors: 3
+    jupytext_version: 1.13.8
 kernelspec:
   display_name: R
   language: R
@@ -38,8 +36,8 @@ raster_obj <- as(spat_raster_obj, 'Raster')
 ```
 
 We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not Posit Cloud.
+packages on your computer](../required_packages.md) before running these practicals
+on your own machine.
 
 To load the packages:
 
@@ -56,35 +54,7 @@ library(sp)
 library(dismo)
 ```
 
-<!-- ### Installing MaxEnt
-
-We are going to be using the MAXENT species distribution modelling program. Using MaxEnt
-in R is a bit of a pain, because it requires the MAXENT program to be separately
-installed and also requires the `rJava` package. The Posit Cloud project for this
-practical is all ready to go, but if you want to follow this on your own machine then
-you will need to:
-
-1. Download the MAXENT program - this is a compiled Java program file `maxent.jar`:
-
-[https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true](https://github.com/mrmaxent/Maxent/blob/master/ArchivedReleases/3.3.3k/maxent.jar?raw=true)
-
-2. Save that into the `dismo/java` folder in your R library.
-
-MaxEnt is a very widely used program that uses a Maximum Entropy approach to fit species
-models. We are *not* going to be getting into the details of the way the algorithm
-works, but you can read up on that here:
-
-> Elith, J., Phillips, S.J., Hastie, T., Dudík, M., Chee, Y.E. and Yates, C.J. (2011), A
-> statistical explanation of MaxEnt for ecologists. Diversity and Distributions, 17:
-> 43-57.
-> [doi:10.1111/j.1472-4642.2010.00725.x](https://doi.org/10.1111/j.1472-4642.2010.00725.x)
-
-It [has been pointed
-out](https://methodsblog.com/2013/02/20/some-big-news-about-maxent/) that MaxEnt is
-actually equivalent to a Generalised Linear Model (GLM), but we will use a few
-approaches here and MaxEnt is a framework that has been widely used and discussed.
-
--->
++++ {"user_expressions": []}
 
 ## Introduction
 
@@ -146,6 +116,8 @@ tapir_IUCN <- st_read('data/sdm/iucn_mountain_tapir/data_0.shp')
 print(tapir_IUCN)
 ```
 
++++ {"user_expressions": []}
+
 - The GBIF data is a table of observations, some of which include coordinates. One thing
   that GBIF does is to publish a DOI for every download, to make it easy to track
   particular data use. This one is
@@ -168,6 +140,8 @@ tapir_GBIF <- subset(tapir_GBIF, ! is.na(decimalLatitude) | ! is.na(decimalLongi
 tapir_GBIF <- st_as_sf(tapir_GBIF, coords=c('decimalLongitude', 'decimalLatitude'))
 st_crs(tapir_GBIF) <- 4326
 ```
+
++++ {"user_expressions": []}
 
 We can now superimpose the two datasets to show they _broadly_ agree. There aren't any
 obvious problems that require data cleaning.
@@ -193,6 +167,8 @@ plot(st_geometry(ne110), xlim=model_extent[1:2], ylim=model_extent[3:4],
 plot(st_geometry(tapir_IUCN), add=TRUE, col='grey', border=NA)
 plot(st_geometry(tapir_GBIF), add=TRUE, col='red', pch=4, cex=0.6)
 ```
+
++++ {"user_expressions": []}
 
 ### Predictor variables
 
@@ -238,6 +214,8 @@ print(bioclim_hist)
 print(bioclim_future)
 ```
 
++++ {"user_expressions": []}
+
 We can compare `BIO 1` (Mean Annual Temperature) between the two datasets:
 
 ```{code-cell} r
@@ -265,6 +243,8 @@ plot(bioclim_future[[1]] - bioclim_hist[[1]],
      type='continuous', plg=list(ext=c(190,200,-90,90)))
 ```
 
++++ {"user_expressions": []}
+
 We are immediately going to crop the environmental data down to a sensible modelling
 region. What counts as _sensible_ here is very hard to define and you may end up
 changing it when you see model outputs, but here we use a small spatial subset to make
@@ -275,6 +255,8 @@ things run quickly.
 bioclim_hist_local <- crop(bioclim_hist, model_extent)
 bioclim_future_local <- crop(bioclim_future, model_extent)
 ```
+
++++ {"user_expressions": []}
 
 ### Reproject the data
 
@@ -295,6 +277,8 @@ ext(test)
 res(test)  # Resolution in metres on X and Y axes
 ```
 
++++ {"user_expressions": []}
+
 There isn't anything really wrong with that, but having round numbers for the grid
 extent and resolution is a bit easier to describe and work with. We can create the
 specific grid we want and project the data into that.
@@ -309,12 +293,16 @@ bioclim_hist_local <- project(bioclim_hist_local, utm18s_grid)
 bioclim_future_local <- project(bioclim_future_local, utm18s_grid)
 ```
 
++++ {"user_expressions": []}
+
 Now we can also reproject the species distribution vector data:
 
 ```{code-cell} r
 tapir_IUCN <- st_transform(tapir_IUCN, crs='EPSG:32718')
 tapir_GBIF <- st_transform(tapir_GBIF, crs='EPSG:32718')
 ```
+
++++ {"user_expressions": []}
 
 ### Pseudo-absence data
 
@@ -349,6 +337,8 @@ pseudo_dismo <- randomPoints(mask=as(land, 'Raster'), n=n_pseudo,
 pseudo_dismo <- st_as_sf(data.frame(pseudo_dismo), coords=c('x','y'), crs=32718)
 ```
 
++++ {"user_expressions": []}
+
 We can also use GIS to do something a little more sophisticated. This isn't necessarily
 the best choice here, but is an example of how to do something more structured. The aim
 here is to pick points that are within 100 km of observed points, but not closer than
@@ -366,6 +356,8 @@ nearby <- st_difference(nearby, too_close)
 # Get some points within that feature in an sf dataframe
 pseudo_nearby <- st_as_sf(st_sample(nearby, n_pseudo))
 ```
+
++++ {"user_expressions": []}
 
 We can plot those two points side by side for comparison.
 
@@ -388,6 +380,8 @@ plot(land, col='grey', legend=FALSE)
 plot(st_geometry(tapir_GBIF), add=TRUE, col='red')
 plot(pseudo_nearby, add=TRUE)
 ```
+
++++ {"user_expressions": []}
 
 A really useful starting point for further detail on pseudo absences is the following
 study:
@@ -412,6 +406,8 @@ tapir_GBIF$kfold <- kfold(tapir_GBIF, k=5)
 pseudo_dismo$kfold <- kfold(pseudo_dismo, k=5)
 pseudo_nearby$kfold <- kfold(pseudo_nearby, k=5)
 ```
+
++++ {"user_expressions": []}
 
 One other important concept in test and training is **cross validation**. This is where
 a model is fitted and tested multiple times, using different subsets of the data, to
@@ -466,15 +462,19 @@ train_locs <- st_coordinates(subset(tapir_GBIF, kfold != 1))
 bioclim_model <- bioclim(as(bioclim_hist_local, 'Raster'), train_locs)
 ```
 
++++ {"user_expressions": []}
+
 We can now plot the model output to show the envelopes. In the plots below, the argument
 `p` is used to show the climatic envelop that contains a certain proportion of the data.
 The `a` and `b` arguments set which layers in the environmental data are compared.
 
 ```{code-cell} r
 par(mfrow=c(1,2))
-plot(bioclim_model, a=1, b=2, p=0.9)
-plot(bioclim_model, a=1, b=5, p=0.9)
+plot(bioclim_model, a=1, b=2, p=0.5)
+plot(bioclim_model, a=1, b=5, p=0.5)
 ```
+
++++ {"user_expressions": []}
 
 In that second plot, note that these two variables (mean annual temperature `BIO1` and
 maximum temperature of the warmest month 'BIO5') are **extremely strongly correlated**.
@@ -505,6 +505,8 @@ plot(land, col='grey', legend=FALSE)
 plot(bioclim_non_zero, col=hcl.colors(20, palette='Blue-Red'), add=TRUE)
 ```
 
++++ {"user_expressions": []}
+
 #### Model evaluation
 
 We can also now evaluate our model using the retained test data. Note that here, we do
@@ -519,6 +521,8 @@ bioclim_eval <- evaluate(p=test_locs, a=test_pseudo,
                          model=bioclim_model, x=bioclim_hist_local)
 print(bioclim_eval)
 ```
+
++++ {"user_expressions": []}
 
 We can also create some standard plots. One plot is the ROC curve and the other is a
 graph of how kappa changes as the threshold used on the model predictions varies. The
@@ -543,6 +547,8 @@ plot(bioclim_eval, 'kappa', type='l')
 abline(v=max_kappa, lty=2, col='blue')
 ```
 
++++ {"user_expressions": []}
+
 #### Species distribution
 
 That gives us all the information we need to make a prediction about the species
@@ -560,6 +566,8 @@ tapir_range <- bioclim_pred >= max_kappa
 plot(tapir_range, legend=FALSE, col=c('khaki3','red'))
 plot(st_geometry(tapir_GBIF), add=TRUE, pch=4, col='#00000088')
 ```
+
++++ {"user_expressions": []}
 
 ```{admonition} Future distribution of the tapir
 
@@ -593,9 +601,14 @@ plot(tapir_range_future, legend=FALSE, col=c('grey','red'))
 # 2 + 1 - in both
 tapir_change <- 2 * (tapir_range) + tapir_range_future
 cols <- c('lightgrey', 'blue', 'red', 'forestgreen')
+
 plot(tapir_change, col=cols, legend=FALSE)
-legend('topleft', fill=cols, legend=c('Absent','Future','Historical', 'Both'), bg='white')
+legend(-6e5, 1.14e7, fill=cols, 
+       legend=c('Absent','Future','Historical', 'Both'), 
+       bg='white')
 ```
+
++++ {"user_expressions": []}
 
 ### Generalised Linear Model (GLM)
 
@@ -633,6 +646,8 @@ pa_data <- rbind(present, absent)
 print(pa_data)
 ```
 
++++ {"user_expressions": []}
+
 Second, we need to extract the environmental values for each of those points and add it
 into the data frame.
 
@@ -641,6 +656,8 @@ envt_data <- extract(bioclim_hist_local, pa_data)
 pa_data <- cbind(pa_data, envt_data)
 print(pa_data)
 ```
+
++++ {"user_expressions": []}
 
 #### Fitting the GLM
 
@@ -671,6 +688,8 @@ glm_model <- glm(pa ~ bio2 + bio4 + bio3 + bio1 + bio12, data=pa_data,
                  subset=kfold != 1)
 ```
 
++++ {"user_expressions": []}
+
 Using a GLM gives us the significance of different variables - this table is very
 similar to a linear model summary. It is interpreted in much the same way.
 
@@ -678,6 +697,8 @@ similar to a linear model summary. It is interpreted in much the same way.
 # Look at the variable significances - which are important
 summary(glm_model)
 ```
+
++++ {"user_expressions": []}
 
 It can also be helpful to look at **response plots**: these show how the probability of
 a species being present changes with a given variable. These are predictions for each
@@ -695,6 +716,8 @@ par(mar=c(3,3,1,1), mgp=c(2,1,0))
 response(glm_model, fun=function(x, y, ...) predict(x, y, type='response', ...))
 ```
 
++++ {"user_expressions": []}
+
 #### Model predictions and evaluation
 
 We can now evaluate our model using the same techniques as before:
@@ -704,6 +727,8 @@ We can now evaluate our model using the same techniques as before:
 ```{code-cell} r
 glm_pred <- predict(bioclim_hist_local, glm_model, type='response')
 ```
+
++++ {"user_expressions": []}
 
 1. Evaluate the model using the test data.
 
@@ -716,6 +741,8 @@ glm_eval <- evaluate(p=test_present, a=test_absent, model=glm_model,
 print(glm_eval)
 ```
 
++++ {"user_expressions": []}
+
 1. Find the maximum kappa threshold. This is a little more complicated than before the
    threshold we get is again on the _scale of the linear predictor_. For this kind of
    GLM, we can use `plogis` to convert back.
@@ -724,6 +751,8 @@ print(glm_eval)
 max_kappa <- plogis(threshold(glm_eval, stat='kappa'))
 print(max_kappa)
 ```
+
++++ {"user_expressions": []}
 
 1. Look at some model performance plots
 
@@ -740,6 +769,8 @@ plot(glm_eval, 'ROC', type='l')
 plot(glm_eval, 'kappa', type='l')
 abline(v=max_kappa, lty=2, col='blue')
 ```
+
++++ {"user_expressions": []}
 
 #### Species distribution from GLM
 
@@ -771,12 +802,16 @@ glm_map_future <- glm_pred_future >= max_kappa
 plot(glm_map_future, legend=FALSE, col=c('grey','red'))
 ```
 
++++ {"user_expressions": []}
+
 One simple way to describe the modelled changes is simply to look at a table of the pair
 of model predictions:
 
 ```{code-cell} r
 table(values(glm_map), values(glm_map_future), dnn=c('hist', '2050'))
 ```
+
++++ {"user_expressions": []}
 
 This GLM predicts a significant loss of existing range for this species by
 2041 - 2060 and no expansion into new areas.
@@ -820,6 +855,8 @@ locs <- subset(locs, ! is.na(lat) | ! is.na(lon))
 # Convert to an sf object 
 locs <- st_as_sf(locs, coords=c('lon', 'lat'))
 ```
+
++++ {"user_expressions": []}
 
 1. You will then need to clean the GBIF points - have a look at the `sdm` vignette
    mentioned above for ways to tackle cleaning the data. One tip - check the
@@ -882,6 +919,8 @@ plot(glm_pred - glm_pred_bg2, col= hcl.colors(100), main='Difference',
      type='continuous', plg=list(ext=c(1.25e6, 1.3e6, 9.3e6, 11.5e6)))
 ```
 
++++ {"user_expressions": []}
+
 ### Cross validation
 
 ```{attention}
@@ -927,6 +966,8 @@ get_roc_data <- function(eval){
 }
 ```
 
++++ {"user_expressions": []}
+
 1. You want each model evaluation to be carried out using the **same threshold
    breakpoints**, otherwise it is difficult to align the outputs of the different
    partitions. We can give `evaluate` a set of breakpoints but - for the GLM - the
@@ -942,6 +983,8 @@ thresholds <- qlogis(thresholds)
 eval <- evaluate(p=test_present, a=test_absent, model=glm_model, 
                   x=bioclim_hist_local, tr=thresholds)
 ```
+
++++ {"user_expressions": []}
 
 The ouputs below show the AUC and ROC curve for each of the $k$-fold partitions and the
 average across partitions. See if you can calculate these!
@@ -996,6 +1039,8 @@ print(auc)
 print(mean(auc))
 ```
 
++++ {"user_expressions": []}
+
 ## Reducing the set of variables
 
 The details of this selection process are hidden below. I'm using clustering to find
@@ -1028,4 +1073,8 @@ plot(clust_output)
 
 # And then pick one from each of five blocks - haphazardly.
 rect.hclust(clust_output, k=5)
+```
+
+```{code-cell} r
+
 ```

@@ -36,8 +36,8 @@ modelling. There is an intimidating complete list of topics and packages here:
 [https://CRAN.R-project.org/view=Spatial](https://CRAN.R-project.org/view=Spatial)
 
 We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not RStudio Cloud.
+packages on your computer](../required_packages.md) before running these practicals
+on your own machine.
 
 ```{code-cell} r
 :tags: [remove-stderr]
