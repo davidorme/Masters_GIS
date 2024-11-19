@@ -7,7 +7,7 @@ sections:
   title: GIS Practical 1
 - file: practical_2/practical_2
   title: GIS Practical 2
-- file: practical_3/practical_3
-  title: GIS Practical 3
 - file: practical_4/LEC_week
   title: Landscape Ecology
+- file: practical_3/practical_3
+  title: Spatial Statistics

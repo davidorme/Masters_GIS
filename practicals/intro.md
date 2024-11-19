@@ -14,8 +14,24 @@ kernelspec:
 
 # Introduction to the practicals
 
-These practicals introduce a core set of GIS concepts and functions in R and then
-explore some more common use cases.
+These pages provide four GIS practical workbooks:
+
+* GIS practicals 1 and 2 support the GIS component of the Introduction to Ecological and
+  Evolutionary Data Science for the following masters programmes at Imperial College
+  London: the Living Planet program at the Silwood Park campus and Taxonomy,
+  Biodiversity and Evolution MSc and Biosystematics MRes at the Natural History Museum.
+
+  GIS Practical 1 introduces a core set of GIS concepts and functions in R and explores
+  some more common use cases. GIS Practical 2 then uses R to do species distribution
+  modelling, which is a common applied GIS technique in biodiversity research.
+
+* The Landscape Ecology practical supports the Landscape Ecology and Conservation module
+  for the Living Planet with Ecological Applications and Living Planet with Ecology,
+  Evolution and Conservation streams.
+
+* The Spatial Statistics practical presents the use of R for spatial statistics and is
+  provided as additional supporting material for research projects that require these
+  specialised techniques, or for anyone who enjoys finicky stats problems!
 
 All of these practicals are **self-paced**: you can work through them at your own speed
 and call out when you need help.
