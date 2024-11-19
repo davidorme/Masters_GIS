@@ -12,16 +12,24 @@ kernelspec:
   name: ir
 ---
 
-# Practical Three: Spatial modelling in R
+# Spatial statistics in R
 
-This practical looks at some of the problems of fitting statistical models to spatial
-data, using the statistical software R. We are going to be covering a lot of ground but:
+```{admonition} Extra material
+---
+class: info
+---
 
-> Do **not** panic.
+This page provides additional material on using R for spatial statistics. This is rather
+specialised set of techniques that are occasionally used in Masters projects. This 
+practical provides an overview of some of the problems of fitting statistical models to 
+spatial data using R and is provided as an introduction for students that need to use 
+these techniques.
 
-The intention in this practical is to show some options that are available for spatial
-models in R. The main thing is to think about what the options are available, not in
-learning how to do it all in one afternoon!
+The practical covers a lot of ground but **do not panic**: the intention is to show 
+some options that are available for spatial models in R, so you can assess what options
+are available and how they differ.
+
+```
 
 There are a lot of other resources out there to provide more detail and I *highly*
 recommend this:
@@ -36,8 +44,8 @@ modelling. There is an intimidating complete list of topics and packages here:
 [https://CRAN.R-project.org/view=Spatial](https://CRAN.R-project.org/view=Spatial)
 
 We will need to load the following packages. Remember to read [this guide on setting up
-packages on your computer](../required_packages.md) if you are running these practicals
-on your own machine, not RStudio Cloud.
+packages on your computer](../required_packages.md) before running these practicals
+on your own machine.
 
 ```{code-cell} r
 :tags: [remove-stderr]

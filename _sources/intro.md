@@ -14,8 +14,24 @@ kernelspec:
 
 # Introduction to the practicals
 
-These practicals introduce a core set of GIS concepts and functions in R and then
-explore some more common use cases.
+These pages provide four GIS practical workbooks:
+
+* GIS practicals 1 and 2 support the GIS component of the Introduction to Ecological and
+  Evolutionary Data Science for the following masters programmes at Imperial College
+  London: the Living Planet program at the Silwood Park campus and Taxonomy,
+  Biodiversity and Evolution MSc and Biosystematics MRes at the Natural History Museum.
+
+  GIS Practical 1 introduces a core set of GIS concepts and functions in R and explores
+  some more common use cases. GIS Practical 2 then uses R to do species distribution
+  modelling, which is a common applied GIS technique in biodiversity research.
+
+* The Landscape Ecology practical supports the Landscape Ecology and Conservation module
+  for the Living Planet with Ecological Applications and Living Planet with Ecology,
+  Evolution and Conservation streams.
+
+* The Spatial Statistics practical presents the use of R for spatial statistics and is
+  provided as additional supporting material for research projects that require these
+  specialised techniques, or for anyone who enjoys finicky stats problems!
 
 All of these practicals are **self-paced**: you can work through them at your own speed
 and call out when you need help.
@@ -40,16 +56,14 @@ If none of those work then ask us!
 
 ## Getting started
 
-* Each practical has its own Posit Cloud assignment. This will contain all of the data
-  needed for the practical and will have the required packages pre-installed.
+* You will need to install the required packages and the data required in the
+  practicals. There are quite a lot of required packages - they could take a little
+  while to set up. See [here](required_packages.md) for details of the packages and data
+  you will need.
 
-* If you are working on your own computer, you will need to install those packages and
-  the data required in the practical. There are quite a lot of required packages - they
-  could take a little while to set up. See [here](required_packages.md) for details of
-  the packages and data you will need.
-
-* Once you have your project launched or a local working directory set up and are
-  running in R then **create a new script file to record and run your code**.
+* Once you have the packages installed, have created a local working directory for the
+  data and are running in R then **create a new script file to record and run your
+  code**.
 
 * Work through the handouts at your own pace.
 

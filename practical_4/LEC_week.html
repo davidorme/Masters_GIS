@@ -1,13 +1,12 @@
 
-
 <!DOCTYPE html>
 
 
-<html lang="en" >
+<html lang="en" data-content_root="../" >
 
   <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <title>Landscape Ecology and Conservation &#8212; GIS and Spatial Methods in R</title>
   
@@ -15,61 +14,62 @@
   
   <script data-cfasync="false">
     document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
-    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
   </script>
+  <!-- 
+    this give us a css class that will be invisible only if js is disabled 
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
   
   <!-- Loaded before other Sphinx assets -->
-  <link href="../_static/styles/theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/bootstrap.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-<link href="../_static/styles/pydata-sphinx-theme.css?digest=c5ced968eda925caa686" rel="stylesheet" />
+  <link href="../_static/styles/theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
+<link href="../_static/styles/pydata-sphinx-theme.css?digest=26a4bc78f4c0ddb94549" rel="stylesheet" />
 
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+    <link rel="stylesheet" type="text/css" href="../_static/styles/sphinx-book-theme.css?v=a3416100" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css?v=13237357" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css?v=be8a1c11" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-design.min.css?v=95c83b7e" />
   
-  <link href="../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=c5ced968eda925caa686" rel="stylesheet" />
-  <link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
-<link rel="preload" as="font" type="font/woff2" crossorigin href="../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
-
-    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
-    <link rel="stylesheet" href="../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
-    <link rel="stylesheet" type="text/css" href="../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
-  
+  <!-- So that users can add custom icons -->
+  <script src="../_static/scripts/fontawesome.js?digest=26a4bc78f4c0ddb94549"></script>
   <!-- Pre-loaded scripts that we'll load fully later -->
-  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686" />
-<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686" />
-  <script src="../_static/vendor/fontawesome/6.1.2/js/all.min.js?digest=c5ced968eda925caa686"></script>
+  <link rel="preload" as="script" href="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549" />
+<link rel="preload" as="script" href="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549" />
 
-    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
-    <script src="../_static/jquery.js"></script>
-    <script src="../_static/underscore.js"></script>
-    <script src="../_static/_sphinx_javascript_frameworks_compat.js"></script>
-    <script src="../_static/doctools.js"></script>
-    <script src="../_static/clipboard.min.js"></script>
-    <script src="../_static/copybutton.js"></script>
-    <script src="../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script src="../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../_static/copybutton.js?v=f281be69"></script>
+    <script src="../_static/scripts/sphinx-book-theme.js?v=887ef09a"></script>
     <script>let toggleHintShow = 'Click to show';</script>
     <script>let toggleHintHide = 'Click to hide';</script>
     <script>let toggleOpenOnPrint = 'true';</script>
-    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/togglebutton.js?v=4a39c7ea"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
-    <script src="../_static/design-tabs.js"></script>
-    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
-const thebe_selector = ".thebe,.cell"
-const thebe_selector_input = "pre"
-const thebe_selector_output = ".output, .cell_output"
-</script>
-    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="../_static/design-tabs.js?v=36754332"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
     <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
     <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script>DOCUMENTATION_OPTIONS.pagename = 'practical_4/LEC_week';</script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
-    <link rel="prev" title="Practical Three: Spatial modelling in R" href="../practical_3/practical_3.html" />
+    <link rel="next" title="Spatial statistics in R" href="../practical_3/practical_3.html" />
+    <link rel="prev" title="Practical Two: Species Distribution Modelling" href="../practical_2/practical_2.html" />
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
   </head>
   
   
@@ -77,32 +77,16 @@ const thebe_selector_output = ".output, .cell_output"
 
   
   
-  <a class="skip-link" href="#main-content">Skip to main content</a>
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
   
   <div id="pst-scroll-pixel-helper"></div>
-
   
   <button type="button" class="btn rounded-pill" id="pst-back-to-top">
-    <i class="fa-solid fa-arrow-up"></i>
-    Back to top
-  </button>
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
 
   
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__primary"
-          id="__primary"/>
-  <label class="overlay overlay-primary" for="__primary"></label>
-  
-  <input type="checkbox"
-          class="sidebar-toggle"
-          name="__secondary"
-          id="__secondary"/>
-  <label class="overlay overlay-secondary" for="__secondary"></label>
-  
-  <div class="search-button__wrapper">
-    <div class="search-button__overlay"></div>
-    <div class="search-button__search-container">
+  <dialog id="pst-search-dialog">
+    
 <form class="bd-search d-flex align-items-center"
       action="../search.html"
       method="get">
@@ -110,7 +94,6 @@ const thebe_selector_output = ".output, .cell_output"
   <input type="search"
          class="form-control"
          name="q"
-         id="search-input"
          placeholder="Search this book..."
          aria-label="Search this book..."
          autocomplete="off"
@@ -118,16 +101,25 @@ const thebe_selector_output = ".output, .cell_output"
          autocapitalize="off"
          spellcheck="false"/>
   <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
-</form></div>
-  </div>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
   
-    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
-    </nav>
+    <header class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+    </header>
   
+
   <div class="bd-container">
     <div class="bd-container__inner bd-page-width">
       
-      <div class="bd-sidebar-primary bd-sidebar">
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
         
 
   
@@ -140,6 +132,9 @@ const thebe_selector_output = ".output, .cell_output"
   
     <div class="sidebar-primary-items__start sidebar-primary__section">
         <div class="sidebar-primary-item">
+
+  
+    
   
 
 <a class="navbar-brand logo" href="../intro.html">
@@ -152,7 +147,14 @@ const thebe_selector_output = ".output, .cell_output"
     <p class="title logo__title">GIS and Spatial Methods in R</p>
   
 </a></div>
-        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
     <div class="bd-toc-item navbar-nav active">
         
         <ul class="nav bd-sidenav bd-sidenav__home-link">
@@ -166,8 +168,8 @@ const thebe_selector_output = ".output, .cell_output"
 <li class="toctree-l1"><a class="reference internal" href="../required_packages.html">Practical setup for local computers</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practical_1/practical_1.html">GIS Practical 1</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../practical_2/practical_2.html">GIS Practical 2</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../practical_3/practical_3.html">GIS Practical 3</a></li>
 <li class="toctree-l1 current active"><a class="current reference internal" href="#">Landscape Ecology</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../practical_3/practical_3.html">Spatial Statistics</a></li>
 </ul>
 
     </div>
@@ -183,7 +185,7 @@ const thebe_selector_output = ".output, .cell_output"
 
       </div>
       
-      <main id="main-content" class="bd-main">
+      <main id="main-content" class="bd-main" role="main">
         
         
 
@@ -192,14 +194,14 @@ const thebe_selector_output = ".output, .cell_output"
           <div class="bd-content">
             <div class="bd-article-container">
               
-              <div class="bd-header-article">
+              <div class="bd-header-article d-print-none">
 <div class="header-article-items header-article__inner">
   
     <div class="header-article-items__start">
       
-        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
   <span class="fa-solid fa-bars"></span>
-</label></div>
+</button></div>
       
     </div>
   
@@ -274,26 +276,20 @@ const thebe_selector_output = ".output, .cell_output"
 </button>
 
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn theme-switch-button" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
-    <span class="theme-switch nav-link" data-mode="light"><i class="fa-solid fa-sun fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="dark"><i class="fa-solid fa-moon fa-lg"></i></span>
-    <span class="theme-switch nav-link" data-mode="auto"><i class="fa-solid fa-circle-half-stroke fa-lg"></i></span>
-  </button>
-`);
-</script>
 
-<script>
-document.write(`
-  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <i class="fa-solid fa-magnifying-glass fa-lg"></i>
-  </button>
-`);
-</script>
-<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
     <span class="fa-solid fa-list"></span>
-</label>
+</button>
 </div></div>
       
     </div>
@@ -365,10 +361,10 @@ document.write(`
               
                 
 <div id="searchbox"></div>
-                <article class="bd-article" role="main">
+                <article class="bd-article">
                   
   <section class="tex2jax_ignore mathjax_ignore" id="landscape-ecology-and-conservation">
-<h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Permalink to this heading">#</a></h1>
+<h1>Landscape Ecology and Conservation<a class="headerlink" href="#landscape-ecology-and-conservation" title="Link to this heading">#</a></h1>
 <p>Authors: <strong>Cristina Banks-Leite, David Orme &amp; Flavia Bellotto-Trigo</strong></p>
 <p>In this practical, we are going to use R to:</p>
 <ol class="arabic simple">
@@ -393,10 +389,10 @@ individual exercises, which ask you to explore the data and techniques used.
 These will be in boxes like this one.</p>
 </div>
 <section id="requirements">
-<h2>Requirements<a class="headerlink" href="#requirements" title="Permalink to this heading">#</a></h2>
-<p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="doc std std-doc">this guide on setting up
-packages on your computer</span></a> if you are running these practicals
-on your own machine, not Posit Cloud.</p>
+<h2>Requirements<a class="headerlink" href="#requirements" title="Link to this heading">#</a></h2>
+<p>We will need to load the following packages. Remember to read <a class="reference internal" href="../required_packages.html"><span class="std std-doc">this guide on setting up
+packages on your computer</span></a> before running these practicals
+on your own machine.</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">library</span><span class="p">(</span><span class="n">terra</span><span class="p">)</span>
@@ -412,10 +408,10 @@ on your own machine, not Posit Cloud.</p>
 </div>
 </section>
 <section id="data-sets">
-<h2>Data sets<a class="headerlink" href="#data-sets" title="Permalink to this heading">#</a></h2>
+<h2>Data sets<a class="headerlink" href="#data-sets" title="Link to this heading">#</a></h2>
 <p>The first step is to load and explore the datasets.</p>
 <section id="species-data">
-<h3>Species data<a class="headerlink" href="#species-data" title="Permalink to this heading">#</a></h3>
+<h3>Species data<a class="headerlink" href="#species-data" title="Link to this heading">#</a></h3>
 <p>This is a bird data set that was collected in the Brazilian Atlantic Forest
 between 2001 and 2007. The data set contains the abundance of 140 species that
 were captured in 65 sites, from three different regions, each containing a
@@ -435,14 +431,14 @@ conservation importance. Journal of Applied Ecology 48(3), 706-714.
 </ul>
 <p>There are two files to load.</p>
 <section id="sites-data">
-<h4>Sites data<a class="headerlink" href="#sites-data" title="Permalink to this heading">#</a></h4>
+<h4>Sites data<a class="headerlink" href="#sites-data" title="Link to this heading">#</a></h4>
 <p>First, we can load the sites data and use the longitude and latitude coordinates
 (WGS84, EPSG code 4326)  to turn the data into an <code class="docutils literal notranslate"><span class="pre">sf</span></code> object.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/sites.csv&quot;</span><span class="p">,</span> <span class="n">header</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">)</span>
-<span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">st_as_sf</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Lon&#39;</span><span class="p">,</span><span class="s">&#39;Lat&#39;</span><span class="p">),</span> <span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">sites</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Landscape_ID&#39;</span><span class="p">)],</span> <span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span> <span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/sites.csv&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">header</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">sites</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">st_as_sf</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="n">coords</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Lon&#39;</span><span class="p">,</span><span class="s">&#39;Lat&#39;</span><span class="p">),</span><span class="w"> </span><span class="n">crs</span><span class="o">=</span><span class="m">4326</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">sites</span><span class="p">[</span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;Landscape_ID&#39;</span><span class="p">)],</span><span class="w"> </span><span class="n">key.pos</span><span class="o">=</span><span class="m">4</span><span class="p">,</span><span class="w"> </span><span class="n">axes</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">sites</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -459,7 +455,7 @@ conservation importance. Journal of Applied Ecology 48(3), 706-714.
   ..- attr(*, &quot;names&quot;)= chr [1:4] &quot;Site&quot; &quot;Landscape&quot; &quot;Percent&quot; &quot;Landscape_ID&quot;
 </pre></div>
 </div>
-<img alt="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" src="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" />
+<a class="reference internal image-reference" href="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png"><img alt="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" src="../_images/765d2972581f8f4b3c77032e429a2aaa040c4214ed21b06e52abed934f27ad12.png" style="width: 420px; height: 420px;" /></a>
 </div>
 </div>
 <p>Region A corresponds to the fragmented landscape with 10% forest cover (and
@@ -478,14 +474,14 @@ belonged to the same region.</p></li>
 </ul>
 </section>
 <section id="abundance-data">
-<h4>Abundance data<a class="headerlink" href="#abundance-data" title="Permalink to this heading">#</a></h4>
+<h4>Abundance data<a class="headerlink" href="#abundance-data" title="Link to this heading">#</a></h4>
 <p>Next, read in the data set showing the sites x species abundance matrix. As
 you’ll see, a lot of the species were only caught once or twice and there are
 lots of 0s in the matrix. Few species are globally common.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Load the abundance data and use the first column (site names) as row names</span>
-<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/abundance.csv&quot;</span><span class="p">,</span> <span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<span class="n">abundance</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/abundance.csv&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">row.names</span><span class="o">=</span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">dim</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -503,7 +499,7 @@ lots of 0s in the matrix. Few species are globally common.</p>
 that were seen in at least one site.</p>
 </section>
 <section id="data-checking">
-<h4>Data checking<a class="headerlink" href="#data-checking" title="Permalink to this heading">#</a></h4>
+<h4>Data checking<a class="headerlink" href="#data-checking" title="Link to this heading">#</a></h4>
 <p>It is always worth looking at the data frames in detail, to understand their
 contents. We have used <code class="docutils literal notranslate"><span class="pre">str</span></code> to look at the structure but you can also use
 <code class="docutils literal notranslate"><span class="pre">View</span></code> to look at the dataset as a table.</p>
@@ -512,14 +508,14 @@ contents. We have used <code class="docutils literal notranslate"><span class="p
 </pre></div>
 </div>
 <p>It is also wise to check for missing data. Some key tools:</p>
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span> <span class="c1"># NAs will be counted if found</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">summary</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span><span class="w"> </span><span class="c1"># NAs will be counted if found</span>
 <span class="nf">any</span><span class="p">(</span><span class="nf">is.na</span><span class="p">(</span><span class="n">abundance</span><span class="p">))</span>
 </pre></div>
 </div>
 </section>
 </section>
 <section id="landcover-data">
-<h3>Landcover data<a class="headerlink" href="#landcover-data" title="Permalink to this heading">#</a></h3>
+<h3>Landcover data<a class="headerlink" href="#landcover-data" title="Link to this heading">#</a></h3>
 <p>We will calculate the landscape metrics from a landcover map for the study
 region. If you want to know more about the origin of the map, check
 <a class="reference external" href="https://mapbiomas.org">https://mapbiomas.org</a>. It is in Portuguese but Google
@@ -532,7 +528,7 @@ the map and check its coordinate system:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># load map</span>
-<span class="n">landcover</span> <span class="o">&lt;-</span> <span class="nf">rast</span><span class="p">(</span><span class="s">&quot;data/brazil/map.tif&quot;</span><span class="p">)</span>
+<span class="n">landcover</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rast</span><span class="p">(</span><span class="s">&quot;data/brazil/map.tif&quot;</span><span class="p">)</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">landcover</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -575,9 +571,9 @@ extract some data from it in the next section.</p>
 </section>
 </section>
 <section id="calculating-landscape-metrics">
-<h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Permalink to this heading">#</a></h2>
+<h2>Calculating landscape metrics<a class="headerlink" href="#calculating-landscape-metrics" title="Link to this heading">#</a></h2>
 <section id="landscape-data-processing">
-<h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Permalink to this heading">#</a></h3>
+<h3>Landscape data processing<a class="headerlink" href="#landscape-data-processing" title="Link to this heading">#</a></h3>
 <p>Before we calculate landscape metrics, we first need to process the land cover
 data to make it easier to work with. In particular, using the whole map is very
 computationally demanding so we need to reduce the data down to the scale of the
@@ -592,16 +588,16 @@ need to:</p>
 <div class="cell tag_remove-stderr docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the bounding box and convert to a polygon</span>
-<span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_as_sfc</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites</span><span class="p">))</span>
+<span class="n">sites_region</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">st_as_sfc</span><span class="p">(</span><span class="nf">st_bbox</span><span class="p">(</span><span class="n">sites</span><span class="p">))</span>
 
 <span class="c1"># Buffer the region by 0.1 degrees to get coverage around the landscape.</span>
 <span class="c1"># This is roughly 10 kilometres which is a wide enough border to allow</span>
 <span class="c1"># us to test the scale of effects.</span>
-<span class="n">sites_region</span> <span class="o">&lt;-</span> <span class="nf">st_buffer</span><span class="p">(</span><span class="n">sites_region</span><span class="p">,</span> <span class="m">0.1</span><span class="p">)</span>
+<span class="n">sites_region</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">st_buffer</span><span class="p">(</span><span class="n">sites_region</span><span class="p">,</span><span class="w"> </span><span class="m">0.1</span><span class="p">)</span>
 
 <span class="c1"># Crop the landcover data and convert to a binary forest map</span>
-<span class="n">sites_landcover</span> <span class="o">&lt;-</span> <span class="nf">crop</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span> <span class="n">sites_region</span><span class="p">)</span>
-<span class="n">sites_forest</span> <span class="o">&lt;-</span> <span class="n">sites_landcover</span> <span class="o">==</span> <span class="m">3</span>
+<span class="n">sites_landcover</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">crop</span><span class="p">(</span><span class="n">landcover</span><span class="p">,</span><span class="w"> </span><span class="n">sites_region</span><span class="p">)</span>
+<span class="n">sites_forest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sites_landcover</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">3</span>
 <span class="nf">print</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -629,9 +625,9 @@ the landcover class data is categorical - we <em>have</em> to use <code class="d
 projecting the data. We’ve also set a resolution of 30 metres.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span> <span class="o">&lt;-</span> <span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="m">32723</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites_utm23S</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">st_transform</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="m">32723</span><span class="p">)</span>
 <span class="c1"># This takes a little while to run!</span>
-<span class="n">sites_forest_utm23S</span> <span class="o">&lt;-</span> <span class="nf">project</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span> <span class="s">&quot;epsg:32723&quot;</span><span class="p">,</span> <span class="n">res</span><span class="o">=</span><span class="m">30</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&#39;near&#39;</span><span class="p">)</span>
+<span class="n">sites_forest_utm23S</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">project</span><span class="p">(</span><span class="n">sites_forest</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;epsg:32723&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">res</span><span class="o">=</span><span class="m">30</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="s">&#39;near&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -640,17 +636,17 @@ projecting the data. We’ve also set a resolution of 30 metres.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">sites_forest_utm23S</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">sites_utm23S</span><span class="p">),</span> <span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">st_geometry</span><span class="p">(</span><span class="n">sites_utm23S</span><span class="p">),</span><span class="w"> </span><span class="n">add</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" src="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" />
+<a class="reference internal image-reference" href="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png"><img alt="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" src="../_images/638a1ceab19be9290dc3fd4f021bc5b2533939795698b056f24d4c570219d239.png" style="width: 600px; height: 300px;" /></a>
 </div>
 </div>
 </section>
 <section id="extracting-landscape-metrics">
-<h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Permalink to this heading">#</a></h3>
+<h3>Extracting landscape metrics<a class="headerlink" href="#extracting-landscape-metrics" title="Link to this heading">#</a></h3>
 <p>You can now explore the functions in the package
 <a class="reference external" href="https://cran.r-project.org/web/packages/landscapemetrics/landscapemetrics.pdf"><code class="docutils literal notranslate"><span class="pre">landscapemetrics</span></code></a>
 to measure different landscape metrics. You can also look at the complete set of
@@ -735,7 +731,7 @@ to measure different landscape metrics. You can also look at the complete set of
 </div></div>
 </div>
 <section id="landscape-levels">
-<h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Permalink to this heading">#</a></h4>
+<h4>Landscape levels<a class="headerlink" href="#landscape-levels" title="Link to this heading">#</a></h4>
 <p>There are three core levels of calculation and it is important to understand how
 these are applied within a local landscape:</p>
 <ul class="simple">
@@ -756,17 +752,17 @@ meters. We will use the Alce site as an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate patch areas at patch, class and landscape scale.</span>
-<span class="n">lsm</span> <span class="o">&lt;-</span> <span class="nf">sample_lsm</span><span class="p">(</span><span class="n">sites_forest_utm23S</span><span class="p">,</span> <span class="n">sites_utm23S</span><span class="p">,</span> 
-                  <span class="n">shape</span> <span class="o">=</span> <span class="s">&quot;circle&quot;</span><span class="p">,</span> <span class="n">size</span> <span class="o">=</span> <span class="m">600</span><span class="p">,</span> 
-                  <span class="n">plot_id</span> <span class="o">=</span> <span class="n">sites_utm23S</span><span class="o">$</span><span class="n">Site</span><span class="p">,</span> 
-                  <span class="n">what</span> <span class="o">=</span> <span class="nf">c</span><span class="p">(</span><span class="s">&#39;lsm_p_area&#39;</span><span class="p">,</span>
-                           <span class="s">&#39;lsm_c_np&#39;</span><span class="p">,</span> <span class="s">&#39;lsm_l_np&#39;</span><span class="p">,</span> 
-                           <span class="s">&#39;lsm_c_area_mn&#39;</span><span class="p">,</span> <span class="s">&#39;lsm_l_area_mn&#39;</span><span class="p">,</span>
-                           <span class="s">&#39;lsm_c_pland&#39;</span><span class="p">))</span>
+<span class="n">lsm</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">sample_lsm</span><span class="p">(</span><span class="n">sites_forest_utm23S</span><span class="p">,</span><span class="w"> </span><span class="n">sites_utm23S</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                  </span><span class="n">shape</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;circle&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">size</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="m">600</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                  </span><span class="n">plot_id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sites_utm23S</span><span class="o">$</span><span class="n">Site</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                  </span><span class="n">what</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nf">c</span><span class="p">(</span><span class="s">&#39;lsm_p_area&#39;</span><span class="p">,</span>
+<span class="w">                           </span><span class="s">&#39;lsm_c_np&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;lsm_l_np&#39;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                           </span><span class="s">&#39;lsm_c_area_mn&#39;</span><span class="p">,</span><span class="w"> </span><span class="s">&#39;lsm_l_area_mn&#39;</span><span class="p">,</span>
+<span class="w">                           </span><span class="s">&#39;lsm_c_pland&#39;</span><span class="p">))</span>
 
 <span class="c1"># Use Alce as an example</span>
-<span class="n">alce</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">plot_id</span><span class="o">==</span><span class="s">&#39;Alce&#39;</span><span class="p">)</span>
-<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">23</span><span class="p">)</span>
+<span class="n">alce</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span><span class="w"> </span><span class="n">plot_id</span><span class="o">==</span><span class="s">&#39;Alce&#39;</span><span class="p">)</span>
+<span class="nf">print</span><span class="p">(</span><span class="n">alce</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">23</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -810,7 +806,7 @@ meters. We will use the Alce site as an example:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Calculate total area</span>
-<span class="nf">sum</span><span class="p">(</span><span class="n">alce</span><span class="o">$</span><span class="n">value</span><span class="p">[</span><span class="n">alce</span><span class="o">$</span><span class="n">metric</span> <span class="o">==</span> <span class="s">&#39;area&#39;</span><span class="p">])</span>
+<span class="nf">sum</span><span class="p">(</span><span class="n">alce</span><span class="o">$</span><span class="n">value</span><span class="p">[</span><span class="n">alce</span><span class="o">$</span><span class="n">metric</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&#39;area&#39;</span><span class="p">])</span>
 </pre></div>
 </div>
 </div>
@@ -827,7 +823,7 @@ to calculate the <code class="docutils literal notranslate"><span class="pre">ls
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Weighted average of class patch sizes (with some rounding error)</span>
-<span class="p">(</span><span class="m">19.0</span> <span class="o">*</span> <span class="m">4</span> <span class="o">+</span> <span class="m">3.38</span> <span class="o">*</span> <span class="m">11</span><span class="p">)</span> <span class="o">/</span> <span class="m">15</span>
+<span class="p">(</span><span class="m">19.0</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="m">3.38</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">11</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="m">15</span>
 </pre></div>
 </div>
 </div>
@@ -836,7 +832,7 @@ to calculate the <code class="docutils literal notranslate"><span class="pre">ls
 </div>
 </section>
 <section id="merging-landscape-metrics-onto-sites">
-<h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Permalink to this heading">#</a></h4>
+<h4>Merging landscape metrics onto sites<a class="headerlink" href="#merging-landscape-metrics-onto-sites" title="Link to this heading">#</a></h4>
 <p>The contents of <code class="docutils literal notranslate"><span class="pre">lsm</span></code> is rather unhelpful in two ways:</p>
 <ol class="arabic simple">
 <li><p>The variables are not in separate columns, but stacked in the <code class="docutils literal notranslate"><span class="pre">value</span></code> and
@@ -858,18 +854,18 @@ want the method of calculation of each value to be obvious.</p></li>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Drop the patch data and landscape rows</span>
-<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span> <span class="n">level</span> <span class="o">==</span> <span class="s">&#39;class&#39;</span><span class="p">)</span>
+<span class="n">lsm_forest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">lsm</span><span class="p">,</span><span class="w"> </span><span class="n">level</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="s">&#39;class&#39;</span><span class="p">)</span>
 <span class="c1"># Drop down to the forest class and also reduce to the three core fields</span>
-<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">class</span> <span class="o">==</span> <span class="m">1</span><span class="p">,</span> <span class="n">select</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">plot_id</span><span class="p">))</span>
+<span class="n">lsm_forest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="m">1</span><span class="p">,</span><span class="w"> </span><span class="n">select</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="n">metric</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="p">,</span><span class="w"> </span><span class="n">plot_id</span><span class="p">))</span>
 
 <span class="c1"># Rename the value field so that - when combined with the metric</span>
 <span class="c1"># name - the local landscape details are recorded</span>
-<span class="nf">names</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span> <span class="o">&lt;-</span> <span class="s">&#39;C600&#39;</span>
+<span class="nf">names</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">)[</span><span class="m">2</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="s">&#39;C600&#39;</span>
 
 <span class="c1"># Reshape that dataset so that each metric has its own column</span>
-<span class="n">lsm_forest</span> <span class="o">&lt;-</span> <span class="nf">reshape</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">),</span> <span class="n">direction</span><span class="o">=</span><span class="s">&#39;wide&#39;</span><span class="p">,</span> 
-                      <span class="n">timevar</span><span class="o">=</span><span class="s">&#39;metric&#39;</span><span class="p">,</span> <span class="n">idvar</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
-<span class="nf">head</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span> <span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<span class="n">lsm_forest</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">reshape</span><span class="p">(</span><span class="nf">data.frame</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">),</span><span class="w"> </span><span class="n">direction</span><span class="o">=</span><span class="s">&#39;wide&#39;</span><span class="p">,</span><span class="w"> </span>
+<span class="w">                      </span><span class="n">timevar</span><span class="o">=</span><span class="s">&#39;metric&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">idvar</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="n">lsm_forest</span><span class="p">,</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -898,7 +894,7 @@ want the method of calculation of each value to be obvious.</p></li>
 <p>Now it is easy to match those landscape metrics to the <code class="docutils literal notranslate"><span class="pre">sites</span></code> data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">lsm_forest</span><span class="p">,</span> <span class="n">by.x</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">,</span> <span class="n">by.y</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">sites</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="n">lsm_forest</span><span class="p">,</span><span class="w"> </span><span class="n">by.x</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">,</span><span class="w"> </span><span class="n">by.y</span><span class="o">=</span><span class="s">&#39;plot_id&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -954,7 +950,7 @@ landscape area.</p></li>
 </section>
 </section>
 <section id="calculating-biodiversity-metrics">
-<h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Permalink to this heading">#</a></h2>
+<h2>Calculating biodiversity metrics<a class="headerlink" href="#calculating-biodiversity-metrics" title="Link to this heading">#</a></h2>
 <p>The over-riding research question we are looking at is:</p>
 <blockquote>
 <div><p>Is the structure of the bird community influenced by the spatial
@@ -964,7 +960,7 @@ characteristics of the sites?</p>
 will look at measures of overall diversity, community composition and functional
 diversity.</p>
 <section id="measuring-site-abundance-species-richness-species-diversity-and-evenness">
-<h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Permalink to this heading">#</a></h3>
+<h3>Measuring site abundance, species richness, species diversity and evenness<a class="headerlink" href="#measuring-site-abundance-species-richness-species-diversity-and-evenness" title="Link to this heading">#</a></h3>
 <p>Abundance can be measured at the species level, but here we are interested in
 total community abundance, so the total number of individuals captured at each
 site. We can only measure bird abundance because this study used mist nets,
@@ -982,16 +978,16 @@ evenness, but Pielou’s Evenness (<span class="math notranslate nohighlight">\(
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># First, we sort the rows of abundance to make sure that they are in the</span>
 <span class="c1"># same order as the sites data frame.</span>
-<span class="n">site_order</span> <span class="o">&lt;-</span> <span class="nf">match</span><span class="p">(</span><span class="nf">rownames</span><span class="p">(</span><span class="n">abundance</span><span class="p">),</span> <span class="n">sites</span><span class="o">$</span><span class="n">Site</span><span class="p">)</span>
-<span class="n">abundance</span> <span class="o">&lt;-</span> <span class="n">abundance</span><span class="p">[</span><span class="n">site_order</span><span class="p">,</span> <span class="p">]</span>
+<span class="n">site_order</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">match</span><span class="p">(</span><span class="nf">rownames</span><span class="p">(</span><span class="n">abundance</span><span class="p">),</span><span class="w"> </span><span class="n">sites</span><span class="o">$</span><span class="n">Site</span><span class="p">)</span>
+<span class="n">abundance</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">abundance</span><span class="p">[</span><span class="n">site_order</span><span class="p">,</span><span class="w"> </span><span class="p">]</span>
 
 <span class="c1"># Now we can store diversity metrics values in the sites data frame</span>
-<span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span> <span class="o">&lt;-</span> <span class="nf">rowSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
-<span class="n">sites</span><span class="o">$</span><span class="n">richness</span> <span class="o">&lt;-</span> <span class="nf">specnumber</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
-<span class="n">sites</span><span class="o">$</span><span class="n">Srar</span> <span class="o">&lt;-</span> <span class="nf">rarefy</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="nf">min</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">))</span>
-<span class="n">sites</span><span class="o">$</span><span class="n">H</span> <span class="o">&lt;-</span> <span class="nf">diversity</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="s">&#39;shannon&#39;</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rowSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">specnumber</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">Srar</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rarefy</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span><span class="w"> </span><span class="nf">min</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">))</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">H</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">diversity</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span><span class="w"> </span><span class="n">index</span><span class="o">=</span><span class="s">&#39;shannon&#39;</span><span class="p">)</span>
 <span class="c1"># Pielou&#39;s evenness</span>
-<span class="n">sites</span><span class="o">$</span><span class="n">J</span> <span class="o">&lt;-</span> <span class="n">sites</span><span class="o">$</span><span class="n">H</span> <span class="o">/</span> <span class="nf">log</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">)</span>
+<span class="n">sites</span><span class="o">$</span><span class="n">J</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">sites</span><span class="o">$</span><span class="n">H</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">log</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1006,7 +1002,7 @@ report your results and why?</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Some example code to modify:</span>
-<span class="nf">cor</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">,</span> <span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">)</span>
+<span class="nf">cor</span><span class="p">(</span><span class="n">sites</span><span class="o">$</span><span class="n">richness</span><span class="p">,</span><span class="w"> </span><span class="n">sites</span><span class="o">$</span><span class="n">total_abundance</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1015,18 +1011,18 @@ report your results and why?</p>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">richness</span> <span class="o">~</span> <span class="n">total_abundance</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">plot</span><span class="p">(</span><span class="n">richness</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">total_abundance</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" src="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" />
+<a class="reference internal image-reference" href="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png"><img alt="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" src="../_images/c5450271eed9e373484c1b05b2e27c18345ec6ca93502c1a18e339616d1d823e.png" style="width: 300px; height: 300px;" /></a>
 </div>
 </div>
 <p>Hint: There is no right or wrong answer here. You can choose any metric as long
 as you understand its advantages and disadvantages.</p>
 <section id="species-abundance-distribution">
-<h4>Species abundance distribution<a class="headerlink" href="#species-abundance-distribution" title="Permalink to this heading">#</a></h4>
+<h4>Species abundance distribution<a class="headerlink" href="#species-abundance-distribution" title="Link to this heading">#</a></h4>
 <p>We could also look at the rank abundance of species to understand if our
 community is dominated by a few species or to assess the prevalence of rare
 species. Rare species are those that were caught a few times only. This is
@@ -1035,16 +1031,16 @@ trapped.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get the total abundance of each _species_</span>
-<span class="n">species_abund</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">species_abund</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
 <span class="c1"># Transform into relative percent abundance</span>
-<span class="n">species_abund_perc</span> <span class="o">&lt;-</span> <span class="n">species_abund</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">species_abund</span><span class="p">)</span> <span class="o">*</span> <span class="m">100</span>
+<span class="n">species_abund_perc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">species_abund</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">species_abund</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">100</span>
 <span class="c1"># Plot from most to least abundant</span>
-<span class="nf">plot</span><span class="p">(</span><span class="nf">sort</span><span class="p">(</span><span class="n">species_abund_perc</span><span class="p">,</span> <span class="n">decreasing</span> <span class="o">=</span> <span class="kc">TRUE</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="nf">sort</span><span class="p">(</span><span class="n">species_abund_perc</span><span class="p">,</span><span class="w"> </span><span class="n">decreasing</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">TRUE</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" src="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" />
+<a class="reference internal image-reference" href="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png"><img alt="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" src="../_images/21f7735387743a74ce59fd87785eec4aa6045521d223515f83f44eb65c0f8d5a.png" style="width: 300px; height: 300px;" /></a>
 </div>
 </div>
 <p>How does this compare to slide 11 of <strong>Measuring Biodiversity</strong> lecture which
@@ -1053,7 +1049,7 @@ fragmented landscape to see if trends are affected by habitat cover.</p>
 </section>
 </section>
 <section id="measuring-community-composition">
-<h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Permalink to this heading">#</a></h3>
+<h3>Measuring community composition<a class="headerlink" href="#measuring-community-composition" title="Link to this heading">#</a></h3>
 <p>Community composition is a class of biodiversity measure that incorporates
 information on species richness, abundance and species identity. That
 inclusivity makes them a very informative biodiversity metric but they are also
@@ -1073,7 +1069,7 @@ axes of community variation across sites.</p></li>
 </ol>
 <p>All of these steps have multiple options!</p>
 <section id="transforming-site-by-species-data">
-<h4>Transforming site by species data<a class="headerlink" href="#transforming-site-by-species-data" title="Permalink to this heading">#</a></h4>
+<h4>Transforming site by species data<a class="headerlink" href="#transforming-site-by-species-data" title="Link to this heading">#</a></h4>
 <p>There are several common approaches used for transforming site by species
 matrices <em>before</em> calculating dissimilarities. All of these approaches alter the
 weighting given to the different species.</p>
@@ -1103,7 +1099,7 @@ common OTUs).</p></li>
 data.</p>
 </section>
 <section id="calculating-dissimilarity-indices">
-<h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Permalink to this heading">#</a></h4>
+<h4>Calculating dissimilarity Indices<a class="headerlink" href="#calculating-dissimilarity-indices" title="Link to this heading">#</a></h4>
 <p>Dissimilarity indices are used to compare two sites using the total number (or
 abundances) of species in each site (A + B), along with the number (or
 abundances) of species shared between the site (J). These can be calculated
@@ -1115,7 +1111,7 @@ and <code class="docutils literal notranslate"><span class="pre">?designdist</sp
 dissimilarity index computed from raw abundances.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray</span>  <span class="o">&lt;-</span> <span class="nf">vegdist</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">method</span><span class="o">=</span><span class="s">&quot;bray&quot;</span><span class="p">,</span> <span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray</span><span class="w">  </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">vegdist</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span><span class="w"> </span><span class="n">method</span><span class="o">=</span><span class="s">&quot;bray&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">binary</span><span class="o">=</span><span class="kc">FALSE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1127,13 +1123,13 @@ a big matrix and the <code class="docutils literal notranslate"><span class="pre
 quickly…</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span> <span class="o">&lt;-</span> <span class="nf">rast</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">bray_r</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">bray_r</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rast</span><span class="p">(</span><span class="nf">as.matrix</span><span class="p">(</span><span class="n">bray</span><span class="p">))</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bray_r</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" src="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" />
+<a class="reference internal image-reference" href="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png"><img alt="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" src="../_images/854d4a3c1d4d060b0d8b9443c76a6fdeaec81f98815c502282d1dcad04f5ca94.png" style="width: 300px; height: 300px;" /></a>
 </div>
 </div>
 <p>The first thing that jumps out is the diagonal - this is just that comparing a
@@ -1149,7 +1145,7 @@ data. For example, Euclidean distance is widely used for environmental data
 <strong>not</strong> ecologically meaningful for biodiversity data!</p>
 </section>
 <section id="principal-coordinate-analysis">
-<h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Permalink to this heading">#</a></h4>
+<h4>Principal coordinate analysis<a class="headerlink" href="#principal-coordinate-analysis" title="Link to this heading">#</a></h4>
 <p>We can now perform a principal coordinate analysis (PCoA) using the <code class="docutils literal notranslate"><span class="pre">bray</span></code>
 matrix as input. This is sometimes called <em>classical multidimensional scaling</em>,
 hence the function name: <code class="docutils literal notranslate"><span class="pre">cmdscale</span></code>. The PCoA will take your dissimilarity
@@ -1161,7 +1157,7 @@ two sites are with respect to the species they have.</p>
 multidimensional scaling</em> (NMDS), which is also very popular!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">pcoa</span> <span class="o">&lt;-</span> <span class="nf">cmdscale</span><span class="p">(</span><span class="n">bray</span><span class="p">,</span> <span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">,</span> <span class="n">eig</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">pcoa</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">cmdscale</span><span class="p">(</span><span class="n">bray</span><span class="p">,</span><span class="w"> </span><span class="n">k</span><span class="o">=</span><span class="m">8</span><span class="p">,</span><span class="w"> </span><span class="n">eig</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1173,7 +1169,7 @@ want to consider more than a few. Here, we have only kept the data for the first
 eight (<code class="docutils literal notranslate"><span class="pre">k=8</span></code>). We are also hanging on the eigenvalues (<code class="docutils literal notranslate"><span class="pre">eig=TRUE</span></code>), which are
 measures of the amount variation associated with each axis.</p>
 <section id="community-separation-in-space">
-<h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Permalink to this heading">#</a></h5>
+<h5>Community separation in space<a class="headerlink" href="#community-separation-in-space" title="Link to this heading">#</a></h5>
 <p>We will now explore community composition graphically, which is most convenient
 in two dimensions. We have to extract the new coordinates of the data before
 being able to plot them. Once again, it is wise to give clear names to each
@@ -1181,8 +1177,8 @@ variable, otherwise we end up with variable names like <code class="docutils lit
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Extract the scores </span>
-<span class="n">pcoa_axes</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">points</span>
-<span class="nf">colnames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;bray_raw_pcoa_&#39;</span><span class="p">,</span> <span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">)</span>
+<span class="n">pcoa_axes</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pcoa</span><span class="o">$</span><span class="n">points</span>
+<span class="nf">colnames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">paste0</span><span class="p">(</span><span class="s">&#39;bray_raw_pcoa_&#39;</span><span class="p">,</span><span class="w"> </span><span class="m">1</span><span class="o">:</span><span class="m">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1192,7 +1188,7 @@ variable, otherwise we end up with variable names like <code class="docutils lit
 of these axes are correlated.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">zapsmall</span><span class="p">(</span><span class="nf">cor</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">),</span> <span class="n">digits</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">zapsmall</span><span class="p">(</span><span class="nf">cor</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">),</span><span class="w"> </span><span class="n">digits</span><span class="o">=</span><span class="m">10</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1220,10 +1216,10 @@ community metrics are matched by site.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Convert the pcoa axis values to a data frame and label by site</span>
-<span class="n">pcoa_axes_df</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
-<span class="n">pcoa_axes_df</span><span class="o">$</span><span class="n">Site</span> <span class="o">&lt;-</span> <span class="nf">rownames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
+<span class="n">pcoa_axes_df</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
+<span class="n">pcoa_axes_df</span><span class="o">$</span><span class="n">Site</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">rownames</span><span class="p">(</span><span class="n">pcoa_axes</span><span class="p">)</span>
 <span class="c1"># Merge onto the sites data - the PCoA axes get the labels X1 to X8</span>
-<span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">pcoa_axes_df</span><span class="p">,</span> <span class="n">by</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">)</span>
+<span class="n">sites</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="n">pcoa_axes_df</span><span class="p">,</span><span class="w"> </span><span class="n">by</span><span class="o">=</span><span class="s">&#39;Site&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1232,15 +1228,15 @@ community metrics are matched by site.</p>
 structure.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="nf">aes</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="p">,</span> <span class="n">bray_raw_pcoa_2</span><span class="p">))</span> <span class="o">+</span>
-  <span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">colour</span> <span class="o">=</span> <span class="n">C600.pland</span><span class="p">))</span> <span class="o">+</span> 
-  <span class="nf">scale_colour_gradientn</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span> <span class="o">+</span> 
-  <span class="nf">theme_classic</span><span class="p">()</span> 
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">ggplot</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="nf">aes</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="p">,</span><span class="w"> </span><span class="n">bray_raw_pcoa_2</span><span class="p">))</span><span class="w"> </span><span class="o">+</span>
+<span class="w">  </span><span class="nf">geom_point</span><span class="p">(</span><span class="nf">aes</span><span class="p">(</span><span class="n">colour</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">C600.pland</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>
+<span class="w">  </span><span class="nf">scale_colour_gradientn</span><span class="p">(</span><span class="n">colors</span><span class="o">=</span><span class="nf">hcl.colors</span><span class="p">(</span><span class="m">20</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span>
+<span class="w">  </span><span class="nf">theme_classic</span><span class="p">()</span><span class="w"> </span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/5ff47c4fd41ed1e9a588e5fd134c50f6deef836322d77f7aa526c7f5645d77fb.png" src="../_images/5ff47c4fd41ed1e9a588e5fd134c50f6deef836322d77f7aa526c7f5645d77fb.png" />
+<a class="reference internal image-reference" href="../_images/2d08fad5d717cc4dbf7f986c1f95804681e7f162ec129f7dec0c806fa6dc2eb0.png"><img alt="../_images/2d08fad5d717cc4dbf7f986c1f95804681e7f162ec129f7dec0c806fa6dc2eb0.png" src="../_images/2d08fad5d717cc4dbf7f986c1f95804681e7f162ec129f7dec0c806fa6dc2eb0.png" style="width: 480px; height: 300px;" /></a>
 </div>
 </div>
 <p>Which patterns can you see from that plot? Along which axis do you see the
@@ -1253,7 +1249,7 @@ And what about axis 2?</p>
 </div>
 </section>
 <section id="how-many-axes-to-consider">
-<h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Permalink to this heading">#</a></h5>
+<h5>How many axes to consider<a class="headerlink" href="#how-many-axes-to-consider" title="Link to this heading">#</a></h5>
 <p>The eigenvalues show the variance - hence the information content - associated
 with each principal coordinate axis. Note that the eigenvalues are in descending
 order, so that the axes are numbered in order of their importance. Also note
@@ -1269,12 +1265,12 @@ cumulative calculation!</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="nf">par</span><span class="p">(</span><span class="n">mfrow</span><span class="o">=</span><span class="nf">c</span><span class="p">(</span><span class="m">1</span><span class="p">,</span><span class="m">2</span><span class="p">))</span>
-<span class="n">eig</span> <span class="o">&lt;-</span> <span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="p">[</span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span> <span class="o">&gt;</span><span class="m">0</span><span class="p">]</span> 
-<span class="nf">barplot</span><span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Axis variation&#39;</span><span class="p">)</span>
-<span class="nf">barplot</span><span class="p">(</span><span class="nf">cumsum</span><span class="p">(</span><span class="n">eig</span><span class="p">)</span><span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span> <span class="n">main</span><span class="o">=</span><span class="s">&#39;Cumulative variation&#39;</span><span class="p">)</span>
+<span class="n">eig</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="p">[</span><span class="n">pcoa</span><span class="o">$</span><span class="n">eig</span><span class="w"> </span><span class="o">&gt;</span><span class="m">0</span><span class="p">]</span><span class="w"> </span>
+<span class="nf">barplot</span><span class="p">(</span><span class="n">eig</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&#39;Axis variation&#39;</span><span class="p">)</span>
+<span class="nf">barplot</span><span class="p">(</span><span class="nf">cumsum</span><span class="p">(</span><span class="n">eig</span><span class="p">)</span><span class="o">/</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">),</span><span class="w"> </span><span class="n">main</span><span class="o">=</span><span class="s">&#39;Cumulative variation&#39;</span><span class="p">)</span>
 
 <span class="c1"># Print the percentage variation of the first 8 </span>
-<span class="nf">head</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&#39;%0.2f%%&#39;</span><span class="p">,</span> <span class="p">(</span><span class="n">eig</span> <span class="o">/</span> <span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">))</span> <span class="o">*</span> <span class="m">100</span><span class="p">),</span> <span class="n">n</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
+<span class="nf">head</span><span class="p">(</span><span class="nf">sprintf</span><span class="p">(</span><span class="s">&#39;%0.2f%%&#39;</span><span class="p">,</span><span class="w"> </span><span class="p">(</span><span class="n">eig</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="nf">sum</span><span class="p">(</span><span class="n">eig</span><span class="p">))</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="m">100</span><span class="p">),</span><span class="w"> </span><span class="n">n</span><span class="o">=</span><span class="m">8</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1285,7 +1281,7 @@ cumulative calculation!</p>
 .list-inline>li:not(:last-child)::after {content: "\00b7"; padding: 0 .5ex}
 </style>
 <ol class=list-inline><li>'21.16%'</li><li>'12.04%'</li><li>'8.85%'</li><li>'5.86%'</li><li>'4.92%'</li><li>'3.94%'</li><li>'3.68%'</li><li>'3.42%'</li></ol>
-</div><img alt="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" src="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" />
+</div><a class="reference internal image-reference" href="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png"><img alt="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" src="../_images/c8f59d2a5a08f9cfef5f00e8384a69de87a70775af0e136084ddc86835596bfd.png" style="width: 480px; height: 300px;" /></a>
 </div>
 </div>
 <p>For this particular PCoA, the bar plot doesn’t really give a good indication
@@ -1362,8 +1358,8 @@ each column will have a mean of near 0, and standard deviation of 1.</p></li>
 <code class="docutils literal notranslate"><span class="pre">vegdist</span></code>.</p></li>
 <li><p>Try excluding the rare species (e.g. all species with 5 or less individuals):</p>
 <div class="highlight-R notranslate"><div class="highlight"><pre><span></span><span class="c1"># choose columns (species) from abundance where total abundance is greater than 5</span>
-<span class="n">total_abundance</span> <span class="o">&lt;-</span> <span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
-<span class="n">common</span> <span class="o">&lt;-</span> <span class="n">abundance</span><span class="p">[,</span><span class="nf">which</span><span class="p">(</span><span class="n">total_abundance</span> <span class="o">&gt;</span> <span class="m">5</span><span class="p">)]</span>
+<span class="n">total_abundance</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">colSums</span><span class="p">(</span><span class="n">abundance</span><span class="p">)</span>
+<span class="n">common</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">abundance</span><span class="p">[,</span><span class="nf">which</span><span class="p">(</span><span class="n">total_abundance</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="m">5</span><span class="p">)]</span>
 <span class="c1"># data only has 71 columns now</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">common</span><span class="p">)</span>
 </pre></div>
@@ -1388,11 +1384,11 @@ coordinate can reveal interesting biological trends, even if it only contained
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Model community composition as a function of forest cover</span>
-<span class="n">mod_fc</span> <span class="o">&lt;-</span> <span class="nf">lm</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+<span class="n">mod_fc</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">lm</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">C600.pland</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
 <span class="nf">summary</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">)</span>
 <span class="c1"># Plot the model</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span> <span class="o">~</span> <span class="n">C600.pland</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
-<span class="nf">abline</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">bray_raw_pcoa_1</span><span class="w"> </span><span class="o">~</span><span class="w"> </span><span class="n">C600.pland</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="o">=</span><span class="n">sites</span><span class="p">)</span>
+<span class="nf">abline</span><span class="p">(</span><span class="n">mod_fc</span><span class="p">,</span><span class="w"> </span><span class="n">col</span><span class="o">=</span><span class="s">&#39;red&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1416,7 +1412,7 @@ Multiple R-squared:  0.5802,	Adjusted R-squared:  0.5735
 F-statistic: 87.06 on 1 and 63 DF,  p-value: 1.742e-13
 </pre></div>
 </div>
-<img alt="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" src="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" />
+<a class="reference internal image-reference" href="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png"><img alt="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" src="../_images/6bd2d6aee0541e10115e8fdefcf4d0832491b61e4dd04cd1f5fb9fa7344631e1.png" style="width: 480px; height: 300px;" /></a>
 </div>
 </div>
 <div class="hint admonition">
@@ -1430,7 +1426,7 @@ used in landscape ecology and in broader diversity research.</p>
 </section>
 </section>
 <section id="functional-diversity">
-<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Permalink to this heading">#</a></h3>
+<h3>Functional diversity<a class="headerlink" href="#functional-diversity" title="Link to this heading">#</a></h3>
 <p>There are many measures of functional diversity, evenness and composition. Here
 we will only use one approach <code class="docutils literal notranslate"><span class="pre">treedive</span></code>, which is available in the <code class="docutils literal notranslate"><span class="pre">vegan</span></code>
 package. This calculates functional diversity as the total branch length of a
@@ -1456,7 +1452,7 @@ measure of use frequency: always (3), frequently (2), rarely (1), never (0).
 This matrix thus contains semi-quantitative variables and continuous variables.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span> <span class="o">&lt;-</span> <span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/bird_traits.csv&quot;</span><span class="p">,</span> <span class="n">stringsAsFactors</span> <span class="o">=</span> <span class="kc">FALSE</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">traits</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">read.csv</span><span class="p">(</span><span class="s">&quot;data/brazil/bird_traits.csv&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">stringsAsFactors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">FALSE</span><span class="p">)</span>
 <span class="nf">str</span><span class="p">(</span><span class="n">traits</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -1484,20 +1480,20 @@ species names field to leave just the traits fields.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="c1"># Get a data frame holding only trait values, with rownames </span>
-<span class="n">traits_only</span> <span class="o">&lt;-</span> <span class="nf">subset</span><span class="p">(</span><span class="n">traits</span><span class="p">,</span> <span class="n">select</span><span class="o">=-</span><span class="n">Species</span><span class="p">)</span>
-<span class="nf">rownames</span><span class="p">(</span><span class="n">traits_only</span><span class="p">)</span> <span class="o">&lt;-</span> <span class="n">traits</span><span class="o">$</span><span class="n">Species</span>
+<span class="n">traits_only</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">subset</span><span class="p">(</span><span class="n">traits</span><span class="p">,</span><span class="w"> </span><span class="n">select</span><span class="o">=-</span><span class="n">Species</span><span class="p">)</span>
+<span class="nf">rownames</span><span class="p">(</span><span class="n">traits_only</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">traits</span><span class="o">$</span><span class="n">Species</span>
 
 <span class="c1"># Calculate the trait distance matrix</span>
-<span class="n">trait_dist</span> <span class="o">&lt;-</span> <span class="nf">taxa2dist</span><span class="p">(</span><span class="n">traits_only</span><span class="p">,</span> <span class="n">varstep</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
+<span class="n">trait_dist</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">taxa2dist</span><span class="p">(</span><span class="n">traits_only</span><span class="p">,</span><span class="w"> </span><span class="n">varstep</span><span class="o">=</span><span class="kc">TRUE</span><span class="p">)</span>
 
 <span class="c1"># And get a trait dendrogram</span>
-<span class="n">trait_tree</span> <span class="o">&lt;-</span> <span class="nf">hclust</span><span class="p">(</span><span class="n">trait_dist</span><span class="p">,</span> <span class="s">&quot;aver&quot;</span><span class="p">)</span>
-<span class="nf">plot</span><span class="p">(</span><span class="n">trait_tree</span><span class="p">,</span> <span class="n">hang</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span> <span class="n">cex</span><span class="o">=</span><span class="m">0.3</span><span class="p">)</span>
+<span class="n">trait_tree</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">hclust</span><span class="p">(</span><span class="n">trait_dist</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;aver&quot;</span><span class="p">)</span>
+<span class="nf">plot</span><span class="p">(</span><span class="n">trait_tree</span><span class="p">,</span><span class="w"> </span><span class="n">hang</span><span class="o">=</span><span class="m">-1</span><span class="p">,</span><span class="w"> </span><span class="n">cex</span><span class="o">=</span><span class="m">0.3</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" src="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" />
+<a class="reference internal image-reference" href="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png"><img alt="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" src="../_images/8eb7081da22b746fed8d433495267ed657922255f0970173f80c2c0885c44443.png" style="width: 480px; height: 300px;" /></a>
 </div>
 </div>
 <p>That dendrogram shows how species are clustered according to their trait similarity and
@@ -1506,7 +1502,7 @@ the set of species in each site, reduce the dendrogram to just those species and
 out the total branch length of that subtree.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">treedive</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span> <span class="n">trait_tree</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">treedive</span><span class="p">(</span><span class="n">abundance</span><span class="p">,</span><span class="w"> </span><span class="n">trait_tree</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1520,9 +1516,9 @@ out the total branch length of that subtree.</p>
 it.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span> <span class="o">&lt;-</span> <span class="nf">data.frame</span><span class="p">(</span><span class="n">Site</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">trait_diversity</span><span class="p">),</span>
-                              <span class="n">trait_diversity</span><span class="o">=</span><span class="n">trait_diversity</span><span class="p">)</span>
-<span class="n">sites</span> <span class="o">&lt;-</span> <span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span> <span class="n">trait_diversity</span><span class="p">)</span>
+<div class="highlight-r notranslate"><div class="highlight"><pre><span></span><span class="n">trait_diversity</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">data.frame</span><span class="p">(</span><span class="n">Site</span><span class="o">=</span><span class="nf">names</span><span class="p">(</span><span class="n">trait_diversity</span><span class="p">),</span>
+<span class="w">                              </span><span class="n">trait_diversity</span><span class="o">=</span><span class="n">trait_diversity</span><span class="p">)</span>
+<span class="n">sites</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="nf">merge</span><span class="p">(</span><span class="n">sites</span><span class="p">,</span><span class="w"> </span><span class="n">trait_diversity</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1530,7 +1526,7 @@ it.</p>
 </section>
 </section>
 <section id="final-group-exercise">
-<h2>Final group exercise<a class="headerlink" href="#final-group-exercise" title="Permalink to this heading">#</a></h2>
+<h2>Final group exercise<a class="headerlink" href="#final-group-exercise" title="Link to this heading">#</a></h2>
 <div class="danger admonition">
 <p class="admonition-title">Group exercise</p>
 <p>Each group already have their landscape metrics measured, now you will need to
@@ -1555,7 +1551,7 @@ binary data or not, your choice. Select one of these approaches as your response
 variable.</p>
 </div>
 <section id="presenting-your-results-on-friday">
-<h3>Presenting your results on Friday<a class="headerlink" href="#presenting-your-results-on-friday" title="Permalink to this heading">#</a></h3>
+<h3>Presenting your results on Friday<a class="headerlink" href="#presenting-your-results-on-friday" title="Link to this heading">#</a></h3>
 <p>To present your results:</p>
 <ul class="simple">
 <li><p>Have <strong>one</strong> slide ready to present with the graph the relationship between your
@@ -1609,17 +1605,26 @@ time.</p></li>
               
               
               
-                <footer class="prev-next-footer">
-                  <!-- Previous / next buttons -->
+                <footer class="prev-next-footer d-print-none">
+                  
 <div class="prev-next-area">
     <a class="left-prev"
-       href="../practical_3/practical_3.html"
+       href="../practical_2/practical_2.html"
        title="previous page">
       <i class="fa-solid fa-angle-left"></i>
       <div class="prev-next-info">
         <p class="prev-next-subtitle">previous</p>
-        <p class="prev-next-title">Practical Three: Spatial modelling in R</p>
+        <p class="prev-next-title">Practical Two: Species Distribution Modelling</p>
       </div>
+    </a>
+    <a class="right-next"
+       href="../practical_3/practical_3.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title">Spatial statistics in R</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
     </a>
 </div>
                 </footer>
@@ -1628,7 +1633,9 @@ time.</p></li>
             
             
               
-                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
 
   <div class="sidebar-secondary-item">
   <div class="page-toc tocsection onthispage">
@@ -1699,9 +1706,10 @@ By David Orme
   
   <div class="footer-item">
     
+
   <p class="copyright">
     
-      © Copyright 2022.
+      © Copyright 2023.
       <br/>
     
   </p>
@@ -1725,8 +1733,8 @@ By David Orme
   </div>
   
   <!-- Scripts loaded after <body> so the DOM is not blocked -->
-  <script src="../_static/scripts/bootstrap.js?digest=c5ced968eda925caa686"></script>
-<script src="../_static/scripts/pydata-sphinx-theme.js?digest=c5ced968eda925caa686"></script>
+  <script defer src="../_static/scripts/bootstrap.js?digest=26a4bc78f4c0ddb94549"></script>
+<script defer src="../_static/scripts/pydata-sphinx-theme.js?digest=26a4bc78f4c0ddb94549"></script>
 
   <footer class="bd-footer">
   </footer>
